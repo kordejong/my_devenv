@@ -1,0 +1,1 @@
+export LSBCC_LSBVERSION=4.0

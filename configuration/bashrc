@@ -1,0 +1,177 @@
+function add_file_to_vim_init()
+{
+    local filename=$1
+    # VIMINIT Must be a single ex command. We may want to source
+    # multiple init's, so we concatenate them. Source new file before
+    # current ones, assuming the first vimrc's contain the most important
+    # things which override the latter ones. Otherwise finetune this with
+    # {append,prepend}_file_to_vim_init().
+    export VIMINIT="so $filename | $VIMINIT"
+}
+
+
+cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
+
+
+### devenv=$PROJECTS/"`\ls $PROJECTS | \grep -i \"^devenv$\"`"
+
+### source "$devenv/configuration/profiles/Utils.sh"
+
+
+if [ ! "$MY_DEVENV" ]; then
+    export MY_DEVENV=$cwd/..
+fi
+
+if [ ! "$PROJECTS" ]; then
+    export PROJECTS=$MY_DEVENV/..
+fi
+
+if [ ! "$OBJECTS" ]; then
+    export OBJECTS=$PROJECTS/../objects
+fi
+
+
+
+### sourceIfExists $cwd/bash_profile
+add_file_to_vim_init $cwd/vim/vimrc
+### add_file_to_vim_init $devenv/configuration/vimrc
+
+alias sourceforge="ssh -t kordejong,pcraster@shell.sourceforge.net create"
+
+# ------------------------------------------------------------------------------
+export PATH=$MY_DEVENV/script:$PATH
+export PYTHONPATH=$MY_DEVENV/source:$PYTHONPATH
+
+
+# ------------------------------------------------------------------------------
+platform=$cwd/platform
+
+alias lsb_gransasso="source $platform/lsb_gransasso.sh"
+alias lsb_hyper="source $platform/lsb_hyper.sh"
+alias lsb_jacinto="source $platform/lsb_jacinto.sh"
+
+alias gcc_gransasso="source $platform/gcc_gransasso.sh"
+alias gcc_hyper="source $platform/gcc_hyper.sh"
+alias gcc_jacinto="source $platform/gcc_jacinto.sh"
+alias gcc_triklav="source $platform/gcc_triklav.sh"
+
+alias clang_gransasso="source $platform/clang_gransasso.sh"
+alias clang_triklav="source $platform/clang_triklav.sh"
+alias clang_mpi_triklav="source $platform/clang_mpi_triklav.sh"
+
+alias mingw_32_gransasso="source $platform/mingw_32_gransasso.sh"
+alias mingw_32_win764="source $platform/mingw_32_win764.sh"
+
+alias mingw_64_gransasso="source $platform/mingw_64_gransasso.sh"
+alias mingw_64_win764="source $platform/mingw_64_win764.sh"
+
+unset platform
+
+
+# ------------------------------------------------------------------------------
+software=$cwd/software
+
+alias pcraster_hyper="source $software/pcraster_hyper.sh"
+alias pcraster_gransasso="source $software/pcraster_gransasso.sh"
+
+unset software
+
+
+# ------------------------------------------------------------------------------
+project=$cwd/project
+
+alias geoneric="source $PROJECTS/geoneric/environment/configuration/bash_profile"
+### alias pcraster-master="source $PROJECTS/pcraster/environment/configuration/PCRaster-master"
+### alias pcraster-4.0="source $PROJECTS/pcraster/environment/configuration/PCRaster-4.0"
+### alias pcraster-4.1="source $PROJECTS/pcraster/environment/configuration/pcraster-4.1"
+
+alias lisem="source $project/lisem.sh"
+alias spatial_century="source $project/spatial_century.sh"
+alias fern="source $project/fern.sh"
+alias grep_track="source $project/grep_track.sh"
+alias nautilus="source $project/nautilus.sh"
+alias pigeon="source $project/pigeon.sh"
+alias maps4society="source $project/maps4society.sh"
+alias quick_scan="source $project/quick_scan.sh"
+alias pcraster="source $project/pcraster.sh"
+
+unset project
+
+
+# ------------------------------------------------------------------------------
+export CTEST_OUTPUT_ON_FAILURE=1
+
+export HISTSIZE=10000
+export EDITOR=vim
+export CVSEDITOR=vim
+export CVS_RSH=ssh
+
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+
+### export PCRASTER_DAL_FORMATS="CSF, ESRI Shapefile"
+
+### if [ ! "$DEVENVRC" ]; then
+###     export DEVENVRC=$cwd/devenvrc
+### fi
+
+
+set -o vi
+
+if [ ! -e "$HOME/.screenrc" ]; then
+    export SCREENRC=$cwd/screenrc
+fi
+
+if [ ! -e "$HOME/.inputrc" ]; then
+    export INPUTRC=$cwd/inputrc
+fi
+
+
+### profiles="$devenv/configuration/profiles"
+
+### alias devenv-master="source $profiles/DevEnv-master"
+### alias devenv-2.1="source $profiles/devenv-2.1"
+### alias RasterFormat-master="source $profiles/RasterFormat-master"
+### alias Xsd-master="source $profiles/Xsd-master"
+### alias Dal-master="source $profiles/Dal-master"
+### alias DataAssimilation-master="source $profiles/DataAssimilation-master"
+### alias Aguila-master="source $profiles/Aguila-master"
+### alias PcrTree2-master="source $profiles/PcrTree2-master"
+### alias DuneTrack="source $profiles/Dt2d-master"
+### alias PcrTree="source $profiles/PcrTree"
+### alias SourceForgeWebsite-trunk="source $profiles/SourceForgeWebsite-master"
+### alias PcrServerWebsite-trunk="source $profiles/PcrServerWebsite-trunk"
+
+
+alias grep="grep --color"
+alias ls="ls --human-readable --color"
+alias ll="ls -l"
+alias viout="vi out"
+alias shout="bash ./out"
+alias df="df --human-readable"
+alias screen="screen -U"
+
+alias hyper="ssh -p2222 kor@hyper.geo.uu.nl"
+alias swift="ssh -p2222 kor@swift.geo.uu.nl"
+alias turbo="ssh jong0137@turbo.geo.uu.nl"
+alias speedy="ssh jong0137@speedy.geo.uu.nl"
+
+
+# bashrc:
+export PS1="\u@\h:\W\$ "
+
+PYTHONSTARTUP="$cwd/startup.py"
+if [ $OSTYPE == "cygwin" ]; then
+    PYTHONSTARTUP=`cygpath -m "$PYTHONSTARTUP"`
+fi
+export PYTHONSTARTUP
+
+# Make sure environment variables are expanded on the command line.
+if [[ $BASH_VERSION == "4.2."* ]]; then
+    shopt -s direxpand
+fi
+shopt -s cdspell  # Fix minor errors in spelling of directory names.
+
+
+unset cwd

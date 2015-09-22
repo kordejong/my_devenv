@@ -1,0 +1,5 @@
+# Vi command line editing.
+set editing-mode vi
+
+# Unplug the PC speaker.
+set bell-style none

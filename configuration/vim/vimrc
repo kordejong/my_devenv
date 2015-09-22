@@ -1,0 +1,140 @@
+execute pathogen#infect()
+" execute pathogen#helptags()
+
+set nocompatible
+filetype plugin indent on
+syntax on
+
+set laststatus=2
+
+set shiftwidth=4
+set tabstop=4
+" set foldmethod=syntax
+set nofoldenable
+set autowrite
+set expandtab
+set showmatch
+set list
+set listchars=tab:»·,trail:·
+set hlsearch
+set digraph
+
+
+
+
+
+
+
+
+
+
+autocmd FileType cpp setlocal nowrap
+
+" autocmd FileType cpp setlocal shiftwidth=4 tabstop=4
+" autocmd FileType cmake setlocal shiftwidth=4 tabstop=4
+" autocmd FileType python setlocal shiftwidth=4 tabstop=4
+" autocmd FileType pyrex setlocal shiftwidth=4 tabstop=4
+" autocmd FileType vimwiki setlocal shiftwidth=4 tabstop=4
+
+
+" Associate .dox extension with Doxygen files.
+au BufRead,BufNewFile *.dox setfiletype cpp.doxygen
+
+
+"-------------------------------------------------------------------------------
+let g:ctrlp_by_filename = 1
+let g:ctrlp_regexp = 1
+
+
+"-------------------------------------------------------------------------------
+let g:tagbar_autoclose = 1
+nnoremap <silent> <F9> :TagbarOpenAutoClose<CR>
+let g:tagbar_width = 40
+
+
+"-------------------------------------------------------------------------------
+" Settings for my personal wiki.
+let personal_wiki = {}
+let personal_wiki.path = '$MY_DEVENV/../personal_files/Documents/wiki'
+let personal_wiki.nested_syntaxes = {
+  \ 'python': 'python',
+  \ 'c++': 'cpp',
+  \ 'bash': 'sh',
+  \ 'haskell': 'hs'}
+let personal_wiki.maxhi = 1
+
+" Settings for the geoneric wiki.
+let geoneric_wiki = {}
+let geoneric_wiki.path = '$MY_DEVENV/../geoneric/document/wiki'
+let geoneric_wiki.nested_syntaxes = {
+  \ 'python': 'python',
+  \ 'c++': 'cpp',
+  \ 'bash': 'sh'}
+let geoneric_wiki.maxhi = 1
+
+
+let g:vimwiki_list = [personal_wiki, geoneric_wiki]
+let g:vimwiki_folding = 0
+let g:vimwiki_url_maxsave = 0
+
+
+"-------------------------------------------------------------------------------
+let g:airline_powerline_fonts = 1
+let g:airline_theme = "solarized"
+" Whitespace checks slow airline down a lot.
+let g:airline#extensions#whitespace#checks = []
+
+" set statusline=%F%m%r%h%w\ FF=%{&ff}\ TYPE=%Y\ RC=%l,%v\ %p%%\ LEN=%L
+" TODO How to set this in normal mode...
+" let g:airline_section_z = "%p%"
+
+"-------------------------------------------------------------------------------
+
+" Default color scheme.
+" set background=dark
+" set t_Co=256
+" colorscheme peaksea
+" if &diff
+"   colorscheme darkblue
+" endif
+
+" http://vimdoc.sourceforge.net/htmldoc/indent.html#cinoptions-values
+"set cinoptions=>1s,{1s
+" autocmd FileType python setlocal textwidth=78 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+" autocmd FileType c      setlocal textwidth=78 tabstop=4 softtabstop=2 shiftwidth=2 expandtab cindent
+
+
+
+" add a lot of boilerplate for a class property
+" when current line .h file is like:
+"  type d_property;
+" map <F1> :.!cppPropertyCode.py %<.h<CR>
+
+" tries to add the correct include file for a class name
+" present at the current line
+map <F2> :.!guard_includes.py<CR>
+
+" switch to SomethingTest.cc if Something.* is the current file
+map <F3> :n %<Test.cc <CR>
+
+" switch to SomethingTest.h if Something.* is the current file
+map <F4> :n %<.h <CR>
+
+" switch to SomethingTest.c* if Something.* is the current file
+" .c* pick up .c .cc .cpp
+map <F5> :n %<.c* <CR>
+
+" fmt current line?
+map <F6> :.!fmt<CR>
+
+set makeprg=build_target.py
+
+map <F8> :make --project %:p:h<CR>
+map <F9> :make --test %:p:h<CR>
+map <F10> :make --object %:p<CR>
+
+" read the doxygen template for function/method header
+map <F11> :r $MY_DEVENV/template/source/header.dox<CR>
+
+" step throug compile errors (usually after F8,F9,F10)
+map <F12> :cn<CR>

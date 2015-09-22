@@ -1,0 +1,2 @@
+export MAKEFLAGS="$MAKEFLAGS --quiet"
+export CTEST_OUTPUT_ON_FAILURE=1
