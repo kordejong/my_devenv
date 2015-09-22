@@ -21,13 +21,6 @@ set digraph
 
 
 
-
-
-
-
-
-
-
 autocmd FileType cpp setlocal nowrap
 
 " autocmd FileType cpp setlocal shiftwidth=4 tabstop=4
@@ -50,32 +43,6 @@ let g:ctrlp_regexp = 1
 let g:tagbar_autoclose = 1
 nnoremap <silent> <F9> :TagbarOpenAutoClose<CR>
 let g:tagbar_width = 40
-
-
-"-------------------------------------------------------------------------------
-" Settings for my personal wiki.
-let personal_wiki = {}
-let personal_wiki.path = '$MY_DEVENV/../personal_files/Documents/wiki'
-let personal_wiki.nested_syntaxes = {
-  \ 'python': 'python',
-  \ 'c++': 'cpp',
-  \ 'bash': 'sh',
-  \ 'haskell': 'hs'}
-let personal_wiki.maxhi = 1
-
-" Settings for the geoneric wiki.
-let geoneric_wiki = {}
-let geoneric_wiki.path = '$MY_DEVENV/../geoneric/document/wiki'
-let geoneric_wiki.nested_syntaxes = {
-  \ 'python': 'python',
-  \ 'c++': 'cpp',
-  \ 'bash': 'sh'}
-let geoneric_wiki.maxhi = 1
-
-
-let g:vimwiki_list = [personal_wiki, geoneric_wiki]
-let g:vimwiki_folding = 0
-let g:vimwiki_url_maxsave = 0
 
 
 "-------------------------------------------------------------------------------

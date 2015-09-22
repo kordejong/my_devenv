@@ -13,11 +13,6 @@ function add_file_to_vim_init()
 cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
 
 
-### devenv=$PROJECTS/"`\ls $PROJECTS | \grep -i \"^devenv$\"`"
-
-### source "$devenv/configuration/profiles/Utils.sh"
-
-
 if [ ! "$MY_DEVENV" ]; then
     export MY_DEVENV=$cwd/..
 fi
@@ -31,10 +26,8 @@ if [ ! "$OBJECTS" ]; then
 fi
 
 
-
-### sourceIfExists $cwd/bash_profile
 add_file_to_vim_init $cwd/vim/vimrc
-### add_file_to_vim_init $devenv/configuration/vimrc
+
 
 alias sourceforge="ssh -t kordejong,pcraster@shell.sourceforge.net create"
 
@@ -151,11 +144,6 @@ alias viout="vi out"
 alias shout="bash ./out"
 alias df="df --human-readable"
 alias screen="screen -U"
-
-alias hyper="ssh -p2222 kor@hyper.geo.uu.nl"
-alias swift="ssh -p2222 kor@swift.geo.uu.nl"
-alias turbo="ssh jong0137@turbo.geo.uu.nl"
-alias speedy="ssh jong0137@speedy.geo.uu.nl"
 
 
 # bashrc:
