@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python_wrapper
 """Grep project
 
 Usage:
@@ -13,8 +13,10 @@ Options:
   pattern        Pattern to look for.
   name           Name of project or directory to look in.
 """
+import os
 import sys
 import docopt
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "source"))
 import devenv
 
 

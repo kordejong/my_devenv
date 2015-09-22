@@ -33,7 +33,10 @@ alias sourceforge="ssh -t kordejong,pcraster@shell.sourceforge.net create"
 
 # ------------------------------------------------------------------------------
 export PATH=$MY_DEVENV/script:$PATH
-export PYTHONPATH=$MY_DEVENV/source:$PYTHONPATH
+
+# os_path_sep=`python -c "import os; print os.pathsep"`
+# 
+# export PYTHONPATH=$MY_DEVENV/source$os_path_sep$PYTHONPATH
 
 
 # ------------------------------------------------------------------------------
@@ -57,6 +60,8 @@ alias mingw_32_win764="source $platform/mingw_32_win764.sh"
 
 alias mingw_64_gransasso="source $platform/mingw_64_gransasso.sh"
 alias mingw_64_win764="source $platform/mingw_64_win764.sh"
+
+alias vs_14_win764.sh="source $platform/vs_14_win764.sh"
 
 unset platform
 

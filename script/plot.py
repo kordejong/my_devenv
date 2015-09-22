@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python_wrapper
 """
 Create pdf with plots
 
@@ -15,11 +14,13 @@ Options:
   BAR_INPUT        Input file with data column(s) for bar plots.
   OUTPUT           Output file.
 """
+import os
 import sys
 import docopt
 import matplotlib.pyplot
 import matplotlib.backends.backend_pdf
 import numpy
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "source"))
 import devenv
 
 

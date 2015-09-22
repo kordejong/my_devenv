@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python_wrapper
 """
 Rebuild project
 
 Usage:
-  rebuild_project.py [--build_type=<bt>] [name]
+  rebuild_project.py [--build_type=<bt>] [<name>]
   rebuild_project.py -h | --help
 
 Options:
@@ -12,14 +12,16 @@ Options:
   name               Name of project to rebuild. If not given, it is
                      auto-detected.
 """
+import os
 import sys
 import docopt
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "source"))
 import devenv
 
 
 def rebuild_project(
-		project_name,
-		build_type):
+        project_name,
+        build_type):
     devenv.rebuild_project(project_name, build_type)
 
 

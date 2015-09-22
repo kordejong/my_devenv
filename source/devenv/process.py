@@ -14,6 +14,7 @@ def make_command(
 
     # CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/make
     # CMAKE_MAKE_PROGRAM:FILEPATH=C:/cygwin/home/user/blah/bin/make
+    # CMAKE_MAKE_PROGRAM:STRING=C:/utils/make
     # Split at first colon.
     record = [record.strip() for record in output.split("\n") if
         record.split(":")[0] == "CMAKE_MAKE_PROGRAM"]
@@ -114,7 +115,10 @@ def execute2(
     output, errors = process.communicate()
     os.chdir(cwd)
 
-    if (not process.returncode == 0) or errors:
+    if (not process.returncode == 0):  #  or errors:
+        # print "errors:", errors
+        # print "output:", output
+        # assert(False)
         raise RuntimeError("Error executing command:\n{}\n{}".format(command,
             errors if errors else output))
     # assert not errors, errors

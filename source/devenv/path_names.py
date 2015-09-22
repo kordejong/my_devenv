@@ -224,7 +224,11 @@ def binary_path_name_from_source_path_name(
     project_name = project_name_from_path_name(source_path_name)
     project_source_directory_path_name = \
         project_source_directory_path_name_from_project_name(project_name)
-    assert source_path_name.find(project_source_directory_path_name) == 0
+    print source_path_name
+    print project_source_directory_path_name
+    assert len(commonprefix([source_path_name,
+        project_source_directory_path_name])) == len(
+            project_source_directory_path_name)
 
     relative_source_path_name = source_path_name[
         len(project_source_directory_path_name) + 1:]

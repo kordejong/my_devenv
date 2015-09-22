@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python_wrapper
 """
 Build target.
 
@@ -14,8 +14,10 @@ Options:
   --test             Run unit test.
   name               Name of target.
 """
+import os
 import sys
 import docopt
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "source"))
 import devenv
 
 

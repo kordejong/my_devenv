@@ -561,9 +561,11 @@ def build_object(
 
        Document.
     """
+    print source_path_name, build_type
     source_path_name = devenv.filesystem.native_path_name(source_path_name)
     assert os.path.exists(source_path_name), source_path_name
     assert os.path.isfile(source_path_name), source_path_name
+    print source_path_name
 
     binary_path_name = devenv.path_names.binary_path_name_from_source_path_name(
         source_path_name, build_type)

@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python_wrapper
 """
 Configure project
 
 Usage:
-  configure_project.py [--build_type=<bt>] [name]
+  configure_project.py [--build_type=<bt>] [<name>]
   configure_project.py -h | --help
 
 Options:
@@ -12,8 +12,10 @@ Options:
   name               Name of project to configure. If not given, it is
                      auto-detected.
 """
+import os
 import sys
 import docopt
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "source"))
 import devenv
 
 
