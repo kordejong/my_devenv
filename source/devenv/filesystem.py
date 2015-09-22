@@ -284,7 +284,7 @@ def recreate_directory(
 
     """
     remove_directory(directory_path_name)
-    os.mkdir(directory_path_name)
+    os.makedirs(directory_path_name)
     assert os.path.isdir(directory_path_name), directory_path_name
 
 
