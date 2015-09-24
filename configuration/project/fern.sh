@@ -57,10 +57,21 @@ FERN_CMAKE_ARGUMENTS="
 #     -DFERN_BUILD_DOCUMENTATION:BOOL=TRUE
 #     -DFERN_BUILD_TEST:BOOL=TRUE
 # "
-if [[ $OSTYPE == "cygwin" ]]; then
+
+
+# # TODO This version of make must be used when compiling with mingw. It is
+# #      not dependent on OSTYPE, but on CC.
+# if [[ $OSTYPE == "cygwin" ]]; then
+#     FERN_CMAKE_ARGUMENTS="
+#         $FERN_CMAKE_ARGUMENTS
+#         -DCMAKE_MAKE_PROGRAM:STRING=mingw32-make
+#     "
+# fi
+
+if [[ $CC == "cl" ]]; then
     FERN_CMAKE_ARGUMENTS="
         $FERN_CMAKE_ARGUMENTS
-        -DCMAKE_MAKE_PROGRAM:STRING=mingw32-make
+        -DCMAKE_MAKE_PROGRAM:STRING=C:/utils/make
     "
 fi
 
