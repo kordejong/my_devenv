@@ -25,21 +25,22 @@ import devenv
 def build_object(
         source_pathname,
         build_type):
-    return devenv.build_object(source_pathname, build_type)
+    devenv.build_object(source_pathname, build_type)
 
 
 @devenv.checked_call
 def build_project(
         directory_pathname,
         build_type):
-    return devenv.build_objects(directory_pathname, build_type)
+    devenv.build_objects(directory_pathname, build_type)
 
 
 @devenv.checked_call
 def run_unit_test(
         directory_pathname,
         build_type):
-    return devenv.run_unit_tests(directory_pathname, build_type)
+    devenv.build_objects(directory_pathname, build_type)
+    devenv.run_unit_tests(directory_pathname, build_type)
 
 
 if __name__ == "__main__":
