@@ -1,6 +1,5 @@
 export FERN="$PROJECTS/`\ls $PROJECTS | \grep -i \"^fern$\"`"
 
-
 basename=`basename $FERN`
 PATH="$FERN/environment/script:$PATH"
 
