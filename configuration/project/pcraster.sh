@@ -1,10 +1,6 @@
-# vim:syntax=sh
-
-source $PERSONAL_FILES/Environment/project/devenv_basic.sh
-
-
-# export PCRASTER="$PROJECTS/`\ls $PROJECTS | \grep -i \"^pcraster$\"`"
-export PCRASTER="$HOME/Desktop/pcraster"
+if [ ! "$PCRASTER" ]; then
+    export PCRASTER="$PROJECTS/`\ls $PROJECTS | \grep -i \"^pcraster$\"`"
+fi
 
 PATH="$PCRASTER/environment/script:$PATH"
 
@@ -18,10 +14,8 @@ if [[ $OSTYPE == "cygwin" ]]; then
     "
 fi
 
-
 export PCRASTER_CMAKE_ARGUMENTS
 export PATH
-# export PYTHONPATH
 
 
 cd $PCRASTER
