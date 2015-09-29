@@ -7,6 +7,9 @@ syntax on
 
 set laststatus=2
 
+scriptencoding utf-8
+set encoding=utf-8
+
 set shiftwidth=4
 set tabstop=4
 " set foldmethod=syntax
