@@ -86,6 +86,7 @@ alias geoneric="source $PROJECTS/geoneric/environment/configuration/bash_profile
 alias lisem="source $project/lisem.sh"
 alias spatial_century="source $project/spatial_century.sh"
 alias fern="source $project/fern.sh"
+alias gghdc="source $project/gghdc.sh"
 alias grep_track="source $project/grep_track.sh"
 alias nautilus="source $project/nautilus.sh"
 alias pigeon="source $project/pigeon.sh"
