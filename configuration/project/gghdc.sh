@@ -14,9 +14,13 @@ export GGHDC="$PROJECTS/`\ls $PROJECTS | \grep -i \"^gghdc$\"`"
 
 # On cartesius, another boost is picked up then the one we want to use. That's
 # why there is the -DBoost_NO_BOOST_CMAKE argument.
-# TODO Add when proven to be necessary -DBoost_NO_BOOST_CMAKE:BOOL=TRUE
+# -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/gghdc
 GGHDC_CMAKE_ARGUMENTS="
-    -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/gghdc
+    -DBoost_NO_BOOST_CMAKE:BOOL=TRUE
+    -DGGHDC_BUILD_DOCUMENTATION:BOOL=TRUE
+    -DGGHDC_BUILD_IO:BOOL=TRUE
+    -DGGHDC_IO_WITH_MPI:BOOL=TRUE
+    -DGGHDC_BUILD_TEST:BOOL=TRUE
 "
 
 export GGHDC_CMAKE_ARGUMENTS
