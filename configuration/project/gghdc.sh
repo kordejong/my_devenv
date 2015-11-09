@@ -22,8 +22,16 @@ GGHDC_CMAKE_ARGUMENTS="
     -DGGHDC_IO_WITH_MPI:BOOL=TRUE
     -DGGHDC_BUILD_TEST:BOOL=TRUE
 "
-
 export GGHDC_CMAKE_ARGUMENTS
+
+cfgs="$GGHDC/environment/configuration"
+export GGHDC_AGGREGATE_QUERY_SERVICE_SETTINGS="$cfgs/aggregate_query_service.py"
+export GGHDC_AGGREGATE_SERVICE_SETTINGS="$cfgs/aggregate_service.py"
+export GGHDC_PORTAL_SERVICE_SETTINGS="$cfgs/portal_service.py"
+export GGHDC_PROPERTY_SERVICE_SETTINGS="$cfgs/property_service.py"
+export GGHDC_TASK_SERVICE_SETTINGS="$cfgs/task_service.py"
+unset cfgs
+
 # export PATH
 # export PYTHONPATH
 
