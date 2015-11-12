@@ -32,7 +32,9 @@ export GGHDC_PROPERTY_SERVICE_SETTINGS="$cfgs/property_service.py"
 export GGHDC_TASK_SERVICE_SETTINGS="$cfgs/task_service.py"
 unset cfgs
 
-# export PATH
+PATH=$GGHDC/environment/script:$PATH
+
+export PATH
 # export PYTHONPATH
 
 
