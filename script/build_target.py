@@ -8,7 +8,7 @@ Usage:
 
 Options:
   -h --help          Show this screen.
-  --build_type=<bt>  Build type [default: Debug].
+  --build_type=<bt>  Build type.
   --object           Build object.
   --project          Build project.
   --test             Run unit test.
@@ -46,7 +46,12 @@ def run_unit_test(
 if __name__ == "__main__":
     arguments = docopt.docopt(__doc__)
     name = arguments["<name>"]
-    build_type = arguments["--build_type"]
+    build_type = \
+        arguments["--build_type"] if \
+            arguments["--build_type"] is not None else \
+        os.environ["MY_DEVENV_BUILD_TYPE"] if \
+            os.environ.has_key("MY_DEVENV_BUILD_TYPE") else \
+        "Debug"
 
     if arguments["--object"]:
         result = build_object(name, build_type)
