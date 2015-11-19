@@ -83,17 +83,18 @@ alias geoneric="source $PROJECTS/geoneric/environment/configuration/bash_profile
 ### alias pcraster-4.0="source $PROJECTS/pcraster/environment/configuration/PCRaster-4.0"
 ### alias pcraster-4.1="source $PROJECTS/pcraster/environment/configuration/pcraster-4.1"
 
-alias lisem="source $project/lisem.sh"
-alias spatial_century="source $project/spatial_century.sh"
 alias fern="source $project/fern.sh"
 alias gghdc="source $project/gghdc.sh"
 alias grep_track="source $project/grep_track.sh"
+alias lisem="source $project/lisem.sh"
+alias maps4society="source $project/maps4society.sh"
 alias nautilus="source $project/nautilus.sh"
 alias pcraster_publications="source $project/pcraster_publications.sh"
-alias pigeon="source $project/pigeon.sh"
-alias maps4society="source $project/maps4society.sh"
-alias quick_scan="source $project/quick_scan.sh"
 alias pcraster="source $project/pcraster.sh"
+alias performance_analyst="source $project/performance_analyst.sh"
+alias pigeon="source $project/pigeon.sh"
+alias quick_scan="source $project/quick_scan.sh"
+alias spatial_century="source $project/spatial_century.sh"
 
 unset project
 
@@ -126,22 +127,6 @@ fi
 if [ ! -e "$HOME/.inputrc" ]; then
     export INPUTRC=$cwd/inputrc
 fi
-
-
-### profiles="$devenv/configuration/profiles"
-
-### alias devenv-master="source $profiles/DevEnv-master"
-### alias devenv-2.1="source $profiles/devenv-2.1"
-### alias RasterFormat-master="source $profiles/RasterFormat-master"
-### alias Xsd-master="source $profiles/Xsd-master"
-### alias Dal-master="source $profiles/Dal-master"
-### alias DataAssimilation-master="source $profiles/DataAssimilation-master"
-### alias Aguila-master="source $profiles/Aguila-master"
-### alias PcrTree2-master="source $profiles/PcrTree2-master"
-### alias DuneTrack="source $profiles/Dt2d-master"
-### alias PcrTree="source $profiles/PcrTree"
-### alias SourceForgeWebsite-trunk="source $profiles/SourceForgeWebsite-master"
-### alias PcrServerWebsite-trunk="source $profiles/PcrServerWebsite-trunk"
 
 
 alias grep="grep --color"
