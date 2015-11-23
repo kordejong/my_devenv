@@ -29,12 +29,12 @@ FERN_CMAKE_ARGUMENTS="
 #     -DFERN_BUILD_ALGORITHM:BOOL=TRUE
 #     -DFERN_ALGORITHM_WITH_HPX:BOOL=TRUE
 # "
-# # Algorithms.
-# FERN_CMAKE_ARGUMENTS="
-#     $common_arguments
-#     -DFERN_BUILD_ALGORITHM:BOOL=TRUE
-# "
-# # I/O, svg
+# Algorithms.
+FERN_CMAKE_ARGUMENTS="
+    $common_arguments
+    -DFERN_BUILD_ALGORITHM:BOOL=TRUE
+"
+# I/O, svg
 # FERN_CMAKE_ARGUMENTS="
 #     $common_arguments
 #     -DFERN_BUILD_IO:BOOL=TRUE
