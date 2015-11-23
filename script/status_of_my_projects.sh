@@ -11,6 +11,7 @@ projects="
     gghdc
     maps4society
     rivm_atlas
+    performance_analyst
 "
 
 for project in $projects; do
