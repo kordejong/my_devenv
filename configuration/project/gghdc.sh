@@ -35,7 +35,11 @@ unset cfgs
 PATH=$GGHDC/environment/script:$PATH
 
 export PATH
-# export PYTHONPATH
+
+
+PYTHONPATH=$GGHDC/source:$GGHDC/source/python:$PYTHONPATH
+
+export PYTHONPATH
 
 
 cd $GGHDC
