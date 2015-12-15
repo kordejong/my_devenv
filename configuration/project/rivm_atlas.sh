@@ -10,7 +10,7 @@ if [ ! "$RIVM_ATLAS" ]; then
     export RIVM_ATLAS="$PROJECTS/`\ls $PROJECTS | \grep -i \"^rivm_atlas$\"`"
 fi
 
-# export PATH="$RIVM_ATLAS/environment/script:$PATH"
+export PATH="$RIVM_ATLAS/environment/script:$PATH"
 
 # RIVM_ATLAS_CMAKE_ARGUMENTS="
 #     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/rivm_atlas
