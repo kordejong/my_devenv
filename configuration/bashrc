@@ -96,6 +96,7 @@ alias pigeon="source $project/pigeon.sh"
 alias quick_scan="source $project/quick_scan.sh"
 alias rivm_atlas="source $project/rivm_atlas.sh"
 alias spatial_century="source $project/spatial_century.sh"
+alias uu_flowmap="source $project/uu_flowmap.sh"
 
 unset project
 
