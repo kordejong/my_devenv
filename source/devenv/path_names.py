@@ -100,7 +100,7 @@ def project_source_directory_path_name_from_path_name(
     Return the project source directory path name.
 
     :param path_name: Name of path to a directory in the project's source
-		directory.
+        directory.
 
     The `path_name` passed in is traversed up until no `CMakeLists.txt` is
     found. The name of the last directory containing a `CMakeList.txt` file
@@ -109,9 +109,17 @@ def project_source_directory_path_name_from_path_name(
     assert os.path.exists(path_name), path_name
 
     if not os.path.isdir(path_name):
-		path_name = os.path.dirname(path_name)
+        path_name = os.path.dirname(path_name)
 
     result = os.path.abspath(path_name)
+
+    if not os.path.isfile(os.path.join(result, "CMakeLists.txt")) and \
+            os.path.isfile(os.path.join(os.path.dirname(result),
+                "CMakeLists.txt")):
+        # In case the current directory does not contain a CMakeLists.txt,
+        # but the parent does, move to the parent.
+        result = os.path.dirname(result)
+
     assert os.path.isfile(os.path.join(result, "CMakeLists.txt")), result
 
     parent_directory_path_name = os.path.dirname(result)

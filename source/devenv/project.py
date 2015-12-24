@@ -115,7 +115,15 @@ def build_project(
             devenv.path_names.project_binary_directory_path_name(project_name,
                 build_type)
     else:
+        if not os.path.isfile(os.path.join(path_name, "CMakeLists.txt")) and \
+                os.path.isfile(os.path.join(os.path.dirname(path_name),
+                    "CMakeLists.txt")):
+            # In case the current directory does not contain a CMakeLists.txt,
+            # but the parent does, move to the parent.
+            path_name = os.path.dirname(path_name)
+
         source_directory_path_name = path_name
+
         binary_directory_path_name = \
             devenv.path_names.binary_path_name_from_source_path_name(path_name,
                 build_type)
