@@ -84,6 +84,7 @@ alias geoneric="source $PROJECTS/geoneric/environment/configuration/bash_profile
 ### alias pcraster-4.1="source $PROJECTS/pcraster/environment/configuration/pcraster-4.1"
 
 alias fern="source $project/fern.sh"
+alias fern_python="source $project/fern_python.sh"
 alias gghdc="source $project/gghdc.sh"
 alias grep_track="source $project/grep_track.sh"
 alias lisem="source $project/lisem.sh"
