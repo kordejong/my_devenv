@@ -22,6 +22,12 @@ set listchars=tab:»·,trail:·
 set hlsearch
 set digraph
 
+" highlight ColorColumn ctermbg=7
+" set colorcolumn=81
+
+" match ErrorMsg '\%>80v.\+'
+
+
 " http://vimdoc.sourceforge.net/htmldoc/options.html#'backspace'
 set backspace=indent,eol,start
 
