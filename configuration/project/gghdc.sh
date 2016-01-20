@@ -1,15 +1,24 @@
-export GGHDC="$PROJECTS/`\ls $PROJECTS | \grep -i \"^gghdc$\"`"
+cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
+source $cwd/util.sh
+unset cwd
 
-# basename=`basename $GGHDC`
-# PATH="$GGHDC/environment/script:$PATH"
-# 
-# if [[ $OSTYPE == "cygwin" ]]; then
-#     PYTHONPATH="`cygpath -m $OBJECTS`/$basename/bin;$PYTHONPATH"
-# else
-#     PYTHONPATH="$OBJECTS/$basename/bin:$PYTHONPATH"
-# fi
-# 
-# unset basename
+parse_commandline $*
+
+
+if [ ! "$GGHDC" ]; then
+    export GGHDC="$PROJECTS/`\ls $PROJECTS | \grep -i \"^gghdc$\"`"
+fi
+
+
+basename=`basename $GGHDC`
+
+if [[ $OSTYPE == "cygwin" ]]; then
+    PYTHONPATH="`cygpath -m $OBJECTS`/$MY_DEVENV_BUILD_TYPE/$basename/bin;$PYTHONPATH"
+else
+    PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
+fi
+
+unset basename
 
 
 # On cartesius, another boost is picked up then the one we want to use. That's
@@ -21,6 +30,7 @@ GGHDC_CMAKE_ARGUMENTS="
     -DGGHDC_BUILD_LUE:BOOL=TRUE
     -DGGHDC_LUE_WITH_MPI:BOOL=FALSE
     -DGGHDC_BUILD_TEST:BOOL=TRUE
+    -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/gghdc
 "
 export GGHDC_CMAKE_ARGUMENTS
 
