@@ -42,6 +42,15 @@ export GGHDC_PROPERTY_SERVICE_SETTINGS="$cfgs/property_service.py"
 export GGHDC_TASK_SERVICE_SETTINGS="$cfgs/task_service.py"
 unset cfgs
 
+
+GGHDC_DATA="unset"
+hostname=`hostname`
+if [[ $hostname == "sonic.geo.uu.nl" ]]; then
+    GGHDC_DATA="/data/development/project/gghdc/data/archive"
+fi
+export GGHDC_DATA
+
+
 PATH=$GGHDC/environment/script:$PATH
 
 export PATH
