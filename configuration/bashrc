@@ -140,6 +140,7 @@ alias viout="vi out"
 alias shout="bash ./out"
 alias df="df --human-readable"
 alias screen="screen -U"
+alias tree="tree -C"
 
 
 # bashrc:
