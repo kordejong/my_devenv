@@ -35,20 +35,24 @@ GGHDC_CMAKE_ARGUMENTS="
 export GGHDC_CMAKE_ARGUMENTS
 
 cfgs="$GGHDC/environment/configuration"
-export GGHDC_AGGREGATE_QUERY_SERVICE_SETTINGS="$cfgs/aggregate_query_service.py"
-export GGHDC_AGGREGATE_SERVICE_SETTINGS="$cfgs/aggregate_service.py"
-export GGHDC_PORTAL_SERVICE_SETTINGS="$cfgs/portal_service.py"
-export GGHDC_PROPERTY_SERVICE_SETTINGS="$cfgs/property_service.py"
-export GGHDC_TASK_SERVICE_SETTINGS="$cfgs/task_service.py"
+export EMIS_AGGREGATE_QUERY_SERVICE_SETTINGS="$cfgs/aggregate_query_service.py"
+export EMIS_AGGREGATE_SERVICE_SETTINGS="$cfgs/aggregate_service.py"
+export EMIS_PORTAL_SERVICE_SETTINGS="$cfgs/portal_service.py"
+export EMIS_PROPERTY_SERVICE_SETTINGS="$cfgs/property_service.py"
+export EMIS_TASK_SERVICE_SETTINGS="$cfgs/task_service.py"
 unset cfgs
 
 
-GGHDC_DATA="unset"
+EMIS_DATA="unset"
 hostname=`hostname`
 if [[ $hostname == "sonic.geo.uu.nl" ]]; then
-    GGHDC_DATA="/data/development/project/gghdc/data/archive"
+    EMIS_DATA="/data/development/project/gghdc/data/archive"
+elif [[ $hostname == "gransasso" ]]; then
+    EMIS_DATA="/mnt/data1/home/kor/data/emis/archive"
+else
+    echo "Warning: EMIS_DATA not set"
 fi
-export GGHDC_DATA
+export EMIS_DATA
 
 
 PATH=$GGHDC/environment/script:$PATH

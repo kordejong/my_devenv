@@ -680,7 +680,10 @@ def grep_sources(
         "*.c",
         "*.cc",
         "*.cpp",
+        "*.css",
         "*.in",
+        "*.html",
+        "*.js",
         "*.py",
         "*.rst",
         "*.sh",
@@ -695,7 +698,8 @@ def grep_sources(
         "CMakeLists.txt",
         "Makefile",
         "testrun.epilog*",
-        "testrun.prolog*"
+        "testrun.prolog*",
+        "Vagrantfile",
     ]
     file_names = " -or ".join(["-name \"{}\"".format(file_name) for \
         file_name in file_names])

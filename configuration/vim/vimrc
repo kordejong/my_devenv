@@ -35,6 +35,7 @@ runtime macros/matchit.vim
 
 set wildignore+=*.pyc
 
+" let g:netrw_liststyle=3
 
 autocmd FileType cpp setlocal nowrap
 
