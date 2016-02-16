@@ -24,6 +24,10 @@ export PATH="$RIVM_ATLAS/environment/script:$PATH"
 # 
 # export RIVM_ATLAS_CMAKE_ARGUMENTS
 
+
+export TEXINPUTS="$RIVM_ATLAS/devbase/latex:"
+
+
 set_prompt_for_project rivm_atlas $MY_DEVENV_BUILD_TYPE
 
 cd $RIVM_ATLAS
