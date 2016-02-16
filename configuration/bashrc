@@ -71,7 +71,7 @@ software=$cwd/software
 
 alias pcraster_hyper="source $software/pcraster_hyper.sh"
 alias pcraster_gransasso="source $software/pcraster_gransasso.sh"
-alias pcraster_sonic="source $software/pcraster_sonic"
+alias pcraster_sonic="source $software/pcraster_sonic.sh"
 
 unset software
 
