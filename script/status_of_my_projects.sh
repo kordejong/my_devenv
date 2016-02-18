@@ -4,6 +4,7 @@ set -e
 cd $PROJECTS
 
 projects="
+    Atlas
     my_devenv
     personal_files
     geoneric
