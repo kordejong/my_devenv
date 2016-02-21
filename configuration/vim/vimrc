@@ -48,6 +48,7 @@ autocmd FileType cpp setlocal nowrap
 
 " Associate .dox extension with Doxygen files.
 au BufRead,BufNewFile *.dox setfiletype cpp.doxygen
+au BufRead,BufNewFile *.md setfiletype markdown
 
 
 "-------------------------------------------------------------------------------
