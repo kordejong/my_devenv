@@ -673,16 +673,19 @@ def grep_sources(
     assert os.path.isdir(path_name), path_name
 
     file_names = [
-        "*.cmake",
-        "*.dox",
-        "*.h",
-        "*.hpp",
         "*.c",
+        "*.cmake",
         "*.cc",
         "*.cpp",
+        "*.cxx",
         "*.css",
+        "*.dot",
+        "*.dox",
         "*.in",
+        "*.h",
         "*.html",
+        "*.hpp",
+        "*.hxx",
         "*.js",
         "*.py",
         "*.rst",
