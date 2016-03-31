@@ -60,7 +60,7 @@ PATH=$GGHDC/environment/script:$PATH
 export PATH
 
 
-PYTHONPATH=$GGHDC/source:$GGHDC/source/python:$PYTHONPATH
+PYTHONPATH=$GGHDC/devbase/source:$GGHDC/source:$GGHDC/source/python:$PYTHONPATH
 
 # TODO Make this depend on the build type.
 PYTHONPATH=$OBJECTS/Debug/gghdc/bin:$PYTHONPATH
