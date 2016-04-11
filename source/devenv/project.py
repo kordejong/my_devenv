@@ -687,6 +687,7 @@ def grep_sources(
         "*.hpp",
         "*.hxx",
         "*.js",
+        "*.md",
         "*.py",
         "*.rst",
         "*.sh",
