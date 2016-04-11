@@ -46,7 +46,7 @@ unset cfgs
 EMIS_DATA="unset"
 hostname=`hostname`
 if [[ $hostname == "sonic.geo.uu.nl" ]]; then
-    EMIS_DATA="/data/development/project/gghdc/data/archive"
+    EMIS_DATA="/data/development/project/gghdc/archive/archive"
 elif [[ $hostname == "gransasso" ]]; then
     EMIS_DATA="/mnt/data1/home/kor/data/emis/archive"
 else
