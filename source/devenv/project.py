@@ -673,19 +673,22 @@ def grep_sources(
     assert os.path.isdir(path_name), path_name
 
     file_names = [
+        "*.bas",  # VB
         "*.c",
         "*.cmake",
         "*.cc",
+        "*.cls",  # VB
         "*.cpp",
         "*.cxx",
         "*.css",
         "*.dot",
         "*.dox",
-        "*.in",
+        "*.frm",  # VB
         "*.h",
         "*.html",
         "*.hpp",
         "*.hxx",
+        "*.in",
         "*.js",
         "*.md",
         "*.py",
