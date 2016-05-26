@@ -37,7 +37,7 @@ set wildignore+=*.pyc
 
 " let g:netrw_liststyle=3
 
-autocmd FileType cpp setlocal nowrap
+" autocmd FileType cpp setlocal nowrap
 
 " autocmd FileType cpp setlocal shiftwidth=4 tabstop=4
 " autocmd FileType cmake setlocal shiftwidth=4 tabstop=4
