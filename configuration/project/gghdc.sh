@@ -18,8 +18,6 @@ else
     PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
 fi
 
-unset basename
-
 
 # On cartesius, another boost is picked up then the one we want to use. That's
 # why there is the -DBoost_NO_BOOST_CMAKE argument.
@@ -27,12 +25,20 @@ unset basename
 GGHDC_CMAKE_ARGUMENTS="
     -DBoost_NO_BOOST_CMAKE:BOOL=TRUE
     -DGGHDC_BUILD_DOCUMENTATION:BOOL=TRUE
+    -DGGHDC_BUILD_TEST:BOOL=TRUE
     -DGGHDC_BUILD_LUE:BOOL=TRUE
     -DGGHDC_LUE_WITH_MPI:BOOL=FALSE
-    -DGGHDC_BUILD_TEST:BOOL=TRUE
+    -DLUE_BUILD_CXX_API:BOOL=TRUE
+    -DLUE_BUILD_PYTHON_API:BOOL=TRUE
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/gghdc
 "
 export GGHDC_CMAKE_ARGUMENTS
+
+export PATH=$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/lue_translate:$PATH
+
+
+unset basename
+
 
 cfgs="$GGHDC/environment/configuration"
 export EMIS_AGGREGATE_QUERY_SERVICE_SETTINGS="$cfgs/aggregate_query_service.py"
