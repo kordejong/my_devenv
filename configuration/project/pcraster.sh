@@ -1,9 +1,21 @@
+cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
+source $cwd/util.sh
+unset cwd
+
+
+parse_commandline $*
+
+
 if [ ! "$PCRASTER" ]; then
     export PCRASTER="$PROJECTS/`\ls $PROJECTS | \grep -i \"^pcraster$\"`"
 fi
 
+
+basename=`basename $PCRASTER`
+
 PATH="$PCRASTER/environment/script:$PATH"
 PYTHONPATH="$PCRASTER/devbase/source:$PYTHONPATH"
+
 
 PCRASTER_CMAKE_ARGUMENTS="
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/pcraster
@@ -22,10 +34,19 @@ PCRASTER_CMAKE_ARGUMENTS="
     $PCRASTER_CMAKE_ARGUMENTS
     -DPCRASTER_BUILD_DOCUMENTATION:BOOL=TRUE
     -DPCRASTER_BUILD_TEST:BOOL=TRUE
+    -DPCRASTER_BUILD_BLOCKPYTHON=TRUE
+    -DPCRASTER_WITH_PYTHON_MULTICORE=TRUE
 "
+
+PATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PATH"
+PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
+
 
 export PCRASTER_CMAKE_ARGUMENTS
 export PATH PYTHONPATH
+
+
+unset basename
 
 
 cd $PCRASTER
