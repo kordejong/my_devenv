@@ -39,11 +39,30 @@ PCRASTER_CMAKE_ARGUMENTS="
 "
 
 PATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PATH"
-PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
+PYTHONPATH="$PCRASTER/source:$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
+
+
+if [[ $OSTYPE == "linux-gnu" ]]; then
+    hostname=`hostname`
+
+    if [[ \
+                $hostname == "sonic.geo.uu.nl" || \
+                $hostname == "gransasso" \
+            ]]; then
+        export LD_LIBRARY_PATH=$PEACOCK_PREFIX/pcraster/linux/linux/gcc-4/x86_64/lib:$LD_LIBRARY_PATH
+    fi
+
+    if [[ $hostname == "sonic.geo.uu.nl" ]]; then
+        export PCRASTER_PERFORMANCE_DATA=/data/development/project/pcraster/performance/
+    fi
+
+    unset hostname
+fi
 
 
 export PCRASTER_CMAKE_ARGUMENTS
 export PATH PYTHONPATH
+
 
 
 unset basename
