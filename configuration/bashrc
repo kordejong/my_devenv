@@ -90,6 +90,7 @@ alias fern_python="source $project/fern_python.sh"
 alias gghdc="source $project/gghdc.sh"
 alias grep_track="source $project/grep_track.sh"
 alias lisem="source $project/lisem.sh"
+alias lue="source $project/lue.sh"
 alias maps4society="source $project/maps4society.sh"
 alias nautilus="source $project/nautilus.sh"
 alias pcraster_publications="source $project/pcraster_publications.sh"
@@ -142,6 +143,11 @@ alias shout="bash ./out"
 alias df="df --human-readable"
 alias screen="screen -U"
 alias tree="tree -C"
+
+alias docker_list_running="docker ps --quiet"
+alias docker_list_exited="docker ps --all --quiet --filter=status=exited"
+alias docker_stop_running="docker stop \$(docker_list_running)"
+alias docker_remove_exited="docker rm -v \$(docker_list_exited)"
 
 
 # bashrc:
