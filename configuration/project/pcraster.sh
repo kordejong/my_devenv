@@ -54,6 +54,8 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
 
     if [[ $hostname == "sonic.geo.uu.nl" ]]; then
         export PCRASTER_PERFORMANCE_DATA=/data/development/project/pcraster/performance/
+    elif [[ $hostname == "gransasso" ]]; then
+        export PCRASTER_PERFORMANCE_DATA=/mnt/data1/home/kor/development/project/pcraster/performance
     fi
 
     unset hostname
