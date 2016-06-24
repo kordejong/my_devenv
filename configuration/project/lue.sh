@@ -22,7 +22,7 @@ export LUE_CMAKE_ARGUMENTS
 
 basename=`basename $LUE`
 
-PATH=$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/lue_translate:$PATH
+PATH=$LUE/environment/script:$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/lue_translate:$PATH
 
 
 if [[ $OSTYPE == "cygwin" ]]; then
