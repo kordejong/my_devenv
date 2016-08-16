@@ -34,8 +34,12 @@ fi
 
 unset basename
 
-export PATH PYTHONPATH
 
+PYTHONPATH=$LUE/devbase/source:$PYTHONPATH
+
+
+export PATH
+export PYTHONPATH
 
 cd $LUE
 
