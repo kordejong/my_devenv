@@ -35,6 +35,12 @@ runtime macros/matchit.vim
 
 set wildignore+=*.pyc
 
+" " syntax match nonascii "[^\d0-\d127]"
+" highlight nonascii guibg=Red ctermbg=2 term=standout
+" "termbg=2
+" au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
+
+
 " let g:netrw_liststyle=3
 
 " autocmd FileType cpp setlocal nowrap
