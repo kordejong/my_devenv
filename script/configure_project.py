@@ -3,14 +3,19 @@
 Configure project
 
 Usage:
-  configure_project.py [--build_type=<bt>] [<name>]
+  configure_project.py [--build_type=<bt>] [--install_prefix=<path>] [<name>]
   configure_project.py -h | --help
 
 Options:
-  -h --help          Show this screen.
-  --build_type=<bt>  Build type.
+  -h --help          Show this screen
+  --build_type=<bt>  Build type
+  --install_prefix=<path>  Use path as install prefix [default: /usr/local]
   name               Name of project to configure. If not given, it is
-                     auto-detected.
+                     auto-detected
+
+If no build type is passed in, the environment variable
+MY_DEVENV_BUILD_TYPE is tested. If it is set, its values is used. Else
+Debug is used as build type.
 """
 import os
 import sys
@@ -22,8 +27,9 @@ import devenv
 @devenv.checked_call
 def configure_project(
         project_name,
-        build_type):
-    devenv.configure_project(project_name, build_type)
+        build_type,
+        install_prefix):
+    devenv.configure_project(project_name, build_type, install_prefix)
 
 
 if __name__ == "__main__":
@@ -35,8 +41,9 @@ if __name__ == "__main__":
         os.environ["MY_DEVENV_BUILD_TYPE"] if \
             os.environ.has_key("MY_DEVENV_BUILD_TYPE") else \
         "Debug"
+    install_prefix = arguments["--install_prefix"]
 
     if name is None:
         name = devenv.detect_project_name()
 
-    sys.exit(configure_project(name, build_type))
+    sys.exit(configure_project(name, build_type, install_prefix))
