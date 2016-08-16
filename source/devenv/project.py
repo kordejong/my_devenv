@@ -36,12 +36,14 @@ def detect_project_name():
 
 def configure_project(
         project_name,
-        build_type):
+        build_type,
+        install_prefix):
     """
     Configure the project.
 
-    :param project_name: Name of project.
-    :param build_type: Build type.
+    :param project_name: Name of project
+    :param build_type: Build type
+    :param install_prefix: Install prefix
 
     Configuring a project differs from reconfiguring a project in that the
     project's binary directory is not recreated first. Building a project
@@ -73,9 +75,10 @@ def configure_project(
     command = "cmake --verbose " \
         "-G \"{}\" " \
         "-D CMAKE_BUILD_TYPE={} " \
+        "-D CMAKE_INSTALL_PREFIX={} " \
         "{} " \
-        "\"{}\"".format(generator, build_type, cmake_arguments,
-            source_directory_path_name)
+        "\"{}\"".format(generator, build_type, install_prefix,
+            cmake_arguments, source_directory_path_name)
     devenv.process.execute(command,
         working_directory=binary_directory_path_name)
 
@@ -287,12 +290,14 @@ def build_project(
 
 def reconfigure_project(
         project_name,
-        build_type):
+        build_type,
+        install_prefix):
     """
     Reconfigure the project.
 
     :param project_name: Name of project.
     :param build_type: Build type.
+    :param install_prefix: Install prefix
 
     Reconfiguring a project differs from configuring a project in that the
     project's binary directory is recreated first. After reconfiguring a
@@ -301,7 +306,7 @@ def reconfigure_project(
     devenv.filesystem.recreate_directory(
         devenv.path_names.project_binary_directory_path_name(project_name,
             build_type))
-    configure_project(project_name, build_type)
+    configure_project(project_name, build_type, install_prefix)
 
 
 ### def reconfigure_projects(
@@ -377,14 +382,15 @@ def build_target(
 
 def rebuild_project(
         project_name,
-        build_type):
+        build_type,
+        install_prefix):
     """
     .. todo::
 
        Document.
 
     """
-    reconfigure_project(project_name, build_type)
+    reconfigure_project(project_name, build_type, install_prefix)
     build_project(project_name, build_type)
 
 
