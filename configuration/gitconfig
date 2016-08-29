@@ -1,0 +1,18 @@
+[user]
+	name = Kor de Jong
+	email = kor@jemig.eu
+[core]
+	excludesfile = /home/kor/.gitignore
+	autocrlf = input
+	quotepath = false
+[color]
+	ui = auto
+	interactive = auto
+[push]
+	default = simple
+[alias]
+	mylog = log --oneline --decorate --graph
+[diff]
+	submodule = log
+[status]
+	submodulesummary = 1

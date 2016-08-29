@@ -1,0 +1,6 @@
+*.pyc
+.*.swp
+out
+tags
+*.qgs~
+.directory

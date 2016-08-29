@@ -1,0 +1,10 @@
+# https://docs.docker.com/engine/reference/builder/#/dockerignore-file
+**/.git
+**/.gitignore
+**/*.pyc
+**/.*.swp
+**/.directory
+**/out
+**/tags
+.dockerignore
+Dockerfile
