@@ -2,13 +2,13 @@
 """Grep project
 
 Usage:
-  grep_project.py [--ignore-case] [--filenames] [--word] <pattern> <name>
+  grep_project.py [-i | --ignore-case] [--filenames] [--word] <pattern> <name>
   grep_project.py -h | --help
 
 Options:
   -h --help      Show this screen.
   --filenames    Show only filenames containing pattern.
-  --ignore-case  Ignore case in pattern.
+  -i --ignore-case  Ignore case in pattern.
   --word         Match whole words.
   pattern        Pattern to look for.
   name           Name of project or directory to look in.
