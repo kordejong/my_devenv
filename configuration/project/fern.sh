@@ -1,12 +1,23 @@
-export FERN="$PROJECTS/`\ls $PROJECTS | \grep -i \"^fern$\"`"
+cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
+source $cwd/util.sh
+unset cwd
+
+
+parse_commandline $*
+
+
+if [ ! "$FERN" ]; then
+    export FERN="$PROJECTS/`\ls $PROJECTS | \grep -i \"^fern$\"`"
+fi
+
 
 basename=`basename $FERN`
 PATH="$FERN/environment/script:$PATH"
 
 if [[ $OSTYPE == "cygwin" ]]; then
-    PYTHONPATH="`cygpath -m $OBJECTS`/$basename/bin;$PYTHONPATH"
+    PYTHONPATH="`cygpath -m $OBJECTS`/$MY_DEVENV_BUILD_TYPE/$basename/bin;$PYTHONPATH"
 else
-    PYTHONPATH="$OBJECTS/$basename/bin:$PYTHONPATH"
+    PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
 fi
 
 unset basename
