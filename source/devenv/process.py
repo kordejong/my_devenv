@@ -111,7 +111,7 @@ def execute2(
     cwd = os.getcwd()
     os.chdir(working_directory)
     process = subprocess.Popen(split_command(command), stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE, shell=False)
+        stderr=subprocess.PIPE, shell=False, universal_newlines=True)
     output, errors = process.communicate()
     os.chdir(cwd)
 

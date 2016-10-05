@@ -46,4 +46,7 @@ cd $LUE
 
 unalias lue 2>/dev/null
 
+# Assumes this has been executed: mkvirtualenv lue
+workon lue
+
 pwd
