@@ -21,9 +21,9 @@ def os_type():
     Currently only works on Windows. Value returned is either
     :py:const:`MSYS_OS_TYPE` or :py:const:`CYGWIN_OS_TYPE`.
     """
-    if os.environ.has_key("MSYSTEM"):
+    if "MSYSTEM" in os.environ:
         result = MSYS_OS_TYPE
-    elif os.environ.has_key("CYGWIN"):
+    elif "CYGWIN" in os.environ:
         result = CYGWIN_OS_TYPE
     else:
         assert False, "unknown os type"
@@ -244,7 +244,8 @@ def remove_read_only_file(
         return
 
     # Still here? Dunno how to fix this.
-    raise excinfo[0], excinfo[1]
+    ### raise excinfo[0], excinfo[1]
+    raise excinfo[0](excinfo[1])
 
 
 def create_directory(

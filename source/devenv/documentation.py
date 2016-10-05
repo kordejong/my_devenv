@@ -75,14 +75,14 @@ def generate_cpp_source_documentation(
 
     # Write Doxyfile.in template file.
     file_name = os.path.join(destination_directory_path_name, "Doxyfile.in")
-    file(file_name, "w").write(
+    open(file_name, "w").write(
         "PROJECT_NAME            = ${{PROJECT_NAME}}\n"
         "INPUT                   = {}\n"
         "${{DOXYGEN_TEMPLATE}}\n".format(" ".join(source_path_names)))
 
     # Create a CMake project that builds the documentation.
     file_name = os.path.join(destination_directory_path_name, "CMakeLists.txt")
-    file(file_name, "w").write(
+    open(file_name, "w").write(
         "CMAKE_MINIMUM_REQUIRED(VERSION 2.8)\n"
         "PROJECT(CPP_DOCS)\n"
         "SET(CMAKE_MODULE_PATH \"$ENV{CMAKE_MODULE_PATH}\")\n"

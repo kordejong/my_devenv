@@ -444,7 +444,7 @@ def fixup_dll_client_win32(
         assembly_names.append(assembly_name)
 
         if not os.path.exists(assembly_manifest_pathname):
-            with file(assembly_manifest_pathname, "w") as manifest:
+            with open(assembly_manifest_pathname, "w") as manifest:
                 manifest.write("""\
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
@@ -469,7 +469,7 @@ def fixup_dll_client_win32(
             dll_pathname)
 
         if not os.path.exists(application_manifest_pathname):
-            with file(application_manifest_pathname, "w") as manifest:
+            with open(application_manifest_pathname, "w") as manifest:
                 manifest.write("""\
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
@@ -517,7 +517,7 @@ def fixup_dll_client_win32(
         assert os.path.splitext(path_name)[1].lower() in [".exe", ".pyd"], \
             path_name
         configuration_pathname = "{}.config".format(path_name)
-        with file(configuration_pathname, "w") as configuration:
+        with open(configuration_pathname, "w") as configuration:
             configuration.write("""\
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <configuration>
@@ -541,7 +541,7 @@ def fixup_dll_client_win32(
   </dependency>""".format(assembly_name, processor_architecture) for
             assembly_name in assembly_names]
 
-        with file(application_manifest_pathname, "w") as manifest:
+        with open(application_manifest_pathname, "w") as manifest:
             manifest.write("""\
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <assembly xmlns='urn:schemas-microsoft-com:asm.v1' manifestVersion='1.0'>
