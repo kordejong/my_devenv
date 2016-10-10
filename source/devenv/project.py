@@ -5,7 +5,7 @@ import devenv.path_names
 
 ### def is_root_cmake_lists_file(
 ###         pathname):
-###     contents = file(pathname).read()
+###     contents = open(pathname).read()
 ### 
 ###     return "project(" in contents.lower()
 ### 
@@ -70,7 +70,7 @@ def configure_project(
     environment_variable_name = "{}_CMAKE_ARGUMENTS".format(
         project_name.upper())
     cmake_arguments = os.environ[environment_variable_name] if \
-        os.environ.has_key(environment_variable_name) else ""
+        environment_variable_name in os.environ else ""
 
     command = "cmake --verbose " \
         "-G \"{}\" " \
@@ -668,7 +668,7 @@ def run_unit_tests(
 ###     project_file_path_name = os.path.join(source_directory_path_name,
 ###         "CMakeLists.txt")
 ###     assert os.path.isfile(project_file_path_name), project_file_path_name
-###     project_definition = file(project_file_path_name).read()
+###     project_definition = open(project_file_path_name).read()
 ###     return project_definition
 
 

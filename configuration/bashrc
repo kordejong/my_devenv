@@ -87,6 +87,7 @@ alias geoneric="source $PROJECTS/geoneric/environment/configuration/bash_profile
 alias atlas="source $project/atlas.sh"
 alias fern="source $project/fern.sh"
 alias fern_python="source $project/fern_python.sh"
+alias generic_algorithm_code="source $project/generic_algorithm_code.sh"
 alias gghdc="source $project/gghdc.sh"
 alias grep_track="source $project/grep_track.sh"
 alias lisem="source $project/lisem.sh"
@@ -98,9 +99,11 @@ alias pcraster="source $project/pcraster.sh"
 alias performance_analyst="source $project/performance_analyst.sh"
 alias pigeon="source $project/pigeon.sh"
 alias quick_scan="source $project/quick_scan.sh"
+alias rivm_afweging="source $project/rivm_afweging.sh"
 alias rivm_atlas="source $project/rivm_atlas.sh"
 alias spatial_century="source $project/spatial_century.sh"
 alias uu_flowmap="source $project/uu_flowmap.sh"
+alias waddenacademie="source $project/waddenacademie.sh"
 
 unset project
 

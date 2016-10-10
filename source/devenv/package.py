@@ -445,7 +445,7 @@ def check_existance_of_files_and_directories(
         check_existance_of_root_files(root_file_names, required_root_file_names)
         check_existance_of_directories(prefix, required_directory_path_names)
         check_existance_of_files(prefix, required_file_path_names)
-    except Exception, exception:
+    except Exception(exception):
         raise RuntimeError("Error verifying installation in {}\n{}".format(
             prefix, str(exception)))
 
