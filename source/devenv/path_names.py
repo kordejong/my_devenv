@@ -113,15 +113,13 @@ def project_source_directory_path_name_from_path_name(
 
     result = os.path.abspath(path_name)
 
-    if not os.path.isfile(os.path.join(result, "CMakeLists.txt")) and \
-            os.path.isfile(os.path.join(os.path.dirname(result),
-                "CMakeLists.txt")):
-        # In case the current directory does not contain a CMakeLists.txt,
-        # but the parent does, move to the parent.
+    # Find the first directory containing a CMakeLists.txt file.
+    while not os.path.exists(os.path.join(result, "CMakeLists.txt")):
         result = os.path.dirname(result)
 
     assert os.path.isfile(os.path.join(result, "CMakeLists.txt")), result
 
+    # Find the last directory containing a CMakeLists.txt file.
     parent_directory_path_name = os.path.dirname(result)
 
     while os.path.exists(os.path.join(parent_directory_path_name,
