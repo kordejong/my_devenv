@@ -14,7 +14,7 @@ setenv LD_LIBRARY_PATH /usr/local/lib
 shell -$SHELL
 
 # Allow scrolling
-termcapinfo xterm ti@:te@
+termcapinfo xterm* ti@:te@
 
 # Define a bigger scrollback, default is 100 lines.
 defscrollback 1000
