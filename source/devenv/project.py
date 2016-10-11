@@ -323,14 +323,16 @@ def reconfigure_project(
 
 
 def build_target(
-        source_directory_path_name,
+        source_path_name,
         binary_directory_path_name,
         target,
         build_type):
+    # assert os.path.isfile(source_path_name), source_path_name
+    # assert os.path.isdir(binary_directory_path_name), binary_directory_path_name
     binary_project_path_name = \
         devenv.path_names.project_binary_directory_path_name(
             devenv.path_names.project_name_from_path_name(
-                source_directory_path_name), build_type)
+                source_path_name), build_type)
     command = devenv.process.gnu_make_command(binary_project_path_name,
         binary_directory_path_name, target)
     devenv.process.execute(command)

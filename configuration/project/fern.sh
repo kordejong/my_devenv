@@ -86,5 +86,7 @@ cd $FERN
 # Since there is a command named fern, we need to get rid of the alias.
 unalias fern 2>/dev/null
 
+workon fern
+
 # cd source/fern
 pwd

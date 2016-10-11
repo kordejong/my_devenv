@@ -6,4 +6,6 @@ export TEXINPUTS="$PCRASTER_PUBLICATIONS/devbase/latex:"
 
 unalias pcraster_publications 2>/dev/null
 
+workon pcraster_publications
+
 pwd
