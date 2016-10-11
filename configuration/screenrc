@@ -7,7 +7,7 @@ startup_message off
 
 # This variable gets lost when starting screen.
 # This is relevant on linux.
-setenv LD_LIBRARY_PATH /usr/local/lib
+# setenv LD_LIBRARY_PATH /usr/local/lib
 
 # Make the shells think they are login shells and do full initialization.
 # This is relevant on cygwin.
