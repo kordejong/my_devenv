@@ -71,4 +71,7 @@ unset basename
 
 
 cd $PCRASTER
+
+workon pcraster
+
 pwd
