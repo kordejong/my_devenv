@@ -79,4 +79,6 @@ cd $GGHDC
 # Since there is a command named gghdc, we need to get rid of the alias.
 unalias gghdc 2>/dev/null
 
+workon gghdc
+
 pwd
