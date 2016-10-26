@@ -677,7 +677,8 @@ def grep_sources(
         pattern,
         print_filenames=False,
         match_word=False,
-        ignore_case=False):
+        ignore_case=False,
+        invert_match=False):
     assert os.path.isdir(path_name), path_name
 
     file_names = [
@@ -720,10 +721,12 @@ def grep_sources(
         file_name in file_names])
     grep_arguments = [
         "--with-filename",
+        "--extended-regexp",
         "--ignore-case" if ignore_case else "",
+        "--invert-match" if invert_match else "",
         "--word-regexp" if match_word else ""
     ]
-    command = "find . \( {} \) -exec fgrep {} \"{}\" \{{\}} \;".format(
+    command = "find . \( {} \) -exec grep {} \"{}\" \{{\}} \;".format(
         file_names, " ".join(grep_arguments).strip(), pattern)
     output = devenv.process.execute2(command, working_directory=path_name)
     if print_filenames:
@@ -737,7 +740,8 @@ def grep_project(
         pattern,
         print_filenames,
         match_word,
-        ignore_case):
+        ignore_case,
+        invert_match):
     if os.path.isdir(name):
         directory_path_name = name
     else:
@@ -747,7 +751,7 @@ def grep_project(
         sys.stdout.write("${}\n".format(name.upper()))
         sys.stdout.flush()
     grep_sources(directory_path_name, pattern, print_filenames, match_word,
-        ignore_case)
+        ignore_case, invert_match)
 
 
 ### def grep_projects(

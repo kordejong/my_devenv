@@ -2,16 +2,18 @@
 """Grep project
 
 Usage:
-  grep_project.py [-i | --ignore-case] [--filenames] [--word] <pattern> <name>
+  grep_project.py [-i | --ignore-case] [--filenames] [--word] [--invert]
+      <pattern> <name>
   grep_project.py -h | --help
 
 Options:
-  -h --help      Show this screen.
-  --filenames    Show only filenames containing pattern.
-  -i --ignore-case  Ignore case in pattern.
-  --word         Match whole words.
-  pattern        Pattern to look for.
-  name           Name of project or directory to look in.
+  -h --help      Show this screen
+  --filenames    Show only filenames containing pattern
+  -i --ignore-case  Ignore case in pattern
+  --word         Match whole words
+  --invert       Invert match
+  pattern        Pattern to look for
+  name           Name of project or directory to look in
 """
 import os
 import sys
@@ -26,9 +28,10 @@ def grep_project(
         pattern,
         print_filenames,
         match_word,
-        ignore_case):
+        ignore_case,
+        invert_match):
     devenv.grep_project(names, pattern, print_filenames, match_word,
-        ignore_case)
+        ignore_case, invert_match)
 
 
 if __name__ == "__main__":
@@ -42,5 +45,6 @@ if __name__ == "__main__":
     sys.exit(grep_project(name, pattern,
         print_filenames=arguments["--filenames"],
         match_word=arguments["--word"],
-        ignore_case=arguments["--ignore-case"]
+        ignore_case=arguments["--ignore-case"],
+        invert_match=arguments["--invert"]
     ))
