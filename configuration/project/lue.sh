@@ -23,8 +23,12 @@ export LUE_CMAKE_ARGUMENTS
 
 basename=`basename $LUE`
 
-PATH=$LUE/environment/script:$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/lue_translate:$PATH
-
+PATH="\
+$LUE/environment/script:\
+$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/utility/lue_dump:\
+$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/utility/lue_translate:\
+$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/utility/lue_validate:\
+$PATH"
 
 if [[ $OSTYPE == "cygwin" ]]; then
     PYTHONPATH="`cygpath -m $OBJECTS`/$MY_DEVENV_BUILD_TYPE/$basename/bin;$PYTHONPATH"
