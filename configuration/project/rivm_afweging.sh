@@ -11,6 +11,7 @@ if [ ! "$RIVM_AFWEGING" ]; then
 fi
 
 export PATH="$RIVM_AFWEGING/environment/script:$PATH"
+export PYTHONPATH="$RIVM_AFWEGING/source:$PYTHONPATH"
 
 export RIVM_AFWEGING_DATA=/mnt/data2/kor/project/rivm_afweging
 

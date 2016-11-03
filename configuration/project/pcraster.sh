@@ -45,16 +45,11 @@ PYTHONPATH="$PCRASTER/source:$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHO
 if [[ $OSTYPE == "linux-gnu" ]]; then
     hostname=`hostname`
 
-    if [[ \
-                $hostname == "sonic.geo.uu.nl" || \
-                $hostname == "gransasso" \
-            ]]; then
-        export LD_LIBRARY_PATH=$PEACOCK_PREFIX/pcraster/linux/linux/gcc-4/x86_64/lib:$LD_LIBRARY_PATH
-    fi
-
     if [[ $hostname == "sonic.geo.uu.nl" ]]; then
+        export LD_LIBRARY_PATH=$PEACOCK_PREFIX/pcraster/linux/linux/gcc-4/x86_64/lib:$LD_LIBRARY_PATH
         export PCRASTER_PERFORMANCE_DATA=/data/development/project/pcraster/performance/
     elif [[ $hostname == "gransasso" ]]; then
+        export LD_LIBRARY_PATH=$PEACOCK_PREFIX/pcraster/linux/linux/gcc-5/x86_64/lib:$LD_LIBRARY_PATH
         export PCRASTER_PERFORMANCE_DATA=/mnt/data1/home/kor/development/project/pcraster/performance
     fi
 
