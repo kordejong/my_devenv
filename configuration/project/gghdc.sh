@@ -12,41 +12,36 @@ fi
 
 basename=`basename $GGHDC`
 
-if [[ $OSTYPE == "cygwin" ]]; then
-    PYTHONPATH="`cygpath -m $OBJECTS`/$MY_DEVENV_BUILD_TYPE/$basename/bin;$PYTHONPATH"
-else
-    PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
-fi
+PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
 
 
-# On cartesius, another boost is picked up then the one we want to use. That's
-# why there is the -DBoost_NO_BOOST_CMAKE argument.
-# -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/gghdc
-GGHDC_CMAKE_ARGUMENTS="
-    -DBoost_NO_BOOST_CMAKE:BOOL=TRUE
-    -DGGHDC_BUILD_DOCUMENTATION:BOOL=TRUE
-    -DGGHDC_BUILD_TEST:BOOL=TRUE
-    -DGGHDC_BUILD_LUE:BOOL=TRUE
-    -DGGHDC_LUE_WITH_MPI:BOOL=FALSE
-    -DLUE_BUILD_CXX_API:BOOL=TRUE
-    -DLUE_BUILD_PYTHON_API:BOOL=TRUE
-    -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/gghdc
-"
-export GGHDC_CMAKE_ARGUMENTS
+### # On cartesius, another boost is picked up then the one we want to use. That's
+### # why there is the -DBoost_NO_BOOST_CMAKE argument.
+### # -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/gghdc
+### GGHDC_CMAKE_ARGUMENTS="
+###     -DBoost_NO_BOOST_CMAKE:BOOL=TRUE
+###     -DGGHDC_BUILD_DOCUMENTATION:BOOL=TRUE
+###     -DGGHDC_BUILD_TEST:BOOL=TRUE
+###     -DGGHDC_BUILD_LUE:BOOL=TRUE
+###     -DGGHDC_LUE_WITH_MPI:BOOL=FALSE
+###     -DLUE_BUILD_CXX_API:BOOL=TRUE
+###     -DLUE_BUILD_PYTHON_API:BOOL=TRUE
+###     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/gghdc
+### "
+### export GGHDC_CMAKE_ARGUMENTS
 
-export PATH=$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/lue_translate:$PATH
-
+### export PATH=$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/lue_translate:$PATH
 
 unset basename
 
 
-cfgs="$GGHDC/environment/configuration"
-export EMIS_AGGREGATE_QUERY_SERVICE_SETTINGS="$cfgs/aggregate_query_service.py"
-export EMIS_AGGREGATE_SERVICE_SETTINGS="$cfgs/aggregate_service.py"
-export EMIS_PORTAL_SERVICE_SETTINGS="$cfgs/portal_service.py"
-export EMIS_PROPERTY_SERVICE_SETTINGS="$cfgs/property_service.py"
-export EMIS_TASK_SERVICE_SETTINGS="$cfgs/task_service.py"
-unset cfgs
+### cfgs="$GGHDC/environment/configuration"
+### export EMIS_AGGREGATE_QUERY_SERVICE_SETTINGS="$cfgs/aggregate_query_service.py"
+### export EMIS_AGGREGATE_SERVICE_SETTINGS="$cfgs/aggregate_service.py"
+### export EMIS_PORTAL_SERVICE_SETTINGS="$cfgs/portal_service.py"
+### export EMIS_PROPERTY_SERVICE_SETTINGS="$cfgs/property_service.py"
+### export EMIS_TASK_SERVICE_SETTINGS="$cfgs/task_service.py"
+### unset cfgs
 
 
 EMIS_DATA="unset"
@@ -61,15 +56,15 @@ fi
 export EMIS_DATA
 
 
-PATH=$GGHDC/environment/script:$PATH
+PATH=$GGHDC/docker_base/script:$GGHDC/environment/script:$PATH
 
 export PATH
 
 
-PYTHONPATH=$GGHDC/devbase/source:$GGHDC/source:$GGHDC/source/python:$PYTHONPATH
+PYTHONPATH=$GGHDC/devbase/source:$GGHDC/docker_base/source:$GGHDC/source:$GGHDC/source/python:$PYTHONPATH
 
-# TODO Make this depend on the build type.
-PYTHONPATH=$OBJECTS/Debug/gghdc/bin:$PYTHONPATH
+### # TODO Make this depend on the build type.
+### PYTHONPATH=$OBJECTS/Debug/gghdc/bin:$PYTHONPATH
 
 export PYTHONPATH
 
