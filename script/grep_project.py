@@ -10,7 +10,7 @@ Options:
   -h --help      Show this screen
   --filenames    Show only filenames containing pattern
   -i --ignore-case  Ignore case in pattern
-  --word         Match whole words
+  -w --word      Match whole words
   --invert       Invert match
   pattern        Pattern to look for
   name           Name of project or directory to look in
