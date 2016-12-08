@@ -709,6 +709,7 @@ def grep_sources(
         "*.xml",
         "*.xsd",
         "*.xsl",
+        "*.yml",
         "bashrc",
         "bash_profile",
         "CMakeLists.txt",
