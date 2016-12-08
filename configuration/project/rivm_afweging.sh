@@ -10,8 +10,8 @@ if [ ! "$RIVM_AFWEGING" ]; then
     export RIVM_AFWEGING="$PROJECTS/`\ls $PROJECTS | \grep -i \"^rivm_afweging$\"`"
 fi
 
-export PATH="$RIVM_AFWEGING/environment/script:$PATH"
-export PYTHONPATH="$RIVM_AFWEGING/source:$PYTHONPATH"
+export PATH="$RIVM_AFWEGING/docker_base/script:$RIVM_AFWEGING/environment/script:$PATH"
+export PYTHONPATH="$RIVM_AFWEGING/docker_base/source:$PYTHONPATH"
 
 export RIVM_AFWEGING_DATA=/mnt/data2/kor/project/rivm_afweging
 
