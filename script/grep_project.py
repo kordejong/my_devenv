@@ -2,13 +2,13 @@
 """Grep project
 
 Usage:
-  grep_project.py [-i | --ignore-case] [--filenames] [-w | --word] [--invert]
-      <pattern> <name>
+  grep_project.py [-i | --ignore-case] [-f | --filenames] [-w | --word]
+      [--invert] <pattern> <name>
   grep_project.py -h | --help
 
 Options:
   -h --help      Show this screen
-  --filenames    Show only filenames containing pattern
+  -f --filenames    Show only filenames containing pattern
   -i --ignore-case  Ignore case in pattern
   -w --word      Match whole words
   --invert       Invert match
