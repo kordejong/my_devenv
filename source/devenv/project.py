@@ -713,6 +713,7 @@ def grep_sources(
         "bashrc",
         "bash_profile",
         "CMakeLists.txt",
+        "Dockerfile",
         "Makefile",
         "testrun.epilog*",
         "testrun.prolog*",
