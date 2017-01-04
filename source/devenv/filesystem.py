@@ -92,6 +92,7 @@ def file_is_executable(
     # It is not about permissions, it is about link properties.
     file_is_executable_by_platform = {
         "darwin": file_is_executable_darwin,
+        "linux": file_is_executable_linux,
         "linux2": file_is_executable_linux,
         "win32": file_is_executable_win32
     }
@@ -125,6 +126,7 @@ def file_is_shared_library(
     """
     file_is_shared_library_by_platform = {
         "darwin": file_is_shared_library_darwin,
+        "linux": file_is_shared_library_linux,
         "linux2": file_is_shared_library_linux,
         "win32": file_is_shared_library_win32
     }
@@ -157,6 +159,7 @@ def file_is_statically_linked(
     """
     file_is_statically_linked_by_platform = {
         "darwin": file_is_statically_linked_darwin,
+        "linux": file_is_statically_linked_linux,
         "linux2": file_is_statically_linked_linux,
         "win32": file_is_statically_linked_win32
     }
@@ -189,6 +192,7 @@ def file_is_dynamically_linked(
     """
     file_is_dynamically_linked_by_platform = {
         "darwin": file_is_dynamically_linked_darwin,
+        "linux": file_is_dynamically_linked_linux,
         "linux2": file_is_dynamically_linked_linux,
         "win32": file_is_dynamically_linked_win32
     }
@@ -215,6 +219,7 @@ def file_is_dll_client(
     """
     file_is_dll_client_by_platform = {
         "darwin": file_is_dll_client_unix,
+        "linux": file_is_dll_client_unix,
         "linux2": file_is_dll_client_unix,
         "win32": file_is_dll_client_win32
     }
@@ -346,6 +351,7 @@ def native_path_name(
         path_name):
     native_path_name_by_platform = {
         "darwin": native_path_name_default,
+        "linux": native_path_name_default,
         "linux2": native_path_name_default,
         "win32" : native_path_name_win32
     }
@@ -381,6 +387,7 @@ def shell_path_name(
         path_name):
     shell_path_name_by_platform = {
         "darwin": shell_path_name_default,
+        "linux": shell_path_name_default,
         "linux2": shell_path_name_default,
         "win32" : shell_path_name_win32
     }
