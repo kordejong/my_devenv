@@ -39,7 +39,7 @@ export EMIS_UPLOADS_DEFAULT_DEST=$emis_data/upload
 # export EMIS_PROPERTY_DATA=$emis_data/property
 export EMIS_PROPERTY_DATA=/data/escape/hulp/wgs84/lue
 export EMIS_RESULT_DATA=$emis_data/result
-export MACHINE_STORAGE_PATH=$emis_machine
+# export MACHINE_STORAGE_PATH=$emis_machine
 unset emis_data emis_machine emis
 
 
