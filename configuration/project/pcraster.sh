@@ -67,6 +67,10 @@ unset basename
 
 cd $PCRASTER
 
+# mkvirtualenv --system-site-packages pcraster
 workon pcraster
+
+# mkvirtualenv --python /usr/bin/python3 --system-site-packages pcraster_python3
+# workon pcraster_python3
 
 pwd
