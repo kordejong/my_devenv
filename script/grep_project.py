@@ -2,13 +2,15 @@
 """Grep project
 
 Usage:
-  grep_project.py [-i | --ignore-case] [-f | --filenames] [-w | --word]
-      [--invert] <pattern> <name>
+  grep_project.py [-i | --ignore-case]
+      ([-f | --filenames] | [-d | --directories])
+      [-w | --word] [--invert] <pattern> <name>
   grep_project.py -h | --help
 
 Options:
   -h --help      Show this screen
   -f --filenames    Show only filenames containing pattern
+  -d --directories  Show only directories containing files containing pattern
   -i --ignore-case  Ignore case in pattern
   -w --word      Match whole words
   --invert       Invert match
@@ -26,12 +28,13 @@ import devenv
 def grep_project(
         names,
         pattern,
+        print_directories,
         print_filenames,
         match_word,
         ignore_case,
         invert_match):
-    devenv.grep_project(names, pattern, print_filenames, match_word,
-        ignore_case, invert_match)
+    devenv.grep_project(names, pattern, print_directories, print_filenames,
+        match_word, ignore_case, invert_match)
 
 
 if __name__ == "__main__":
@@ -43,6 +46,7 @@ if __name__ == "__main__":
         name = devenv.detect_project_name()
 
     sys.exit(grep_project(name, pattern,
+        print_directories=arguments["--directories"],
         print_filenames=arguments["--filenames"],
         match_word=arguments["--word"],
         ignore_case=arguments["--ignore-case"],

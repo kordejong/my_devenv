@@ -675,6 +675,7 @@ def run_unit_tests(
 def grep_sources(
         path_name,
         pattern,
+        print_directories=False,
         print_filenames=False,
         match_word=False,
         ignore_case=False,
@@ -731,15 +732,24 @@ def grep_sources(
     command = "find . \( {} \) -exec grep {} \"{}\" \{{\}} \;".format(
         file_names, " ".join(grep_arguments).strip(), pattern)
     output = devenv.process.execute2(command, working_directory=path_name)
-    if print_filenames:
-        output = "\n".join(set([line.split(":")[0] for line in
-            output.strip().split("\n")])) + "\n"
+
+    if print_directories:
+        output = "{}\n".format("\n".join(sorted(set(
+            [os.path.dirname(line.split(":")[0]) for line in
+                output.strip().split("\n")]
+        ))))
+    elif print_filenames:
+        output = "{}\n".format("\n".join(sorted(set(
+            [line.split(":")[0] for line in output.strip().split("\n")]
+        ))))
+
     sys.stdout.write(output)
 
 
 def grep_project(
         name,
         pattern,
+        print_directories,
         print_filenames,
         match_word,
         ignore_case,
@@ -752,8 +762,8 @@ def grep_project(
                 name)
         sys.stdout.write("${}\n".format(name.upper()))
         sys.stdout.flush()
-    grep_sources(directory_path_name, pattern, print_filenames, match_word,
-        ignore_case, invert_match)
+    grep_sources(directory_path_name, pattern, print_directories,
+        print_filenames, match_word, ignore_case, invert_match)
 
 
 ### def grep_projects(
