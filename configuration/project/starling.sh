@@ -19,6 +19,8 @@ cd $STARLING
 unalias starling 2>/dev/null
 
 # Assumes this has been executed: mkvirtualenv starling
+# gransasso:
+#     mkvirtualenv --python /usr/bin/python3 --system-site-packages starling
 workon starling
 
 pwd

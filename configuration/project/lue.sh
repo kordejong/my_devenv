@@ -30,11 +30,7 @@ $OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/utility/lue_translate:\
 $OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/utility/lue_validate:\
 $PATH"
 
-if [[ $OSTYPE == "cygwin" ]]; then
-    PYTHONPATH="`cygpath -m $OBJECTS`/$MY_DEVENV_BUILD_TYPE/$basename/bin;$PYTHONPATH"
-else
-    PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
-fi
+PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/luepy:$PYTHONPATH"
 
 
 unset basename
@@ -51,6 +47,7 @@ cd $LUE
 unalias lue 2>/dev/null
 
 # Assumes this has been executed: mkvirtualenv lue
+# mkvirtualenv --python /usr/bin/python3 --system-site-packages lue
 workon lue
 
 pwd
