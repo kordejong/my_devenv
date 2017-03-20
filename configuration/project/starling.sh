@@ -19,8 +19,11 @@ cd $STARLING
 
 unalias starling 2>/dev/null
 
-# mkvirtualenv --python /usr/bin/python3 --system-site-packages starling
-# sonic: PATH=/opt/python-3/bin:$PATH mkvirtualenv --python /opt/python-3/bin/python3 --system-site-packages starling
+# Assumes this has been executed: mkvirtualenv starling
+# gransasso:
+#     mkvirtualenv --python /usr/bin/python3 --system-site-packages starling
+# sonic:
+#     PATH=/opt/python-3/bin:$PATH mkvirtualenv --python /opt/python-3/bin/python3 --system-site-packages starling
 workon starling
 
 pwd

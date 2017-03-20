@@ -59,6 +59,7 @@ def objects_extension():
     """
     extension_by_platform_name = {
         "win32": "obj",
+        "linux": "o",
         "linux2": "o",
         "darwin": "o"
     }
@@ -115,6 +116,10 @@ def project_source_directory_path_name_from_path_name(
 
     # Find the first directory containing a CMakeLists.txt file.
     while not os.path.exists(os.path.join(result, "CMakeLists.txt")):
+        if result == os.path.dirname(result):
+            raise RuntimeError(
+                "CMakeLists.txt could not be found in (parent of) {}"
+                    .format(path_name))
         result = os.path.dirname(result)
 
     assert os.path.isfile(os.path.join(result, "CMakeLists.txt")), result
