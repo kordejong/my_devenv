@@ -10,7 +10,8 @@ if [ ! "$STARLING" ]; then
 fi
 
 
-PYTHONPATH="$STARLING/source:$PYTHONPATH"
+# This confuses the generate_python_package script.
+# PYTHONPATH="$STARLING/source:$PYTHONPATH"
 
 export PYTHONPATH
 
@@ -18,7 +19,8 @@ cd $STARLING
 
 unalias starling 2>/dev/null
 
-# Assumes this has been executed: mkvirtualenv starling
+# mkvirtualenv --python /usr/bin/python3 --system-site-packages starling
+# sonic: PATH=/opt/python-3/bin:$PATH mkvirtualenv --python /opt/python-3/bin/python3 --system-site-packages starling
 workon starling
 
 pwd

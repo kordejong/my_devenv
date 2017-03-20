@@ -37,7 +37,8 @@ emis_data="$emis/data"
 
 export EMIS_UPLOADS_DEFAULT_DEST=$emis_data/upload
 # export EMIS_PROPERTY_DATA=$emis_data/property
-export EMIS_PROPERTY_DATA=/data/escape/hulp/wgs84/lue
+# export EMIS_PROPERTY_DATA=/data/escape/hulp/wgs84/lue
+export EMIS_PROPERTY_DATA=/data/gghdc_portal/testdata
 export EMIS_RESULT_DATA=$emis_data/result
 # export MACHINE_STORAGE_PATH=$emis_machine
 unset emis_data emis_machine emis
@@ -64,6 +65,8 @@ cd $GGHDC
 # Since there is a command named gghdc, we need to get rid of the alias.
 unalias gghdc 2>/dev/null
 
+# mkvirtualenv --python /usr/bin/python3 --system-site-packages gghdc
+# sonic: PATH=/opt/python-3/bin:$PATH mkvirtualenv --python /opt/python-3/bin/python3 --system-site-packages gghdc
 workon gghdc
 
 pwd
