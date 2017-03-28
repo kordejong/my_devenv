@@ -688,6 +688,8 @@ def grep_sources(
         "*.cmake",
         "*.cc",
         "*.cls",  # VB
+        "*.cfg",
+        "*.conf",
         "*.cpp",
         "*.cxx",
         "*.css",
