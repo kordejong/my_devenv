@@ -11,12 +11,10 @@ fi
 
 
 LUE_CMAKE_ARGUMENTS="
-    -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
-    -DLUE_BUILD_TEST:BOOL=TRUE
-    -DLUE_BUILD_CXX_API:BOOL=TRUE
-    -DLUE_BUILD_PYTHON_API:BOOL=TRUE
-    -DLUE_BUILD_UTILITIES:BOOL=TRUE
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/lue
+    -DLUE_BUILD_PYTHON_API:BOOL=TRUE
+    -DLUE_BUILD_TEST:BOOL=TRUE
+    -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
 "
 export LUE_CMAKE_ARGUMENTS
 
@@ -25,9 +23,9 @@ basename=`basename $LUE`
 
 PATH="\
 $LUE/environment/script:\
-$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/utility/lue_dump:\
-$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/utility/lue_translate:\
-$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue/utility/lue_validate:\
+$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue_dump:\
+$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue_translate:\
+$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue_validate:\
 $PATH"
 
 PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/luepy:$PYTHONPATH"
