@@ -151,6 +151,8 @@ alias shout="bash ./out"
 alias df="df --human-readable"
 alias screen="screen -U"
 alias tree="tree -C"
+alias start_http_server-2="python -m SimpleHTTPServer"
+alias start_http_server-3="python -m http.server"
 
 alias docker_list_running="docker ps --quiet"
 alias docker_list_exited="docker ps --all --quiet --filter=status=exited"
