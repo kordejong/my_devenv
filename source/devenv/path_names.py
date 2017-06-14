@@ -79,8 +79,8 @@ def environment_variable_as_path_name(
     just returns its value, as an absolute path name.
     """
     assert variable_name in os.environ, variable_name
-    return os.path.abspath(devenv.filesystem.native_path_name(
-        os.environ[variable_name]))
+    return os.path.realpath(os.path.abspath(devenv.filesystem.native_path_name(
+        os.environ[variable_name])))
 
 
 def project_source_directory_path_name_from_project_name(
