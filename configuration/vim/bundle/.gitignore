@@ -1,6 +1,6 @@
-/ctrlp.vim
-/tagbar
 /vim-airline
 /vim-airline-themes
 /vim-fugitive
 /vimwiki
+/Vundle.vim
+/YouCompleteMe

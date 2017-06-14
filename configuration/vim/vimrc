@@ -1,8 +1,22 @@
-execute pathogen#infect()
-" execute pathogen#helptags()
-
 set nocompatible
-filetype plugin indent on
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" After adding a plugin, run:
+" vim +PluginInstall +qall
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'vimwiki/vimwiki'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
 syntax on
 
 set laststatus=2
@@ -69,10 +83,10 @@ let g:tagbar_width = 40
 
 
 "-------------------------------------------------------------------------------
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 let g:airline_theme = "solarized"
-" Whitespace checks slow airline down a lot.
-let g:airline#extensions#whitespace#checks = []
+" " Whitespace checks slow airline down a lot.
+" let g:airline#extensions#whitespace#checks = []
 
 " set statusline=%F%m%r%h%w\ FF=%{&ff}\ TYPE=%Y\ RC=%l,%v\ %p%%\ LEN=%L
 " TODO How to set this in normal mode...
