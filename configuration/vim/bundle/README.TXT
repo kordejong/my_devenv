@@ -6,3 +6,5 @@
 
 set -e
 git clone https://github.com/VundleVim/Vundle.vim.git
+
+# sudo port install vim +huge +python35

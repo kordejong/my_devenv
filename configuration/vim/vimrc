@@ -8,7 +8,7 @@ call vundle#begin()
 " vim +PluginInstall +qall
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vimwiki/vimwiki'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
