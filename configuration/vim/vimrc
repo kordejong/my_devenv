@@ -8,7 +8,9 @@ call vundle#begin()
 " vim +PluginInstall +qall
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vimwiki/vimwiki'
-" Plugin 'Valloric/YouCompleteMe'
+if hostname() == "ggransasso"
+    Plugin 'Valloric/YouCompleteMe'
+endif
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -72,19 +74,19 @@ au BufRead,BufNewFile *.md setfiletype markdown
 
 
 "-------------------------------------------------------------------------------
-let g:ctrlp_by_filename = 1
-let g:ctrlp_regexp = 1
+" let g:ctrlp_by_filename = 1
+" let g:ctrlp_regexp = 1
 
 
 "-------------------------------------------------------------------------------
-let g:tagbar_autoclose = 1
-nnoremap <silent> <F9> :TagbarOpenAutoClose<CR>
-let g:tagbar_width = 40
+" let g:tagbar_autoclose = 1
+" nnoremap <silent> <F9> :TagbarOpenAutoClose<CR>
+" let g:tagbar_width = 40
 
 
 "-------------------------------------------------------------------------------
 "let g:airline_powerline_fonts = 1
-let g:airline_theme = "solarized"
+" let g:airline_theme = "solarized"
 " " Whitespace checks slow airline down a lot.
 " let g:airline#extensions#whitespace#checks = []
 
