@@ -8,7 +8,7 @@ call vundle#begin()
 " vim +PluginInstall +qall
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vimwiki/vimwiki'
-if hostname() == "ggransasso"
+if hostname() == "gransasso"
     Plugin 'Valloric/YouCompleteMe'
 endif
 Plugin 'tpope/vim-fugitive'
@@ -71,6 +71,9 @@ set wildignore+=*.pyc
 " Associate .dox extension with Doxygen files.
 au BufRead,BufNewFile *.dox setfiletype cpp.doxygen
 au BufRead,BufNewFile *.md setfiletype markdown
+
+"-------------------------------------------------------------------------------
+let g:ycm_enable_diagnostic_signs=0
 
 
 "-------------------------------------------------------------------------------
