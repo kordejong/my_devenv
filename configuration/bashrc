@@ -153,6 +153,7 @@ alias screen="screen -U"
 alias tree="tree -C"
 alias start_http_server-2="python -m SimpleHTTPServer"
 alias start_http_server-3="python -m http.server"
+alias update_vim_plugings="vim +PluginInstall +qall"
 
 alias docker_list_running="docker ps --quiet"
 alias docker_list_exited="docker ps --all --quiet --filter=status=exited"
