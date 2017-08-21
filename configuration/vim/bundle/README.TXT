@@ -10,3 +10,5 @@ git clone https://github.com/VundleVim/Vundle.vim.git
 # vim +PluginInstall +qall
 # cd ~/.vim/bundle/YouCompleteMe
 # ./install.py --clang-completer
+
+# sudo port install vim +huge +python35
