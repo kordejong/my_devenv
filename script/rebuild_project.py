@@ -28,7 +28,9 @@ def rebuild_project(
         project_name,
         build_type,
         install_prefix):
-    devenv.rebuild_project(project_name, build_type, install_prefix)
+    generator = devenv.default_cmake_generator()
+    devenv.rebuild_project(
+        project_name, generator, build_type, install_prefix)
 
 
 if __name__ == "__main__":

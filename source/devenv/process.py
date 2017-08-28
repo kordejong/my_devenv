@@ -7,67 +7,67 @@ import subprocess
 import sys
 
 
-def make_command(
-        project_binary_directory_path_name):
-    command = "cmake -LA {}".format(project_binary_directory_path_name)
-    output = execute2(command)
-
-    # CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/make
-    # CMAKE_MAKE_PROGRAM:FILEPATH=C:/cygwin/home/user/blah/bin/make
-    # CMAKE_MAKE_PROGRAM:STRING=C:/utils/make
-    # Split at first colon.
-    record = [record.strip() for record in output.split("\n") if
-        record.split(":")[0] == "CMAKE_MAKE_PROGRAM"]
-
-    assert len(record) <= 1
-
-    if len(record) == 0:
-        result = "make"
-    else:
-        # Split at assignment.
-        result = record[0].split("=")[1]
-
-    return result
-
-
-def gnu_make_command(
-        project_binary_directory_path_name,
-        directory_path_name,
-        target_name="all"):
-    """
-    Format a call to make, given a directory path name and a target name.
-
-    :param directory_path_name: Path name to directory containing Makefile.
-    :param target_name: Name of target to make.
-
-    This function takes the folowing settings read from `.devenvrc` into
-    account:
-
-    * `makeKeepGoing`
-    * `makeNrJobs`
-    """
-    settings = {
-        "makeKeepGoing": False,
-        "makeNrJobs": 4
-    }
-    make_arguments = []
-    if settings["makeKeepGoing"]:
-        make_arguments.append("-k")
-    make_arguments.append("-j{}".format(settings["makeNrJobs"]))
-    if sys.platform == "win32":
-        # Gnu make on Windows doesn't like Windows path names with backslashes.
-        project_binary_directory_path_name = \
-            project_binary_directory_path_name.replace("\\", "/")
-        directory_path_name = directory_path_name.replace("\\", "/")
-
-    make_command_ = make_command(project_binary_directory_path_name)
-
-    command = "{} -C {} {} {}".format(
-        make_command_,
-        directory_path_name,
-        " ".join(make_arguments), target_name)
-
-    return command
+### def make_command(
+###         project_binary_directory_path_name):
+###     command = "cmake -LA {}".format(project_binary_directory_path_name)
+###     output = execute2(command)
+### 
+###     # CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/make
+###     # CMAKE_MAKE_PROGRAM:FILEPATH=C:/cygwin/home/user/blah/bin/make
+###     # CMAKE_MAKE_PROGRAM:STRING=C:/utils/make
+###     # Split at first colon.
+###     record = [record.strip() for record in output.split("\n") if
+###         record.split(":")[0] == "CMAKE_MAKE_PROGRAM"]
+### 
+###     assert len(record) <= 1
+### 
+###     if len(record) == 0:
+###         result = "make"
+###     else:
+###         # Split at assignment.
+###         result = record[0].split("=")[1]
+### 
+###     return result
+### 
+### 
+### def gnu_make_command(
+###         project_binary_directory_path_name,
+###         directory_path_name,
+###         target_name="all"):
+###     """
+###     Format a call to make, given a directory path name and a target name.
+### 
+###     :param directory_path_name: Path name to directory containing Makefile.
+###     :param target_name: Name of target to make.
+### 
+###     This function takes the folowing settings read from `.devenvrc` into
+###     account:
+### 
+###     * `makeKeepGoing`
+###     * `makeNrJobs`
+###     """
+###     settings = {
+###         "makeKeepGoing": False,
+###         "makeNrJobs": 4
+###     }
+###     make_arguments = []
+###     if settings["makeKeepGoing"]:
+###         make_arguments.append("-k")
+###     make_arguments.append("-j{}".format(settings["makeNrJobs"]))
+###     if sys.platform == "win32":
+###         # Gnu make on Windows doesn't like Windows path names with backslashes.
+###         project_binary_directory_path_name = \
+###             project_binary_directory_path_name.replace("\\", "/")
+###         directory_path_name = directory_path_name.replace("\\", "/")
+### 
+###     make_command_ = make_command(project_binary_directory_path_name)
+### 
+###     command = "{} -C {} {} {}".format(
+###         make_command_,
+###         directory_path_name,
+###         " ".join(make_arguments), target_name)
+### 
+###     return command
 
 
 def split_command(

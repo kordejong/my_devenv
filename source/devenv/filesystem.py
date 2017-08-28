@@ -458,6 +458,7 @@ def copy_different_or_equal_files(
 
     shutil.copystat(source_directory_path_name, destination_directory_path_name)
 
+
 def make_absolute(
         path_names):
     return [os.path.abspath(path_name) for path_name in path_names]
