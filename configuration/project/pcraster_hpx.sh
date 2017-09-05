@@ -44,7 +44,7 @@ PYTHONPATH=$PCRASTER_HPX/devbase/source:$PYTHONPATH
 export PATH
 export PYTHONPATH
 
-cd $PCRASTER_HPX
+cd $PCRASTER_HPX/source/hpc_case/airpolution/hpx/airpolution
 
 unalias pcraster_hpx 2>/dev/null
 
