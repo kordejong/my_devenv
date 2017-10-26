@@ -1,8 +1,10 @@
+/calendar.vim
 /ctrlp.vim
 /nerdtree
 /vim-airline
 /vim-airline-themes
 /vim-fugitive
+/vim-unimpaired
 /vimwiki
 /Vundle.vim
 /YouCompleteMe
