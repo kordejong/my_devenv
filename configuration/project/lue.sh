@@ -11,14 +11,7 @@ fi
 
 
 LUE_CMAKE_ARGUMENTS="
-    -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/lue
-    -DLUE_BUILD_PYTHON_API:BOOL=TRUE
-    -DLUE_BUILD_TEST:BOOL=TRUE
-    -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
-"
-
-# Only lue_hdf5
-LUE_CMAKE_ARGUMENTS="
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/lue
     -DLUE_BUILD_PYTHON_API:BOOL=TRUE
     -DLUE_BUILD_UTILITIES:BOOL=TRUE
@@ -32,15 +25,14 @@ export LUE_CMAKE_ARGUMENTS
 
 basename=`basename $LUE`
 
+LUE_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
 PATH="\
 $LUE/environment/script:\
-$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue_dump:\
-$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue_translate:\
-$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue_validate:\
+$LUE_OBJECTS/source/lue_dump:\
+$LUE_OBJECTS/source/lue_translate:\
+$LUE_OBJECTS/source/lue_validate:\
 $PATH"
-
-PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/source/lue_py:$PYTHONPATH"
-
+PYTHONPATH="$LUE_OBJECTS/source/lue_py:$PYTHONPATH"
 
 unset basename
 
@@ -48,6 +40,7 @@ unset basename
 PYTHONPATH=$LUE/devbase/source:$PYTHONPATH
 
 
+export LUE_OBJECTS
 export PATH
 export PYTHONPATH
 
