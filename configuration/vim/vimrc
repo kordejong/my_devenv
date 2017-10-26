@@ -13,9 +13,11 @@ if hostname() == "gransasso"
 endif
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
+" Plugin 'vim-scripts/calendar.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -41,7 +43,7 @@ set hlsearch
 set digraph
 
 " highlight ColorColumn ctermbg=7
-" set colorcolumn=81
+set colorcolumn=81
 
 " match ErrorMsg '\%>80v.\+'
 
@@ -57,6 +59,21 @@ set wildignore+=*.pyc
 " highlight nonascii guibg=Red ctermbg=2 term=standout
 " "termbg=2
 " au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
+
+
+" let g:NERDTreeDirArrowExpandable = '▸'
+" let g:NERDTreeDirArrowCollapsible = '▾'
+
+let g:NERDTreeDirArrowExpandable = '.'
+let g:NERDTreeDirArrowCollapsible = '.'
+let g:NERDTreeIgnore=[
+    \'^_build$[[dir]]',
+    \'^_static$[[dir]]',
+    \'^_templates$[[dir]]',
+    \'^__pycache__$[[dir]]',
+    \'^out$[[file]]',
+    \'\.pyc$[[file]]',
+\]
 
 
 " let g:netrw_liststyle=3
@@ -79,8 +96,12 @@ let g:ycm_enable_diagnostic_signs=0
 
 
 "-------------------------------------------------------------------------------
+" https://kien.github.io/ctrlp.vim/
 " let g:ctrlp_by_filename = 1
 let g:ctrlp_regexp = 1
+let g:ctrlp_custom_ignore = {
+    \ "dir": '\vlue-0.0.0$',
+    \ }
 
 
 "-------------------------------------------------------------------------------
