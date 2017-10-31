@@ -7,6 +7,8 @@ call vundle#begin()
 " After adding a plugin, run:
 " vim +PluginInstall +qall
 Plugin 'VundleVim/Vundle.vim'
+" Plugin 'carakan/new-railscasts-theme'
+Plugin 'danilo-augusto/vim-afterglow'
 Plugin 'vimwiki/vimwiki'
 if hostname() == "gransasso"
     Plugin 'Valloric/YouCompleteMe'
@@ -135,6 +137,7 @@ let g:ctrlp_custom_ignore = {
 " autocmd FileType python setlocal textwidth=78 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 " autocmd FileType c      setlocal textwidth=78 tabstop=4 softtabstop=2 shiftwidth=2 expandtab cindent
 
+colorscheme afterglow
 
 
 "-------------------------------------------------------------------------------
