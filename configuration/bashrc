@@ -178,4 +178,9 @@ fi
 shopt -s cdspell  # Fix minor errors in spelling of directory names.
 
 
+if command -v most > /dev/null 2>&1; then
+    export PAGER=most
+fi
+
+
 unset cwd
