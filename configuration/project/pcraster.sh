@@ -17,29 +17,9 @@ PATH="$PCRASTER/environment/script:$PATH"
 PYTHONPATH="$PCRASTER/devbase/source:$PYTHONPATH"
 
 
-PCRASTER_CMAKE_ARGUMENTS="
-    -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/pcraster
-"
-if [[ $OSTYPE == "cygwin" ]]; then
-    PCRASTER_CMAKE_ARGUMENTS="
-        $PCRASTER_CMAKE_ARGUMENTS
-        -DCMAKE_MAKE_PROGRAM:STRING=mingw32-make
-    "
-fi
-
-
-# -DPCRASTER_BUILD_ALL:BOOL=TRUE
-# -DPCRASTER_WITH_ALL:BOOL=TRUE
-PCRASTER_CMAKE_ARGUMENTS="
-    $PCRASTER_CMAKE_ARGUMENTS
-    -DPCRASTER_BUILD_DOCUMENTATION:BOOL=FALSE
-    -DPCRASTER_BUILD_TEST:BOOL=TRUE
-    -DPCRASTER_BUILD_BLOCKPYTHON=TRUE
-    -DPCRASTER_WITH_PYTHON_MULTICORE=TRUE
-"
-
-PATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PATH"
-PYTHONPATH="$PCRASTER/source:$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
+PCRASTER_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
+PATH="$PCRASTER_OBJECTS/bin:$PATH"
+PYTHONPATH="$PCRASTER/source:$PCRASTER_OBJECTS/bin:$PYTHONPATH"
 
 
 if [[ $OSTYPE == "linux-gnu" ]]; then
@@ -57,7 +37,6 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
 fi
 
 
-export PCRASTER_CMAKE_ARGUMENTS
 export PATH PYTHONPATH
 
 
@@ -72,5 +51,35 @@ workon pcraster
 
 # mkvirtualenv --python /usr/bin/python3 --system-site-packages pcraster_python3
 # workon pcraster_python3
+
+
+# This code uses `which python`, so it must come after the `workon pcraster`
+# statement
+PCRASTER_CMAKE_ARGUMENTS="
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+    -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/pcraster
+    -DPCRASTER_BUILD_DOCUMENTATION:BOOL=FALSE
+    -DPCRASTER_BUILD_TEST:BOOL=TRUE
+    -DPCRASTER_BUILD_BLOCKPYTHON=TRUE
+    -DPCRASTER_WITH_PYTHON_MULTICORE=TRUE
+    -DPYTHON_EXECUTABLE=`which python`
+"
+if [[ $OSTYPE == "cygwin" ]]; then
+    PCRASTER_CMAKE_ARGUMENTS="
+        $PCRASTER_CMAKE_ARGUMENTS
+        -DCMAKE_MAKE_PROGRAM:STRING=mingw32-make
+    "
+fi
+
+if [[ `hostname` == "triklav.local" ||
+        `hostname` == "triklav.soliscom.uu.nl"
+        ]]; then
+    PCRASTER_CMAKE_ARGUMENTS="
+        $PCRASTER_CMAKE_ARGUMENTS
+        -DCMAKE_PREFIX_PATH=/opt/local/libexec/qt5
+    "
+fi
+export PCRASTER_CMAKE_ARGUMENTS
+
 
 pwd
