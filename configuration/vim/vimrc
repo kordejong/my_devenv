@@ -177,3 +177,6 @@ map <F11> :r $MY_DEVENV/template/source/header.dox<CR>
 
 " step throug compile errors (usually after F8,F9,F10)
 map <F12> :cn<CR>
+
+map <C-K> :py3f $CLANG_FORMAT_PY<cr>
+imap <C-K> <c-o>:py3f $CLANG_FORMAT_PY<cr>
