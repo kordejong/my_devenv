@@ -12,18 +12,20 @@ fi
 
 
 basename=`basename $FERN`
+LUE_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
 PATH="$FERN/environment/script:$PATH"
 
 if [[ $OSTYPE == "cygwin" ]]; then
-    PYTHONPATH="`cygpath -m $OBJECTS`/$MY_DEVENV_BUILD_TYPE/$basename/bin;$PYTHONPATH"
+    PYTHONPATH="`cygpath -m $LUE_OBJECTS`/bin;$PYTHONPATH"
 else
-    PYTHONPATH="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename/bin:$PYTHONPATH"
+    PYTHONPATH="$LUE_OBJECTS/bin:$PYTHONPATH"
 fi
 
 unset basename
 
 
 common_arguments="
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/fern
     -DFERN_BUILD_DOCUMENTATION:BOOL=TRUE
     -DFERN_BUILD_TEST:BOOL=TRUE
