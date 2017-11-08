@@ -10,7 +10,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugin 'carakan/new-railscasts-theme'
 Plugin 'danilo-augusto/vim-afterglow'
 Plugin 'vimwiki/vimwiki'
-if hostname() == "gransasso"
+if hostname() == "gransasso" || hostname() == "triklav.local" || hostname() == "triklav.soliscom.uu.nl"
     Plugin 'Valloric/YouCompleteMe'
 endif
 Plugin 'scrooloose/nerdtree'
