@@ -27,6 +27,9 @@ if [[ `hostname` == triklav\.* ]]; then
     unset pcraster_prefix
 elif [[ `hostname` == "gransasso" ]]; then
     project_data=/mnt/data2/kor/project/natural_capital_models
+
+    PATH=$PATH:/opt/pcraster/bin
+    PYTHONPATH=$PYTHONPATH:/opt/pcraster/python
 fi
 
 export NCM_WORKSPACE=$project_data/data
