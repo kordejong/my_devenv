@@ -12,7 +12,7 @@ fi
 
 
 PATH="$NATURAL_CAPITAL_MODELS/environment/script:$NATURAL_CAPITAL_MODELS/source/script:$PATH"
-PYTHONPATH="$NATURAL_CAPITAL_MODELS/source/package:$PYTHONPATH"
+# PYTHONPATH="$NATURAL_CAPITAL_MODELS/source/package:$PYTHONPATH"
 
 # gransasso
 
