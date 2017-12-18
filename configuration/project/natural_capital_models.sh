@@ -21,7 +21,7 @@ if [[ `hostname` == triklav\.* ]]; then
 
     project_data=$HOME/tmp
 
-    pcraster_prefix=$OBJECTS/Debug/pcraster
+    pcraster_prefix=$OBJECTS/Release/pcraster
     PATH=$pcraster_prefix/bin:$PATH
     PYTHONPATH=$pcraster_prefix/bin:$PYTHONPATH
     unset pcraster_prefix

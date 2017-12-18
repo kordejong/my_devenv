@@ -71,7 +71,8 @@ if [[ $OSTYPE == "cygwin" ]]; then
     "
 fi
 
-if [[ `hostname` == "triklav.local" ||
+if [[ `hostname` == "triklav" ||
+        `hostname` == "triklav.local" ||
         `hostname` == "triklav.soliscom.uu.nl"
         ]]; then
     PCRASTER_CMAKE_ARGUMENTS="
