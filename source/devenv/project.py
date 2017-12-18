@@ -1,6 +1,7 @@
 import os
 import shutil
 import sys
+import distutils.spawn
 import devenv.path_names
 
 
@@ -27,26 +28,30 @@ import devenv.path_names
 ###     return os.path.split(directory_pathname)[1]
 
 
+def which(
+        command_name):
+    return distutils.spawn.find_executable(command_name)
+
+
 def ninja_installed():
-    return shutil.which("ninja") is not None
+    return which("ninja") is not None
 
 
 def make_installed():
-    return shutil.which("make") is not None
+    return which("make") is not None
 
 
 def default_cmake_generator():
     # Mmm, doesn't work as we want yet. Ninja doesn't create as many targets
     # as Make. How to build a single object file?
 
-    ### # Prefer Ninja over Make
-    ### if ninja_installed():
-    ###     result = "Ninja"
-    ### else:
-    ###     assert make_installed()
-    ###     result = "Unix Makefiles"
+    # Prefer Ninja over Make
+    if ninja_installed():
+        result = "Ninja"
+    else:
+        assert make_installed()
+        result = "Unix Makefiles"
 
-    result = "Unix Makefiles"
     return result
 
 
@@ -313,6 +318,7 @@ def grep_sources(
         "*.sty",
         "*.tex",
         "*.txt",
+        "*.wiki",
         "*.xml",
         "*.xsd",
         "*.xsl",
