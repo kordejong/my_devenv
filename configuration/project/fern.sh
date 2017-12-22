@@ -12,7 +12,7 @@ fi
 
 
 basename=`basename $FERN`
-LUE_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
+FERN_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
 PATH="$FERN/environment/script:$PATH"
 
 if [[ $OSTYPE == "cygwin" ]]; then
