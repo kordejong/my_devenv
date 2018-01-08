@@ -23,6 +23,7 @@ from devenv.package import *
 from devenv.path_names import *
 from devenv.project import *
 from devenv.shared_libraries import *
+from devenv.source_code import find_source_code
 
 
 PEP8_PYTHON_CONVENTIONS = "pep8"

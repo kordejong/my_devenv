@@ -168,15 +168,14 @@ map <F1> :NERDTreeToggle<CR>
 " present at the current line
 map <F2> :.!guard_includes.py<CR>
 
-" switch to SomethingTest.cc if Something.* is the current file
-map <F3> :n %<Test.cc <CR>
+" switch to test module
+map <F3> :n `find_source_code.py --test %` <CR>
 
-" switch to SomethingTest.h if Something.* is the current file
-map <F4> :n %<.h* <CR>
+" switch to header file
+map <F4> :n `find_source_code.py --header %` <CR>
 
-" switch to SomethingTest.c* if Something.* is the current file
-" .c* pick up .c .cc .cpp
-map <F5> :n %<.c* <CR>
+" switch to module file
+map <F5> :n `find_source_code.py --module %` <CR>
 
 " fmt current line?
 map <F6> :.!fmt<CR>
