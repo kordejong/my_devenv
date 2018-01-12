@@ -18,19 +18,18 @@ PATH="$NATURAL_CAPITAL_MODELS/environment/script:$NATURAL_CAPITAL_MODELS/source/
 
 
 if [[ `hostname` == triklav\.* ]]; then
-
     project_data=$HOME/tmp
-
     pcraster_prefix=$OBJECTS/Release/pcraster
-    PATH=$pcraster_prefix/bin:$PATH
-    PYTHONPATH=$pcraster_prefix/bin:$PYTHONPATH
-    unset pcraster_prefix
 elif [[ `hostname` == "gransasso" ]]; then
     project_data=/mnt/data2/kor/project/natural_capital_models
-
-    PATH=$PATH:/opt/pcraster/bin
-    PYTHONPATH=$PYTHONPATH:/opt/pcraster/python
+    # pcraster_prefix=/opt/pcraster/bin
+    pcraster_prefix=/opt/pcraster-4.2.0-20180112
 fi
+
+PATH=$pcraster_prefix/bin:$PATH
+PYTHONPATH=$pcraster_prefix/python:$PYTHONPATH
+unset pcraster_prefix
+
 
 export NCM_WORKSPACE=$project_data/data
 export NCM_CONFIGURATION=$NATURAL_CAPITAL_MODELS/environment/configuration/ncm.ini
