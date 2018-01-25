@@ -27,7 +27,7 @@ elif [[ `hostname` == "gransasso" ]]; then
 fi
 
 PATH=$pcraster_prefix/bin:$PATH
-PYTHONPATH=$pcraster_prefix/python:$PYTHONPATH
+PYTHONPATH=$pcraster_prefix/bin:$PYTHONPATH
 unset pcraster_prefix
 
 
