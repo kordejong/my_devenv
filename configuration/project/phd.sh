@@ -25,12 +25,18 @@ $PATH"
 
 unset basename
 
+PYTHONPATH="$PHD/source:$PYTHONPATH"
 
 export PHD_OBJECTS
 export PATH
+export PYTHONPATH
 
 cd $PHD
 
 unalias phd 2>/dev/null
+
+# Assumes this has been executed:
+# mkvirtualenv --system-site-packages phd
+workon phd
 
 pwd
