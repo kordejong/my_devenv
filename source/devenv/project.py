@@ -166,6 +166,24 @@ def build_project(
         "all", build_type)
 
 
+def install_conan_dependencies(
+        project_name,
+        build_type):
+
+    source_directory_pathname = \
+        devenv.path_names.project_source_directory_path_name_from_project_name(
+            project_name)
+    binary_directory_pathname = \
+        devenv.path_names.project_binary_directory_path_name(
+            project_name, build_type)
+
+    command = "conan install {} -s build_type={}".format(
+        source_directory_pathname, build_type)
+
+    devenv.process.execute(command,
+        working_directory=binary_directory_pathname)
+
+
 def reconfigure_project(
         project_name,
         generator,
@@ -185,6 +203,12 @@ def reconfigure_project(
     devenv.filesystem.recreate_directory(
         devenv.path_names.project_binary_directory_path_name(project_name,
             build_type))
+
+    if os.path.isfile(os.path.join(
+            devenv.path_names.project_source_directory_path_name_from_project_name(project_name),
+                "conanfile.txt")):
+        install_conan_dependencies(project_name, build_type)
+
     configure_project(project_name, generator, build_type, install_prefix)
 
 
