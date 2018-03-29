@@ -45,12 +45,15 @@ def default_cmake_generator():
     # Mmm, doesn't work as we want yet. Ninja doesn't create as many targets
     # as Make. How to build a single object file?
 
-    # Prefer Ninja over Make
-    if ninja_installed():
-        result = "Ninja"
-    else:
-        assert make_installed()
-        result = "Unix Makefiles"
+    # # Prefer Ninja over Make
+    # if ninja_installed():
+    #     result = "Ninja"
+    # else:
+    #     assert make_installed()
+    #     result = "Unix Makefiles"
+
+    assert make_installed()
+    result = "Unix Makefiles"
 
     return result
 
