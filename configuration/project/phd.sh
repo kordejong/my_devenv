@@ -37,6 +37,7 @@ unalias phd 2>/dev/null
 
 # Assumes this has been executed:
 # mkvirtualenv --system-site-packages phd
+# mkvirtualenv --python /usr/bin/python3 --system-site-packages lue
 workon phd
 
 pwd
