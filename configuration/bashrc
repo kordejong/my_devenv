@@ -145,8 +145,8 @@ if [ ! -e "$HOME/.inputrc" ]; then
 fi
 
 
-alias grep="grep --color"
-alias ls="ls --human-readable --color"
+alias grep="grep --color=auto"
+alias ls="ls --human-readable --color=auto"
 alias ll="ls -l"
 alias viout="vi out"
 alias shout="bash ./out"
@@ -155,7 +155,8 @@ alias screen="screen -U"
 alias tree="tree -C"
 alias start_http_server-2="python -m SimpleHTTPServer"
 alias start_http_server-3="python -m http.server"
-alias update_vim_plugings="vim +PluginInstall +qall"
+alias update_vim_plugins="vim +PluginInstall +qall"
+alias ssh_triklav_zaadmarkt="ssh -t triklav_zaadmarkt caffeinate -i bash -l"
 
 alias docker_list_running="docker ps --quiet"
 alias docker_list_exited="docker ps --all --quiet --filter=status=exited"
