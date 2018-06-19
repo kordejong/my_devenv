@@ -6,22 +6,19 @@ call vundle#begin()
 
 " After adding a plugin, run:
 " vim +PluginInstall +qall
+
+" To update all plugins, open vim and
+" :PluginUpdate
+
 Plugin 'VundleVim/Vundle.vim'
-" Plugin 'carakan/new-railscasts-theme'
-" Plugin 'altercation/vim-colors-solarized'
-" Plugin 'danilo-augusto/vim-afterglow'
-" Plugin 'nightsense/vimspectr'
 Plugin 'vimwiki/vimwiki'
 if hostname() == "gransasso" || hostname() == "triklav.local" || hostname() == "triklav.soliscom.uu.nl"
     Plugin 'Valloric/YouCompleteMe'
 endif
 Plugin 'scrooloose/nerdtree'
-" Plugin 'tpope/vim-fugitive'
-" Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
-" Plugin 'vim-scripts/calendar.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
