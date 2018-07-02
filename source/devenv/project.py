@@ -180,8 +180,14 @@ def install_conan_dependencies(
         devenv.path_names.project_binary_directory_path_name(
             project_name, build_type)
 
-    command = "conan install {} -s build_type={}".format(
-        source_directory_pathname, build_type)
+
+    # -s compiler=`echo $TRAVIS_C_COMPILER | cut -d'-' -f1` -s compiler.version=`echo $TRAVIS_C_COMPILER | cut -d'-' -f2`
+    # "-s build_type={} "
+    # "-s compiler={} -s compiler.version={} "
+    # "--build docopt"
+    command = "conan install {} " \
+        .format(
+            source_directory_pathname)
 
     devenv.process.execute(command,
         working_directory=binary_directory_pathname)
