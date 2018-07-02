@@ -32,7 +32,8 @@ $LUE_OBJECTS/source/lue_dump:\
 $LUE_OBJECTS/source/lue_translate:\
 $LUE_OBJECTS/source/lue_validate:\
 $PATH"
-PYTHONPATH="$LUE_OBJECTS/source/lue_py:$PYTHONPATH"
+# PYTHONPATH="$LUE_OBJECTS/source/lue_py:$PYTHONPATH"
+PYTHONPATH="$LUE_OBJECTS/lib:$PYTHONPATH"
 
 unset basename
 
