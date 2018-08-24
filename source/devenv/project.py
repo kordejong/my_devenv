@@ -181,11 +181,11 @@ def install_conan_dependencies(
             project_name, build_type)
 
 
-    # -s compiler=`echo $TRAVIS_C_COMPILER | cut -d'-' -f1` -s compiler.version=`echo $TRAVIS_C_COMPILER | cut -d'-' -f2`
-    # "-s build_type={} "
-    # "-s compiler={} -s compiler.version={} "
-    # "--build docopt"
-    command = "conan install {} " \
+    # -s build_type=Release
+    # -s compiler.version=5.0
+    # -s compiler.libcxx=libc++
+    # -s cppstd=14
+    command = "conan install {} --build missing "  \
         .format(
             source_directory_pathname)
 
