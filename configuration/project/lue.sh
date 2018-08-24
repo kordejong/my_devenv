@@ -28,12 +28,7 @@ basename=`basename $LUE`
 LUE_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
 PATH="\
 $LUE/environment/script:\
-$LUE_OBJECTS/source/lue_dump:\
-$LUE_OBJECTS/source/lue_translate:\
-$LUE_OBJECTS/source/lue_validate:\
 $PATH"
-# PYTHONPATH="$LUE_OBJECTS/source/lue_py:$PYTHONPATH"
-PYTHONPATH="$LUE_OBJECTS/lib:$PYTHONPATH"
 
 unset basename
 
@@ -49,8 +44,6 @@ cd $LUE
 
 unalias lue 2>/dev/null
 
-# Assumes this has been executed: mkvirtualenv lue
-# mkvirtualenv --python /usr/bin/python3 --system-site-packages lue
-workon lue
+conda activate lue
 
 pwd
