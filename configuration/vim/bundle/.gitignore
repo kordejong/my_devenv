@@ -1,12 +1,14 @@
 /calendar.vim
 /ctrlp.vim
 /nerdtree
+/nerdtree-git-plugin
 /vim-afterglow
 /vim-airline
 /vim-airline-themes
 /vim-colors-solarized
 /vim-fugitive
 /vim-unimpaired
+/vimspectr
 /vimwiki
 /Vundle.vim
 /YouCompleteMe

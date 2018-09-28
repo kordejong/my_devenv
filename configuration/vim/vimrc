@@ -16,6 +16,8 @@ if hostname() == "gransasso" || hostname() == "triklav" || hostname() == "trikla
     Plugin 'Valloric/YouCompleteMe'
 endif
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
@@ -65,6 +67,8 @@ set wildignore+=*.pyc
 " let g:NERDTreeDirArrowExpandable = '▸'
 " let g:NERDTreeDirArrowCollapsible = '▾'
 
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '.'
 let g:NERDTreeDirArrowCollapsible = '.'
 let g:NERDTreeIgnore=[
