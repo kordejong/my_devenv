@@ -10,6 +10,9 @@ if [ ! "$LUE" ]; then
 fi
 
 
+hostname=`hostname`
+
+
 LUE_CMAKE_ARGUMENTS="
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/lue
@@ -17,7 +20,16 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_BUILD_TEST:BOOL=TRUE
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
 "
-export LUE_CMAKE_ARGUMENTS
+
+if [[ $hostname == "gransasso" ]]; then
+    LUE_CMAKE_ARGUMENTS="$LUE_CMAKE_ARGUMENTS -DPYBIND11_PYTHON_VERSION=2.7"
+
+    pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
+    PATH=$pcraster_prefix/bin:$PATH
+    LD_LIBRARY_PATH=$pcraster_prefix/lib:$LD_LIBRARY_PATH
+    PYTHONPATH=$pcraster_prefix/python:$PYTHONPATH
+    unset pcraster_prefix
+fi
 
 
 basename=`basename $LUE`
@@ -32,7 +44,10 @@ unset basename
 
 PYTHONPATH=$LUE/devbase/source:$PYTHONPATH
 
+unset hostname
 
+export LUE_CMAKE_ARGUMENTS
+export LD_LIBRARY_PATH
 export LUE_OBJECTS
 export PATH
 export PYTHONPATH
@@ -41,6 +56,6 @@ cd $LUE
 
 unalias lue 2>/dev/null
 
-conda activate lue
+# conda activate lue
 
 pwd
