@@ -10,6 +10,8 @@ if [ ! "$LUE" ]; then
 fi
 
 
+hostname=`hostname -s`
+
 LUE_CMAKE_ARGUMENTS="
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/lue
@@ -17,6 +19,14 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_BUILD_TEST:BOOL=TRUE
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
 "
+
+if [[ $hostname != "triklav" ]]; then
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DCMAKE_TOOLCHAIN_FILE=$MY_DEVENV/configuration/platform/$hostname.cmake
+    "
+fi
+
 export LUE_CMAKE_ARGUMENTS
 
 
