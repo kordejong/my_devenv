@@ -10,7 +10,7 @@ if [ ! "$LUE" ]; then
 fi
 
 
-hostname=`hostname`
+hostname=`hostname -s`
 
 
 LUE_CMAKE_ARGUMENTS="
@@ -22,7 +22,11 @@ LUE_CMAKE_ARGUMENTS="
 "
 
 if [[ $hostname == "gransasso" ]]; then
-    LUE_CMAKE_ARGUMENTS="$LUE_CMAKE_ARGUMENTS -DPYBIND11_PYTHON_VERSION=2.7"
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DPYBIND11_PYTHON_VERSION=2.7
+        -DLUE_BUILD_ALGORITHM:BOOL=TRUE
+    "
 
     pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
     PATH=$pcraster_prefix/bin:$PATH
@@ -30,6 +34,16 @@ if [[ $hostname == "gransasso" ]]; then
     PYTHONPATH=$pcraster_prefix/python:$PYTHONPATH
     unset pcraster_prefix
 fi
+
+if [[ $hostname != "triklav" ]]; then
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DCMAKE_TOOLCHAIN_FILE=$MY_DEVENV/configuration/platform/$hostname.cmake
+    "
+fi
+
+unset hostname
+export LUE_CMAKE_ARGUMENTS
 
 
 basename=`basename $LUE`
@@ -43,8 +57,6 @@ unset basename
 
 
 PYTHONPATH=$LUE/devbase/source:$PYTHONPATH
-
-unset hostname
 
 export LUE_CMAKE_ARGUMENTS
 export LD_LIBRARY_PATH
