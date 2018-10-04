@@ -19,6 +19,7 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_BUILD_PYTHON_API:BOOL=TRUE
     -DLUE_BUILD_TEST:BOOL=TRUE
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
+    -DCMAKE_TOOLCHAIN_FILE=$MY_DEVENV/configuration/platform/$hostname.cmake
 "
 
 if [[ $hostname == "gransasso" ]]; then
@@ -35,14 +36,14 @@ if [[ $hostname == "gransasso" ]]; then
     unset pcraster_prefix
 fi
 
-if [[ $hostname != "triklav" ]]; then
+if [[ $hostname == "triklav" ]]; then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        -DCMAKE_TOOLCHAIN_FILE=$MY_DEVENV/configuration/platform/$hostname.cmake
+        # TODO Conflict between toolchain file and docopt CMake stuff
+        -DLUE_BUILD_UTILITIES:BOOL=FALSE
     "
 fi
 
-unset hostname
 export LUE_CMAKE_ARGUMENTS
 
 
@@ -68,6 +69,10 @@ cd $LUE
 
 unalias lue 2>/dev/null
 
-# conda activate lue
+if [[ $hostname != "gransasso" ]]; then
+    conda activate lue
+fi
+
+unset hostname
 
 pwd
