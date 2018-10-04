@@ -11,6 +11,7 @@ set(shared_flags "
     -Wno-documentation-unknown-command
     -Wno-documentation
     -Wno-padded
+    -Wno-weak-vtables
 ")
 set(c_flags "
     ${shared_flags}
