@@ -51,61 +51,6 @@ def split_pathname_at_offset(
     return None, None
 
 
-def find_file_offset(
-        root_pathname,
-        source_offsets,
-        target_offsets,
-        extensions,
-        skip_source_target_name,
-        skip_target_target_name):
-
-    # Source offsets is a list of potential offsets used in root_pathname
-    # Target offsets is a list of potential offsets used in result pathname
-
-    # Find common path of root_pathname and result pathname
-
-    head, tail = split_pathname_at_offset(
-        os.path.dirname(root_pathname), source_offsets)
-
-    if head is None:
-        return None
-
-    # Get rid of the head prefix and slash
-    offset_pathname = root_pathname[len(head)+1:]
-
-    # Get rid of the offset and slash
-    offset_pathname = offset_pathname[len(tail)+1:]
-
-    if skip_source_target_name:
-        # Get rid of project name and slash
-        offset_pathname = offset_pathname[offset_pathname.index("/")+1:]
-
-    for offset in target_offsets:
-
-        directory_pathname = os.path.join(head, offset)
-
-        if skip_target_target_name:
-            filenames = glob.glob(os.path.join(directory_pathname, "*"))
-            assert(len(filenames) <= 1)
-
-            if len(filenames) == 1 and os.path.isdir(
-                    os.path.join(directory_pathname, filenames[0])):
-                directory_pathname = os.path.join(
-                    directory_pathname, filenames[0])
-
-        if os.path.isdir(directory_pathname):
-
-            directory_pathname = os.path.join(
-                directory_pathname, offset_pathname)
-
-            result = find_file(directory_pathname, extensions)
-
-            if result is not None:
-                return result
-
-    return None
-
-
 def find_header(
         root_pathname):
 
@@ -121,10 +66,46 @@ def find_header(
     if result is not None:
         return result
 
-    # Parallel directory offset at offset
-    result = find_file_offset(
-        root_pathname, module_offset_names, header_offset_names, extensions,
-        skip_source_target_name=False, skip_target_target_name=True)
+    head, tail = split_pathname_at_offset(
+        os.path.dirname(root_pathname), module_offset_names)
+
+    if head is None:
+        return None
+
+    # Get rid of the head prefix and slash
+    offset_pathname = root_pathname[len(head)+1:]
+
+    # Get rid of the offset and slash
+    offset_pathname = offset_pathname[len(tail)+1:]
+
+    for offset in header_offset_names:
+
+        directory_pathname = os.path.join(head, offset)
+
+        # Try at offset/<some_dir> (some_dir == include, probably)
+        filenames = glob.glob(os.path.join(directory_pathname, "*"))
+        assert(len(filenames) <= 1)
+
+        if len(filenames) == 1 and os.path.isdir(
+                os.path.join(directory_pathname, filenames[0])):
+            directory_pathname = os.path.join(
+                directory_pathname, filenames[0])
+
+        # Try at offset
+        directory_pathname = os.path.join(directory_pathname, offset_pathname)
+        result = find_file(directory_pathname, extensions)
+        if result is not None:
+            return result
+
+        # Not found yet, recursively find file, return first match
+        for triple in os.walk(os.path.split(directory_pathname)[0], topdown=True):
+            for directory_name in triple[1]:
+                directory_pathname = os.path.join(
+                    triple[0], directory_name, offset_pathname)
+
+                result = find_file(directory_pathname, extensions)
+                if result is not None:
+                    return result
 
     return result
 
@@ -144,10 +125,39 @@ def find_module(
     if result is not None:
         return result
 
-    # Parallel directory offset at offset
-    result = find_file_offset(
-        root_pathname, header_offset_names, module_offset_names, extensions,
-        skip_source_target_name=True, skip_target_target_name=False)
+    head, tail = split_pathname_at_offset(
+        os.path.dirname(root_pathname), header_offset_names)
+
+    if head is None:
+        return None
+
+    # Get rid of the head prefix and slash
+    offset_pathname = root_pathname[len(head)+1:]
+
+    # Get rid of the offset and slash
+    offset_pathname = offset_pathname[len(tail)+1:]
+
+    for offset in module_offset_names:
+
+        # # Try at offset
+        # directory_pathname = os.path.join(head, offset, offset_pathname)
+        # result = find_file(directory_pathname, extensions)
+        # if result is not None:
+        #     return result
+
+        # Get rid of project name and slash at start of offset
+        offset_pathname = offset_pathname[offset_pathname.index("/")+1:]
+        directory_pathname = os.path.join(head, offset, offset_pathname)
+        result = find_file(directory_pathname, extensions)
+        if result is not None:
+            return result
+
+        # Get rid of directory part of offset
+        offset_pathname = os.path.split(offset_pathname)[1]
+        directory_pathname = os.path.join(head, offset, offset_pathname)
+        result = find_file(directory_pathname, extensions)
+        if result is not None:
+            break
 
     return result
 
