@@ -10,6 +10,16 @@ if [ ! "$LUE" ]; then
 fi
 
 
+basename=`basename $LUE`
+
+LUE_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
+PATH="\
+$LUE/environment/script:\
+$PATH"
+
+unset basename
+
+
 hostname=`hostname -s`
 
 
@@ -40,24 +50,15 @@ if [[ $hostname == "gransasso" ]]; then
 fi
 
 if [[ $hostname == "triklav" ]]; then
+    # TODO Conflict between toolchain file and docopt CMake stuff
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        # TODO Conflict between toolchain file and docopt CMake stuff
-        -DLUE_BUILD_UTILITIES:BOOL=FALSE
+        -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=FALSE
     "
+    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 fi
 
 export LUE_CMAKE_ARGUMENTS
-
-
-basename=`basename $LUE`
-
-LUE_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
-PATH="\
-$LUE/environment/script:\
-$PATH"
-
-unset basename
 
 
 PYTHONPATH=$LUE/devbase/source:$PYTHONPATH
