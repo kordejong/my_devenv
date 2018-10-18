@@ -29,7 +29,9 @@ if [[ $hostname == "gransasso" ]]; then
         $LUE_CMAKE_ARGUMENTS
         -DPYBIND11_PYTHON_VERSION=2.7
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
     "
 
     pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
