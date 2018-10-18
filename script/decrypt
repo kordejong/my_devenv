@@ -1,1 +1,1 @@
-openssl bf -d < $*
+openssl bf -d -md md5 < $*
