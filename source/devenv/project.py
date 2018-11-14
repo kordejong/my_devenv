@@ -209,9 +209,29 @@ def reconfigure_project(
     project's binary directory is recreated first. After reconfiguring a
     project, all targets must be built again.
     """
-    devenv.filesystem.recreate_directory(
-        devenv.path_names.project_binary_directory_path_name(project_name,
-            build_type))
+
+    # If a directory called _deps exists, we will prevent it from being
+    # removed. It contains external dependencies that we likely want
+    # to keep. These are time consuming to recreate.
+    binary_directory_pathname = \
+        devenv.path_names.project_binary_directory_path_name(
+            project_name, build_type)
+
+    deps_directory_pathname = os.path.join(binary_directory_pathname, "_deps")
+    deps_directory_exists = os.path.isdir(deps_directory_pathname)
+
+    if deps_directory_exists:
+        # Move it outside of the binary directory
+        tmp_deps_directory_pathname = \
+            os.path.join(binary_directory_pathname, "..", "_deps")
+        assert not os.path.exists(tmp_deps_directory_pathname)
+        shutil.move(deps_directory_pathname, tmp_deps_directory_pathname)
+
+    devenv.filesystem.recreate_directory(binary_directory_pathname)
+
+    if deps_directory_exists:
+        # Move it back into the binary directory
+        shutil.move(tmp_deps_directory_pathname, deps_directory_pathname)
 
     if os.path.isfile(os.path.join(
             devenv.path_names.project_source_directory_path_name_from_project_name(project_name),
