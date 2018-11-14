@@ -37,6 +37,7 @@ LUE_CMAKE_ARGUMENTS="
 if [[ $hostname == "gransasso" ]]; then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
+        -DLUE_BUILD_HPX=TRUE
         -DPYBIND11_PYTHON_VERSION=2.7
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=TRUE
@@ -47,7 +48,7 @@ if [[ $hostname == "gransasso" ]]; then
     pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
     PATH=$pcraster_prefix/bin:$PATH
     LD_LIBRARY_PATH=$pcraster_prefix/lib:$LD_LIBRARY_PATH
-    PYTHONPATH=$pcraster_prefix/python:$PYTHONPATH
+    PYTHONPATH=$LUE_OBJECTS/lib:$pcraster_prefix/python:$PYTHONPATH
     unset pcraster_prefix
 fi
 
@@ -75,9 +76,9 @@ cd $LUE
 
 unalias lue 2>/dev/null
 
-if [[ $hostname != "gransasso" ]]; then
+# if [[ $hostname != "gransasso" ]]; then
     conda activate lue
-fi
+# fi
 
 unset hostname
 
