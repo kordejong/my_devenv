@@ -8,6 +8,7 @@ set(CMAKE_CXX_COMPILER /opt/local/bin/clang++-mp-6.0)
 # Default flags
 set(shared_flags "
     -Weverything
+    -Wno-disabled-macro-expansion
     -Wno-documentation-unknown-command
     -Wno-documentation
     -Wno-padded
