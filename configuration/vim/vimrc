@@ -68,6 +68,7 @@ set wildignore+=*.pyc
 " let g:NERDTreeDirArrowCollapsible = '▾'
 
 let g:NERDTreeMinimalUI = 1
+let g:NERDTreeNodeDelimiter = "\t"
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '.'
 let g:NERDTreeDirArrowCollapsible = '.'
