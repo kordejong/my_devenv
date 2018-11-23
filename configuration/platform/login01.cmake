@@ -23,23 +23,29 @@ set(CMAKE_C_FLAGS_INIT ${c_flags})
 set(CMAKE_CXX_FLAGS_INIT ${cxx_flags})
 
 
-# HPX stuff
-# If you are building HPX for a system with more
-# than 64 processing units you must change the CMake
-# variables HPX_WITH_MORE_THAN_64_THREADS (to On) and
-# HPX_WITH_MAX_CPU_COUNT (to a value at least as big as the
-# number of (virtual) cores on your system).
 
 set(HPX_WITH_MALLOC "tcmalloc" CACHE STRING "")
 set(HPX_WITH_HWLOC ON CACHE BOOL "")
 set(HPX_WITH_THREAD_IDLE_RATES ON CACHE BOOL "")
 
+# If you are building HPX for a system with more
+# than 64 processing units you must change the CMake
+# variables HPX_WITH_MORE_THAN_64_THREADS (to On) and
+# HPX_WITH_MAX_CPU_COUNT (to a value at least as big as the
+# number of (virtual) cores on your system).
+set(HPX_WITH_MORE_THAN_64_THREADS ON CACHE BOOL "")
+set(HPX_WITH_MAX_CPU_COUNT "96" CACHE STRING "")
+
 # set(HPX_WITH_PAPI ON CACHE BOOL "")
 set(HPX_WITH_GOOGLE_PERFTOOLS ON CACHE BOOL "")
 
+set(HPX_WITH_PARCELPORT_TCP ON CACHE BOOL "")
+set(HPX_WITH_PARCELPORT_MPI ON CACHE BOOL "")
+set(HPX_WITH_PARCELPORT_ACTION_COUNTERS ON CACHE BOOL "")
+
 # set(HPX_WITH_TOOLS ON CACHE BOOL "")
-# set(HPX_WITH_TESTS ON CACHE BOOL "")
-# set(HPX_WITH_EXAMPLES ON CACHE BOOL "")
+set(HPX_WITH_TESTS OFF CACHE BOOL "")
+set(HPX_WITH_EXAMPLES OFF CACHE BOOL "")
 # set(HPX_WITH_EXAMPLES_HDF5 ON CACHE BOOL "")
 # set(HPX_WITH_EXAMPLES_OPENMP ON CACHE BOOL "")
 # 
@@ -47,4 +53,3 @@ set(HPX_WITH_GOOGLE_PERFTOOLS ON CACHE BOOL "")
 # set(HPX_WITH_UNWRAPPED_COMPATIBILITY OFF CACHE BOOL "")
 # set(HPX_WITH_INCLUSIVE_SCAN_COMPATIBILITY OFF CACHE BOOL "")
 # set(HPX_WITH_LOCAL_DATAFLOW_COMPATIBILITY OFF CACHE BOOL "")
-# set(HPX_WITH_PARCELPORT_ACTION_COUNTERS ON CACHE BOOL "")
