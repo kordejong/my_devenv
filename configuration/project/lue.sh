@@ -56,7 +56,6 @@ if [[ $hostname == "triklav" ]]; then
     # TODO Conflict between toolchain file and docopt CMake stuff
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        -DLUE_BUILD_DOCOPT:BOOL=TRUE
         -DLUE_BUILD_HPX:BOOL=TRUE
         -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=FALSE
         -DLUE_BUILD_FRAMEWORK:BOOL=FALSE
@@ -65,6 +64,20 @@ if [[ $hostname == "triklav" ]]; then
     "
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 fi
+
+if [[ $hostname == "login01" ]]; then
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DBOOST_ROOT:PATH=$BOOST_DIR
+        -DLUE_BUILD_HPX:BOOL=TRUE
+        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
+        -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
+        -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=FALSE  # Link errors in Release
+        -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=FALSE  # TODO
+        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
+    "
+fi
+
 
 export LUE_CMAKE_ARGUMENTS
 
@@ -81,9 +94,9 @@ cd $LUE
 
 unalias lue 2>/dev/null
 
-# if [[ $hostname != "gransasso" ]]; then
+if [[ $hostname != "login01" ]]; then
     conda activate lue
-# fi
+fi
 
 unset hostname
 
