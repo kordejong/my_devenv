@@ -2,8 +2,8 @@
 set(CMAKE_SYSTEM_NAME Linux)
 
 # Tools
-set(CMAKE_C_COMPILER gcc-7)
-set(CMAKE_CXX_COMPILER g++-7)
+set(CMAKE_C_COMPILER gcc)
+set(CMAKE_CXX_COMPILER g++)
 
 # Default flags
 set(shared_flags "

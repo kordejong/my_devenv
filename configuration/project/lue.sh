@@ -34,7 +34,7 @@ LUE_CMAKE_ARGUMENTS="
     -DCMAKE_TOOLCHAIN_FILE=$MY_DEVENV/configuration/platform/$hostname.cmake
 "
 
-if [[ $hostname == "gransasso" ]]; then
+if [[ $hostname == "gransasso" || $hostname == "sonic" ]]; then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_BUILD_HPX=TRUE
@@ -45,11 +45,22 @@ if [[ $hostname == "gransasso" ]]; then
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
     "
 
-    pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
-    PATH=$pcraster_prefix/bin:$PATH
-    LD_LIBRARY_PATH=$pcraster_prefix/lib:$LD_LIBRARY_PATH
-    PYTHONPATH=$LUE_OBJECTS/lib:$pcraster_prefix/python:$PYTHONPATH
-    unset pcraster_prefix
+    if [[ $hostname == "gransasso" ]]; then
+        pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
+
+        PATH=$pcraster_prefix/bin:$PATH
+        LD_LIBRARY_PATH=$pcraster_prefix/lib:$LD_LIBRARY_PATH
+        PYTHONPATH=$LUE_OBJECTS/lib:$pcraster_prefix/python:$PYTHONPATH
+        unset pcraster_prefix
+    fi
+
+    if [[ $hostname == "sonic" ]]; then
+        LUE_CMAKE_ARGUMENTS="
+            $LUE_CMAKE_ARGUMENTS
+            -DBOOST_ROOT:PATH=$PEACOCK_PREFIX/lue/linux/linux/gcc-7/x86_64
+            -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
+        "
+    fi
 fi
 
 if [[ $hostname == "triklav" ]]; then
@@ -95,7 +106,12 @@ cd $LUE
 unalias lue 2>/dev/null
 
 if [[ $hostname != "login01" ]]; then
-    conda activate lue
+
+    if [[ $hostname == "sonic" ]]; then
+        workon lue
+    else
+        conda activate lue
+    fi
 fi
 
 unset hostname
