@@ -34,7 +34,7 @@ LUE_CMAKE_ARGUMENTS="
     -DCMAKE_TOOLCHAIN_FILE=$MY_DEVENV/configuration/platform/$hostname.cmake
 "
 
-if [[ $hostname == "gransasso" ]]; then
+if [[ $hostname == "gransasso" || $hostname == "sonic" ]]; then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_BUILD_HPX=TRUE
@@ -45,11 +45,22 @@ if [[ $hostname == "gransasso" ]]; then
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
     "
 
-    pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
-    PATH=$pcraster_prefix/bin:$PATH
-    LD_LIBRARY_PATH=$pcraster_prefix/lib:$LD_LIBRARY_PATH
-    PYTHONPATH=$LUE_OBJECTS/lib:$pcraster_prefix/python:$PYTHONPATH
-    unset pcraster_prefix
+    if [[ $hostname == "gransasso" ]]; then
+        pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
+
+        PATH=$pcraster_prefix/bin:$PATH
+        LD_LIBRARY_PATH=$pcraster_prefix/lib:$LD_LIBRARY_PATH
+        PYTHONPATH=$LUE_OBJECTS/lib:$pcraster_prefix/python:$PYTHONPATH
+        unset pcraster_prefix
+    fi
+
+    if [[ $hostname == "sonic" ]]; then
+        LUE_CMAKE_ARGUMENTS="
+            $LUE_CMAKE_ARGUMENTS
+            -DBOOST_ROOT:PATH=$PEACOCK_PREFIX/lue/linux/linux/gcc-7/x86_64
+            -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
+        "
+    fi
 fi
 
 if [[ $hostname == "triklav" ]]; then
@@ -64,6 +75,20 @@ if [[ $hostname == "triklav" ]]; then
     "
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 fi
+
+if [[ $hostname == "login01" ]]; then
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DBOOST_ROOT:PATH=$BOOST_DIR
+        -DLUE_BUILD_HPX:BOOL=TRUE
+        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
+        -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
+        -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=FALSE  # Link errors in Release
+        -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=FALSE  # TODO
+        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
+    "
+fi
+
 
 export LUE_CMAKE_ARGUMENTS
 
@@ -80,9 +105,14 @@ cd $LUE
 
 unalias lue 2>/dev/null
 
-# if [[ $hostname != "gransasso" ]]; then
-    conda activate lue
-# fi
+if [[ $hostname != "login01" ]]; then
+
+    if [[ $hostname == "sonic" ]]; then
+        workon lue
+    else
+        conda activate lue
+    fi
+fi
 
 unset hostname
 
