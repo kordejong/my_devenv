@@ -35,6 +35,14 @@ cd $PHD
 
 unalias phd 2>/dev/null
 
-conda activate phd
+hostname=`hostname -s`
+
+if [[ $hostname == "sonic" ]]; then
+    workon phd
+else
+    conda activate phd
+fi
+
+unset hostname
 
 pwd
