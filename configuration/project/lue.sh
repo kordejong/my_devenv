@@ -22,9 +22,6 @@ unset basename
 
 hostname=`hostname -s`
 
-cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$hostname/$MY_DEVENV_BUILD_TYPE.cmake
-# $MY_DEVENV/configuration/platform/$hostname.cmake
-
 LUE_CMAKE_ARGUMENTS="
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/lue
@@ -35,6 +32,19 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
     -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file
 "
+
+cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$hostname/$MY_DEVENV_BUILD_TYPE.cmake
+
+if [ ! -f $cmake_toolchain_file ]; then
+    cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$hostname.cmake
+fi
+
+if [ -f $cmake_toolchain_file ]; then
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file
+    "
+fi
 
 unset cmake_toolchain_file
 
