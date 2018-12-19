@@ -22,6 +22,8 @@ unset basename
 
 hostname=`hostname -s`
 
+cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$hostname/$MY_DEVENV_BUILD_TYPE.cmake
+# $MY_DEVENV/configuration/platform/$hostname.cmake
 
 LUE_CMAKE_ARGUMENTS="
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
@@ -31,8 +33,11 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=TRUE
     -DLUE_BUILD_TEST:BOOL=TRUE
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
-    -DCMAKE_TOOLCHAIN_FILE=$MY_DEVENV/configuration/platform/$hostname.cmake
+    -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file
 "
+
+unset cmake_toolchain_file
+
 
 if [[ $hostname == "gransasso" || $hostname == "sonic" ]]; then
     LUE_CMAKE_ARGUMENTS="
@@ -83,8 +88,7 @@ if [[ $hostname == "login01" ]]; then
         -DLUE_BUILD_HPX:BOOL=TRUE
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
-        -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=FALSE  # Link errors in Release
-        -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=FALSE  # TODO
+        -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
     "
 fi
