@@ -17,13 +17,11 @@ PATH="\
 $LUE/environment/script:\
 $PATH"
 
-unset basename
-
-
 hostname=`hostname -s`
 
 LUE_CMAKE_ARGUMENTS="
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+    -DCMAKE_INSTALL_PREFIX:PATH=${TMPDIR:-/tmp}/$MY_DEVENV_BUILD_TYPE/$basename
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/lue
     -DLUE_BUILD_DATA_MODEL:BOOL=TRUE
     -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
@@ -33,13 +31,17 @@ LUE_CMAKE_ARGUMENTS="
     -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file
 "
 
+unset basename
+
 cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$hostname/$MY_DEVENV_BUILD_TYPE.cmake
 
 if [ ! -f $cmake_toolchain_file ]; then
     cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$hostname.cmake
 fi
 
-if [ -f $cmake_toolchain_file ]; then
+if [ ! -f $cmake_toolchain_file ]; then
+    echo "INFO: No CMake toolchain file found for a $MY_DEVENV_BUILD_TYPE build on $hostname"
+else
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file
