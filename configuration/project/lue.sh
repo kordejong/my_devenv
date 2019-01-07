@@ -82,6 +82,7 @@ if [[ $hostname == "triklav" ]]; then
     # TODO Conflict between toolchain file and docopt CMake stuff
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
+        -DPYBIND11_PYTHON_VERSION=3.6
         -DLUE_BUILD_DOCOPT:BOOL=TRUE
         -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=TRUE
         -DLUE_BUILD_FRAMEWORK:BOOL=FALSE
