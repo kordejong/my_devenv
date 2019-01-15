@@ -1,6 +1,7 @@
 """
 Code implementing the find_source_code command
 """
+from .path_names import path_name_components
 import glob
 import os.path
 
@@ -60,7 +61,7 @@ def find_header(
 
     extensions = [".hpp", ".h", ".hxx"]
 
-    # Current directory
+    # See if we can find the header in the current directory
     result = find_file(root_pathname, extensions)
 
     if result is not None:
@@ -90,6 +91,7 @@ def find_header(
                 os.path.join(directory_pathname, filenames[0])):
             directory_pathname = os.path.join(
                 directory_pathname, filenames[0])
+        meh = directory_pathname
 
         # Try at offset
         directory_pathname = os.path.join(directory_pathname, offset_pathname)
@@ -98,7 +100,8 @@ def find_header(
             return result
 
         # Not found yet, recursively find file, return first match
-        for triple in os.walk(os.path.split(directory_pathname)[0], topdown=True):
+        # for triple in os.walk(os.path.split(directory_pathname)[0], topdown=True):
+        for triple in os.walk(meh, topdown=True):
             for directory_name in triple[1]:
                 directory_pathname = os.path.join(
                     triple[0], directory_name, offset_pathname)
@@ -139,25 +142,21 @@ def find_module(
 
     for offset in module_offset_names:
 
-        # # Try at offset
-        # directory_pathname = os.path.join(head, offset, offset_pathname)
-        # result = find_file(directory_pathname, extensions)
-        # if result is not None:
-        #     return result
-
         # Get rid of project name and slash at start of offset
         offset_pathname = offset_pathname[offset_pathname.index("/")+1:]
-        directory_pathname = os.path.join(head, offset, offset_pathname)
-        result = find_file(directory_pathname, extensions)
-        if result is not None:
-            return result
 
-        # Get rid of directory part of offset
-        offset_pathname = os.path.split(offset_pathname)[1]
-        directory_pathname = os.path.join(head, offset, offset_pathname)
-        result = find_file(directory_pathname, extensions)
-        if result is not None:
-            break
+        # Get rid of directory parts of offset, one after the other
+        components = path_name_components(offset_pathname)
+
+        while components:
+            offset_pathname = "/".join(components)
+            directory_pathname = os.path.join(head, offset, offset_pathname)
+            result = find_file(directory_pathname, extensions)
+
+            if result is not None:
+                break
+
+            components = components[1:]
 
     return result
 
