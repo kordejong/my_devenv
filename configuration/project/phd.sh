@@ -10,10 +10,10 @@ if [ ! "$PHD" ]; then
 fi
 
 
-# PHD_CMAKE_ARGUMENTS="
-#     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/phd
-# "
-# export PHD_CMAKE_ARGUMENTS
+PHD_CMAKE_ARGUMENTS="
+    -DCMAKE_INSTALL_PREFIX:PATH=${TMPDIR:-/tmp}/$MY_DEVENV_BUILD_TYPE/$basename
+"
+export PHD_CMAKE_ARGUMENTS
 
 
 basename=`basename $PHD`
