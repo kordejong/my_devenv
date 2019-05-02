@@ -28,7 +28,6 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=TRUE
     -DLUE_BUILD_TEST:BOOL=TRUE
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
-    -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file
 "
 
 unset basename
@@ -78,7 +77,9 @@ if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon"
     if [[ $hostname == "sonic" ]]; then
         LUE_CMAKE_ARGUMENTS="
             $LUE_CMAKE_ARGUMENTS
-            -DBOOST_ROOT:PATH=$PEACOCK_PREFIX/lue/linux/linux/gcc-7/x86_64
+            -DLUE_BUILD_DOCOPT:BOOL=TRUE
+            -DBOOST_INCLUDEDIR:PATH=/usr/include/boost169/
+            -DBOOST_LIBRARYDIR:PATH=/usr/lib64/boost169/
             -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
         "
     fi
