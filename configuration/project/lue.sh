@@ -22,7 +22,6 @@ hostname=`hostname -s`
 LUE_CMAKE_ARGUMENTS="
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DCMAKE_INSTALL_PREFIX:PATH=${TMPDIR:-/tmp}/$MY_DEVENV_BUILD_TYPE/$basename
-    -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/lue
     -DLUE_BUILD_DATA_MODEL:BOOL=TRUE
     -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
     -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=TRUE
@@ -74,7 +73,6 @@ if [[ $hostname == "gransasso" || $hostname == "sonic" ]]; then
     if [[ $hostname == "sonic" ]]; then
         LUE_CMAKE_ARGUMENTS="
             $LUE_CMAKE_ARGUMENTS
-            -DBOOST_ROOT:PATH=$PEACOCK_PREFIX/lue/linux/linux/gcc-7/x86_64
             -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
         "
     fi
