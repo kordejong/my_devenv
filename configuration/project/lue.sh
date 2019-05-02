@@ -51,23 +51,27 @@ fi
 unset cmake_toolchain_file
 
 
-if [[ $hostname == "gransasso" || $hostname == "sonic" ]]; then
+if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon" ]]; then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_BUILD_HPX=TRUE
         -DPYBIND11_PYTHON_VERSION=2.7
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
-        -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
         -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
     "
+
+    if [[ $hostname == "gransasso" || $hostname == "snowdon" ]]; then
+        PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+    fi
 
     if [[ $hostname == "gransasso" ]]; then
         pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
 
         PATH=$pcraster_prefix/bin:$PATH
         LD_LIBRARY_PATH=$pcraster_prefix/lib:$LD_LIBRARY_PATH
-        PYTHONPATH=$LUE_OBJECTS/lib:$pcraster_prefix/python:$PYTHONPATH
+        PYTHONPATH=$pcraster_prefix/python:$PYTHONPATH
         unset pcraster_prefix
     fi
 
