@@ -22,7 +22,6 @@ hostname=`hostname -s`
 LUE_CMAKE_ARGUMENTS="
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DCMAKE_INSTALL_PREFIX:PATH=${TMPDIR:-/tmp}/$MY_DEVENV_BUILD_TYPE/$basename
-    -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/lue
     -DLUE_BUILD_DATA_MODEL:BOOL=TRUE
     -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
     -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=TRUE
@@ -52,24 +51,28 @@ fi
 unset cmake_toolchain_file
 
 
-if [[ $hostname == "gransasso" || $hostname == "sonic" ]]; then
+if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon" ]]; then
     # TODO Move PYBIND11_PYTHON_VERSION into CMake toolchain file for
-    #     gransasso and sonic
+    #     gransasso and sonic and snowdon
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DPYBIND11_PYTHON_VERSION=2.7
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
-        -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
         -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
     "
+
+    if [[ $hostname == "gransasso" || $hostname == "snowdon" ]]; then
+        PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+    fi
 
     if [[ $hostname == "gransasso" ]]; then
         pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
 
         PATH=$pcraster_prefix/bin:$PATH
         LD_LIBRARY_PATH=$pcraster_prefix/lib:$LD_LIBRARY_PATH
-        PYTHONPATH=$LUE_OBJECTS/lib:$pcraster_prefix/python:$PYTHONPATH
+        PYTHONPATH=$pcraster_prefix/python:$PYTHONPATH
         unset pcraster_prefix
     fi
 
@@ -77,7 +80,9 @@ if [[ $hostname == "gransasso" || $hostname == "sonic" ]]; then
         # TODO Move BOOST_ROOT into CMake toolchain file for sonic
         LUE_CMAKE_ARGUMENTS="
             $LUE_CMAKE_ARGUMENTS
-            -DBOOST_ROOT:PATH=$PEACOCK_PREFIX/lue/linux/linux/gcc-7/x86_64
+            -DLUE_BUILD_DOCOPT:BOOL=TRUE
+            -DBOOST_INCLUDEDIR:PATH=/usr/include/boost169/
+            -DBOOST_LIBRARYDIR:PATH=/usr/lib64/boost169/
             -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
         "
     fi
