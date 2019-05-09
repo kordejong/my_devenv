@@ -4,7 +4,6 @@
 set(HPX_WITH_MALLOC "tcmalloc" CACHE STRING "")
 set(HPX_WITH_HWLOC ON CACHE BOOL "")
 
-# set(HPX_WITH_PAPI ON CACHE BOOL "")
 set(HPX_WITH_GOOGLE_PERFTOOLS ON CACHE BOOL "")
 
 # If you are building HPX for a system with more

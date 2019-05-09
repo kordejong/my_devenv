@@ -2,3 +2,6 @@ include(${CMAKE_CURRENT_LIST_DIR}/common.cmake)
 
 # Debug configuration
 set(HPX_WITH_THREAD_IDLE_RATES ON CACHE BOOL "")
+set(HPX_WITH_PAPI ON CACHE BOOL "")
+set(HPX_WITH_APEX ON CACHE BOOL "")
+set(APEX_WITH_OTF2 ON CACHE BOOL "")
