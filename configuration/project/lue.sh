@@ -28,7 +28,8 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=TRUE
     -DLUE_BUILD_TEST:BOOL=TRUE
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
-    -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file
+    -DLUE_BUILD_HPX:BOOL=TRUE
+    -DLUE_BUILD_OTF2:BOOL=TRUE
 "
 
 unset basename
@@ -52,9 +53,10 @@ unset cmake_toolchain_file
 
 
 if [[ $hostname == "gransasso" || $hostname == "sonic" ]]; then
+    # TODO Move PYBIND11_PYTHON_VERSION into CMake toolchain file for
+    #     gransasso and sonic
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        -DLUE_BUILD_HPX=TRUE
         -DPYBIND11_PYTHON_VERSION=2.7
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=TRUE
@@ -72,6 +74,7 @@ if [[ $hostname == "gransasso" || $hostname == "sonic" ]]; then
     fi
 
     if [[ $hostname == "sonic" ]]; then
+        # TODO Move BOOST_ROOT into CMake toolchain file for sonic
         LUE_CMAKE_ARGUMENTS="
             $LUE_CMAKE_ARGUMENTS
             -DBOOST_ROOT:PATH=$PEACOCK_PREFIX/lue/linux/linux/gcc-7/x86_64
@@ -82,12 +85,12 @@ fi
 
 if [[ $hostname == "triklav" ]]; then
     # TODO Conflict between toolchain file and docopt CMake stuff
+    # TODO Move PYBIND11_PYTHON_VERSION into CMake toolchain file for triklav
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DPYBIND11_PYTHON_VERSION=3.6
         -DLUE_BUILD_DOCOPT:BOOL=TRUE
         -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=TRUE
-        -DLUE_BUILD_HPX=TRUE
         -DLUE_BUILD_FRAMEWORK:BOOL=FALSE
         -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=FALSE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=FALSE
@@ -98,8 +101,6 @@ fi
 if [[ $hostname == "login01" ]]; then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        -DBOOST_ROOT:PATH=$BOOST_DIR
-        -DLUE_BUILD_HPX:BOOL=TRUE
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
         -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
@@ -121,7 +122,9 @@ export PYTHONPATH
 
 cd $LUE
 
-unalias lue 2>/dev/null
+if [[ -n `type -t lue` ]]; then
+    unalias lue
+fi
 
 if [[ $hostname != "login01" ]]; then
 
