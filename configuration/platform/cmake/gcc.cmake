@@ -15,7 +15,6 @@ string(REPLACE "\n" "" cxx_flags ${cxx_flags})
 set(CMAKE_C_FLAGS_INIT ${c_flags})
 set(CMAKE_CXX_FLAGS_INIT ${cxx_flags})
 
-
 # Debug flags
 set(shared_debug_flags "
     -fsanitize=address
@@ -34,3 +33,9 @@ string(REPLACE "\n" "" cxx_debug_flags ${cxx_debug_flags})
 # TODO Find a way to only see messages about our own code
 # set(CMAKE_C_FLAGS_DEBUG_INIT ${c_debug_flags})
 # set(CMAKE_CXX_FLAGS_DEBUG_INIT ${cxx_debug_flags})
+
+# Linker
+# Use faster gold linker, except for release builds
+set(CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT "-fuse-ld=gold")
+set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT "-fuse-ld=gold")
+
