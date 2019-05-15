@@ -12,7 +12,7 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vimwiki/vimwiki'
-if hostname() == "gransasso" || hostname() == "triklav.local" || hostname() == "triklav.soliscom.uu.nl"
+if hostname() == "gransasso" || hostname() == "triklav.local" || hostname() == "triklav.soliscom.uu.nl" || hostname() == "snowdon"
     Plugin 'Valloric/YouCompleteMe'
 endif
 Plugin 'scrooloose/nerdtree'
