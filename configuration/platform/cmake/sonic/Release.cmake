@@ -2,3 +2,5 @@ include(${CMAKE_CURRENT_LIST_DIR}/common.cmake)
 
 # Release configuration
 set(HPX_WITH_THREAD_IDLE_RATES OFF CACHE BOOL "")
+set(HPX_WITH_TESTS OFF CACHE BOOL "")
+set(HPX_WITH_EXAMPLES OFF CACHE BOOL "")
