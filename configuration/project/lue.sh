@@ -19,6 +19,7 @@ $PATH"
 
 hostname=`hostname -s`
 
+#   -DLUE_BUILD_OTF2:BOOL=TRUE
 LUE_CMAKE_ARGUMENTS="
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DCMAKE_INSTALL_PREFIX:PATH=${TMPDIR:-/tmp}/$MY_DEVENV_BUILD_TYPE/$basename
@@ -28,11 +29,21 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_BUILD_TEST:BOOL=TRUE
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
     -DLUE_BUILD_HPX:BOOL=TRUE
-    -DLUE_BUILD_OTF2:BOOL=TRUE
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/lue
 "
 
 unset basename
+
+repository_cache="$HOME/development/repository"
+if [ -d "$repository_cache" ]; then
+    if [ -d "$repository_cache" ]; then
+        LUE_CMAKE_ARGUMENTS="
+            $LUE_CMAKE_ARGUMENTS
+            -DLUE_REPOSITORY_CACHE:PATH=$repository_cache
+        "
+    fi
+fi
+
 
 cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$hostname/$MY_DEVENV_BUILD_TYPE.cmake
 
