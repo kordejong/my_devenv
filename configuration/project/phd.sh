@@ -26,10 +26,12 @@ $PATH"
 unset basename
 
 PYTHONPATH="$PHD/source:$PYTHONPATH"
+TEXINPUTS=".:$PHD_OBJECTS/figure:"
 
 export PHD_OBJECTS
 export PATH
 export PYTHONPATH
+export TEXINPUTS
 
 cd $PHD
 
