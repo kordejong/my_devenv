@@ -123,6 +123,7 @@ if [[ $hostname == "login01" ]]; then
         -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
     "
+    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 fi
 
 
