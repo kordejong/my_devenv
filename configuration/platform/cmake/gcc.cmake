@@ -3,6 +3,7 @@ set(shared_flags "
     -W
     -Wall
     -Wextra
+    -ftemplate-backtrace-limit=0
 ")
 set(c_flags "
     ${shared_flags}
