@@ -1,8 +1,6 @@
 # Default configuration settings that don't depend on the machine
 # and build configuration
 
-set(HPX_WITH_PARCELPORT_TCP ON CACHE BOOL "")
-
 set(HPX_WITH_TOOLS ON CACHE BOOL "")
 
 ### set(HPX_WITH_EXAMPLES_HDF5 OFF CACHE BOOL "")
@@ -22,3 +20,5 @@ set(HPX_WITH_APEX_NO_UPDATE ON CACHE BOOL "")
 set(APEX_WITH_OTF2 ON CACHE BOOL "")
 set(APEX_WITH_PAPI ON CACHE BOOL "")
 # set(APEX_WITH_ACTIVEHARMONY OFF CACHE BOOL "")
+
+# set(HPX_WITH_VIM_YCM ON CACHE BOOL "")
