@@ -4,6 +4,9 @@ shell_command_before:
 windows:
     - window_name: edit
       focus: true
+      layout: main-horizontal
+      options:
+          main-pane-height: 40
       panes:
           - shell_command:
               - vim +NERDTreeToggle
