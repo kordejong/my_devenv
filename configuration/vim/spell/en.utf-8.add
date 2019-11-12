@@ -21,3 +21,7 @@ Github
 PCRaster
 SciPy
 NetLogo
+HPX
+MPI
+POSIX
+OpenMP
