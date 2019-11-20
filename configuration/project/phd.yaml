@@ -9,7 +9,7 @@ windows:
           main-pane-height: 30
       panes:
           - shell_command:
-              - vim +NERDTreeToggle +"tabnew $PERSONAL_FILES/Documents/wiki/uu/project/phd/worklog.wiki" +"tabnew $PERSONAL_FILES/Documents/wiki/uu/project/phd/meeting.wiki" +tabfirst
+              - vim +NERDTreeToggle +"tabnew $PERSONAL_FILES/Documents/wiki/uu/project/phd/worklog.wiki" +"tabnew $PERSONAL_FILES/Documents/wiki/uu/project/phd/meeting.wiki" +"tabnew $PERSONAL_FILES/Documents/wiki/uu/project/phd/courses_to_give/2019-2020.wiki" +tabfirst
             focus: true
           - shell_command:
               - cd $PHD_OBJECTS
