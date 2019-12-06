@@ -15,3 +15,7 @@ windows:
               - cd $PHD_OBJECTS
               - clear
               - pwd
+    - window_name: manage
+      panes:
+          - shell_command:
+              - vifm $PHD $PHD_OBJECTS

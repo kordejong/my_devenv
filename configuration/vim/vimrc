@@ -12,9 +12,9 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vimwiki/vimwiki'
-if hostname() == "gransasso" || hostname() == "triklav.local" || hostname() == "triklav.soliscom.uu.nl" || hostname() == "snowdon"
-    Plugin 'Valloric/YouCompleteMe'
-endif
+" if hostname() == "gransasso" || hostname() == "triklav.local" || hostname() == "triklav.soliscom.uu.nl" || hostname() == "snowdon"
+"     Plugin 'Valloric/YouCompleteMe'
+" endif
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive'
