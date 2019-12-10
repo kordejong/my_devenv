@@ -1,0 +1,22 @@
+session_name: kor_jemig_eu
+shell_command_before:
+    - "source $MY_DEVENV/configuration/project/kor_jemig_eu.sh"
+windows:
+    - window_name: edit
+      focus: true
+      layout: main-horizontal
+      options:
+          main-pane-height: 30
+      panes:
+          - shell_command:
+              - vim +NERDTreeToggle
+            focus: true
+          - shell_command:
+              - cd $KOR_JEMIG_EU_OBJECTS
+              - clear
+              - pwd
+    - window_name: serve
+      panes:
+          - shell_command:
+              - cd $KOR_JEMIG_EU/site/kor.jemig.eu
+              - nikola auto

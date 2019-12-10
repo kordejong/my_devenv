@@ -2,6 +2,7 @@
 /ctrlp.vim
 /nerdtree
 /nerdtree-git-plugin
+/nord-vim
 /vim-afterglow
 /vim-airline
 /vim-airline-themes
@@ -12,4 +13,3 @@
 /vimwiki
 /Vundle.vim
 /YouCompleteMe
-
