@@ -6,7 +6,7 @@ windows:
       focus: true
       layout: main-horizontal
       options:
-          main-pane-height: 30
+          main-pane-height: 25
       panes:
           - shell_command:
               - vim +NERDTreeToggle
