@@ -37,12 +37,10 @@ unset basename
 
 repository_cache="$HOME/development/repository"
 if [ -d "$repository_cache" ]; then
-    if [ -d "$repository_cache" ]; then
-        LUE_CMAKE_ARGUMENTS="
-            $LUE_CMAKE_ARGUMENTS
-            -DLUE_REPOSITORY_CACHE:PATH=$repository_cache
-        "
-    fi
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DLUE_REPOSITORY_CACHE:PATH=$repository_cache
+    "
 fi
 
 
