@@ -15,6 +15,10 @@ windows:
               - cd $KOR_JEMIG_EU_OBJECTS
               - clear
               - pwd
+    - window_name: manage
+      panes:
+          - shell_command:
+              - vifm $KOR_JEMIG_EU $KOR_JEMIG_EU_OBJECTS
     - window_name: serve
       panes:
           - shell_command:
