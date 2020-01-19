@@ -19,8 +19,8 @@ $PATH"
 
 hostname=`hostname -s`
 
+#   -DCMAKE_RULE_MESSAGES=OFF
 LUE_CMAKE_ARGUMENTS="
-    -DCMAKE_RULE_MESSAGES=OFF
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DCMAKE_INSTALL_PREFIX:PATH=${TMPDIR:-/tmp}/$MY_DEVENV_BUILD_TYPE/$basename
     -DLUE_BUILD_DATA_MODEL:BOOL=TRUE
@@ -143,14 +143,7 @@ if [[ -n `type -t lue` ]]; then
     unalias lue
 fi
 
-if [[ $hostname != "login01" ]]; then
-
-    if [[ $hostname == "sonic" ]]; then
-        workon lue
-    else
-        conda activate lue
-    fi
-fi
+conda activate lue
 
 unset hostname
 

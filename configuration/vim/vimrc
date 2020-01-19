@@ -45,6 +45,7 @@ set list
 set listchars=tab:»·,trail:·
 set hlsearch
 set digraph
+set mouse=a
 
 " highlight ColorColumn ctermbg=7
 set colorcolumn=81
