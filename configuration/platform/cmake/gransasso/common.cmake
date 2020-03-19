@@ -15,6 +15,7 @@ set(OTF2_ROOT $ENV{HOME}/development/ext/x86_64/scorep-gcc CACHE STRING "")
 # set(OTF2_LIBRARY $ENV{HOME}/development/ext CACHE PATHNAME "")
 # set(OTF2_INCLUDE_DIR
 
+set(PYBIND11_PYTHON_VERSION "2.7" CACHE STRING "")
 
 # HPX library
 include(${CMAKE_CURRENT_LIST_DIR}/../hpx.cmake)

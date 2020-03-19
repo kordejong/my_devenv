@@ -63,16 +63,15 @@ unset cmake_toolchain_file
 
 
 if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon" ]]; then
-    # TODO Move PYBIND11_PYTHON_VERSION into CMake toolchain file for
-    #     gransasso and sonic and snowdon
-    LUE_CMAKE_ARGUMENTS="
-        $LUE_CMAKE_ARGUMENTS
-        -DPYBIND11_PYTHON_VERSION=2.7
-        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
-        -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
-        -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=TRUE
-        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
-    "
+    if [[ $hostname != "snowdon" ]]; then
+        LUE_CMAKE_ARGUMENTS="
+            $LUE_CMAKE_ARGUMENTS
+            -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
+            -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
+            -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=TRUE
+            -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
+        "
+    fi
 
     if [[ $hostname == "gransasso" || $hostname == "snowdon" ]]; then
         PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
@@ -104,7 +103,6 @@ if [[ $hostname == "triklav" ]]; then
     # TODO Move PYBIND11_PYTHON_VERSION into CMake toolchain file for triklav
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        -DPYBIND11_PYTHON_VERSION=3.6
         -DLUE_BUILD_DOCOPT:BOOL=TRUE
         -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=TRUE
         -DLUE_BUILD_FRAMEWORK:BOOL=FALSE
