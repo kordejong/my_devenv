@@ -125,6 +125,14 @@ if [[ $hostname == "login01" ]]; then
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 fi
 
+if [[ $MY_DEVENV_BUILD_TYPE == "RelWithDebInfo" ]]; then
+    # This HPX commit contains APEX fixes
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
+        -DLUE_HPX_GIT_TAG:STRING=8fe93d8f6f558fc33daa27b37184718df84bd44a
+    "
+fi
 
 export LUE_CMAKE_ARGUMENTS
 
