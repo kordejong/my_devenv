@@ -287,12 +287,21 @@ def build_object(
     assert os.path.exists(source_path_name), source_path_name
     assert os.path.isfile(source_path_name), source_path_name
 
-    binary_path_name = devenv.path_names.binary_path_name_from_source_path_name(
-        source_path_name, build_type)
-    binary_directory_path_name, object_name = os.path.split(binary_path_name)
-    object_name = "{}{}".format(os.path.splitext(object_name)[0],
-        devenv.path_names.objects_extension())
+    binary_path_name, source_offset = \
+        devenv.path_names.binary_path_name_from_source_path_name(
+            source_path_name, build_type)
 
+    object_name = os.path.split(source_path_name)[1]
+    binary_directory_path_name = binary_path_name
+    object_name = os.path.join(
+        source_offset,
+        "{}{}".format(
+            os.path.splitext(object_name)[0],
+            devenv.path_names.objects_extension()))
+
+    assert os.path.isfile(source_path_name), source_path_name
+    assert os.path.isdir(binary_directory_path_name), \
+        binary_directory_path_name
     build_target(source_path_name, binary_directory_path_name, object_name,
         build_type)
 

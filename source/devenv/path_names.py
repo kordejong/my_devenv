@@ -216,12 +216,12 @@ def project_name_from_path_name(
 
 
 def binary_path_name_from_source_path_name(
-        source_path_name,
+        source_pathname,
         build_type):
     """
-    Return the equivalent binary path name of the `source_path_name` passed in.
+    Return the equivalent binary path name of the `source_pathname` passed in.
 
-    :param source_path_name: Name of path to file in project's source directory.
+    :param source_pathname: Name of path to file in project's source directory.
     :param build_type: Build type.
 
     Given some path name to a file in a project's source directory, this
@@ -229,23 +229,41 @@ def binary_path_name_from_source_path_name(
     This is useful when determining the name of an object file, given the name
     of a C source file, for example. But this function works for path names of
     directories too.
-    """
-    source_path_name = os.path.abspath(source_path_name)
 
-    project_name = project_name_from_path_name(source_path_name)
+    This function returns two items: the pathname to the directory
+    containing the build script (Makefile) and the offset to use in the
+    name of the target to build. In a source layout like this:
+
+    meh/CMakeLists.txt
+    meh/src/file.cpp
+
+    The binary pathname will point to objects/meh and the offset will
+    be src. The target name will be something like src/file.o.
+    """
+    source_pathname = os.path.abspath(source_pathname)
+    source_pathname = os.path.split(source_pathname)[0]
+    source_offset = ""
+
+    while not os.path.isfile(
+            os.path.join(source_pathname, "CMakeLists.txt")):
+        source_pathname, offset = os.path.split(source_pathname)
+        source_offset = os.path.join(source_offset, offset)
+
+    project_name = project_name_from_path_name(source_pathname)
     project_source_directory_path_name = \
         project_source_directory_path_name_from_project_name(project_name)
-    assert len(commonprefix([source_path_name,
+    assert len(commonprefix([source_pathname,
         project_source_directory_path_name])) == len(
             project_source_directory_path_name)
 
-    relative_source_path_name = source_path_name[
+    relative_source_path_name = source_pathname[
         len(project_source_directory_path_name) + 1:]
 
     binary_directory_path_name = os.path.join(
         project_binary_directory_path_name(project_name, build_type),
         relative_source_path_name)
-    return binary_directory_path_name
+
+    return binary_directory_path_name, source_offset
 
 
 def project_binary_directory_path_name(

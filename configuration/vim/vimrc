@@ -206,3 +206,7 @@ map <F12> :cn<CR>
 
 map <C-K> :py3f $CLANG_FORMAT_PY<cr>
 imap <C-K> <c-o>:py3f $CLANG_FORMAT_PY<cr>
+
+
+let g:tex_comment_nospell=1
+let g:tex_conceal=""

@@ -12,6 +12,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/../gcc.cmake)
 
 # The environment variables are set in the script loading the modules
 set(BOOST_ROOT $ENV{BOOST_ROOT} CACHE PATHNAME "")
+set(GLEW_ROOT $ENV{GLEW_ROOT} CACHE PATHNAME "")
 set(HWLOC_ROOT $ENV{HWLOC_ROOT} CACHE PATHNAME "")
 set(PAPI_ROOT $ENV{PAPI_ROOT} CACHE PATHNAME "")
 
