@@ -26,6 +26,7 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_BUILD_DATA_MODEL:BOOL=TRUE
     -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
     -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=TRUE
+    -DLUE_BUILD_VIEW:BOOL=TRUE
     -DLUE_BUILD_TEST:BOOL=TRUE
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
     -DLUE_BUILD_HPX:BOOL=TRUE
@@ -94,20 +95,6 @@ if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon"
             -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
         "
     fi
-fi
-
-if [[ $hostname == "triklav" ]]; then
-    # TODO Conflict between toolchain file and docopt CMake stuff
-    # TODO Move PYBIND11_PYTHON_VERSION into CMake toolchain file for triklav
-    LUE_CMAKE_ARGUMENTS="
-        $LUE_CMAKE_ARGUMENTS
-        -DLUE_BUILD_DOCOPT:BOOL=TRUE
-        -DLUE_DATA_MODEL_WITH_UTILITIES:BOOL=TRUE
-        -DLUE_BUILD_FRAMEWORK:BOOL=FALSE
-        -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=FALSE
-        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=FALSE
-    "
-    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 fi
 
 if [[ $hostname == "login01" ]]; then
