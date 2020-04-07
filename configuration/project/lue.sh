@@ -13,6 +13,8 @@ fi
 basename=`basename $LUE`
 
 LUE_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
+LUE_DATA="$OBJECTS/../data/$MY_DEVENV_BUILD_TYPE/$basename"
+
 PATH="\
 $LUE/environment/script:\
 $PATH"
@@ -126,7 +128,7 @@ PYTHONPATH=$LUE/devbase/source:$PYTHONPATH
 
 export LUE_CMAKE_ARGUMENTS
 export LD_LIBRARY_PATH
-export LUE_OBJECTS
+export LUE_OBJECTS LUE_DATA
 export PATH
 export PYTHONPATH
 
