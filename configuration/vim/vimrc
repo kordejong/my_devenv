@@ -1,33 +1,18 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" After adding a plugin, run:
-" vim +PluginInstall +qall
-
-" To update all plugins, open vim and
-" :PluginUpdate
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'vimwiki/vimwiki'
-" if hostname() == "gransasso" || hostname() == "triklav.local" || hostname() == "triklav.soliscom.uu.nl" || hostname() == "snowdon"
-"     Plugin 'Valloric/YouCompleteMe'
-" endif
-Plugin 'arcticicestudio/nord-vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'kien/ctrlp.vim'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-
-syntax on
+call plug#begin('~/.vim/plugged')
+Plug 'vimwiki/vimwiki'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'arcticicestudio/nord-vim'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'kien/ctrlp.vim'
+call plug#end()
 
 set laststatus=2
 

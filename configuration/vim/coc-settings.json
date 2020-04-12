@@ -1,0 +1,9 @@
+{
+    "python": {
+        "pythonPath": "~/bin/python_for_coc"
+    },
+    "clangd": {
+        "path": "clangd-10",
+        "semanticHighlighting": "true"
+    }
+}
