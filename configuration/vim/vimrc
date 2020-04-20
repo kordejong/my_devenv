@@ -3,8 +3,10 @@ filetype off
 
 call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+if hostname() == "gransasso" || hostname() == "snowdon"
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'jackguo380/vim-lsp-cxx-highlight'
+endif
 Plug 'arcticicestudio/nord-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
