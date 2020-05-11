@@ -40,13 +40,15 @@ set colorcolumn=81
 " match ErrorMsg '\%>80v.\+'
 
 
+" TODO Test whether coc is loaded, instead of repeating hostnames
 if hostname() == "gransasso" || hostname() == "snowdon"
     " coc ----------------------------------------------------------------------
     " Give more space for displaying messages
     " set cmdheight=2
 
     " Always show signcolumn
-    set signcolumn=yes
+    " TODO Only do this when coc is used (C++, Python, ...)
+    " set signcolumn=yes
 
     nmap <silent> [g <Plug>(coc-diagnostic-prev)
     nmap <silent> ]g <Plug>(coc-diagnostic-next)
