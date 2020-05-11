@@ -364,6 +364,7 @@ command! reload :write | restart
 " filetype *.[ch],*.[ch]pp,*.json,*.out,*.sh,*.txt vim %c
 " "fileviewer *.json vim %c
 
+filextype *.lue lue_view %c
 filetype * vim %c
 
 " Open all other files with default system programs (you can also remove all
