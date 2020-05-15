@@ -78,12 +78,6 @@ if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon"
     fi
 
     if [[ $hostname == "gransasso" ]]; then
-        LUE_CMAKE_ARGUMENTS="
-            $LUE_CMAKE_ARGUMENTS
-            -DLUE_ENABLE_CPPCHECK:BOOL=TRUE
-            -DLUE_ENABLE_CLANG_TIDY:BOOL=FALSE
-        "
-
         pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
 
         PATH=$pcraster_prefix/bin:$PATH
@@ -120,14 +114,22 @@ if [[ $MY_DEVENV_BUILD_TYPE == "Debug" ]]; then
         $LUE_CMAKE_ARGUMENTS
         -DLUE_VALIDATE_IDXS:BOOL=TRUE
     "
+
+    if [[ $hostname == "gransasso" ]]; then
+        LUE_CMAKE_ARGUMENTS="
+            $LUE_CMAKE_ARGUMENTS
+            -DLUE_ENABLE_CPPCHECK:BOOL=FALSE
+            -DLUE_ENABLE_CLANG_TIDY:BOOL=FALSE
+        "
+    fi
 fi
 
 # if [[ $MY_DEVENV_BUILD_TYPE == "RelWithDebInfo" ]]; then
 #     # This HPX commit contains APEX fixes
 #     LUE_CMAKE_ARGUMENTS="
 #         $LUE_CMAKE_ARGUMENTS
-#         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
-#         -DLUE_HPX_GIT_TAG:STRING=6185004
+#         # -DLUE_HPX_GIT_TAG:STRING=032acb4d0653f5d202e6949985516eafdb743b14
+#         -DLUE_HPX_GIT_TAG:STRING=3d40d897893
 #     "
 # fi
 
