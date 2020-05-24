@@ -23,7 +23,6 @@ hostname=`hostname -s`
 
 #   -DCMAKE_RULE_MESSAGES=OFF
 LUE_CMAKE_ARGUMENTS="
-    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DCMAKE_INSTALL_PREFIX:PATH=${TMPDIR:-/tmp}/$MY_DEVENV_BUILD_TYPE/$basename
     -DLUE_BUILD_DATA_MODEL:BOOL=TRUE
     -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
@@ -110,14 +109,29 @@ if [[ $hostname == "login01" ]]; then
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 fi
 
-if [[ $MY_DEVENV_BUILD_TYPE == "RelWithDebInfo" ]]; then
-    # This HPX commit contains APEX fixes
+if [[ $MY_DEVENV_BUILD_TYPE == "Debug" ]]; then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
-        -DLUE_HPX_GIT_TAG:STRING=6185004
+        -DLUE_VALIDATE_IDXS:BOOL=TRUE
     "
+
+    if [[ $hostname == "gransasso" ]]; then
+        LUE_CMAKE_ARGUMENTS="
+            $LUE_CMAKE_ARGUMENTS
+            -DLUE_ENABLE_CPPCHECK:BOOL=FALSE
+            -DLUE_ENABLE_CLANG_TIDY:BOOL=FALSE
+        "
+    fi
 fi
+
+# if [[ $MY_DEVENV_BUILD_TYPE == "RelWithDebInfo" ]]; then
+#     # This HPX commit contains APEX fixes
+#     LUE_CMAKE_ARGUMENTS="
+#         $LUE_CMAKE_ARGUMENTS
+#         # -DLUE_HPX_GIT_TAG:STRING=032acb4d0653f5d202e6949985516eafdb743b14
+#         -DLUE_HPX_GIT_TAG:STRING=3d40d897893
+#     "
+# fi
 
 
 export LUE_CMAKE_ARGUMENTS
