@@ -112,7 +112,7 @@ fi
 if [[ $MY_DEVENV_BUILD_TYPE == "Debug" ]]; then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        -DLUE_VALIDATE_IDXS:BOOL=TRUE
+        -DLUE_ASSERT_CONDITIONS:BOOL=TRUE
     "
 
     if [[ $hostname == "gransasso" ]]; then
