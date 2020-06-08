@@ -35,7 +35,7 @@ set digraph
 set mouse=a
 
 " highlight ColorColumn ctermbg=7
-set colorcolumn=81
+set colorcolumn=111
 
 " match ErrorMsg '\%>80v.\+'
 
