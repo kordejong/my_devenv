@@ -81,6 +81,7 @@ project=$cwd/project
 
 alias geoneric="source $PROJECTS/geoneric/environment/configuration/bash_profile"
 alias tmux_geoneric="tmuxp load $PROJECTS/geoneric/environment/configuration/geoneric.yaml"
+alias tmux_geoneric_eu="tmuxp load $PROJECTS/geoneric/environment/configuration/geoneric_eu.yaml"
 ### alias pcraster-master="source $PROJECTS/pcraster/environment/configuration/PCRaster-master"
 ### alias pcraster-4.0="source $PROJECTS/pcraster/environment/configuration/PCRaster-4.0"
 ### alias pcraster-4.1="source $PROJECTS/pcraster/environment/configuration/pcraster-4.1"
