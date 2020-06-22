@@ -68,9 +68,8 @@ if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon"
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
-        -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
-        -DLUE_FRAMEWORK_WITH_DASHBOARD:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
     "
 
     if [[ $hostname == "gransasso" || $hostname == "snowdon" ]]; then
@@ -93,7 +92,6 @@ if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon"
             -DLUE_BUILD_DOCOPT:BOOL=TRUE
             -DBOOST_INCLUDEDIR:PATH=/usr/include/boost169/
             -DBOOST_LIBRARYDIR:PATH=/usr/lib64/boost169/
-            -DLUE_FRAMEWORK_WITH_OPENCL:BOOL=FALSE
         "
     fi
 fi
