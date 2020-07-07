@@ -26,7 +26,7 @@ $PATH"
 unset basename
 
 PYTHONPATH="$PHD/source:$PYTHONPATH"
-TEXINPUTS=".:$PHD_OBJECTS/figure:$PHD_OBJECTS/presentation/tex:"
+TEXINPUTS=".:$PHD_OBJECTS/figure:$PHD/presentation/tex:"
 
 export PHD_OBJECTS
 export PATH
