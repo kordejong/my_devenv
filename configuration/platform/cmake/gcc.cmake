@@ -3,13 +3,18 @@ set(shared_flags "
     -W
     -Wall
     -Wextra
-    -ftemplate-backtrace-limit=0
 ")
+# FIXME: Add -Wpedantic
+# TODO How can we prevent messages from 3rd-party headers?
+# FIXME: Add -Werror -pedantic-errors
+# TODO How can we prevent project built using CMake's FetchContent to
+#     not fail on a warning?
 set(c_flags "
     ${shared_flags}
 ")
 set(cxx_flags "
     ${shared_flags}
+    -ftemplate-backtrace-limit=0
 ")
 string(REPLACE "\n" "" c_flags ${c_flags})
 string(REPLACE "\n" "" cxx_flags ${cxx_flags})
