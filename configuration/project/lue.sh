@@ -109,6 +109,9 @@ if [[ $hostname == "login01" ]]; then
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
         -DLUE_TEST_NR_LOCALITIES_PER_TEST=1
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=6
+        -DBOOST_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
+        -DGDAL_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
+        -DHDF5_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
     "
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 fi
