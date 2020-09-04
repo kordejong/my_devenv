@@ -32,7 +32,6 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_BUILD_TEST:BOOL=TRUE
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
     -DLUE_BUILD_HPX:BOOL=TRUE
-    -DLUE_BUILD_OTF2:BOOL=TRUE
 "
 
 unset basename
@@ -129,14 +128,12 @@ if [[ $MY_DEVENV_BUILD_TYPE == "Debug" ]]; then
     fi
 fi
 
-# if [[ $MY_DEVENV_BUILD_TYPE == "RelWithDebInfo" ]]; then
-#     # This HPX commit contains APEX fixes
-#     LUE_CMAKE_ARGUMENTS="
-#         $LUE_CMAKE_ARGUMENTS
-#         # -DLUE_HPX_GIT_TAG:STRING=032acb4d0653f5d202e6949985516eafdb743b14
-#         -DLUE_HPX_GIT_TAG:STRING=3d40d897893
-#     "
-# fi
+if [[ $MY_DEVENV_BUILD_TYPE == "RelWithDebInfo" ]]; then
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DLUE_BUILD_OTF2:BOOL=TRUE
+    "
+fi
 
 
 export LUE_CMAKE_ARGUMENTS
