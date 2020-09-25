@@ -78,12 +78,12 @@ if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon"
     fi
 
     if [[ $hostname == "gransasso" ]]; then
-        pcraster_prefix=/opt/pcraster-4.3-dev/usr/local
-
-        PATH=$pcraster_prefix/bin:$PATH
-        LD_LIBRARY_PATH=$pcraster_prefix/lib:$LD_LIBRARY_PATH
-        PYTHONPATH=$pcraster_prefix/python:$PYTHONPATH
-        unset pcraster_prefix
+        LUE_CMAKE_ARGUMENTS="
+            $LUE_CMAKE_ARGUMENTS
+            -DBOOST_ROOT:PATH=$HOME/miniconda3/envs/lue
+            -DGDAL_ROOT:PATH=$HOME/miniconda3/envs/lue
+            -DHDF5_ROOT:PATH=$HOME/miniconda3/envs/lue
+        "
     fi
 
     if [[ $hostname == "sonic" ]]; then
