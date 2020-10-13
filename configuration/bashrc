@@ -99,6 +99,8 @@ alias kor_jemig_eu="source $project/kor_jemig_eu.sh"
 alias tmux_kor_jemig_eu="tmuxp load $project/kor_jemig_eu.yaml"
 # alias lisem="source $project/lisem.sh"
 
+alias hpc-classroom="source $project/hpc-classroom.sh"
+alias tmux_hpc-classroom="tmuxp load $project/hpc-classroom.yaml"
 alias lue="source $project/lue.sh"
 alias tmux_lue="tmuxp load $project/lue.yaml"
 alias lue-web="source $project/lue-web.sh"
