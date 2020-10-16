@@ -105,6 +105,8 @@ alias lue="source $project/lue.sh"
 alias tmux_lue="tmuxp load $project/lue.yaml"
 alias lue-web="source $project/lue-web.sh"
 alias tmux_lue-web="tmuxp load $project/lue-web.yaml"
+alias computationalgeography-web="source $project/computationalgeography-web.sh"
+alias tmux_computationalgeography-web="tmuxp load $project/computationalgeography-web.yaml"
 
 # alias maps4society="source $project/maps4society.sh"
 # alias nautilus="source $project/nautilus.sh"
