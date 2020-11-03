@@ -5,8 +5,8 @@ include(${CMAKE_CURRENT_LIST_DIR}/../linux.cmake)
 
 # Tools
 # Compiler
-set(CMAKE_C_COMPILER gcc-7)
-set(CMAKE_CXX_COMPILER g++-7)
+set(CMAKE_C_COMPILER gcc-9)
+set(CMAKE_CXX_COMPILER g++-9)
 
 include(${CMAKE_CURRENT_LIST_DIR}/../gcc.cmake)
 
