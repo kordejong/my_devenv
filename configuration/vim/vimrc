@@ -1,6 +1,12 @@
 set nocompatible
 filetype off
 
+" vim-plug commands:
+" :PlugInstall
+" :PlugStatus
+" :PlugUpdate
+" :PlugUpgrade  (update vim-plug itself)
+
 call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
 if hostname() == "gransasso" || hostname() == "snowdon"
