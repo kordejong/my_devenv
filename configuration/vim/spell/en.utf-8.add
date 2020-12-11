@@ -36,3 +36,4 @@ QGIS
 OpenCL
 CUDA
 NUMA
+serializable
