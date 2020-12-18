@@ -131,6 +131,8 @@ alias tmux_phd="tmuxp load $project/phd.yaml"
 # alias uu_flowmap="source $project/uu_flowmap.sh"
 # alias waddenacademie="source $project/waddenacademie.sh"
 
+alias snippets="source $project/snippets.sh"
+
 unset project
 
 
