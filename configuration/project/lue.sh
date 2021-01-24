@@ -137,11 +137,6 @@ fi
 
 
 export LUE_CMAKE_ARGUMENTS
-
-
-PYTHONPATH=$LUE/devbase/source:$PYTHONPATH
-
-export LUE_CMAKE_ARGUMENTS
 export LD_LIBRARY_PATH
 export LUE_OBJECTS LUE_DATA
 export PATH
