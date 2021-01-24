@@ -62,8 +62,52 @@ fi
 
 unset cmake_toolchain_file
 
+if [[ $hostname == "gransasso" ]];
+then
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
+        -DLUE_TEST_NR_LOCALITIES_PER_TEST=2
+        -DLUE_TEST_NR_THREADS_PER_LOCALITY=2
+        -DBOOST_ROOT:PATH=$HOME/miniconda3/envs/lue
+        -DGDAL_ROOT:PATH=$HOME/miniconda3/envs/lue
+        -DHDF5_ROOT:PATH=$HOME/miniconda3/envs/lue
+    "
+    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 
-if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon" ]]; then
+elif [[ $hostname == "login01" ]];
+then
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
+        -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
+        -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
+        -DLUE_TEST_NR_LOCALITIES_PER_TEST=2
+        -DLUE_TEST_NR_THREADS_PER_LOCALITY=3
+        -DBOOST_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
+        -DGDAL_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
+        -DHDF5_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
+    "
+    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+
+elif [[ $hostname == "snowdon" ]];
+then
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
+        -DLUE_TEST_NR_LOCALITIES_PER_TEST=2
+        -DLUE_TEST_NR_THREADS_PER_LOCALITY=2
+    "
+    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+
+elif [[ $hostname == "sonic" ]];
+then
+    # TODO Move BOOST_ROOT into CMake toolchain file for sonic
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
@@ -71,64 +115,28 @@ if [[ $hostname == "gransasso" || $hostname == "sonic" || $hostname == "snowdon"
         -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_TEST_NR_LOCALITIES_PER_TEST=1
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=4
+        -DLUE_BUILD_DOCOPT:BOOL=TRUE
+        -DBOOST_INCLUDEDIR:PATH=/usr/include/boost169/
+        -DBOOST_LIBRARYDIR:PATH=/usr/lib64/boost169/
     "
-
-    if [[ $hostname == "gransasso" || $hostname == "snowdon" ]]; then
-        PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
-    fi
-
-    if [[ $hostname == "gransasso" ]]; then
-        LUE_CMAKE_ARGUMENTS="
-            $LUE_CMAKE_ARGUMENTS
-            -DBOOST_ROOT:PATH=$HOME/miniconda3/envs/lue
-            -DGDAL_ROOT:PATH=$HOME/miniconda3/envs/lue
-            -DHDF5_ROOT:PATH=$HOME/miniconda3/envs/lue
-        "
-    fi
-
-    if [[ $hostname == "sonic" ]]; then
-        # TODO Move BOOST_ROOT into CMake toolchain file for sonic
-        LUE_CMAKE_ARGUMENTS="
-            $LUE_CMAKE_ARGUMENTS
-            -DLUE_BUILD_DOCOPT:BOOL=TRUE
-            -DBOOST_INCLUDEDIR:PATH=/usr/include/boost169/
-            -DBOOST_LIBRARYDIR:PATH=/usr/lib64/boost169/
-        "
-    fi
 fi
 
-if [[ $hostname == "login01" ]]; then
-    LUE_CMAKE_ARGUMENTS="
-        $LUE_CMAKE_ARGUMENTS
-        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
-        -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
-        -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
-        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
-        -DLUE_TEST_NR_LOCALITIES_PER_TEST=1
-        -DLUE_TEST_NR_THREADS_PER_LOCALITY=6
-        -DBOOST_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
-        -DGDAL_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
-        -DHDF5_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
-    "
-    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
-fi
 
-if [[ $MY_DEVENV_BUILD_TYPE == "Debug" ]]; then
+if [[ $MY_DEVENV_BUILD_TYPE == "Debug" ]];
+then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_ASSERT_CONDITIONS:BOOL=TRUE
     "
 
-    if [[ $hostname == "gransasso" ]]; then
-        LUE_CMAKE_ARGUMENTS="
-            $LUE_CMAKE_ARGUMENTS
-            -DLUE_ENABLE_CPPCHECK:BOOL=FALSE
-            -DLUE_ENABLE_CLANG_TIDY:BOOL=FALSE
-        "
-    fi
-fi
+    # LUE_CMAKE_ARGUMENTS="
+    #     $LUE_CMAKE_ARGUMENTS
+    #     -DLUE_ENABLE_CPPCHECK:BOOL=FALSE
+    #     -DLUE_ENABLE_CLANG_TIDY:BOOL=FALSE
+    # "
 
-if [[ $MY_DEVENV_BUILD_TYPE == "RelWithDebInfo" ]]; then
+elif [[ $MY_DEVENV_BUILD_TYPE == "RelWithDebInfo" ]];
+then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_BUILD_OTF2:BOOL=TRUE
