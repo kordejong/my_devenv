@@ -5,5 +5,10 @@
     "clangd": {
         "path": "clangd-10",
         "semanticHighlighting": "true"
-    }
+    },
+    // // https://github.com/neoclide/coc.nvim/blob/master/data/schema.json
+    // "suggest.floatEnable": false,
+    // "diagnostic.messageTarget": "echo",
+    // "signature.target": "echo",
+    // "coc.preferences.hoverTarget": "echo"
 }
