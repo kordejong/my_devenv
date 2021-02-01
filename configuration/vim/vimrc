@@ -7,6 +7,10 @@ filetype off
 " :PlugUpdate
 " :PlugUpgrade  (update vim-plug itself)
 
+" Coc commands:
+" CocInfo
+" CocRestart
+
 call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
 if hostname() == "gransasso" || hostname() == "snowdon"
