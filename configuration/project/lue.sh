@@ -71,9 +71,6 @@ then
         -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_TEST_NR_LOCALITIES_PER_TEST=2
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=2
-        -DBOOST_ROOT:PATH=$HOME/miniconda3/envs/lue
-        -DGDAL_ROOT:PATH=$HOME/miniconda3/envs/lue
-        -DHDF5_ROOT:PATH=$HOME/miniconda3/envs/lue
     "
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 
