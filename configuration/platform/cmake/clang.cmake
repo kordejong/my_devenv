@@ -7,6 +7,8 @@ set(shared_flags "
     -Wno-padded
     -Wno-weak-vtables
 ")
+# FIXME: Add -Wpedantic
+# FIXME: Don't use -Weverything
 set(c_flags "
     ${shared_flags}
 ")
