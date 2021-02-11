@@ -82,8 +82,11 @@ then
         -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
         -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_TEST_NR_LOCALITIES_PER_TEST=2
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=3
+        -DLUE_TEST_HPX_RUNWRAPPER=mpi
+        -DLUE_TEST_HPX_PARCELPORT=mpi
         -DBOOST_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
         -DGDAL_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
         -DHDF5_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
