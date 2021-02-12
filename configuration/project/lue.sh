@@ -2,6 +2,10 @@ cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
 source $cwd/util.sh
 unset cwd
 
+# TODO Turn into CMake settings (toolchains?), if necessary
+# export MAKEFLAGS="$MAKEFLAGS --quiet"
+# export CTEST_OUTPUT_ON_FAILURE=1
+
 parse_commandline $*
 
 
@@ -66,6 +70,7 @@ if [[ $hostname == "gransasso" ]];
 then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
+        -DCMAKE_BUILD_PARALLEL_LEVEL=6
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
@@ -78,6 +83,10 @@ elif [[ $hostname == "login01" ]];
 then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
+        -DCMAKE_BUILD_PARALLEL_LEVEL=10
+        -DBOOST_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
+        -DGDAL_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
+        -DHDF5_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
         -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
@@ -87,9 +96,6 @@ then
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=3
         -DLUE_TEST_HPX_RUNWRAPPER=mpi
         -DLUE_TEST_HPX_PARCELPORT=mpi
-        -DBOOST_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
-        -DGDAL_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
-        -DHDF5_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
     "
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 
@@ -97,6 +103,7 @@ elif [[ $hostname == "snowdon" ]];
 then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
+        -DCMAKE_BUILD_PARALLEL_LEVEL=4
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
@@ -110,14 +117,14 @@ then
     # TODO Move BOOST_ROOT into CMake toolchain file for sonic
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
+        -DBOOST_INCLUDEDIR:PATH=/usr/include/boost169/
+        -DBOOST_LIBRARYDIR:PATH=/usr/lib64/boost169/
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_TEST_NR_LOCALITIES_PER_TEST=1
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=4
         -DLUE_BUILD_DOCOPT:BOOL=TRUE
-        -DBOOST_INCLUDEDIR:PATH=/usr/include/boost169/
-        -DBOOST_LIBRARYDIR:PATH=/usr/lib64/boost169/
     "
 fi
 
