@@ -26,7 +26,9 @@ $PATH"
 unset basename
 
 PYTHONPATH="$PHD/source:$PYTHONPATH"
-TEXINPUTS=".:$PHD_OBJECTS/figure:$PHD/presentation/tex:"
+# TODO Remove $PHD_OBJECTS/figure in favor of $PHD_OBJECTS. Update
+#     sources to include the 'figure' part.
+TEXINPUTS=".:$PHD_OBJECTS:$PHD_OBJECTS/figure:$PHD/presentation/tex:"
 
 export PHD_OBJECTS
 export PATH
