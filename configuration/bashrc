@@ -189,7 +189,7 @@ alias docker_remove_exited="docker rm -v \$(docker_list_exited)"
 
 # bashrc:
 # export PS1="\u@\h:\W\$ "
-export PS1="\u@\h:\W👉 "
+# export PS1="\u@\h:\W👉 "
 
 PYTHONSTARTUP="$cwd/startup.py"
 if [ $OSTYPE == "cygwin" ]; then
