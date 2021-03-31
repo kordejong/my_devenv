@@ -83,11 +83,11 @@ elif [[ $hostname == "login01" ]];
 then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        -DBOOST_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
-        -DGDAL_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
-        -DHDF5_ROOT:PATH=/quanta1/home/jong0137/miniconda3/envs/lue
+        -DCMAKE_INSTALL_PREFIX:PATH=/scratch/depfg/software/lue/yyyymmdd/$MY_DEVENV_BUILD_TYPE
+        -DLUE_PYTHON_API_INSTALL_DIR:PATH=/scratch/depfg/software/lue/yyyymmdd/$MY_DEVENV_BUILD_TYPE/python
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
-        -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
+        -DLUE_BUILD_VIEW:BOOL=FALSE
+        -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
         -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE

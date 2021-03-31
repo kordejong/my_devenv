@@ -103,7 +103,7 @@ def configure_project(
     cmake_arguments = os.environ[environment_variable_name] if \
         environment_variable_name in os.environ else ""
 
-    command = "cmake --verbose " \
+    command = "cmake " \
         "-G \"{}\" " \
         "-D CMAKE_BUILD_TYPE={} " \
         "-D CMAKE_INSTALL_PREFIX={} " \
