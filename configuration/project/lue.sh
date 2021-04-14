@@ -78,6 +78,7 @@ then
     "
     CMAKE_BUILD_PARALLEL_LEVEL=5
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+    LUE_ROUTING_DATA="/mnt/data1/home/kor/data/project/routing"
 
 elif [[ $hostname == "login01" ]];
 then
@@ -98,6 +99,7 @@ then
     "
     CMAKE_BUILD_PARALLEL_LEVEL=10
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+    LUE_ROUTING_DATA="/scratch/depfg/jong0137/data/routing"
 
 elif [[ $hostname == "snowdon" ]];
 then
@@ -114,6 +116,7 @@ then
     "
     CMAKE_BUILD_PARALLEL_LEVEL=4
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+    LUE_ROUTING_DATA="/tmp"
 
 elif [[ $hostname == "sonic" ]];
 then
@@ -129,6 +132,7 @@ then
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=4
         -DLUE_BUILD_DOCOPT:BOOL=TRUE
     "
+    LUE_ROUTING_DATA="/tmp"
 fi
 
 
@@ -157,7 +161,7 @@ fi
 export LUE_CMAKE_ARGUMENTS
 export CMAKE_BUILD_PARALLEL_LEVEL
 export LD_LIBRARY_PATH
-export LUE_OBJECTS LUE_DATA
+export LUE_OBJECTS LUE_DATA LUE_ROUTING_DATA
 export PATH
 export PYTHONPATH
 
