@@ -116,7 +116,7 @@ then
     "
     CMAKE_BUILD_PARALLEL_LEVEL=4
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
-    LUE_ROUTING_DATA="/tmp"
+    LUE_ROUTING_DATA="$HOME/development/data/project/routing"
 
 elif [[ $hostname == "sonic" ]];
 then
