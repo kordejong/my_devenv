@@ -79,6 +79,7 @@ then
     CMAKE_BUILD_PARALLEL_LEVEL=5
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     LUE_ROUTING_DATA="/mnt/data1/home/kor/data/project/routing"
+    LUE_BENCHMARK_DATA="/mnt/data1/home/kor/data/project/lue/benchmark/gransasso/"
 
 elif [[ $hostname == "login01" ]];
 then
@@ -161,7 +162,7 @@ fi
 export LUE_CMAKE_ARGUMENTS
 export CMAKE_BUILD_PARALLEL_LEVEL
 export LD_LIBRARY_PATH
-export LUE_OBJECTS LUE_DATA LUE_ROUTING_DATA
+export LUE_OBJECTS LUE_DATA LUE_ROUTING_DATA LUE_BENCHMARK_DATA
 export PATH
 export PYTHONPATH
 
