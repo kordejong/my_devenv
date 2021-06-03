@@ -101,6 +101,7 @@ then
     CMAKE_BUILD_PARALLEL_LEVEL=10
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     LUE_ROUTING_DATA="/scratch/depfg/jong0137/data/routing"
+    LUE_BENCHMARK_DATA="/scratch/depfg/jong0137/data/project/lue/benchmark"
 
 elif [[ $hostname == "snowdon" ]];
 then
