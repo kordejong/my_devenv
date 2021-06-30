@@ -68,6 +68,8 @@ unset cmake_toolchain_file
 
 if [[ $hostname == "gransasso" ]];
 then
+    # Platform for testing use of the Ubuntu packages of 3rd party
+    # software LUE depends on. No LUE_HAVE_<NAME> variables set to TRUE.
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
@@ -83,6 +85,7 @@ then
 
 elif [[ $hostname == "login01" ]];
 then
+    # Platform for production runs.
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DCMAKE_INSTALL_PREFIX:PATH=/scratch/depfg/software/lue/yyyymmdd/$MY_DEVENV_BUILD_TYPE
@@ -105,6 +108,8 @@ then
 
 elif [[ $hostname == "snowdon" ]];
 then
+    # Platform for testing use of the Conan packages of 3rd party software
+    # LUE depends on. LUE_HAVE_<NAME> variables set to FALSE.
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
@@ -112,9 +117,14 @@ then
         -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_TEST_NR_LOCALITIES_PER_TEST=2
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=2
+        -DLUE_HAVE_BOOST_INIT=FALSE
+        -DLUE_HAVE_DOCOPT_INIT=FALSE
+        -DLUE_HAVE_FMT_INIT=FALSE
         -DLUE_HAVE_GDAL:BOOL=FALSE
         -DLUE_HAVE_GLEW:BOOL=FALSE
         -DLUE_HAVE_HDF5:BOOL=FALSE
+        -DLUE_HAVE_NLOHMANN_JSON_INIT=FALSE
+        -DLUE_HAVE_PYBIND11_INIT=FALSE
     "
     CMAKE_BUILD_PARALLEL_LEVEL=4
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
