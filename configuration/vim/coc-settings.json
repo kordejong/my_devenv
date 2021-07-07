@@ -3,7 +3,7 @@
         "pythonPath": "~/bin/python_for_coc"
     },
     "clangd": {
-        "path": "clangd-10",
+        "path": "clangd-12",
         "semanticHighlighting": "true"
     },
     // // https://github.com/neoclide/coc.nvim/blob/master/data/schema.json
