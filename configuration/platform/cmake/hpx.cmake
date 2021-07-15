@@ -22,6 +22,17 @@ set(HPX_PREPROCESSOR_WITH_COMPATIBILITY_HEADERS OFF CACHE BOOL "")
 
 set(HPX_WITH_FETCH_ASIO ON CACHE BOOL "")
 
+# Disable pkgconfig explicitly. This is needed with HPX-1.7.0. Otherwise
+# we get CMake errors like this:
+#
+#     CMake Error in /home/kor/development/objects/Debug/lue/_deps/hpx-src/CMakeLists.txt:
+#     Evaluation file to be written multiple times with different content.  This
+#     is generally caused by the content evaluating the configuration type,
+#     language, or location of object files:
+#
+#     /home/kor/development/objects/Debug/lue/_deps/hpx-build/lib/pkgconfig/hpx_application_debug.pc
+set(HPX_WITH_PKGCONFIG OFF CACHE BOOL "")
+
 set(HPX_WITH_APEX OFF CACHE BOOL "")
 set(HPX_WITH_PAPI OFF CACHE BOOL "")
 
