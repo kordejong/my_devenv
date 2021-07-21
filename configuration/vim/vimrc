@@ -203,7 +203,7 @@ map <F4> :n `find_source_code.py --header %` <CR>
 map <F5> :n `find_source_code.py --module %` <CR>
 
 " fmt current line?
-map <F6> :.!fmt<CR>
+map <F6> :.!fmt --width 100<CR>
 
 set makeprg=build_target.py
 
