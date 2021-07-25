@@ -69,7 +69,7 @@ unset cmake_toolchain_file
 if [[ $hostname == "gransasso" ]];
 then
     # Platform for testing use of the Ubuntu packages of 3rd party
-    # software LUE depends on. No LUE_HAVE_<NAME> variables set to TRUE.
+    # software LUE depends on. No LUE_HAVE_<NAME> variables set to FALSE.
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
@@ -125,6 +125,7 @@ then
         -DLUE_HAVE_FMT:BOOL=FALSE
         -DLUE_HAVE_GDAL:BOOL=FALSE
         -DLUE_HAVE_GLEW:BOOL=FALSE
+        -DLUE_HAVE_GLFW:BOOL=FALSE
         -DLUE_HAVE_HDF5:BOOL=FALSE
         -DLUE_HAVE_NLOHMANN_JSON:BOOL=FALSE
         -DLUE_HAVE_PYBIND11:BOOL=FALSE
@@ -132,22 +133,6 @@ then
     CMAKE_BUILD_PARALLEL_LEVEL=4
     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     LUE_ROUTING_DATA="$HOME/development/data/project/routing"
-
-elif [[ $hostname == "sonic" ]];
-then
-    # TODO Move BOOST_ROOT into CMake toolchain file for sonic
-    LUE_CMAKE_ARGUMENTS="
-        $LUE_CMAKE_ARGUMENTS
-        -DBOOST_INCLUDEDIR:PATH=/usr/include/boost169/
-        -DBOOST_LIBRARYDIR:PATH=/usr/lib64/boost169/
-        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
-        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
-        -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
-        -DLUE_TEST_NR_LOCALITIES_PER_TEST=1
-        -DLUE_TEST_NR_THREADS_PER_LOCALITY=4
-        -DLUE_BUILD_DOCOPT:BOOL=TRUE
-    "
-    LUE_ROUTING_DATA="/tmp"
 fi
 
 
