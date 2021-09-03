@@ -1,3 +1,5 @@
+# channel_priority: strict
+
 # Conda will *only* search the channels listed, in the order given.
 channels:
   - conda-forge
