@@ -1,0 +1,21 @@
+session_name: uu
+shell_command_before:
+    - "source $MY_DEVENV/configuration/project/uu.sh"
+windows:
+    - window_name: edit
+      focus: true
+      layout: main-horizontal
+      options:
+          main-pane-height: 30
+      panes:
+          - shell_command:
+              - vim +NERDTreeToggle +"tabnew $PERSONAL_FILES/Documents/wiki/uu/worklog.wiki" +"tabnew $PERSONAL_FILES/Documents/wiki/uu/meeting.wiki" +tabfirst
+            focus: true
+          - shell_command:
+              - cd $UU_OBJECTS
+              - clear
+              - pwd
+    - window_name: manage
+      panes:
+          - shell_command:
+              - vifm $UU $UU_OBJECTS
