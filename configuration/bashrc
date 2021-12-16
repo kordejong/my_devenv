@@ -133,6 +133,8 @@ alias uu="source $project/uu.sh"
 alias tmux_uu="tmuxp load $project/uu.yaml"
 # alias uu_flowmap="source $project/uu_flowmap.sh"
 # alias waddenacademie="source $project/waddenacademie.sh"
+alias parallel_computing_course="source $project/parallel_computing_course.sh"
+alias tmux_parallel_computing_course="tmuxp load $project/parallel_computing_course.yaml"
 
 alias snippets="source $project/snippets.sh"
 

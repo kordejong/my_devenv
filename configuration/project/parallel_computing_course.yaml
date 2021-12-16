@@ -1,0 +1,21 @@
+session_name: parallel_computing_course
+shell_command_before:
+    - "source $MY_DEVENV/configuration/project/parallel_computing_course.sh"
+windows:
+    - window_name: edit
+      focus: true
+      layout: main-horizontal
+      options:
+          main-pane-height: 30
+      panes:
+          - shell_command:
+              - vim +NERDTreeToggle +"tabnew $PERSONAL_FILES/Documents/wiki/uu/project/202110-bym/index.wiki" +"tabnew $PERSONAL_FILES/Documents/wiki/uu/project/202110-lll/index.wiki" +tabfirst
+            focus: true
+          - shell_command:
+              - cd $PARALLEL_COMPUTING_COURSE_OBJECTS
+              - clear
+              - pwd
+    - window_name: manage
+      panes:
+          - shell_command:
+              - vifm $PARALLEL_COMPUTING_COURSE $PARALLEL_COMPUTING_COURSE_OBJECTS
