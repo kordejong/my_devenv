@@ -5,7 +5,8 @@
     "clangd": {
         "path": "clangd-12",
         "semanticHighlighting": "true"
-    },
+    }
+    // "yaml.format.enable": true
     // // https://github.com/neoclide/coc.nvim/blob/master/data/schema.json
     // "suggest.floatEnable": false,
     // "diagnostic.messageTarget": "echo",

@@ -9,6 +9,7 @@ filetype off
 
 " Coc commands:
 " CocInfo
+" CocInstall ...
 " CocRestart
 
 call plug#begin('~/.vim/plugged')
