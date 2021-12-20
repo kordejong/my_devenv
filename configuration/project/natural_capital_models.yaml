@@ -9,10 +9,10 @@ windows:
           main-pane-height: 25
       panes:
           - shell_command:
-              - vim +NERDTreeToggle
+              - vim +NERDTreeToggle +"tabnew $PROJECTS/gauja/geoneric/executive/geoneric/document/wiki/project/groene_baten_planner/index.wiki" +tabfirst
             focus: true
           - shell_command:
-              - cd $NATURAL_CAPITAL_MODELS_OBJECTS
+              - cd $NATURAL_CAPITAL_MODELS
               - clear
               - pwd
     - window_name: manage
