@@ -7,6 +7,14 @@ filetype off
 " :PlugUpdate
 " :PlugUpgrade  (update vim-plug itself)
 
+" After adding new plugins, reload this file, :so ~/.vim/vimrc,  and then :PlugInstall
+
+" coc extensions are in ~/.config/coc/extensions/
+" - coc-clangd
+" - coc-cmake
+" - coc-json
+" - coc-pyright
+" - coc-yaml
 " Coc commands:
 " CocInfo
 " CocInstall ...
@@ -25,6 +33,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/ctrlp.vim'
+Plug 'pedrohdz/vim-yaml-folds'
+Plug 'masukomi/vim-markdown-folding'
 call plug#end()
 
 set laststatus=2
@@ -107,6 +117,13 @@ let g:NERDTreeIgnore=[
 " autocmd FileType python setlocal shiftwidth=4 tabstop=4
 " autocmd FileType pyrex setlocal shiftwidth=4 tabstop=4
 " autocmd FileType vimwiki setlocal shiftwidth=4 tabstop=4
+
+autocmd FileType cpp setlocal foldmethod=syntax
+autocmd FileType python setlocal foldmethod=indent
+
+" Disable creation of temporary wikis. This is needed to set the filetype of
+" Markdown files to markdown instead of vimwiki.
+let g:vimwiki_global_ext = 0
 
 
 " Associate .dox extension with Doxygen files.
@@ -224,3 +241,7 @@ imap <C-K> <c-o>:py3f $CLANG_FORMAT_PY<cr>
 
 let g:tex_comment_nospell=1
 let g:tex_conceal=""
+
+" Space to toggle folds
+nnoremap <Space> za
+vnoremap <Space> za
