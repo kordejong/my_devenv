@@ -35,6 +35,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/ctrlp.vim'
 Plug 'pedrohdz/vim-yaml-folds'
 Plug 'masukomi/vim-markdown-folding'
+Plug 'Yggdroot/indentLine'
 call plug#end()
 
 set laststatus=2
@@ -245,3 +246,4 @@ let g:tex_conceal=""
 " Space to toggle folds
 nnoremap <Space> za
 vnoremap <Space> za
+
