@@ -13,10 +13,12 @@ fi
 basename=`basename $UU`
 
 UU_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
+TEXINPUTS=".:$UU/presentation/tex:"
 
 unset basename
 
 export UU_OBJECTS
+export TEXINPUTS
 
 cd $UU
 
