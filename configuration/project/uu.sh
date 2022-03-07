@@ -12,11 +12,13 @@ fi
 
 basename=`basename $UU`
 
+PATH="$UU/environment/script:$PATH"
 UU_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
 TEXINPUTS=".:$UU/presentation/tex:"
 
 unset basename
 
+export PATH
 export UU_OBJECTS
 export TEXINPUTS
 
