@@ -7,8 +7,12 @@ include(${CMAKE_CURRENT_LIST_DIR}/../linux.cmake)
 # Compiler
 set(CMAKE_C_COMPILER gcc-9)
 set(CMAKE_CXX_COMPILER g++-9)
-
 include(${CMAKE_CURRENT_LIST_DIR}/../gcc.cmake)
+
+# set(CMAKE_C_COMPILER clang-12)
+# set(CMAKE_CXX_COMPILER clang++-12)
+# include(${CMAKE_CURRENT_LIST_DIR}/../clang.cmake)
+
 
 # set(PAPI_ROOT $ENV{HOME}/development/ext CACHE STRING "")
 # set(OTF2_ROOT $ENV{HOME}/development/ext/x86_64/scorep-gcc CACHE STRING "")
