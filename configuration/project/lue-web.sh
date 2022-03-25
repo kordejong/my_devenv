@@ -4,7 +4,12 @@ unset cwd
 
 parse_commandline $*
 
-LUE_WEB="$PROJECTS/`\ls $PROJECTS | \grep -i \"^lue-web$\"`"
+export LUE_WEB="$PROJECTS/computational_geography/lue-web"
+
+if [ ! -d "$LUE_WEB" ]; then
+    echo "ERROR: directory $LUE_WEB does not exist..."
+    return 1
+fi
 
 basename=`basename $LUE_WEB`
 
@@ -13,4 +18,3 @@ export LUE_WEB
 conda activate lue-web
 
 cd $LUE_WEB
-pwd

@@ -10,9 +10,13 @@ parse_commandline $*
 
 
 if [ ! "$LUE" ]; then
-    export LUE="$PROJECTS/`\ls $PROJECTS | \grep -i \"^lue$\"`"
+    export LUE="$PROJECTS/computational_geography/lue"
 fi
 
+if [ ! -d "$LUE" ]; then
+    echo "ERROR: directory $LUE does not exist..."
+    return 1
+fi
 
 basename=`basename $LUE`
 
@@ -128,6 +132,7 @@ then
         -DLUE_HAVE_GLEW:BOOL=FALSE
         -DLUE_HAVE_GLFW:BOOL=FALSE
         -DLUE_HAVE_HDF5:BOOL=FALSE
+        -DLUE_HAVE_NETCDF4:BOOL=FALSE
         -DLUE_HAVE_NLOHMANN_JSON:BOOL=FALSE
         -DLUE_HAVE_PYBIND11:BOOL=FALSE
     "
