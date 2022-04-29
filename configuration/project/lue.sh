@@ -95,7 +95,7 @@ then
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=2
     "
     CMAKE_BUILD_PARALLEL_LEVEL=5
-    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+    # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     LUE_ROUTING_DATA="/mnt/data1/home/kor/data/project/routing"
     LUE_BENCHMARK_DATA="/mnt/data1/home/kor/data/project/lue/benchmark/gransasso/"
 
@@ -209,7 +209,7 @@ then
         -DLUE_TEST_HPX_PARCELPORT=mpi
     "
     CMAKE_BUILD_PARALLEL_LEVEL=10
-    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+    # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     LUE_ROUTING_DATA="/scratch/depfg/jong0137/data/routing"
     LUE_BENCHMARK_DATA="/scratch/depfg/jong0137/data/project/lue/benchmark"
 
@@ -236,7 +236,7 @@ then
         -DLUE_HAVE_PYBIND11:BOOL=FALSE
     "
     CMAKE_BUILD_PARALLEL_LEVEL=4
-    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+    # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     LUE_ROUTING_DATA="$HOME/development/data/project/routing"
 fi
 
@@ -271,7 +271,7 @@ export CMAKE_BUILD_PARALLEL_LEVEL
 export LD_LIBRARY_PATH
 export LUE_OBJECTS LUE_DATA LUE_ROUTING_DATA LUE_BENCHMARK_DATA
 export PATH
-export PYTHONPATH
+# export PYTHONPATH
 
 cd $LUE
 
