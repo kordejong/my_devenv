@@ -365,6 +365,7 @@ command! reload :write | restart
 " "fileviewer *.json vim %c
 
 filextype *.lue lue_view %c
+filextype *.ods, libreoffice --calc %c &
 filextype *.pdf,*.png xdg-open
 filetype * vim %c
 
