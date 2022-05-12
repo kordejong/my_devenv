@@ -365,7 +365,8 @@ command! reload :write | restart
 " "fileviewer *.json vim %c
 
 filextype *.lue lue_view %c
-filextype *.pdf xdg-open
+filextype *.ods, libreoffice --calc %c &
+filextype *.pdf,*.png xdg-open
 filetype * vim %c
 
 " Open all other files with default system programs (you can also remove all

@@ -1,0 +1,18 @@
+# Machine-dependent configuration options that don't depend on the
+# build configuration
+
+set(HPX_WITH_MALLOC "system" CACHE STRING "")
+# set(HPX_WITH_MALLOC "tcmalloc" CACHE STRING "")
+set(HPX_WITH_HWLOC ON CACHE BOOL "")
+
+set(HWLOC_ROOT $ENV{CONDA_PREFIX}/Library CACHE STRING "")
+set(HWLOC_LIBRARY ${HWLOC_ROOT}/lib/hwloc.dll.lib CACHE STRING "")
+
+set(HPX_WITH_GOOGLE_PERFTOOLS OFF CACHE BOOL "")
+
+set(HPX_WITH_NETWORKING ON CACHE BOOL "")
+set(HPX_WITH_PARCELPORT_TCP ON CACHE BOOL "")
+set(HPX_WITH_PARCELPORT_MPI OFF CACHE BOOL "")
+
+set(HPX_WITH_CUDA_COMPUTE OFF CACHE BOOL "")
+set(HPX_WITH_ASYNC_CUDA OFF CACHE BOOL "")

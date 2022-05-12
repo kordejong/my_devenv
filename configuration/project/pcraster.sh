@@ -46,14 +46,14 @@ unset basename
 
 cd $PCRASTER
 
-# mkvirtualenv --system-site-packages pcraster
-workon pcraster
 
-# mkvirtualenv --python /usr/bin/python3 --system-site-packages pcraster_python3
-# workon pcraster_python3
+# conda activate pcraster
+
+# mkvirtualenv --python `which python3` --system-site-packages pcraster
+# workon pcraster
 
 
-# This code uses `which python`, so it must come after the `workon pcraster`
+# This code uses `which python`, so it must come after the workon/conda
 # statement
 PCRASTER_CMAKE_ARGUMENTS="
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
@@ -62,6 +62,7 @@ PCRASTER_CMAKE_ARGUMENTS="
     -DPCRASTER_BUILD_TEST:BOOL=TRUE
     -DPCRASTER_BUILD_BLOCKPYTHON=TRUE
     -DPCRASTER_WITH_PYTHON_MULTICORE=TRUE
+    -DFERN_BUILD_ALGORITHM:BOOL=TRUE
     -DPYTHON_EXECUTABLE=`which python`
 "
 if [[ $OSTYPE == "cygwin" ]]; then

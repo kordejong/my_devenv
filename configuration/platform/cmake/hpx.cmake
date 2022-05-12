@@ -4,10 +4,8 @@
 # When overriding these settings in other CMake scripts, do not forget to
 # pass the FORCE argument. Otherwise the new setting won't have an effect.
 
-set(HPX_WITH_TOOLS ON CACHE BOOL "")
-
 set(HPX_WITH_TESTS OFF CACHE BOOL "")
-set(HPX_WITH_EXAMPLES ON CACHE BOOL "")
+set(HPX_WITH_EXAMPLES OFF CACHE BOOL "")
 
 ### set(HPX_WITH_EXAMPLES_HDF5 OFF CACHE BOOL "")
 ### set(HPX_WITH_EXAMPLES_OPENMP OFF CACHE BOOL "")
