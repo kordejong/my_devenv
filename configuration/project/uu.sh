@@ -4,11 +4,14 @@ unset cwd
 
 parse_commandline $*
 
-
 if [ ! "$UU" ]; then
     export UU="$PROJECTS/gauja/uu/uu"
 fi
 
+if [ ! -d "$UU" ]; then
+    echo "ERROR: directory $UU does not exist..."
+    return 1
+fi
 
 basename=`basename $UU`
 

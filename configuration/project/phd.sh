@@ -5,7 +5,7 @@ unset cwd
 parse_commandline $*
 
 if [ ! "$PHD" ]; then
-    export PHD="$PROJECTS/`\ls $PROJECTS | \grep -i \"^phd$\"`"
+    export PHD="$PROJECTS/gauja/uu/project/phd"
 fi
 
 if [ ! -d "$PHD" ]; then
@@ -44,11 +44,7 @@ unalias phd 2>/dev/null
 
 hostname=`hostname -s`
 
-if [[ $hostname == "sonic" ]]; then
-    workon phd
-else
-    conda activate phd
-fi
+conda activate phd
 
 unset hostname
 
