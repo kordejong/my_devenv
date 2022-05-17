@@ -4,7 +4,14 @@ unset cwd
 
 parse_commandline $*
 
-KOR_JEMIG_EU="$PROJECTS/`\ls $PROJECTS | \grep -i \"^kor_jemig_eu$\"`"
+if [ ! "$KOR_JEMIG_EU" ]; then
+    export KOR_JEMIG_EU="$PROJECTS/gauja/kordejong/kor_jemig_eu"
+fi
+
+if [ ! -d "$KOR_JEMIG_EU" ]; then
+    echo "ERROR: directory $KOR_JEMIG_EU does not exist..."
+    return 1
+fi
 
 basename=`basename $KOR_JEMIG_EU`
 KOR_JEMIG_EU_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
