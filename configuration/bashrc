@@ -191,14 +191,14 @@ alias tree="tree -C"
 alias start_http_server-2="python -m SimpleHTTPServer"
 alias start_http_server-3="python -m http.server"
 alias update_vim_plugins="vim +PluginInstall +qall"
-alias ssh_triklav_zaadmarkt="ssh -t triklav_zaadmarkt caffeinate -i bash -l"
+# alias ssh_triklav_zaadmarkt="ssh -t triklav_zaadmarkt caffeinate -i bash -l"
 
-alias docker_list_running="docker ps --quiet"
-alias docker_list_exited="docker ps --all --quiet --filter=status=exited"
-alias docker_stop_running="docker stop \$(docker_list_running)"
-alias docker_remove_exited="docker rm -v \$(docker_list_exited)"
+# alias docker_list_running="docker ps --quiet"
+# alias docker_list_exited="docker ps --all --quiet --filter=status=exited"
+# alias docker_stop_running="docker stop \$(docker_list_running)"
+# alias docker_remove_exited="docker rm -v \$(docker_list_exited)"
 
-alias status_of_my_projects="my_git.py status personal_files gauja github jostedal"
+alias status_of_my_projects="my_git.py status gauja github jostedal"
 
 
 # bashrc:
@@ -206,9 +206,9 @@ alias status_of_my_projects="my_git.py status personal_files gauja github josted
 # export PS1="\u@\h:\W👉 "
 
 PYTHONSTARTUP="$cwd/startup.py"
-if [ $OSTYPE == "cygwin" ]; then
-    PYTHONSTARTUP=`cygpath -m "$PYTHONSTARTUP"`
-fi
+# if [ $OSTYPE == "cygwin" ]; then
+#     PYTHONSTARTUP=`cygpath -m "$PYTHONSTARTUP"`
+# fi
 export PYTHONSTARTUP
 
 
