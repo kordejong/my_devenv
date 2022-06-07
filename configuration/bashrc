@@ -198,7 +198,7 @@ alias docker_list_exited="docker ps --all --quiet --filter=status=exited"
 alias docker_stop_running="docker stop \$(docker_list_running)"
 alias docker_remove_exited="docker rm -v \$(docker_list_exited)"
 
-alias status_of_my_projects="my_git.py status personal_files my_devenv gauja computational_geography"
+alias status_of_my_projects="my_git.py status personal_files gauja github jostedal"
 
 
 # bashrc:

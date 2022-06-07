@@ -6,7 +6,7 @@ parse_commandline $*
 
 
 if [ ! "$PARALLEL_COMPUTING_COURSE" ]; then
-    export PARALLEL_COMPUTING_COURSE="$PROJECTS/computational_geography/parallel_computing_course"
+    export PARALLEL_COMPUTING_COURSE="$PROJECTS/github/computational_geography/parallel_computing_course"
 fi
 
 
@@ -27,5 +27,3 @@ hostname=`hostname -s`
 conda activate parallel_computing_course
 
 unset hostname
-
-pwd
