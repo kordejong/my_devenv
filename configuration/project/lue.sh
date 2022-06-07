@@ -232,22 +232,23 @@ then
 elif [[ $hostname == "velocity" ]];
 then
     # Platform for development. All 3rd party packages should be available on the system.
+    # TODO boost, gdal, hdf5
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
         -DLUE_HAVE_DOCOPT:BOOL=FALSE
-        -DLUE_HAVE_BOOST:BOOL=FALSE
+        -DLUE_HAVE_BOOST:BOOL=TRUE
         -DLUE_HAVE_FMT:BOOL=FALSE
-        -DLUE_HAVE_GDAL:BOOL=FALSE
+        -DLUE_HAVE_GDAL:BOOL=TRUE
         -DLUE_HAVE_GLEW:BOOL=FALSE
         -DLUE_HAVE_GLFW:BOOL=FALSE
-        -DLUE_HAVE_HDF5:BOOL=FALSE
+        -DLUE_HAVE_HDF5:BOOL=TRUE
         -DLUE_HAVE_NLOHMANN_JSON:BOOL=FALSE
         -DLUE_HAVE_PYBIND11:BOOL=FALSE
         -DLUE_TEST_NR_LOCALITIES_PER_TEST=3
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=3
     "
     CMAKE_BUILD_PARALLEL_LEVEL=10
-    PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+    # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     LUE_ROUTING_DATA="/todo/doesnotexist"
 fi
 
