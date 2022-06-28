@@ -80,6 +80,7 @@ project=$cwd/project
 
 alias geoneric="source $PROJECTS/gauja/geoneric/executive/geoneric/environment/configuration/bash_profile"
 alias tmux_geoneric="tmuxp load $PROJECTS/gauja/geoneric/executive/geoneric/environment/configuration/geoneric.yaml"
+alias geoneric_eu="source $PROJECTS/gauja/geoneric/executive/geoneric/environment/configuration/geoneric_eu.sh"
 alias tmux_geoneric_eu="tmuxp load $PROJECTS/gauja/geoneric/executive/geoneric/environment/configuration/geoneric_eu.yaml"
 alias placebook="source $PROJECTS/gauja/geoneric/executive/geoneric/environment/configuration/placebook.sh"
 alias tmux_placebook="tmuxp load $PROJECTS/gauja/geoneric/executive/geoneric/environment/configuration/placebook.yaml"

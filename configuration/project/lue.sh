@@ -42,6 +42,12 @@ fi
 
 hostname="${hostname,,}"  # Lower-case the hostname
 
+if [[ $hostname == int? || $hostname == tcn* ]];
+then
+    hostname="snellius"
+fi
+
+echo $hostname
 
 #   -DCMAKE_RULE_MESSAGES=OFF
 LUE_CMAKE_ARGUMENTS="
@@ -216,6 +222,31 @@ then
     # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     LUE_ROUTING_DATA="/scratch/depfg/jong0137/data/routing"
     LUE_BENCHMARK_DATA="/scratch/depfg/jong0137/data/project/lue/benchmark"
+
+elif [[ $hostname == "snellius" ]];
+then
+    # Platform for production runs.
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
+        -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
+        -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
+        -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
+        -DLUE_BUILD_VIEW:BOOL=FALSE
+        -DLUE_HAVE_DOCOPT:BOOL=FALSE
+        -DLUE_HAVE_FMT:BOOL=FALSE
+        -DLUE_HAVE_NLOHMANN_JSON:BOOL=FALSE
+        -DLUE_HAVE_PYBIND11:BOOL=FALSE
+        -DLUE_TEST_NR_LOCALITIES_PER_TEST=2
+        -DLUE_TEST_NR_THREADS_PER_LOCALITY=3
+        -DLUE_TEST_HPX_RUNWRAPPER=mpi
+        -DLUE_TEST_HPX_PARCELPORT=mpi
+    "
+    CMAKE_BUILD_PARALLEL_LEVEL=32
+    # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+    # LUE_ROUTING_DATA="/scratch/depfg/jong0137/data/routing"
+    # LUE_BENCHMARK_DATA="/scratch/depfg/jong0137/data/project/lue/benchmark"
 
 elif [[ $hostname == "snowdon" ]];
 then
