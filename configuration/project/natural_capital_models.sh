@@ -7,9 +7,13 @@ parse_commandline $*
 
 
 if [ ! "$NATURAL_CAPITAL_MODELS" ]; then
-    export NATURAL_CAPITAL_MODELS="$PROJECTS/`\ls $PROJECTS | \grep -i \"^natural_capital_models$\"`"
+    export NATURAL_CAPITAL_MODELS="$PROJECTS/github/rivm-syso/natural_capital_models"
 fi
 
+if [ ! -d "$NATURAL_CAPITAL_MODELS" ]; then
+    echo "ERROR: directory $NATURAL_CAPITAL_MODELS does not exist..."
+    return 1
+fi
 
 # PATH="$NATURAL_CAPITAL_MODELS/environment/script:$NATURAL_CAPITAL_MODELS/source/script:$PATH"
 PATH="$NATURAL_CAPITAL_MODELS/source/script:$PATH"
