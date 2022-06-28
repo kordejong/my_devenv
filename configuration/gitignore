@@ -1,6 +1,7 @@
 *.pyc
+*.qgs~
 .*.swp
+.directory
+compile_commands.json
 out
 tags
-*.qgs~
-.directory
