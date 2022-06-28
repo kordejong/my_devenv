@@ -9,7 +9,7 @@ windows:
           main-pane-height: 25
       panes:
           - shell_command:
-              - vim +NERDTreeToggle +"tabnew $PROJECTS/personal_files/Documents/wiki/uu/project/lue/index.wiki" +tabfirst
+              - vim +NERDTreeToggle +"tabnew $PERSONAL_FILES/Documents/wiki/uu/project/lue/index.wiki" +tabfirst
             focus: true
           - shell_command:
               - cd $LUE_OBJECTS

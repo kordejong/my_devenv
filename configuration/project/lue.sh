@@ -10,7 +10,7 @@ parse_commandline $*
 
 
 if [ ! "$LUE" ]; then
-    export LUE="$PROJECTS/computational_geography/lue"
+    export LUE="$PROJECTS/github/computational_geography/lue"
 fi
 
 if [ ! -d "$LUE" ]; then
@@ -48,7 +48,6 @@ then
 fi
 
 echo $hostname
-
 
 #   -DCMAKE_RULE_MESSAGES=OFF
 LUE_CMAKE_ARGUMENTS="
@@ -325,5 +324,3 @@ fi
 conda activate lue
 
 unset hostname
-
-pwd
