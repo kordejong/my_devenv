@@ -5,7 +5,9 @@
     "clangd": {
         "path": "clangd-12",
         "semanticHighlighting": "true"
-    }
+    },
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
     // "yaml.format.enable": true
     // // https://github.com/neoclide/coc.nvim/blob/master/data/schema.json
     // "suggest.floatEnable": false,
