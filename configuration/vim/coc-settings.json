@@ -1,17 +1,13 @@
 {
-    // "python": {
-    //     "pythonPath": "~/bin/python_for_coc"
-    // },
     "clangd": {
         "path": "clangd-12",
-        "semanticHighlighting": "true"
+        "semanticHighlighting": true
     },
-    "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true
-    // "yaml.format.enable": true
-    // // https://github.com/neoclide/coc.nvim/blob/master/data/schema.json
-    // "suggest.floatEnable": false,
-    // "diagnostic.messageTarget": "echo",
-    // "signature.target": "echo",
-    // "coc.preferences.hoverTarget": "echo"
+    "python": {
+        "pythonPath": "$MY_DEVENV/script/python_for_coc.sh",
+        "linting": {
+            "enabled": true,
+            "pylintEnabled": true
+        }
+    }
 }

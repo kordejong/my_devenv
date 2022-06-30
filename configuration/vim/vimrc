@@ -9,6 +9,7 @@ filetype off
 
 " After adding new plugins, reload this file, :so ~/.vim/vimrc,  and then :PlugInstall
 
+
 " coc extensions are in ~/.config/coc/extensions/
 " - coc-clangd
 " - coc-cmake
@@ -18,7 +19,13 @@ filetype off
 " Coc commands:
 " CocInfo
 " CocInstall ...
+" CocUpdate
 " CocRestart
+
+" coc-pyright:
+" - https://github.com/fannheyward/coc-pyright
+" - https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+
 
 call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
@@ -224,7 +231,7 @@ map <F5> :n `find_source_code.py --module %` <CR>
 " fmt current line?
 map <F6> :.!fmt --width 100<CR>
 
-set makeprg=build_target.py
+" set makeprg=build_target.py
 
 map <F8> :make --project %:p:h<CR>
 map <F9> :make --test %:p:h<CR>
