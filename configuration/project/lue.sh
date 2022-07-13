@@ -40,11 +40,14 @@ then
     exit 1
 fi
 
-hostname="${hostname,,}"  # Lower-case the hostname
+hostname="$(tr [A-Z] [a-z] <<< "$hostname")"
 
 if [[ $hostname == int? || $hostname == tcn* ]];
 then
     hostname="snellius"
+elif [[ $hostname == uu107273 ]];
+then
+    hostname="m1compiler"
 fi
 
 echo $hostname
@@ -197,12 +200,38 @@ then
 ###     # export CC="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
 ###     # export CXX="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
 
+elif [[ $hostname == "m1compiler" ]];
+then
+    # macOS platform for testing build of LUE using Conda packages. These should be installed.
+    LUE_CMAKE_ARGUMENTS="
+        $LUE_CMAKE_ARGUMENTS
+        -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
+        -DLUE_HAVE_BOOST:BOOL=TRUE
+        -DLUE_HAVE_DOCOPT:BOOL=TRUE
+        -DLUE_HAVE_FMT:BOOL=TRUE
+        -DLUE_HAVE_GDAL:BOOL=TRUE
+        -DLUE_HAVE_GLEW:BOOL=TRUE
+        -DLUE_HAVE_GLFW:BOOL=TRUE
+        -DLUE_HAVE_HDF5:BOOL=TRUE
+        -DLUE_HAVE_MS_GSL:BOOL=FALSE
+        -DLUE_HAVE_NLOHMANN_JSON:BOOL=TRUE
+        -DLUE_HAVE_PYBIND11:BOOL=TRUE
+        -DLUE_TEST_NR_LOCALITIES_PER_TEST=2
+        -DLUE_TEST_NR_THREADS_PER_LOCALITY=2
+        -DLUE_TEST_HPX_RUNWRAPPER=none
+        -DLUE_TEST_HPX_PARCELPORT=tcp
+        -DLUE_QA_TEST_NR_LOCALITIES_PER_TEST=2
+        -DLUE_QA_TEST_NR_THREADS_PER_LOCALITY=2
+        -DLUE_QA_TEST_HPX_RUNWRAPPER=none
+        -DLUE_QA_TEST_HPX_PARCELPORT=tcp
+    "
+    CMAKE_BUILD_PARALLEL_LEVEL=4
+
 elif [[ $hostname == "login01" ]];
 then
     # Platform for production runs.
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_BUILD_VIEW:BOOL=FALSE
         -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
         -DLUE_HAVE_DOCOPT:BOOL=FALSE
@@ -228,7 +257,6 @@ then
     # Platform for production runs.
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
-        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
         -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
