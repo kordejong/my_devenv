@@ -8,6 +8,8 @@
 [color]
 	ui = auto
 	interactive = auto
+[pull]
+	rebase = false
 [push]
 	default = simple
 [alias]
