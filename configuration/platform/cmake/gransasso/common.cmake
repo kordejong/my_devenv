@@ -5,9 +5,13 @@ include(${CMAKE_CURRENT_LIST_DIR}/../linux.cmake)
 
 # Tools
 # Compiler
-set(CMAKE_C_COMPILER gcc-9)
-set(CMAKE_CXX_COMPILER g++-9)
+set(CMAKE_C_COMPILER gcc-11)
+set(CMAKE_CXX_COMPILER g++-11)
 include(${CMAKE_CURRENT_LIST_DIR}/../gcc.cmake)
+
+# set(CMAKE_C_COMPILER gcc-12)
+# set(CMAKE_CXX_COMPILER g++-12)
+# include(${CMAKE_CURRENT_LIST_DIR}/../gcc.cmake)
 
 # set(CMAKE_C_COMPILER clang-12)
 # set(CMAKE_CXX_COMPILER clang++-12)

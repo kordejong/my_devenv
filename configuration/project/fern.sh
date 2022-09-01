@@ -7,29 +7,42 @@ parse_commandline $*
 
 
 if [ ! "$FERN" ]; then
-    export FERN="$PROJECTS/`\ls $PROJECTS | \grep -i \"^fern$\"`"
+    export FERN="$PROJECTS/github/geoneric/fern"
 fi
 
+if [ ! -d "$FERN" ]; then
+    echo "ERROR: directory $FERN does not exist..."
+    return 1
+fi
 
 basename=`basename $FERN`
+
 FERN_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
 PATH="$FERN/environment/script:$PATH"
 
-if [[ $OSTYPE == "cygwin" ]]; then
-    PYTHONPATH="`cygpath -m $LUE_OBJECTS`/bin;$PYTHONPATH"
-else
-    PYTHONPATH="$LUE_OBJECTS/bin:$PYTHONPATH"
-fi
+figure_out_hostname
+echo $MY_DEVENV_HOSTNAME
 
-unset basename
+figure_out_cmake_toolchain_file
+echo $MY_DEVENV_CMAKE_TOOLCHAIN_FILE
+
+
+# if [[ $OSTYPE == "cygwin" ]]; then
+#     PYTHONPATH="`cygpath -m $LUE_OBJECTS`/bin;$PYTHONPATH"
+# else
+#     PYTHONPATH="$LUE_OBJECTS/bin:$PYTHONPATH"
+# fi
+# 
+# unset basename
 
 
 common_arguments="
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DPEACOCK_PREFIX:PATH=$PEACOCK_PREFIX/fern
-    -DFERN_BUILD_DOCUMENTATION:BOOL=TRUE
+    -DFERN_BUILD_DOCUMENTATION:BOOL=FALSE
     -DFERN_BUILD_TEST:BOOL=TRUE
     -DFERN_BUILD_BENCHMARK:BOOL=FALSE
+    -DCMAKE_TOOLCHAIN_FILE=$MY_DEVENV_CMAKE_TOOLCHAIN_FILE
 "
 # All.
 FERN_CMAKE_ARGUMENTS="
@@ -71,25 +84,22 @@ unset common_arguments
 #     "
 # fi
 
-if [[ $CC == "cl" ]]; then
-    FERN_CMAKE_ARGUMENTS="
-        $FERN_CMAKE_ARGUMENTS
-        -DCMAKE_MAKE_PROGRAM:STRING=C:/utils/make
-    "
-fi
+# if [[ $CC == "cl" ]]; then
+#     FERN_CMAKE_ARGUMENTS="
+#         $FERN_CMAKE_ARGUMENTS
+#         -DCMAKE_MAKE_PROGRAM:STRING=C:/utils/make
+#     "
+# fi
 
 
 export FERN_CMAKE_ARGUMENTS
 export PATH
 export PYTHONPATH
 
-
 cd $FERN
 
-# Since there is a command named fern, we need to get rid of the alias.
-unalias fern 2>/dev/null
+if [[ -n `type -t fern` ]]; then
+    unalias fern
+fi
 
-workon fern
-
-# cd source/fern
-pwd
+conda activate fern
