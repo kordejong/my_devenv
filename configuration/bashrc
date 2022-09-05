@@ -181,12 +181,12 @@ fi
 
 
 alias grep="grep --color=auto"
-alias ls="ls --human-readable --color=auto"
+alias ls="ls -h --color=auto"
 alias ll="ls -l"
 alias viout="vi out"
 alias gitout="git status | tee out && vi out"
 alias shout="bash ./out"
-alias df="df --human-readable"
+alias df="df -h"
 alias screen="screen -U"
 alias tree="tree -C"
 alias start_http_server-2="python -m SimpleHTTPServer"
@@ -218,7 +218,7 @@ test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
 # Make sure environment variables are expanded on the command line.
 # if [[ $BASH_VERSION == "4.2."* ]]; then
-    shopt -s direxpand
+#     shopt -s direxpand
 # fi
 shopt -s cdspell  # Fix minor errors in spelling of directory names.
 
