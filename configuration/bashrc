@@ -97,6 +97,8 @@ alias paper_2020_scalable_algorithms="source $project/paper_2020_scalable_algori
 # alias atlas="source $project/atlas.sh"
 alias fern="source $project/fern.sh"
 alias fern_python="source $project/fern_python.sh"
+alias gauja="source $project/gauja.sh"
+alias tmux_gauja="tmuxp load $project/gauja.yaml"
 # alias generic_algorithm_code="source $project/generic_algorithm_code.sh"
 alias gghdc="source $project/gghdc.sh"
 # alias grep_track="source $project/grep_track.sh"
@@ -145,6 +147,7 @@ alias parallel_computing_course="source $project/parallel_computing_course.sh"
 alias tmux_parallel_computing_course="tmuxp load $project/parallel_computing_course.yaml"
 
 alias snippets="source $project/snippets.sh"
+alias tmux_snippets="tmuxp load $project/snippets.yaml"
 
 unset project
 

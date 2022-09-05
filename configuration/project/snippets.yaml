@@ -1,7 +1,6 @@
-session_name: lue
+session_name: snippets
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/lue.sh"
-    - "export PYTHONPATH=$LUE_OBJECTS/lib/python3.9:$PYTHONPATH"
+    - "source $MY_DEVENV/configuration/project/snippets.sh"
 windows:
     - window_name: edit
       focus: true
@@ -10,13 +9,13 @@ windows:
           main-pane-height: 25
       panes:
           - shell_command:
-              - vim +NERDTreeToggle +"tabnew $PERSONAL_FILES/Documents/wiki/uu/project/lue/index.wiki" +tabfirst
+              - vim +NERDTreeToggle
             focus: true
           - shell_command:
-              - cd $LUE_OBJECTS
+              - cd $SNIPPETS_OBJECTS
               - clear
               - pwd
     - window_name: manage
       panes:
           - shell_command:
-              - vifm $LUE $LUE_OBJECTS
+              - vifm $SNIPPETS $SNIPPETS_OBJECTS
