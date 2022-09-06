@@ -97,6 +97,8 @@ alias paper_2020_scalable_algorithms="source $project/paper_2020_scalable_algori
 # alias atlas="source $project/atlas.sh"
 alias fern="source $project/fern.sh"
 alias fern_python="source $project/fern_python.sh"
+alias gauja="source $project/gauja.sh"
+alias tmux_gauja="tmuxp load $project/gauja.yaml"
 # alias generic_algorithm_code="source $project/generic_algorithm_code.sh"
 alias gghdc="source $project/gghdc.sh"
 # alias grep_track="source $project/grep_track.sh"
@@ -145,6 +147,7 @@ alias parallel_computing_course="source $project/parallel_computing_course.sh"
 alias tmux_parallel_computing_course="tmuxp load $project/parallel_computing_course.yaml"
 
 alias snippets="source $project/snippets.sh"
+alias tmux_snippets="tmuxp load $project/snippets.yaml"
 
 unset project
 
@@ -181,12 +184,12 @@ fi
 
 
 alias grep="grep --color=auto"
-alias ls="ls --human-readable --color=auto"
+alias ls="ls -h --color=auto"
 alias ll="ls -l"
 alias viout="vi out"
 alias gitout="git status | tee out && vi out"
 alias shout="bash ./out"
-alias df="df --human-readable"
+alias df="df -h"
 alias screen="screen -U"
 alias tree="tree -C"
 alias start_http_server-2="python -m SimpleHTTPServer"
@@ -199,7 +202,7 @@ alias update_vim_plugins="vim +PluginInstall +qall"
 # alias docker_stop_running="docker stop \$(docker_list_running)"
 # alias docker_remove_exited="docker rm -v \$(docker_list_exited)"
 
-alias status_of_my_projects="my_git.py status gauja github jostedal"
+alias status_of_my_projects="my_git.py status gauja github"
 
 
 # bashrc:
@@ -218,7 +221,7 @@ test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
 # Make sure environment variables are expanded on the command line.
 # if [[ $BASH_VERSION == "4.2."* ]]; then
-    shopt -s direxpand
+#     shopt -s direxpand
 # fi
 shopt -s cdspell  # Fix minor errors in spelling of directory names.
 

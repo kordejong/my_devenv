@@ -57,3 +57,50 @@ set_prompt_for_project()
 
     PS1="$PS1 \u@\h:\W$ "
 }
+
+
+function figure_out_hostname()
+{
+    hostname=`hostname -s 2>/dev/null`
+
+    if [ ! "$hostname" ];
+    then
+        hostname=`hostname`
+    fi
+
+    if [ ! "$hostname" ];
+    then
+        echo "Could not figure out the hostname"
+        exit 1
+    fi
+
+    hostname="$(tr [A-Z] [a-z] <<< "$hostname")"
+
+    if [[ $hostname == int? || $hostname == tcn* ]];
+    then
+        hostname="snellius"
+    elif [[ $hostname == uu107273 ]];
+    then
+        hostname="m1compiler"
+    fi
+
+    export MY_DEVENV_HOSTNAME=$hostname
+    unset hostname
+}
+
+
+function figure_out_cmake_toolchain_file()
+{
+    cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$MY_DEVENV_HOSTNAME/$MY_DEVENV_BUILD_TYPE.cmake
+
+    if [ ! -f $cmake_toolchain_file ]; then
+        cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$MY_DEVENV_HOSTNAME.cmake
+    fi
+
+    if [ ! -f $cmake_toolchain_file ]; then
+        echo "INFO: No CMake toolchain file found for a $MY_DEVENV_BUILD_TYPE build on $MY_DEVENV_HOSTNAME"
+    fi
+
+    export MY_DEVENV_CMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file
+    unset cmake_toolchain_file
+}

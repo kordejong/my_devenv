@@ -45,7 +45,7 @@ Plug 'kien/ctrlp.vim'
 " Plug 'Yggdroot/indentLine'
 call plug#end()
 
-set laststatus=2
+" set laststatus=2
 
 scriptencoding utf-8
 set encoding=utf-8
@@ -98,12 +98,9 @@ set wildignore+=*.pyc
 " au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 
 
-" let g:NERDTreeDirArrowExpandable = '▸'
-" let g:NERDTreeDirArrowCollapsible = '▾'
-
 let g:NERDTreeMinimalUI = 1
-let g:NERDTreeNodeDelimiter = "\t"
-let g:NERDTreeDirArrows = 1
+" let g:NERDTreeNodeDelimiter = " "
+" let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '.'
 let g:NERDTreeDirArrowCollapsible = '.'
 let g:NERDTreeIgnore=[
