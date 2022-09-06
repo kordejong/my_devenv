@@ -202,7 +202,7 @@ alias update_vim_plugins="vim +PluginInstall +qall"
 # alias docker_stop_running="docker stop \$(docker_list_running)"
 # alias docker_remove_exited="docker rm -v \$(docker_list_exited)"
 
-alias status_of_my_projects="my_git.py status gauja github jostedal"
+alias status_of_my_projects="my_git.py status gauja github"
 
 
 # bashrc:
