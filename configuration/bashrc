@@ -220,8 +220,8 @@ test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
 
 # Make sure environment variables are expanded on the command line.
-# if [[ $BASH_VERSION == "4.2."* ]]; then
-#     shopt -s direxpand
+# if [[ $BASH_VERSION >= "4.2."* ]]; then
+    shopt -s direxpand
 # fi
 shopt -s cdspell  # Fix minor errors in spelling of directory names.
 
