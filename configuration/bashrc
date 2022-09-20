@@ -149,6 +149,12 @@ alias tmux_parallel_computing_course="tmuxp load $project/parallel_computing_cou
 alias snippets="source $project/snippets.sh"
 alias tmux_snippets="tmuxp load $project/snippets.yaml"
 
+alias my_documents="source $project/my_documents.sh"
+alias tmux_my_documents="tmuxp load $project/my_documents.yaml"
+
+alias lue_tutorial="source $project/lue_tutorial.sh"
+alias tmux_lue_tutorial="tmuxp load $project/lue_tutorial.yaml"
+
 unset project
 
 
