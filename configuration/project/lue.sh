@@ -113,6 +113,8 @@ then
     LUE_ROUTING_DATA="/mnt/data1/home/kor/data/project/routing"
     LUE_BENCHMARK_DATA="/mnt/data1/home/kor/data/project/lue/benchmark/gransasso/"
 
+    source $LUE/env/bin/activate
+
 elif [[ $hostname == "fg-vm12" ]];
 then
     if [ -d "$repository_cache" ]; then
@@ -154,6 +156,8 @@ then
     ### export CXX=C:/PROGRA~2/MICROS~1/2019/COMMUN~1/VC/Tools/MSVC/1429~1.301/bin/Hostx64/x64/cl
     ### # export CC="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
     ### # export CXX="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
+
+    conda activate lue
 
 ### elif [[ $hostname == "ketjen" ]];
 ### then
@@ -226,6 +230,8 @@ then
     "
     CMAKE_BUILD_PARALLEL_LEVEL=4
 
+    conda activate lue
+
 elif [[ $hostname == "login01" ]];
 then
     # Platform for production runs.
@@ -251,6 +257,8 @@ then
     LUE_ROUTING_DATA="/scratch/depfg/jong0137/data/routing"
     LUE_BENCHMARK_DATA="/scratch/depfg/jong0137/data/project/lue/benchmark"
 
+    conda activate lue
+
 elif [[ $hostname == "snellius" ]];
 then
     # Platform for production runs.
@@ -274,6 +282,8 @@ then
     # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     # LUE_ROUTING_DATA="/scratch/depfg/jong0137/data/routing"
     # LUE_BENCHMARK_DATA="/scratch/depfg/jong0137/data/project/lue/benchmark"
+
+    conda activate lue
 
 elif [[ $hostname == "snowdon" ]];
 then
@@ -299,6 +309,8 @@ then
     # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     LUE_ROUTING_DATA="$HOME/development/data/project/routing"
 
+    source $LUE/env/bin/activate
+
 elif [[ $hostname == "velocity" ]];
 then
     # Platform for development. All 3rd party packages should be available on the system.
@@ -321,6 +333,9 @@ then
     CMAKE_BUILD_PARALLEL_LEVEL=10
     # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
     LUE_ROUTING_DATA="/todo/doesnotexist"
+
+    conda activate lue
+
 fi
 
 
@@ -361,7 +376,5 @@ cd $LUE
 if [[ -n `type -t lue` ]]; then
     unalias lue
 fi
-
-conda activate lue
 
 unset hostname
