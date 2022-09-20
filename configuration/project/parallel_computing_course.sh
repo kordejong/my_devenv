@@ -24,6 +24,7 @@ unalias parallel_computing_course 2>/dev/null
 
 hostname=`hostname -s`
 
-conda activate parallel_computing_course
+# conda activate parallel_computing_course
+source env/bin/activate
 
 unset hostname
