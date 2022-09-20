@@ -60,5 +60,5 @@ string(REPLACE "\n" "" cxx_debug_flags ${cxx_debug_flags})
 # Linker
 # - Use faster gold linker, except for release builds
 # - -pg Adds support for profiling
-set(CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT "-fuse-ld=gold")
-set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT "-fuse-ld=gold")
+# set(CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT "-fuse-ld=gold")
+# set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT "-fuse-ld=gold")
