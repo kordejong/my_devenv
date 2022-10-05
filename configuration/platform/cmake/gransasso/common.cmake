@@ -9,6 +9,14 @@ set(CMAKE_C_COMPILER gcc-11)
 set(CMAKE_CXX_COMPILER g++-11)
 include(${CMAKE_CURRENT_LIST_DIR}/../gcc.cmake)
 
+# TODO
+# set(CMAKE_EXE_LINKER_FLAGS_INIT "-B/usr/bin/mold")  # gcc <12.1.0
+# set(CMAKE_SHARED_LINKER_FLAGS_INIT "-B/usr/bin/mold")  # gcc <12.1.0
+# set(CMAKE_STATIC_LINKER_FLAGS_INIT "-B/usr/bin/mold")  # gcc <12.1.0
+
+# set(CMAKE_EXE_LINKER_FLAGS_INIT "-fuse-ld=mold")  # clang, gcc >=12.1.0
+
+
 # set(CMAKE_C_COMPILER gcc-12)
 # set(CMAKE_CXX_COMPILER g++-12)
 # include(${CMAKE_CURRENT_LIST_DIR}/../gcc.cmake)
