@@ -27,30 +27,28 @@ PATH="\
 $LUE/environment/script:\
 $PATH"
 
-hostname=`hostname -s 2>/dev/null`
+LUE_HOSTNAME=`hostname -s 2>/dev/null`
 
-if [ ! "$hostname" ];
+if [ ! "$LUE_HOSTNAME" ];
 then
-    hostname=`hostname`
+    LUE_HOSTNAME=`hostname`
 fi
 
-if [ ! "$hostname" ];
+if [ ! "$LUE_HOSTNAME" ];
 then
     echo "Could not figure out the hostname"
     exit 1
 fi
 
-hostname="$(tr [A-Z] [a-z] <<< "$hostname")"
+LUE_HOSTNAME="${LUE_HOSTNAME,,}"  # Lower-case the hostname
 
-if [[ $hostname == int? || $hostname == tcn* ]];
+if [[ $LUE_HOSTNAME == int? || $LUE_HOSTNAME == tcn* ]];
 then
-    hostname="snellius"
-elif [[ $hostname == uu107273 ]];
+    LUE_HOSTNAME="snellius"
+elif [[ $LUE_HOSTNAME == uu107273 ]];
 then
-    hostname="m1compiler"
+    LUE_HOSTNAME="m1compiler"
 fi
-
-echo $hostname
 
 #   -DCMAKE_RULE_MESSAGES=OFF
 LUE_CMAKE_ARGUMENTS="
@@ -81,14 +79,14 @@ if [ -d "$repository_cache" ]; then
 fi
 
 
-cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$hostname/$MY_DEVENV_BUILD_TYPE.cmake
+cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$LUE_HOSTNAME/$MY_DEVENV_BUILD_TYPE.cmake
 
 if [ ! -f $cmake_toolchain_file ]; then
-    cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$hostname.cmake
+    cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$LUE_HOSTNAME.cmake
 fi
 
 if [ ! -f $cmake_toolchain_file ]; then
-    echo "INFO: No CMake toolchain file found for a $MY_DEVENV_BUILD_TYPE build on $hostname"
+    echo "INFO: No CMake toolchain file found for a $MY_DEVENV_BUILD_TYPE build on $LUE_HOSTNAME"
 else
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
@@ -97,7 +95,7 @@ else
 fi
 
 
-if [[ $hostname == "gransasso" ]];
+if [[ $LUE_HOSTNAME == "gransasso" ]];
 then
     # Platform for testing use of the Ubuntu packages of 3rd party
     # software LUE depends on. No LUE_HAVE_<NAME> variables set to FALSE.
@@ -115,7 +113,7 @@ then
 
     source $LUE/env/bin/activate
 
-elif [[ $hostname == "fg-vm12" ]];
+elif [[ $LUE_HOSTNAME == "fg-vm12" ]];
 then
     if [ -d "$repository_cache" ]; then
         LUE_CMAKE_ARGUMENTS="
@@ -159,7 +157,7 @@ then
 
     conda activate lue
 
-### elif [[ $hostname == "ketjen" ]];
+### elif [[ $LUE_HOSTNAME == "ketjen" ]];
 ### then
 ###     if [ -d "$repository_cache" ]; then
 ###         LUE_CMAKE_ARGUMENTS="
@@ -204,7 +202,7 @@ then
 ###     # export CC="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
 ###     # export CXX="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
 
-elif [[ $hostname == "m1compiler" ]];
+elif [[ $LUE_HOSTNAME == "m1compiler" ]];
 then
     # macOS platform for testing build of LUE using Conda packages. These should be installed.
     LUE_CMAKE_ARGUMENTS="
@@ -232,11 +230,12 @@ then
 
     conda activate lue
 
-elif [[ $hostname == "login01" ]];
+elif [[ $LUE_HOSTNAME == "login01" ]];
 then
     # Platform for production runs.
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
+        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_BUILD_VIEW:BOOL=FALSE
         -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
         -DLUE_HAVE_DOCOPT:BOOL=FALSE
@@ -259,11 +258,12 @@ then
 
     conda activate lue
 
-elif [[ $hostname == "snellius" ]];
+elif [[ $LUE_HOSTNAME == "snellius" ]];
 then
     # Platform for production runs.
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
+        -DLUE_BUILD_FRAMEWORK:BOOL=TRUE
         -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
         -DLUE_DATA_MODEL_WITH_PYTHON_API:BOOL=TRUE
         -DLUE_FRAMEWORK_WITH_BENCHMARKS:BOOL=TRUE
@@ -277,6 +277,10 @@ then
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=3
         -DLUE_TEST_HPX_RUNWRAPPER=mpi
         -DLUE_TEST_HPX_PARCELPORT=mpi
+        -DLUE_QA_TEST_NR_LOCALITIES_PER_TEST=2
+        -DLUE_QA_TEST_NR_THREADS_PER_LOCALITY=3
+        -DLUE_QA_TEST_HPX_RUNWRAPPER=mpi
+        -DLUE_QA_TEST_HPX_PARCELPORT=mpi
     "
     CMAKE_BUILD_PARALLEL_LEVEL=32
     # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
@@ -285,7 +289,7 @@ then
 
     conda activate lue
 
-elif [[ $hostname == "snowdon" ]];
+elif [[ $LUE_HOSTNAME == "snowdon" ]];
 then
     LUE_CMAKE_ARGUMENTS="
         $LUE_CMAKE_ARGUMENTS
@@ -300,7 +304,7 @@ then
 
     source $LUE/env/bin/activate
 
-elif [[ $hostname == "velocity" ]];
+elif [[ $LUE_HOSTNAME == "velocity" ]];
 then
     # Platform for development. All 3rd party packages should be available on the system.
     # TODO boost, gdal, hdf5
@@ -356,7 +360,7 @@ unset repository_cache cmake_toolchain_file
 export LUE_CMAKE_ARGUMENTS
 export CMAKE_BUILD_PARALLEL_LEVEL
 export LD_LIBRARY_PATH
-export LUE_OBJECTS LUE_DATA LUE_ROUTING_DATA LUE_BENCHMARK_DATA
+export LUE_OBJECTS LUE_DATA LUE_HOSTNAME LUE_ROUTING_DATA LUE_BENCHMARK_DATA
 export PATH
 # export PYTHONPATH
 
@@ -366,4 +370,3 @@ if [[ -n `type -t lue` ]]; then
     unalias lue
 fi
 
-unset hostname
