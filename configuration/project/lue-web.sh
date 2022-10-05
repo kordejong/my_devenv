@@ -4,7 +4,7 @@ unset cwd
 
 parse_commandline $*
 
-export LUE_WEB="$PROJECTS/computational_geography/lue-web"
+export LUE_WEB="$PROJECTS/github/computational_geography/lue-web"
 
 if [ ! -d "$LUE_WEB" ]; then
     echo "ERROR: directory $LUE_WEB does not exist..."
@@ -15,6 +15,6 @@ basename=`basename $LUE_WEB`
 
 export LUE_WEB
 
-conda activate lue-web
+source $LUE_WEB/env/bin/activate
 
 cd $LUE_WEB
