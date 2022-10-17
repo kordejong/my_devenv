@@ -4,13 +4,14 @@ unset cwd
 
 parse_commandline $*
 
-COMPUTATIONALGEOGRAPHY_WEB="$PROJECTS/`\ls $PROJECTS | \grep -i \"^computationalgeography-web$\"`"
+COMPUTATIONALGEOGRAPHY_WEB="$PROJECTS/github/computational_geography/computationalgeography-web"
 
-basename=`basename $COMPUTATIONALGEOGRAPHY_WEB`
+if [ ! -d "$COMPUTATIONALGEOGRAPHY_WEB" ]; then
+    echo "ERROR: directory $COMPUTATIONALGEOGRAPHY_WEB does not exist..."
+    return 1
+fi
 
 export COMPUTATIONALGEOGRAPHY_WEB
 
-conda activate computationalgeography-web
-
 cd $COMPUTATIONALGEOGRAPHY_WEB
-pwd
+source env/bin/activate

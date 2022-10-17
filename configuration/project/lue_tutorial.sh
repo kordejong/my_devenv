@@ -29,4 +29,4 @@ cd $LUE_TUTORIAL
 
 unalias lue_tutorial 2>/dev/null
 
-# conda activate lue_tutorial
+conda activate lue_tutorial

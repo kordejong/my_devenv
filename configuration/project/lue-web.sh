@@ -11,10 +11,7 @@ if [ ! -d "$LUE_WEB" ]; then
     return 1
 fi
 
-basename=`basename $LUE_WEB`
-
 export LUE_WEB
 
-source $LUE_WEB/env/bin/activate
-
 cd $LUE_WEB
+source env/bin/activate
