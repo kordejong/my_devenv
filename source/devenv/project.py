@@ -350,6 +350,11 @@ def grep_sources(
         invert_match=False):
     assert os.path.isdir(path_name), path_name
 
+    # https://stackoverflow.com/questions/4210042/how-do-i-exclude-a-directory-when-using-find
+    exclude_directory_pathnames = [
+            "./env",
+        ]
+
     file_names = [
         "*.bas",  # VB
         "*.bib",
@@ -402,7 +407,8 @@ def grep_sources(
         "--invert-match" if invert_match else "",
         "--word-regexp" if match_word else ""
     ]
-    command = "find . \( {} \) -exec grep {} \"{}\" \{{\}} \;".format(
+    command = "find . -type d \( {} \) -prune -o \( {} \) -exec grep {} \"{}\" \{{\}} \;".format(
+        " -o ".join([ "-path {}".format(pathname) for pathname in exclude_directory_pathnames ]),
         file_names, " ".join(grep_arguments).strip(), pattern)
     output = devenv.process.execute2(command, working_directory=path_name)
 
