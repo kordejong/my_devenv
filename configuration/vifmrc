@@ -365,7 +365,8 @@ command! reload :write | restart
 " "fileviewer *.json vim %c
 
 filextype *.lue lue_view %c
-filextype *.ods, libreoffice --calc %c &
+" filextype *.ods, libreoffice --calc %c &
+filextype *.ods,*.odt libreoffice %c &
 filextype *.jpg,*.pdf,*.png xdg-open
 filetype * vim %c
 
@@ -490,3 +491,14 @@ nnoremap <f8> :delete<cr>
 "     vifm --server-name "$VIFM_SERVER_NAME" --remote +"cd '$PWD'"
 "
 " let $VIFM_SERVER_NAME = v:servername
+
+" :bmark doesn't expand environment variables
+" For $HOME use ~
+" For others use: execute 'bmark!' $MYVAR 'mytag'
+bmark! ~/ownCloud/k.dejong1@uu.nl/ owncloud surfdrive
+bmark! ~/ownCloud/k.dejong1@uu.nl/project/2022-great/ great
+bmark! ~/ownCloud/k.dejong1@uu.nl/publication/ publication
+bmark! ~/Nextcloud/kor@jemig.eu/ nextcloud
+bmark! ~/Nextcloud/kor@jemig.eu/project/jemig/ jemig
+bmark! ~/Nextcloud/kor@jemig.eu/project/personal/document/ document
+bmark! ~/Nextcloud/k.dejong@geoneric.eu/ nextcloud
