@@ -62,6 +62,7 @@ LUE_CMAKE_ARGUMENTS="
     -DLUE_BUILD_TEST:BOOL=TRUE
     -DLUE_BUILD_QA:BOOL=TRUE
     -DLUE_QA_WITH_PYTHON_API:BOOL=TRUE
+    -DLUE_QA_WITH_TESTS:BOOL=TRUE
     -DLUE_BUILD_DOCUMENTATION:BOOL=TRUE
     -DLUE_BUILD_HPX:BOOL=TRUE
 "
@@ -271,8 +272,8 @@ then
         -DLUE_BUILD_VIEW:BOOL=FALSE
         -DLUE_HAVE_DOCOPT:BOOL=FALSE
         -DLUE_HAVE_FMT:BOOL=FALSE
-        -DLUE_HAVE_NLOHMANN_JSON:BOOL=FALSE
-        -DLUE_HAVE_PYBIND11:BOOL=FALSE
+        -DLUE_HAVE_NLOHMANN_JSON:BOOL=TRUE
+        -DLUE_HAVE_PYBIND11:BOOL=TRUE
         -DLUE_TEST_NR_LOCALITIES_PER_TEST=2
         -DLUE_TEST_NR_THREADS_PER_LOCALITY=3
         -DLUE_TEST_HPX_RUNWRAPPER=mpi
@@ -287,7 +288,7 @@ then
     # LUE_ROUTING_DATA="/scratch/depfg/jong0137/data/routing"
     # LUE_BENCHMARK_DATA="/scratch/depfg/jong0137/data/project/lue/benchmark"
 
-    conda activate lue
+    source $LUE/env/bin/activate
 
 elif [[ $LUE_HOSTNAME == "snowdon" ]];
 then

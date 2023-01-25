@@ -9,6 +9,8 @@ filetype off
 
 " After adding new plugins, reload this file, :so ~/.vim/vimrc,  and then :PlugInstall
 
+" Upgrade Black installation with :BlackUpgrade
+
 
 " coc extensions are in ~/.config/coc/extensions/
 " - coc-clangd
@@ -40,6 +42,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/ctrlp.vim'
+Plug 'psf/black', {'branch': 'stable'}
 " Plug 'pedrohdz/vim-yaml-folds'
 " Plug 'masukomi/vim-markdown-folding'
 " Plug 'Yggdroot/indentLine'
@@ -64,7 +67,7 @@ set digraph
 set mouse=a
 
 " highlight ColorColumn ctermbg=7
-set colorcolumn=111
+" set colorcolumn=89,111
 
 " match ErrorMsg '\%>80v.\+'
 
@@ -123,8 +126,6 @@ let g:NERDTreeIgnore=[
 " autocmd FileType pyrex setlocal shiftwidth=4 tabstop=4
 " autocmd FileType vimwiki setlocal shiftwidth=4 tabstop=4
 
-autocmd FileType cpp setlocal foldmethod=syntax
-autocmd FileType python setlocal foldmethod=indent
 
 " Disable creation of temporary wikis. This is needed to set the filetype of
 " Markdown files to markdown instead of vimwiki.
@@ -169,6 +170,15 @@ let g:ctrlp_custom_ignore = {
 " set statusline=%F%m%r%h%w\ FF=%{&ff}\ TYPE=%Y\ RC=%l,%v\ %p%%\ LEN=%L
 " TODO How to set this in normal mode...
 " let g:airline_section_z = "%p%"
+
+"-------------------------------------------------------------------------------
+" let g:black_linelength = 110
+" let g:black_use_virtualenv = 0
+
+" augroup black_on_save
+"     autocmd!
+"     autocmd BufWritePre *.py Black
+" augroup end
 
 "-------------------------------------------------------------------------------
 
