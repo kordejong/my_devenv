@@ -19,6 +19,9 @@ LUE_QA_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
 
 export LUE_QA LUE_QA_OBJECTS
 
-conda activate lue_qa
+if [[ -n `type -t lue_qa` ]];
+then
+    unalias lue_qa
+fi
 
 cd $LUE_QA
