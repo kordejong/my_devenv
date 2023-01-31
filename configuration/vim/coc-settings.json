@@ -1,6 +1,6 @@
 {
     "clangd": {
-        "path": "clangd-14",
+        "path": "clangd",
         "semanticHighlighting": true
     },
     "python": {

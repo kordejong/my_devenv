@@ -5,10 +5,12 @@ include(${CMAKE_CURRENT_LIST_DIR}/../darwin.cmake)
 
 # Tools
 # Compiler
-set(CMAKE_C_COMPILER $ENV{CONDA_PREFIX}/bin/clang)
-set(CMAKE_CXX_COMPILER $ENV{CONDA_PREFIX}/bin/clang++)
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
 
 include(${CMAKE_CURRENT_LIST_DIR}/../clang.cmake)
+
+set(CMAKE_PREFIX_PATH "/opt/homebrew")
 
 ### set(PYBIND11_PYTHON_VERSION "3" CACHE STRING "")
 

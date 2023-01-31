@@ -31,7 +31,8 @@ filetype off
 
 call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
-if hostname() == "gransasso" || hostname() == "snowdon"
+" echo hostname()
+if hostname() == "gransasso" || hostname() == "snowdon" || hostname() == "UU107273.local"
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'jackguo380/vim-lsp-cxx-highlight'
 endif
