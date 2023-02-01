@@ -15,6 +15,7 @@ filetype off
 " coc extensions are in ~/.config/coc/extensions/
 " - coc-clangd
 " - coc-cmake
+" - coc-java
 " - coc-json
 " - coc-pyright
 " - coc-yaml
@@ -47,6 +48,7 @@ Plug 'psf/black', {'branch': 'stable'}
 " Plug 'pedrohdz/vim-yaml-folds'
 " Plug 'masukomi/vim-markdown-folding'
 " Plug 'Yggdroot/indentLine'
+Plug 'uiiaoo/java-syntax.vim'
 call plug#end()
 
 " set laststatus=2
