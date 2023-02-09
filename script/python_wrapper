@@ -22,7 +22,7 @@ shift
 # When PYTHONVER is set, use that to select a specific python version.
 # Otherwise use the default python version.
 if [ ! ${PYTHONVER} ]; then
-    python=python
+    python=python3
 else
     python=python${PYTHONVER}
 fi
