@@ -4,9 +4,8 @@
 \ProvidesClass{nord_presentation}[2022/12/14 Antibes Beamer theme and colours from Nord theme]
 \RequirePackage{pgfopts}
 
-\LoadClass[t, 11pt, aspectratio=169]{beamer}
-
-% TODO Default background for presentations is dark, so use that in case this option in not passed
+% TODO Add support for defaults:
+% - Default background is: dark
 \pgfkeys{
     /nord/.cd,
     background/.store in=\nord@background,
@@ -15,6 +14,13 @@
 \ProcessPgfOptions{/nord}
 
 \newcommand{\nordbackground}{\nord@background}
+
+\LoadClass[
+    t,
+    11pt,
+    aspectratio=169,
+]{beamer}
+
 
 
 \RequirePackage{tikz}
