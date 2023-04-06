@@ -180,8 +180,9 @@
 %%%     }
 
 
-\colorlet{kdj_bullet}{nord fg!50!nord bg}
-\colorlet{kdj_alert}{nord10}
+\colorlet{nord frame}{nord fg!10!nord bg}
+\colorlet{nord bullet}{nord fg!50!nord bg}
+\colorlet{nord alert}{nord10}
 
 
 \RequirePackage{caption}
@@ -255,7 +256,7 @@
 \setbeamercolor{section in head/foot}{bg=nord bg, fg=nord fg}
 \setbeamercolor{subsection in head/foot}{bg=nord bg, fg=nord fg}
 
-\setbeamercolor{item}{fg=kdj_bullet}  % Bullet itself in lists
+\setbeamercolor{item}{fg=nord bullet}  % Bullet itself in lists
 \setbeamercolor{section in toc}{fg=nord fg}  % Text in ToC
 \setbeamercolor{subsection in toc}{fg=nord fg}  % Text in ToC
 \setbeamercolor{subsubsection in toc}{fg=nord fg}  % Text in ToC
@@ -264,11 +265,11 @@
 \setbeamercolor{block title alerted}{bg=nord11}  % Red
 \setbeamercolor{block title example}{bg=nord14}  % Green
 
-\setbeamercolor{alerted text}{fg=kdj_alert}  % Blue
+\setbeamercolor{alerted text}{fg=nord alert}  % Blue
 \setbeamerfont{alerted text}{series=\bfseries}
 
 \setbeamercolor{bibliography entry author}{fg=nord fg}
-\setbeamercolor{bibliography entry title}{fg=kdj_alert}
+\setbeamercolor{bibliography entry title}{fg=nord alert}
 \setbeamercolor{bibliography entry location}{fg=nord fg}
 \setbeamercolor{bibliography entry note}{fg=nord fg}
 \setbeamercolor{bibliography item}{fg=nord fg}
