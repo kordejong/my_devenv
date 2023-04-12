@@ -21,6 +21,18 @@
     aspectratio=169,
 ]{beamer}
 
+\PassOptionsToPackage{
+    backend=biber,
+    bibencoding=utf8,
+    language=auto,
+    style=numeric-comp,
+    sorting=nyt,
+    maxbibnames=99,
+    maxcitenames=1,
+    natbib=true,
+    giveninits=true,
+}{biblatex}
+\usepackage{biblatex}
 
 \RequirePackage{tikz}
 \usetikzlibrary{positioning, shapes.geometric}
@@ -47,7 +59,7 @@
 \RequirePackage{wrapfig}
 \RequirePackage{textpos}
 
-\bibliographystyle{apalike}
+% \bibliographystyle{apalike}
 
 \beamertemplatenavigationsymbolsempty
 
