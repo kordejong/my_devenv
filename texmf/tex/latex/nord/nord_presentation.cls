@@ -143,11 +143,11 @@
 }
 \newtcblisting[]{nordcpplisting}[1]{%
     minted language=c++,
-    title=#1,
+    title={#1},
 }
 \newtcblisting[]{nordpythonlisting}[1]{%
     minted language=python,
-    title=#1,
+    title={#1},
 }
 
 % \newmintinline{"nordcpp"}{c++}{style=nord}
