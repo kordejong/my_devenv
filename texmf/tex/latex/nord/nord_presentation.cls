@@ -31,8 +31,23 @@
     maxcitenames=1,
     natbib=true,
     giveninits=true,
+    url=false,
 }{biblatex}
 \usepackage{biblatex}
+
+\defbibenvironment{nordpubs}
+    {\list
+        {}
+        {%
+            \setlength{\leftmargin}{\bibhang}%
+            \setlength{\itemindent}{-\leftmargin}%
+            \setlength{\itemsep}{\bibitemsep}%
+            \setlength{\parsep}{\bibparsep}%
+        }%
+    }
+    {\endlist}
+{\item}
+
 
 \RequirePackage{tikz}
 \usetikzlibrary{positioning, shapes.geometric}
