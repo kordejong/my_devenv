@@ -4,7 +4,7 @@ unset cwd
 
 parse_commandline $*
 
-export LUE_QA="$PROJECTS/computational_geography/lue_qa"
+export LUE_QA="$PROJECTS/github/computational_geography/lue_qa"
 
 if [ ! -d "$LUE_QA" ]; then
     echo "ERROR: directory $LUE_QA does not exist..."
