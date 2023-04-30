@@ -367,7 +367,7 @@ command! reload :write | restart
 filextype *.lue lue_view %c
 " filextype *.ods, libreoffice --calc %c &
 filextype *.docx *.ods,*.odt libreoffice %c &
-filextype *.jpg,*.pdf,*.png xdg-open
+filextype *.jpg,*.pdf,*.png xdg-open &
 filetype * vim %c
 
 " Open all other files with default system programs (you can also remove all
