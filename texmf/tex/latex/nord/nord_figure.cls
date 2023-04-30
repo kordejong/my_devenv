@@ -14,6 +14,11 @@
 
 \LoadClass[tikz]{standalone}
 
-\usetikzlibrary{calc, math, positioning, shapes.geometric}
+\usetikzlibrary{
+    calc,
+    math,
+    positioning,
+    shapes.geometric
+}
 
 \RequirePackage{nord_colour}
