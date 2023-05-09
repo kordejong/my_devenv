@@ -78,6 +78,13 @@
 
 \beamertemplatenavigationsymbolsempty
 
+% Show a number in the lower right corner of each page. This allows people to refer to a specific
+% page after the presentation.
+\setbeamertemplate{footline}
+{%
+    \hfill\insertpagenumber
+}
+
 % Use while designing theme:
 % \usecolortheme[named=red]{structure}
 
