@@ -1,4 +1,4 @@
-session_name: uu
+session_name: invest
 shell_command_before:
     - "source $MY_DEVENV/configuration/project/invest.sh"
 windows:
