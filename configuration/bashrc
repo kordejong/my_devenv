@@ -160,6 +160,9 @@ alias tmux_lue_tutorial="tmuxp load $project/lue_tutorial.yaml"
 alias invest="source $project/invest.sh"
 alias tmux_invest="tmuxp load $project/invest.yaml"
 
+alias lue_course="source $project/lue_course.sh"
+alias tmux_lue_course="tmuxp load $project/lue_course.yaml"
+
 unset project
 
 
