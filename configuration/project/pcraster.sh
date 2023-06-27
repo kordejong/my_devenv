@@ -7,9 +7,13 @@ parse_commandline $*
 
 
 if [ ! "$PCRASTER" ]; then
-    export PCRASTER="$PROJECTS/`\ls $PROJECTS | \grep -i \"^pcraster$\"`"
+    export PCRASTER="$PROJECTS/github/pcraster/pcraster"
 fi
 
+if [ ! -d "$PCRASTER" ]; then
+    echo "ERROR: directory $PCRASTER does not exist..."
+    return 1
+fi
 
 basename=`basename $PCRASTER`
 
