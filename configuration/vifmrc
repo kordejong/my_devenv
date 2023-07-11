@@ -366,7 +366,7 @@ command! reload :write | restart
 
 filextype *.lue lue_view %c
 " filextype *.ods, libreoffice --calc %c &
-filextype *.docx *.ods,*.odt libreoffice %c &
+filextype *.docx,*.ods,*.odt libreoffice %c &
 " KDJ: %i is for suppressing "Background Process Error" messages, which we don't care about
 filextype *.jpg,*.pdf,*.png xdg-open %c %i &
 filetype * vim %c
