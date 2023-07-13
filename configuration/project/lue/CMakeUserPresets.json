@@ -1,0 +1,62 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "environment",
+            "hidden": true,
+            "environment": {
+                "OBJECTS": "${sourceParentDir}/../../../object",
+                "TOOLCHAIN_ROOT": "$penv{MY_DEVENV}/configuration/platform/cmake/toolchain"
+            }
+        },
+        {
+            "name": "gcc",
+            "hidden": true,
+            "toolchainFile": "$env{TOOLCHAIN_ROOT}/gcc.cmake",
+            "environment": {
+                "COMPILER": "gcc"
+            }
+        },
+        {
+            "name": "clang",
+            "hidden": true,
+            "toolchainFile": "$env{TOOLCHAIN_ROOT}/clang.cmake",
+            "environment": {
+                "COMPILER": "clang"
+            }
+        },
+        {
+            "name": "ninja_gcc_debug",
+            "inherits": [
+                "environment",
+                "lue_debug",
+                "gcc",
+                "lue_ninja"
+            ],
+            "displayName": "Ninja Debug",
+            "binaryDir": "$env{OBJECTS}/$env{COMPILER}/Debug/${sourceDirName}"
+        },
+        {
+            "name": "ninja_gcc_relwithdebinfo",
+            "inherits": [
+                "environment",
+                "lue_relwithdebinfo",
+                "gcc",
+                "lue_ninja"
+            ],
+            "displayName": "Ninja RelWithDebInfo",
+            "binaryDir": "$env{OBJECTS}/$env{COMPILER}/RelWithDebInfo/${sourceDirName}"
+        },
+        {
+            "name": "ninja_gcc_release",
+            "inherits": [
+                "environment",
+                "lue_release",
+                "gcc",
+                "lue_ninja"
+            ],
+            "displayName": "Ninja Release",
+            "binaryDir": "$env{OBJECTS}/$env{COMPILER}/Release/${sourceDirName}"
+        }
+    ]
+}
