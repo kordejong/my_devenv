@@ -4,6 +4,7 @@
 *.qgs~
 .*.swp
 .directory
+CMakeConanPresets.json
 compile_commands.json
 env/
 go.sh
