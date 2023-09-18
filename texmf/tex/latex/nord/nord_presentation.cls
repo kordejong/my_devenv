@@ -171,6 +171,11 @@
     minted language=python,
     title={#1},
 }
+% TODO For some reason bash statements are always shown in black, also on dark background
+\newtcblisting[]{nordbashlisting}[1]{%
+    minted language=bash,
+    title={#1},
+}
 
 % \newmintinline{"nordcpp"}{c++}{style=nord}
 % \newmintinline["nordpython"]{"c++"}{}
