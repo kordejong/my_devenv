@@ -4,7 +4,6 @@ shell_command_before:
 windows:
     - window_name: edit
       focus: true
-      layout: main-horizontal
       options:
           main-pane-height: 25
       panes:
