@@ -1,0 +1,202 @@
+{
+    "version": 7,
+    "include": [
+        "CMakePresets.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "kor_configuration",
+            "hidden": true,
+            "environment": {
+                "LUE_OBJECTS": "$env{HOME}/development/object"
+            },
+            "cacheVariables": {
+                "LUE_DATA_MODEL_WITH_PYTHON_API": "TRUE",
+                "LUE_DATA_MODEL_WITH_UTILITIES": "TRUE",
+                "LUE_FRAMEWORK_WITH_PYTHON_API": "TRUE",
+                "LUE_BUILD_VIEW": "TRUE",
+                "LUE_BUILD_QA": "TRUE",
+                "LUE_QA_WITH_PYTHON_API": "TRUE",
+                "LUE_QA_WITH_TESTS": "TRUE",
+                "LUE_BUILD_HPX": "TRUE",
+                "LUE_HPX_REPOSITORY": {
+                    "type": "PATH",
+                    "value": "file://$PROJECTS/github/kordejong/hpx"
+                },
+                "LUE_REPOSITORY_CACHE": {
+                    "type": "PATH",
+                    "value": "file://$PROJECTS/../repository"
+                }
+            }
+        },
+        {
+            "name": "kor_debug_configuration",
+            "hidden": true,
+            "inherits": [
+                "kor_configuration",
+                "lue_debug"
+            ],
+            "cacheVariables": {
+                "LUE_ASSERT_CONDITIONS": "TRUE"
+            }
+        },
+        {
+            "name": "kor_relwithdebinfo_configuration",
+            "hidden": true,
+            "inherits": [
+                "kor_configuration",
+                "lue_relwithdebinfo"
+            ],
+            "cacheVariables": {
+                "LUE_BUILD_OTF2": "TRUE"
+            }
+        },
+        {
+            "name": "kor_release_configuration",
+            "hidden": true,
+            "inherits": [
+                "kor_configuration",
+                "lue_release"
+            ],
+            "cacheVariables": {
+            }
+        },
+        {
+            "name": "gransasso_configuration",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "HPX_WITH_MALLOC": "tcmalloc",
+                "HPX_WITH_HWLOC": "TRUE",
+                "HPX_WITH_GOOGLE_PERFTOOLS": "TRUE",
+                "HPX_WITH_NETWORKING": "TRUE",
+                "HPX_WITH_PARCELPORT_TCP": "TRUE",
+                "HPX_WITH_PARCELPORT_MPI": "FALSE",
+                "LUE_BUILD_DOCUMENTATION": "TRUE",
+                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "2"
+            },
+            "environment": {
+                "LUE_ROUTING_DATA": "mnt/data1/home/kor/data/project/routing",
+                "LUE_BENCHMARK_DATA": "mnt/data1/home/kor/data/project/lue/benchmark/gransasso/"
+            }
+        },
+        {
+            "name": "m1compiler_configuration",
+            "hidden": true,
+            "cacheVariables": {
+                "HPX_WITH_MALLOC": "tcmalloc",
+                "HPX_WITH_HWLOC": "TRUE",
+                "HPX_WITH_GOOGLE_PERFTOOLS": "TRUE",
+                "HPX_WITH_NETWORKING": "TRUE",
+                "HPX_WITH_PARCELPORT_TCP": "TRUE",
+                "HPX_WITH_PARCELPORT_MPI": "FALSE",
+                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
+                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "2"
+            }
+        },
+        {
+            "name": "login01_configuration",
+            "hidden": true,
+            "cacheVariables": {
+                "HPX_WITH_MALLOC": "tcmalloc",
+                "HPX_WITH_HWLOC": "TRUE",
+                "HPX_WITH_GOOGLE_PERFTOOLS": "TRUE",
+                "HPX_WITH_NETWORKING": "TRUE",
+                "HPX_WITH_PARCELPORT_TCP": "FALSE",
+                "HPX_WITH_PARCELPORT_MPI": "TRUE",
+                "LUE_BUILD_VIEW": "FALSE",
+                "LUE_QA_TEST_HPX_RUNWRAPPER": "mpi",
+                "LUE_QA_TEST_HPX_PARCELPORT": "mpi",
+                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "3"
+            },
+            "environment": {
+                "LUE_ROUTING_DATA": "/scratch/depfg/jong0137/data/routing",
+                "LUE_BENCHMARK_DATA": "/scratch/depfg/jong0137/data/project/lue/benchmark"
+            }
+        },
+        {
+            "name": "snellius_configuration",
+            "hidden": true,
+            "cacheVariables": {
+                "HPX_WITH_MALLOC": "tcmalloc",
+                "HPX_WITH_HWLOC": "TRUE",
+                "HPX_WITH_GOOGLE_PERFTOOLS": "TRUE",
+                "HPX_WITH_NETWORKING": "TRUE",
+                "HPX_WITH_PARCELPORT_TCP": "FALSE",
+                "HPX_WITH_PARCELPORT_MPI": "TRUE",
+                "LUE_BUILD_VIEW": "FALSE",
+                "LUE_QA_TEST_HPX_RUNWRAPPER": "mpi",
+                "LUE_QA_TEST_HPX_PARCELPORT": "mpi",
+                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "3"
+            },
+            "environment": {
+                "LUE_ROUTING_DATA": "/TODO",
+                "LUE_BENCHMARK_DATA": "/TODO"
+            }
+        },
+        {
+            "name": "snowdon_configuration",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "HPX_WITH_MALLOC": "tcmalloc",
+                "HPX_WITH_HWLOC": "TRUE",
+                "HPX_WITH_GOOGLE_PERFTOOLS": "TRUE",
+                "HPX_WITH_NETWORKING": "TRUE",
+                "HPX_WITH_PARCELPORT_TCP": "TRUE",
+                "HPX_WITH_PARCELPORT_MPI": "FALSE",
+                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "2"
+            },
+            "environment": {
+                "LUE_ROUTING_DATA": "$HOME/development/data/project/routing",
+                "LUE_BENCHMARK_DATA": "/TODO"
+            }
+        },
+        {
+            "name": "velocity_configuration",
+            "hidden": true,
+            "cacheVariables": {
+                "HPX_WITH_MALLOC": "tcmalloc",
+                "HPX_WITH_HWLOC": "TRUE",
+                "HPX_WITH_GOOGLE_PERFTOOLS": "TRUE",
+                "HPX_WITH_NETWORKING": "TRUE",
+                "HPX_WITH_PARCELPORT_TCP": "TRUE",
+                "HPX_WITH_PARCELPORT_MPI": "FALSE",
+                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "3",
+                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "3"
+            },
+            "environment": {
+                "LUE_ROUTING_DATA": "/TODO",
+                "LUE_BENCHMARK_DATA": "/TODO"
+            }
+        },
+        {
+            "name": "gcc_configuration",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_FLAGS_INIT": "-W -Wall -Wextra",
+                "CMAKE_CXX_FLAGS_INIT": "-W -Wall -Wextra -ftemplate-backtrace-limit=0"
+            }
+        },
+        {
+            "name": "clang_configuration",
+            "hidden": true
+        }
+    ]
+}

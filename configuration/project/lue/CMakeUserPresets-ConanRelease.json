@@ -1,0 +1,42 @@
+{
+    "version": 7,
+    "include": [
+        "CMakeConanPresets.json",
+        "CMakeUserPresets-base.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "kor_conan_release",
+            "hidden": true,
+            "inherits": [
+                "conan-release",
+                "kor_release_configuration"
+            ],
+            "binaryDir": "$env{LUE_OBJECTS}/conan/Release/${sourceDirName}"
+        },
+        {
+            "name": "gransasso_conan_release",
+            "inherits": [
+                "gransasso_configuration",
+                "kor_conan_release"
+            ],
+            "displayName": "gransasso / conan / release"
+        },
+        {
+            "name": "m1compiler_conan_release",
+            "inherits": [
+                "m1compiler_configuration",
+                "kor_conan_release"
+            ],
+            "displayName": "m1compiler / conan / release"
+        },
+        {
+            "name": "snowdon_conan_release",
+            "inherits": [
+                "snowdon_configuration",
+                "kor_conan_release"
+            ],
+            "displayName": "snowdon / conan / release"
+        }
+    ]
+}

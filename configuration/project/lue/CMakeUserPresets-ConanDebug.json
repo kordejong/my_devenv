@@ -1,0 +1,42 @@
+{
+    "version": 7,
+    "include": [
+        "CMakeConanPresets.json",
+        "CMakeUserPresets-base.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "kor_conan_debug",
+            "hidden": true,
+            "inherits": [
+                "conan-debug",
+                "kor_debug_configuration"
+            ],
+            "binaryDir": "$env{LUE_OBJECTS}/conan/Debug/${sourceDirName}"
+        },
+        {
+            "name": "gransasso_conan_debug",
+            "inherits": [
+                "gransasso_configuration",
+                "kor_conan_debug"
+            ],
+            "displayName": "gransasso / conan / debug"
+        },
+        {
+            "name": "m1compiler_conan_debug",
+            "inherits": [
+                "m1compiler_configuration",
+                "kor_conan_debug"
+            ],
+            "displayName": "m1compiler / conan / debug"
+        },
+        {
+            "name": "snowdon_conan_debug",
+            "inherits": [
+                "snowdon_configuration",
+                "kor_conan_debug"
+            ],
+            "displayName": "snowdon / conan / debug"
+        }
+    ]
+}
