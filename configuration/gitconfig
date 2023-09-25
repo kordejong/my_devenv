@@ -2,7 +2,7 @@
 	name = Kor de Jong
 	email = kor@jemig.eu
 [core]
-	excludesfile = /home/kor/.gitignore
+    excludesfile = ~/.gitignore
 	autocrlf = input
 	quotepath = false
 [color]
