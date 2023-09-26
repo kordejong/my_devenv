@@ -1,0 +1,20 @@
+session_name: adaptation_pathways
+shell_command_before:
+    - "source $MY_DEVENV/configuration/project/adaptation_pathways.sh"
+windows:
+    - window_name: edit
+      focus: true
+      options:
+          main-pane-height: 25
+      panes:
+          - shell_command:
+              - vim +NERDTreeToggle
+            focus: true
+          - shell_command:
+              - cd $ADAPTATION_PATHWAYS
+              - clear
+              - pwd
+    - window_name: manage
+      panes:
+          - shell_command:
+              - vifm $ADAPTATION_PATHWAYS $ADAPTATION_PATHWAYS
