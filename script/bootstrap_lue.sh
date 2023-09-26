@@ -33,7 +33,10 @@ fi
 hostname=$1
 build_type=$2
 
-if [[ $hostname == m1compiler ]]; then
+if [[ $hostname == gransasso ]]; then
+    compiler="gcc"
+    conan_packages="imgui pybind11 span-lite"
+elif [[ $hostname == m1compiler ]]; then
     compiler="clang"
     conan_packages="docopt.cpp imgui span-lite"
 else
