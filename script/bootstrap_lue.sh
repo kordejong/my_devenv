@@ -39,6 +39,9 @@ if [[ $hostname == gransasso ]]; then
 elif [[ $hostname == m1compiler ]]; then
     compiler="clang"
     conan_packages="docopt.cpp imgui span-lite"
+elif [[ $hostname == velocity ]]; then
+    compiler="gcc"
+    conan_packages="docopt.cpp pybind11 span-lite"
 else
     "Unknown hostname: $hostname"
 fi
@@ -67,8 +70,8 @@ LUE_CONAN_PACKAGES="$conan_packages" \
 
 ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $source_dir
 ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${build_type}.json $source_dir/CMakeUserPresets.json
+ln -s -f $build_dir/build/${build_type}/generators/CMakePresets.json $source_dir/CMakeConanPresets.json
 
-ln -s -f $build_dir/CMakePresets.json $source_dir/CMakeConanPresets.json
 cmake -S $source_dir --preset ${hostname}_conan_${build_type,,}
 
 ln -s -f $build_dir/compile_commands.json $source_dir
