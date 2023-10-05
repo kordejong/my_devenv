@@ -5,14 +5,12 @@
 .*.swp
 .directory
 CMakeConanPresets.json
-CMakeUserPresets.json
+CMakeUserPresets*.json
 compile_commands.json
 env/
 go.sh
 out
-out-Debug
-out-Release
-out-RelWithDebInfo
+out-*
 tags
 *.qgs~
 .directory
