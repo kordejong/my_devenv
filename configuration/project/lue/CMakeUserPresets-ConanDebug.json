@@ -12,7 +12,7 @@
                 "conan-debug",
                 "kor_debug_configuration"
             ],
-            "binaryDir": "$env{LUE_OBJECTS}/conan/Debug/${sourceDirName}"
+            "binaryDir": "$penv{OBJECTS}/conan/Debug/${sourceDirName}"
         },
         {
             "name": "gransasso_conan_debug",
@@ -37,6 +37,14 @@
                 "kor_conan_debug"
             ],
             "displayName": "snowdon / conan / debug"
+        },
+        {
+            "name": "velocity_conan_debug",
+            "inherits": [
+                "velocity_configuration",
+                "kor_conan_debug"
+            ],
+            "displayName": "velocity / conan / debug"
         }
     ]
 }

@@ -7,9 +7,6 @@
         {
             "name": "kor_configuration",
             "hidden": true,
-            "environment": {
-                "LUE_OBJECTS": "$env{HOME}/development/object"
-            },
             "cacheVariables": {
                 "LUE_DATA_MODEL_WITH_PYTHON_API": "TRUE",
                 "LUE_DATA_MODEL_WITH_UTILITIES": "TRUE",
@@ -21,11 +18,11 @@
                 "LUE_BUILD_HPX": "TRUE",
                 "LUE_HPX_REPOSITORY": {
                     "type": "PATH",
-                    "value": "file://$PROJECTS/github/kordejong/hpx"
+                    "value": "file://$penv{PROJECTS}/github/kordejong/hpx"
                 },
                 "LUE_REPOSITORY_CACHE": {
                     "type": "PATH",
-                    "value": "file://$PROJECTS/../repository"
+                    "value": "file://$penv{PROJECTS}/../repository"
                 }
             }
         },
@@ -174,9 +171,11 @@
             "name": "velocity_configuration",
             "hidden": true,
             "cacheVariables": {
+                "LUE_BUILD_VIEW": "FALSE",
                 "HPX_WITH_MALLOC": "tcmalloc",
                 "HPX_WITH_HWLOC": "TRUE",
                 "HPX_WITH_GOOGLE_PERFTOOLS": "TRUE",
+                "HPX_WITH_MAX_CPU_COUNT": "96",
                 "HPX_WITH_NETWORKING": "TRUE",
                 "HPX_WITH_PARCELPORT_TCP": "TRUE",
                 "HPX_WITH_PARCELPORT_MPI": "FALSE",
