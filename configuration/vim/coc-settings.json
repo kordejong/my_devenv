@@ -4,7 +4,7 @@
         "semanticHighlighting": true
     },
     "python": {
-        "pythonPath": "python3",
+        "pythonPath": "${env:MY_DEVENV}/script/python_for_coc.sh",
         "linting": {
             "enabled": true,
             "flake8Enabled": false,
