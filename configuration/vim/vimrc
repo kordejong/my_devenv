@@ -30,10 +30,10 @@ filetype off
 " - https://github.com/microsoft/pyright/blob/main/docs/configuration.md
 
 
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 Plug 'vimwiki/vimwiki'
 " echo hostname()
-if hostname() == "gransasso" || hostname() == "snowdon" || hostname() == "UU107273.local"
+if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon" || hostname() == "UU107273.local"
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'jackguo380/vim-lsp-cxx-highlight'
 endif

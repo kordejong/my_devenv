@@ -31,6 +31,14 @@
             "displayName": "m1compiler / conan / debug"
         },
         {
+            "name": "orkney_conan_debug",
+            "inherits": [
+                "orkney_configuration",
+                "kor_conan_debug"
+            ],
+            "displayName": "orkney / conan / debug"
+        },
+        {
             "name": "snowdon_conan_debug",
             "inherits": [
                 "snowdon_configuration",

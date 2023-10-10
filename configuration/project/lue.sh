@@ -101,6 +101,10 @@ then
 
     source $LUE/env/bin/activate
 
+elif [[ $LUE_HOSTNAME == "orkney" ]];
+then
+    source $LUE/env/bin/activate
+
 elif [[ $LUE_HOSTNAME == "fg-vm12" ]];
 then
     ### if [ -d "$repository_cache" ]; then

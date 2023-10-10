@@ -31,6 +31,14 @@
             "displayName": "m1compiler / conan / release"
         },
         {
+            "name": "orkney_conan_release",
+            "inherits": [
+                "orkney_configuration",
+                "kor_conan_release"
+            ],
+            "displayName": "orkney / conan / release"
+        },
+        {
             "name": "snowdon_conan_release",
             "inherits": [
                 "snowdon_configuration",

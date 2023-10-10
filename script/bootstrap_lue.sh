@@ -39,6 +39,9 @@ if [[ $hostname == gransasso ]]; then
 elif [[ $hostname == m1compiler ]]; then
     compiler="clang"
     conan_packages="docopt.cpp imgui span-lite"
+elif [[ $hostname == orkney ]]; then
+    compiler="gcc"
+    conan_packages="imgui"
 elif [[ $hostname == snowdon ]]; then
     compiler="gcc"
     conan_packages="imgui"

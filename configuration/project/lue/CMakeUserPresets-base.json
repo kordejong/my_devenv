@@ -122,6 +122,25 @@
             }
         },
         {
+            "name": "orkney_configuration",
+            "hidden": true,
+            "cacheVariables": {
+                "HPX_WITH_MALLOC": "tcmalloc",
+                "HPX_WITH_HWLOC": "TRUE",
+                "HPX_WITH_GOOGLE_PERFTOOLS": "TRUE",
+                "HPX_WITH_NETWORKING": "TRUE",
+                "HPX_WITH_PARCELPORT_TCP": "TRUE",
+                "HPX_WITH_PARCELPORT_MPI": "FALSE",
+                "LUE_BUILD_DOCUMENTATION": "TRUE",
+                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "3",
+                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "3"
+            },
+            "environment": {
+                "LUE_ROUTING_DATA": "doesnotexist/routing",
+                "LUE_BENCHMARK_DATA": "doesnotexist/orkney"
+            }
+        },
+        {
             "name": "snellius_configuration",
             "hidden": true,
             "cacheVariables": {
