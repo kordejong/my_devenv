@@ -1,0 +1,20 @@
+session_name: lue_consume
+shell_command_before:
+    - "source $MY_DEVENV/configuration/project/lue_consume.sh"
+windows:
+    - window_name: edit
+      focus: true
+      options:
+          main-pane-height: 25
+      panes:
+          - shell_command:
+              - vim +NERDTreeToggle
+            focus: true
+          - shell_command:
+              - cd $OBJECTS
+              - clear
+              - pwd
+    - window_name: manage
+      panes:
+          - shell_command:
+              - vifm $LUE_CONSUME $OBJECTS
