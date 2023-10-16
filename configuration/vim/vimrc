@@ -76,7 +76,7 @@ set mouse=a
 
 
 " TODO Test whether coc is loaded, instead of repeating hostnames
-if hostname() == "gransasso" || hostname() == "snowdon"
+if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon"
     " coc ----------------------------------------------------------------------
     " Give more space for displaying messages
     " set cmdheight=2
