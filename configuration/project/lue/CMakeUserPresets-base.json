@@ -125,6 +125,13 @@
             "name": "orkney_configuration",
             "hidden": true,
             "cacheVariables": {
+                "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",
+                "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "HPX_WITH_MALLOC": "tcmalloc",
                 "HPX_WITH_HWLOC": "TRUE",
                 "HPX_WITH_GOOGLE_PERFTOOLS": "TRUE",
