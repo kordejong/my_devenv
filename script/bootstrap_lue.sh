@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-set -x
 
 
 if [ -z ${MY_DEVENV+x} ];
@@ -90,8 +89,7 @@ function install_hpx()
     hpx_repository_zip="$repository_zip_prefix/v${hpx_version}.tar.gz"
 
     if [ ! -f $hpx_repository_zip ]; then
-        # TODO
-        wget --directory_prefix=$repository_zip_prefix https://github.com/STEllAR-GROUP/mehmeh/v1.9.1.tar.gz
+        wget --directory_prefix=$repository_zip_prefix https://github.com/STEllAR-GROUP/hpx/archive/refs/tags/v${hpx_version}.tar.gz
     fi
 
     hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
@@ -102,7 +100,9 @@ function install_hpx()
     fi
 
     tar -zx --directory=$(dirname $hpx_source_directory) --file $hpx_repository_zip
-    cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
+    # TODO Grab this file from the LUE repo once gh446 is merged in
+    wget https://raw.githubusercontent.com/computationalgeography/lue/gh446/CMakeHPXPresets.json -O $hpx_source_directory/CMakeUserPresets.json
+    # cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     mkdir $hpx_build_directory
     cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} \
         -D CMAKE_BUILD_TYPE=${build_type}
