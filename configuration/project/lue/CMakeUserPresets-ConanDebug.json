@@ -1,5 +1,5 @@
 {
-    "version": 7,
+    "version": 6,
     "include": [
         "CMakeConanPresets.json",
         "CMakeUserPresets-base.json"
@@ -18,6 +18,7 @@
             "name": "gransasso_conan_debug",
             "inherits": [
                 "gransasso_configuration",
+                "lue_debug_linux_node",
                 "kor_conan_debug"
             ],
             "displayName": "gransasso / conan / debug"
@@ -26,6 +27,7 @@
             "name": "m1compiler_conan_debug",
             "inherits": [
                 "m1compiler_configuration",
+                "lue_debug_macos_node",
                 "kor_conan_debug"
             ],
             "displayName": "m1compiler / conan / debug"
@@ -34,6 +36,7 @@
             "name": "orkney_conan_debug",
             "inherits": [
                 "orkney_configuration",
+                "lue_debug_linux_node",
                 "kor_conan_debug"
             ],
             "displayName": "orkney / conan / debug"
@@ -42,6 +45,7 @@
             "name": "snowdon_conan_debug",
             "inherits": [
                 "snowdon_configuration",
+                "lue_debug_linux_node",
                 "kor_conan_debug"
             ],
             "displayName": "snowdon / conan / debug"
@@ -50,6 +54,7 @@
             "name": "velocity_conan_debug",
             "inherits": [
                 "velocity_configuration",
+                "lue_debug_linux_node",
                 "kor_conan_debug"
             ],
             "displayName": "velocity / conan / debug"
