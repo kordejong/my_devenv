@@ -36,23 +36,23 @@ build_type=$2
 if [[ $hostname == gransasso ]]; then
     compiler="gcc"
     conan_packages="imgui pybind11 span-lite"
-    hpx_preset="node"
+    hpx_preset="linux_node"
 elif [[ $hostname == m1compiler ]]; then
     compiler="clang"
     conan_packages="docopt.cpp imgui span-lite"
-    hpx_preset="node"
+    hpx_preset="macos_node"
 elif [[ $hostname == orkney ]]; then
     compiler="gcc"
     conan_packages="imgui"
-    hpx_preset="node"
+    hpx_preset="linux_node"
 elif [[ $hostname == snowdon ]]; then
     compiler="gcc"
     conan_packages="imgui"
-    hpx_preset="node"
+    hpx_preset="linux_node"
 elif [[ $hostname == velocity ]]; then
     compiler="gcc"
     conan_packages="docopt.cpp pybind11 span-lite"
-    hpx_preset="node"
+    hpx_preset="linux_node"
 else
     "Unknown hostname: $hostname"
 fi
