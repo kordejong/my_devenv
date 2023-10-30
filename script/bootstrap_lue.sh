@@ -21,61 +21,74 @@ then
 fi
 
 
-usage="$(basename $0) hostname build_type"
+function parse_command_line()
+{
+    usage="$(basename $0) hostname build_type"
+
+    if [[ $# != 2 ]];
+    then
+        echo $usage
+        exit 1
+    fi
+
+    hostname=$1
+    build_type=$2
+}
 
 
-if [[ $# != 2 ]];
-then
-    echo $usage
-    exit 1
-fi
+function configure_builds()
+{
+    if [[ $hostname == gransasso ]]; then
+        compiler="gcc"
+        conan_packages="imgui pybind11 span-lite"
+        hpx_preset="linux_node"
+    elif [[ $hostname == m1compiler ]]; then
+        compiler="clang"
+        conan_packages="docopt.cpp imgui span-lite"
+        hpx_preset="macos_node"
+    elif [[ $hostname == orkney ]]; then
+        compiler="gcc"
+        conan_packages="imgui"
+        hpx_preset="linux_node"
+    elif [[ $hostname == snowdon ]]; then
+        compiler="gcc"
+        conan_packages="imgui"
+        hpx_preset="linux_node"
+    elif [[ $hostname == velocity ]]; then
+        compiler="gcc"
+        conan_packages="docopt.cpp pybind11 span-lite"
+        hpx_preset="linux_node"
+    else
+        "Unknown hostname: $hostname"
+    fi
 
-hostname=$1
-build_type=$2
-
-if [[ $hostname == gransasso ]]; then
-    compiler="gcc"
-    conan_packages="imgui pybind11 span-lite"
-    hpx_preset="linux_node"
-elif [[ $hostname == m1compiler ]]; then
-    compiler="clang"
-    conan_packages="docopt.cpp imgui span-lite"
-    hpx_preset="macos_node"
-elif [[ $hostname == orkney ]]; then
-    compiler="gcc"
-    conan_packages="imgui"
-    hpx_preset="linux_node"
-elif [[ $hostname == snowdon ]]; then
-    compiler="gcc"
-    conan_packages="imgui"
-    hpx_preset="linux_node"
-elif [[ $hostname == velocity ]]; then
-    compiler="gcc"
-    conan_packages="docopt.cpp pybind11 span-lite"
-    hpx_preset="linux_node"
-else
-    "Unknown hostname: $hostname"
-fi
-
-install_prefix=$(realpath $PROJECTS/../opt)/$build_type
-repository_zip_prefix=$(realpath $PROJECTS/../repository)
-tmp_prefix=~/tmp
-hpx_preset="hpx_${build_type,,}_${hpx_preset}_configuration"
+    install_prefix=$(realpath $PROJECTS/../opt)/$build_type
+    repository_zip_prefix=$(realpath $PROJECTS/../repository)
+    tmp_prefix=~/tmp
+    hpx_preset="hpx_${build_type,,}_${hpx_preset}_configuration"
 
 
-echo "Setting up $build_type build on $hostname"
-echo "hostname             : $hostname"
-echo "build type           : $build_type"
-echo "conan packages       : $conan_packages"
-echo "compiler             : $compiler"
-echo "install prefix       : $install_prefix"
-echo "repository zip prefix: $repository_zip_prefix"
-echo "tmp prefix           : $tmp_prefix"
-echo "hpx preset           : $hpx_preset"
+    echo "Setting up $build_type build on $hostname"
+    echo "hostname             : $hostname"
+    echo "build type           : $build_type"
+    echo "conan packages       : $conan_packages"
+    echo "compiler             : $compiler"
+    echo "install prefix       : $install_prefix"
+    echo "repository zip prefix: $repository_zip_prefix"
+    echo "tmp prefix           : $tmp_prefix"
+    echo "hpx preset           : $hpx_preset"
 
+    echo
+    read -p "Are you sure [yn]? " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[y]$ ]]
+    then
+        exit 1
+    fi
 
-hpx_install_prefix="$install_prefix/hpx"
-mdspan_install_prefix="$install_prefix/mdspan"
+    hpx_install_prefix="$install_prefix/hpx"
+    mdspan_install_prefix="$install_prefix/mdspan"
+}
 
 
 function install_hpx()
@@ -100,9 +113,7 @@ function install_hpx()
     fi
 
     tar -zx --directory=$(dirname $hpx_source_directory) --file $hpx_repository_zip
-    # TODO Grab this file from the LUE repo once gh446 is merged in
-    wget https://raw.githubusercontent.com/computationalgeography/lue/gh446/CMakeHPXPresets.json -O $hpx_source_directory/CMakeUserPresets.json
-    # cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
+    cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     mkdir $hpx_build_directory
     cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} \
         -D CMAKE_BUILD_TYPE=${build_type}
@@ -175,6 +186,8 @@ function configure_lue()
 }
 
 
+parse_command_line $@
+configure_builds
 install_hpx
 install_mdspan
 configure_lue

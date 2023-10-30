@@ -368,7 +368,8 @@ filextype *.lue lue_view %c
 " filextype *.ods, libreoffice --calc %c &
 filextype *.ods,*.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx libreoffice %f &
 " KDJ: %i is for suppressing "Background Process Error" messages, which we don't care about
-filextype *.jpg,*.pdf,*.png xdg-open %c %i &
+filextype *.jpg,*.png xdg-open %c %i &
+filextype *.pdf okular %c &
 filetype * vim %c
 
 " Open all other files with default system programs (you can also remove all

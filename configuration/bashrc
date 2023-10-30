@@ -188,7 +188,7 @@ export LC_ALL=en_US.UTF-8
 ###     export DEVENVRC=$cwd/devenvrc
 ### fi
 
-export MYVIFMRC=$MY_DEVENV/configuration/vifmrc
+# export MYVIFMRC=$MY_DEVENV/configuration/vifmrc
 
 set -o vi
 
