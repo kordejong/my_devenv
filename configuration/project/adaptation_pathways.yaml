@@ -8,13 +8,13 @@ windows:
           main-pane-height: 25
       panes:
           - shell_command:
-              - vim +NERDTreeToggle
+              - cd $ADAPTATION_PATHWAYS
+              - PYTHONPATH="$ADAPTATION_PATHWAYS/source/package:$PYTHONPATH" vim +NERDTreeToggle
             focus: true
           - shell_command:
-              - cd $ADAPTATION_PATHWAYS
+              - cd $ADAPTATION_PATHWAYS_OBJECTS
               - clear
-              - pwd
     - window_name: manage
       panes:
           - shell_command:
-              - vifm $ADAPTATION_PATHWAYS $ADAPTATION_PATHWAYS
+              - vifm $ADAPTATION_PATHWAYS $ADAPTATION_PATHWAYS_OBJECTS

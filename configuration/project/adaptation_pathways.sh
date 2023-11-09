@@ -15,14 +15,15 @@ if [ ! -d "$ADAPTATION_PATHWAYS" ]; then
     return 1
 fi
 
-PATH="$ADAPTATION_PATHWAYS/source/script:$PATH"
-# PYTHONPATH="$ADAPTATION_PATHWAYS/source/package:$PYTHONPATH"
+export ADAPTATION_PATHWAYS_OBJECTS="$OBJECTS/adaptation_pathways"
 
-# export PATH PYTHONPATH
+PATH="$ADAPTATION_PATHWAYS/source/script:$PATH"
 
 cd $ADAPTATION_PATHWAYS
 
 source env/bin/activate
+
+cd $ADAPTATION_PATHWAYS_OBJECTS
 
 if [[ -n `type -t lue` ]]; then
     unalias adaptation_pathways
