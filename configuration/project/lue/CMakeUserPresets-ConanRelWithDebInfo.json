@@ -1,0 +1,58 @@
+{
+    "version": 7,
+    "include": [
+        "CMakeConanPresets.json",
+        "CMakeUserPresets-base.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "kor_conan_relwithdebinfo",
+            "hidden": true,
+            "inherits": [
+                "conan-relwithdebinfo",
+                "kor_relwithdebinfo_configuration"
+            ],
+            "binaryDir": "$penv{OBJECTS}/conan/RelWithDebInfo/${sourceDirName}"
+        },
+        {
+            "name": "gransasso_conan_relwithdebinfo",
+            "inherits": [
+                "gransasso_configuration",
+                "kor_conan_relwithdebinfo"
+            ],
+            "displayName": "gransasso / conan / relwithdebinfo"
+        },
+        {
+            "name": "m1compiler_conan_relwithdebinfo",
+            "inherits": [
+                "m1compiler_configuration",
+                "kor_conan_relwithdebinfo"
+            ],
+            "displayName": "m1compiler / conan / relwithdebinfo"
+        },
+        {
+            "name": "orkney_conan_relwithdebinfo",
+            "inherits": [
+                "orkney_configuration",
+                "kor_conan_relwithdebinfo"
+            ],
+            "displayName": "orkney / conan / relwithdebinfo"
+        },
+        {
+            "name": "snowdon_conan_relwithdebinfo",
+            "inherits": [
+                "snowdon_configuration",
+                "kor_conan_relwithdebinfo"
+            ],
+            "displayName": "snowdon / conan / relwithdebinfo"
+        },
+        {
+            "name": "velocity_conan_relwithdebinfo",
+            "inherits": [
+                "velocity_configuration",
+                "kor_conan_relwithdebinfo"
+            ],
+            "displayName": "velocity / conan / relwithdebinfo"
+        }
+    ]
+}

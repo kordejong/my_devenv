@@ -56,8 +56,27 @@
             }
         },
         {
+            "name": "gcc_configuration",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_FLAGS_INIT": "-W -Wall -Wextra",
+                "CMAKE_CXX_FLAGS_INIT": "-W -Wall -Wextra -ftemplate-backtrace-limit=0"
+            }
+        },
+        {
+            "name": "clang_configuration",
+            "hidden": true
+        },
+        {
+            "name": "msvc_configuration",
+            "hidden": true
+        },
+        {
             "name": "gransasso_configuration",
             "hidden": true,
+            "inherits": [
+                "gcc_configuration"
+            ],
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",
                 "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
@@ -80,6 +99,9 @@
         {
             "name": "m1compiler_configuration",
             "hidden": true,
+            "inherits": [
+                "clang_configuration"
+            ],
             "cacheVariables": {
                 "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
                 "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
@@ -90,6 +112,9 @@
         {
             "name": "login01_configuration",
             "hidden": true,
+            "inherits": [
+                "gcc_configuration"
+            ],
             "cacheVariables": {
                 "LUE_BUILD_VIEW": "FALSE",
                 "LUE_QA_TEST_HPX_RUNWRAPPER": "mpi",
@@ -105,6 +130,9 @@
         {
             "name": "orkney_configuration",
             "hidden": true,
+            "inherits": [
+                "gcc_configuration"
+            ],
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",
                 "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
@@ -114,6 +142,8 @@
                 "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "LUE_BUILD_DOCUMENTATION": "TRUE",
+                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
                 "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "3",
                 "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "3"
             },
@@ -125,6 +155,9 @@
         {
             "name": "snellius_configuration",
             "hidden": true,
+            "inherits": [
+                "gcc_configuration"
+            ],
             "cacheVariables": {
                 "LUE_BUILD_VIEW": "FALSE",
                 "LUE_QA_TEST_HPX_RUNWRAPPER": "mpi",
@@ -140,6 +173,9 @@
         {
             "name": "snowdon_configuration",
             "hidden": true,
+            "inherits": [
+                "gcc_configuration"
+            ],
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",
                 "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
@@ -148,6 +184,8 @@
                 "CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
                 "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
                 "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "2"
             },
@@ -159,9 +197,20 @@
         {
             "name": "velocity_configuration",
             "hidden": true,
+            "inherits": [
+                "gcc_configuration"
+            ],
             "cacheVariables": {
+                "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "HPX_WITH_MAX_CPU_COUNT": "96",
                 "LUE_BUILD_VIEW": "FALSE",
+                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
                 "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "3",
                 "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "3"
             },
@@ -169,18 +218,6 @@
                 "LUE_ROUTING_DATA": "/TODO",
                 "LUE_BENCHMARK_DATA": "/TODO"
             }
-        },
-        {
-            "name": "gcc_configuration",
-            "hidden": true,
-            "cacheVariables": {
-                "CMAKE_C_FLAGS_INIT": "-W -Wall -Wextra",
-                "CMAKE_CXX_FLAGS_INIT": "-W -Wall -Wextra -ftemplate-backtrace-limit=0"
-            }
-        },
-        {
-            "name": "clang_configuration",
-            "hidden": true
         }
     ]
 }

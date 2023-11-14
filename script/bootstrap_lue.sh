@@ -42,22 +42,27 @@ function configure_builds()
         compiler="gcc"
         conan_packages="imgui pybind11 span-lite"
         hpx_preset="linux_node"
+        nr_jobs=4
     elif [[ $hostname == m1compiler ]]; then
         compiler="clang"
         conan_packages="docopt.cpp imgui span-lite"
         hpx_preset="macos_node"
+        nr_jobs=4
     elif [[ $hostname == orkney ]]; then
         compiler="gcc"
         conan_packages="imgui"
         hpx_preset="linux_node"
+        nr_jobs=24
     elif [[ $hostname == snowdon ]]; then
         compiler="gcc"
         conan_packages="imgui"
         hpx_preset="linux_node"
+        nr_jobs=4
     elif [[ $hostname == velocity ]]; then
         compiler="gcc"
-        conan_packages="docopt.cpp pybind11 span-lite"
+        conan_packages="docopt.cpp fmt pybind11 span-lite"
         hpx_preset="linux_node"
+        nr_jobs=24
     else
         "Unknown hostname: $hostname"
     fi
@@ -69,14 +74,15 @@ function configure_builds()
 
 
     echo "Setting up $build_type build on $hostname"
-    echo "hostname             : $hostname"
-    echo "build type           : $build_type"
-    echo "conan packages       : $conan_packages"
-    echo "compiler             : $compiler"
-    echo "install prefix       : $install_prefix"
-    echo "repository zip prefix: $repository_zip_prefix"
-    echo "tmp prefix           : $tmp_prefix"
-    echo "hpx preset           : $hpx_preset"
+    echo "hostname               : $hostname"
+    echo "build type             : $build_type"
+    echo "conan packages         : $conan_packages"
+    echo "compiler               : $compiler"
+    echo "nr parallel jobs to use: $nr_jobs"
+    echo "install prefix         : $install_prefix"
+    echo "repository zip prefix  : $repository_zip_prefix"
+    echo "tmp prefix             : $tmp_prefix"
+    echo "hpx preset             : $hpx_preset"
 
     echo
     read -p "Are you sure [yn]? " -n 1 -r
@@ -117,7 +123,7 @@ function install_hpx()
     mkdir $hpx_build_directory
     cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} \
         -D CMAKE_BUILD_TYPE=${build_type}
-    cmake --build $hpx_build_directory --target all
+    cmake --build $hpx_build_directory --parallel $nr_jobs --target all
     cmake --install $hpx_build_directory --prefix $hpx_install_prefix --strip
     rm -fr $hpx_source_directory
 }
@@ -148,7 +154,7 @@ function install_mdspan()
     mkdir $mdspan_build_directory
     cmake -G "Ninja" -S $mdspan_source_directory -B $mdspan_build_directory \
         -D CMAKE_BUILD_TYPE=${build_type}
-    cmake --build $mdspan_build_directory --target all
+    cmake --build $mdspan_build_directory --parallel $nr_jobs --target all
     cmake --install $mdspan_build_directory --prefix $mdspan_install_prefix --strip
     rm -fr $mdspan_source_directory
 }
@@ -175,6 +181,9 @@ function configure_lue()
     ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $source_dir
     ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${build_type}.json $source_dir/CMakeUserPresets.json
     ln -s -f $build_dir/CMakePresets.json $source_dir/CMakeConanPresets.json
+
+    # Add for profiling (linux, gprof):
+    # -D CMAKE_CXX_FLAGS=-pg -D CMAKE_EXE_LINKER_FLAGS=-pg -D CMAKE_SHARED_LINKER_FLAGS=-pg -D CMAKE_MODULE_LINKER_FLAGS=-pg
 
     cmake -S $source_dir --preset ${hostname}_conan_${build_type,,} \
         -D LUE_BUILD_HPX=FALSE \
