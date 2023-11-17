@@ -60,7 +60,11 @@ set encoding=utf-8
 
 set shiftwidth=4
 set tabstop=4
+
 " set foldmethod=syntax
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax
+
 set nofoldenable
 set autowrite
 set expandtab
@@ -255,8 +259,9 @@ map <F11> :r $MY_DEVENV/template/source/header.dox<CR>
 " step throug compile errors (usually after F8,F9,F10)
 map <F12> :cn<CR>
 
-map <C-K> :py3f $CLANG_FORMAT_PY<cr>
-imap <C-K> <c-o>:py3f $CLANG_FORMAT_PY<cr>
+" C-K is useful for inserting digraph / unicode chars
+" map <C-K> :py3f $CLANG_FORMAT_PY<cr>
+" imap <C-K> <c-o>:py3f $CLANG_FORMAT_PY<cr>
 
 
 let g:tex_comment_nospell=1
