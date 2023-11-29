@@ -50,7 +50,7 @@
 
 
 \RequirePackage{tikz}
-\usetikzlibrary{positioning, shapes.geometric}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
 
 \usetheme{Antibes}
 
