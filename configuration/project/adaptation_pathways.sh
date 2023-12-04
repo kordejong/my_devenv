@@ -23,8 +23,6 @@ cd $ADAPTATION_PATHWAYS
 
 source env/bin/activate
 
-cd $ADAPTATION_PATHWAYS_OBJECTS
-
 if [[ -n `type -t lue` ]]; then
     unalias adaptation_pathways
 fi

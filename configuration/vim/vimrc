@@ -42,7 +42,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
 " Plug 'kien/ctrlp.vim'
 Plug 'psf/black', {'branch': 'stable'}
 Plug 'bfrg/vim-cpp-modern'
@@ -50,8 +50,8 @@ Plug 'bfrg/vim-cpp-modern'
 " Plug 'masukomi/vim-markdown-folding'
 " Plug 'Yggdroot/indentLine'
 " Plug 'uiiaoo/java-syntax.vim'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
-" Plug 'quarto-dev/quarto-vim'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'quarto-dev/quarto-vim'
 call plug#end()
 
 " set laststatus=2
@@ -61,7 +61,11 @@ set encoding=utf-8
 
 set shiftwidth=4
 set tabstop=4
+
 " set foldmethod=syntax
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax
+
 set nofoldenable
 set autowrite
 set expandtab
@@ -260,8 +264,9 @@ map <F11> :r $MY_DEVENV/template/source/header.dox<CR>
 " step throug compile errors (usually after F8,F9,F10)
 map <F12> :cn<CR>
 
-map <C-K> :py3f $CLANG_FORMAT_PY<cr>
-imap <C-K> <c-o>:py3f $CLANG_FORMAT_PY<cr>
+" C-K is useful for inserting digraph / unicode chars
+" map <C-K> :py3f $CLANG_FORMAT_PY<cr>
+" imap <C-K> <c-o>:py3f $CLANG_FORMAT_PY<cr>
 
 
 let g:tex_comment_nospell=1
