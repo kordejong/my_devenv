@@ -7,7 +7,7 @@ filetype off
 " :PlugUpdate
 " :PlugUpgrade  (update vim-plug itself)
 
-" After adding new plugins, reload this file, :so ~/.vim/vimrc,  and then :PlugInstall
+" After adding new plugins, reload this file, :so %,  and then :PlugInstall
 
 " Upgrade Black installation with :BlackUpgrade
 
@@ -32,23 +32,24 @@ filetype off
 
 call plug#begin()
 Plug 'vimwiki/vimwiki'
-" echo hostname()
-if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon" || hostname() == "UU107273.local"
+if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon" || hostname() == "velocity.geo.uu.nl" || hostname() == "UU107273.local"
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'jackguo380/vim-lsp-cxx-highlight'
+    " Plug 'jackguo380/vim-lsp-cxx-highlight'
 endif
-Plug 'arcticicestudio/nord-vim'
+" Plug 'arcticicestudio/nord-vim'
+Plug 'nordtheme/vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'kien/ctrlp.vim'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'kien/ctrlp.vim'
 Plug 'psf/black', {'branch': 'stable'}
+Plug 'bfrg/vim-cpp-modern'
 " Plug 'pedrohdz/vim-yaml-folds'
 " Plug 'masukomi/vim-markdown-folding'
 " Plug 'Yggdroot/indentLine'
-Plug 'uiiaoo/java-syntax.vim'
+" Plug 'uiiaoo/java-syntax.vim'
 " Plug 'vim-pandoc/vim-pandoc-syntax'
 " Plug 'quarto-dev/quarto-vim'
 call plug#end()
@@ -207,6 +208,10 @@ let g:ctrlp_custom_ignore = {
 " colorscheme solarized
 
 " colorscheme vimspectrgrey-dark
+
+syntax on
+" color evening
+" set background=dark
 
 colorscheme nord
 
