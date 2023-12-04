@@ -40,12 +40,12 @@ function configure_builds()
 {
     if [[ $hostname == gransasso ]]; then
         compiler="gcc"
-        conan_packages="imgui pybind11 span-lite"
+        conan_packages="imgui"
         hpx_preset="linux_node"
         nr_jobs=4
     elif [[ $hostname == m1compiler ]]; then
         compiler="clang"
-        conan_packages="docopt.cpp imgui span-lite"
+        conan_packages="docopt.cpp imgui"
         hpx_preset="macos_node"
         nr_jobs=4
     elif [[ $hostname == orkney ]]; then
@@ -60,7 +60,7 @@ function configure_builds()
         nr_jobs=4
     elif [[ $hostname == velocity ]]; then
         compiler="gcc"
-        conan_packages="docopt.cpp fmt pybind11 span-lite"
+        conan_packages="docopt.cpp"
         hpx_preset="linux_node"
         nr_jobs=24
     else

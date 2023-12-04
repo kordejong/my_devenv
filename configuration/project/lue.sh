@@ -20,8 +20,8 @@ fi
 
 basename=`basename $LUE`
 
-LUE_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
-LUE_DATA="$OBJECTS/../data/$MY_DEVENV_BUILD_TYPE/$basename"
+# LUE_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
+# LUE_DATA="$OBJECTS/../data/$MY_DEVENV_BUILD_TYPE/$basename"
 
 PATH="\
 $LUE/environment/script:\
@@ -320,7 +320,7 @@ fi
 # export CMAKE_BUILD_PARALLEL_LEVEL
 # export LD_LIBRARY_PATH
 # export LUE_OBJECTS LUE_DATA LUE_HOSTNAME LUE_ROUTING_DATA LUE_BENCHMARK_DATA
-export LUE_OBJECTS
+# export LUE_OBJECTS
 export PATH
 # export PYTHONPATH
 
