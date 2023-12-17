@@ -6,13 +6,13 @@ windows:
       focus: true
       options:
           main-pane-height: 25
+      shell_command_before:
+          - cd $ADAPTATION_PATHWAYS
       panes:
           - shell_command:
-              - cd $ADAPTATION_PATHWAYS
               - PYTHONPATH="$ADAPTATION_PATHWAYS/source/package:$PYTHONPATH" vim +NERDTreeToggle
             focus: true
           - shell_command:
-              - cd $ADAPTATION_PATHWAYS_OBJECTS
               - clear
     - window_name: manage
       panes:
