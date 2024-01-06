@@ -13,6 +13,8 @@ windows:
               - PYTHONPATH="$ADAPTATION_PATHWAYS/source/package:$PYTHONPATH" vim +NERDTreeToggle
             focus: true
           - shell_command:
+              - export PATH="$ADAPTATION_PATHWAYS/environment/script:$ADAPTATION_PATHWAYS/source/script:$PATH"
+              - export PYTHONPATH="$ADAPTATION_PATHWAYS/source/package:$PYTHONPATH"
               - clear
     - window_name: manage
       panes:
