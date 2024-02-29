@@ -25,3 +25,4 @@ then
 fi
 
 cd $LUE_QA
+source env/bin/activate
