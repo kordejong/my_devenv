@@ -31,7 +31,7 @@ unalias phd 2>/dev/null
 
 hostname=`hostname -s`
 
-conda activate uu
+source env/bin/activate
 
 unset hostname
 
