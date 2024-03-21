@@ -28,6 +28,8 @@ if [[ `hostname` == triklav\.* ]]; then
 elif [[ `hostname` == "gransasso" ]]; then
     project_data=/mnt/data2/kor/project/natural_capital_models
     PCRASTER_NR_WORKER_THREADS=6
+elif [[ `hostname` == "orkney" ]]; then
+    eval "$($HOME/miniforge3/bin/conda shell.bash hook)"
 fi
 
 
