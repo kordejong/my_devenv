@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 
 if [ -z ${MY_DEVENV+x} ];
@@ -38,11 +38,21 @@ function parse_command_line()
 
 function configure_builds()
 {
+    cmake_args=""
+
     if [[ $hostname == gransasso ]]; then
         compiler="gcc"
         conan_packages="imgui"
         hpx_preset="linux_node"
         nr_jobs=4
+    elif [[ $hostname == hoy ]]; then
+        compiler="cl"
+        # vcpkg_packages="boost docopt fmt gdal hdf5 hwloc imgui mimalloc nlohmann-json pybind11 span-lite"
+        conan_packages="docopt.cpp glfw imgui nlohmann_json vulkan-headers vulkan-loader"
+        conda_prefix=${CONDA_PREFIX//\\//}  # HPX' CMake scripts don't like backslashes
+        cmake_args="-D BOOST_ROOT=$conda_prefix/Library -D HWLOC_ROOT=$conda_prefix/Library"
+        hpx_preset="windows_node"
+        nr_jobs=8
     elif [[ $hostname == m1compiler ]]; then
         compiler="clang"
         conan_packages="docopt.cpp imgui"
@@ -78,6 +88,7 @@ function configure_builds()
     echo "build type             : $build_type"
     echo "conan packages         : $conan_packages"
     echo "compiler               : $compiler"
+    echo "cmake_args             : $cmake_args"
     echo "nr parallel jobs to use: $nr_jobs"
     echo "install prefix         : $install_prefix"
     echo "repository zip prefix  : $repository_zip_prefix"
@@ -122,7 +133,8 @@ function install_hpx()
     cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     mkdir $hpx_build_directory
     cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} \
-        -D CMAKE_BUILD_TYPE=${build_type}
+        -D CMAKE_POLICY_DEFAULT_CMP0144=NEW \
+        $cmake_args -D CMAKE_BUILD_TYPE=${build_type}
     cmake --build $hpx_build_directory --parallel $nr_jobs --target all
     cmake --install $hpx_build_directory --prefix $hpx_install_prefix --strip
     rm -fr $hpx_source_directory
@@ -153,6 +165,7 @@ function install_mdspan()
 
     mkdir $mdspan_build_directory
     cmake -G "Ninja" -S $mdspan_source_directory -B $mdspan_build_directory \
+        -D CMAKE_POLICY_DEFAULT_CMP0144=NEW \
         -D CMAKE_BUILD_TYPE=${build_type}
     cmake --build $mdspan_build_directory --parallel $nr_jobs --target all
     cmake --install $mdspan_build_directory --prefix $mdspan_install_prefix --strip
@@ -165,10 +178,12 @@ function configure_lue()
     source_dir="$LUE"
     build_dir="$OBJECTS/conan/$build_type/lue"
 
+    mkdir -p $build_dir
+
+    ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $source_dir
+
     python "$source_dir/environment/script/write_conan_profile.py" $compiler $source_dir/host_profile
     python "$source_dir/environment/script/write_conan_profile.py" $compiler $source_dir/build_profile
-
-    mkdir -p $build_dir
 
     LUE_CONAN_PACKAGES="$conan_packages" \
         conan install $source_dir \
@@ -178,17 +193,17 @@ function configure_lue()
             --build=missing \
             --output-folder=$build_dir
 
-    ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $source_dir
     ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${build_type}.json $source_dir/CMakeUserPresets.json
     ln -s -f $build_dir/CMakePresets.json $source_dir/CMakeConanPresets.json
+
+    cmake_hpx_arg="-D LUE_BUILD_HPX=FALSE -D HPX_ROOT=$hpx_install_prefix"
 
     # Add for profiling (linux, gprof):
     # -D CMAKE_CXX_FLAGS=-pg -D CMAKE_EXE_LINKER_FLAGS=-pg -D CMAKE_SHARED_LINKER_FLAGS=-pg -D CMAKE_MODULE_LINKER_FLAGS=-pg
 
     cmake -S $source_dir --preset ${hostname}_conan_${build_type,,} \
-        -D LUE_BUILD_HPX=FALSE \
         -D CMAKE_POLICY_DEFAULT_CMP0144=NEW \
-        -D HPX_ROOT=$hpx_install_prefix \
+        ${cmake_hpx_arg} \
         -D MDSPAN_ROOT=$mdspan_install_prefix
 
     ln -s -f $build_dir/compile_commands.json $source_dir
