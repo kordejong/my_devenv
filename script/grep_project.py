@@ -1,4 +1,4 @@
-#!/usr/bin/env python_wrapper
+#!/usr/bin/env python
 """Grep project
 
 Usage:
