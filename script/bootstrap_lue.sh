@@ -137,7 +137,7 @@ function install_mdspan()
     fi
 
     mdspan_repository_url="https://github.com/kokkos/mdspan.git"
-    mdspan_tag="a799088"  # 20191010
+    mdspan_tag="721efd8"  # 20240305
 
     mdspan_source_directory="$tmp_prefix/mdspan"
     mdspan_build_directory="$mdspan_source_directory/build"
