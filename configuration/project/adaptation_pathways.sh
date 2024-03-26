@@ -17,7 +17,13 @@ export ADAPTATION_PATHWAYS_OBJECTS="$OBJECTS/adaptation_pathways"
 
 cd $ADAPTATION_PATHWAYS
 
-source env/bin/activate
+# linux-gnu, darwin, cygwin, win32, freebsd
+if [[ "$OSTYPE" == "msys" ]];
+then
+    source env/Scripts/activate
+else
+    source env/bin/activate
+fi
 
 if [[ -n `type -t lue` ]]; then
     unalias adaptation_pathways

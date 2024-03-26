@@ -97,6 +97,19 @@
             }
         },
         {
+            "name": "hoy_configuration",
+            "hidden": true,
+            "inherits": [
+                "msvc_configuration"
+            ],
+            "cacheVariables": {
+                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
+                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "2"
+            }
+        },
+        {
             "name": "m1compiler_configuration",
             "hidden": true,
             "inherits": [

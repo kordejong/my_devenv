@@ -23,6 +23,14 @@
             "displayName": "gransasso / conan / release"
         },
         {
+            "name": "hoy_conan_release",
+            "inherits": [
+                "hoy_configuration",
+                "kor_conan_release"
+            ],
+            "displayName": "gransasso / conan / release"
+        },
+        {
             "name": "m1compiler_conan_release",
             "inherits": [
                 "m1compiler_configuration",
