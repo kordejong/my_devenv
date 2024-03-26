@@ -1,7 +1,6 @@
 import os
 import shutil
 import sys
-import distutils.spawn
 import devenv.path_names
 
 
@@ -30,7 +29,7 @@ import devenv.path_names
 
 def which(
         command_name):
-    return distutils.spawn.find_executable(command_name)
+    return shutil.which(command_name)
 
 
 def ninja_installed():
@@ -408,7 +407,7 @@ def grep_sources(
         "--invert-match" if invert_match else "",
         "--word-regexp" if match_word else ""
     ]
-    command = "find . -type d \( {} \) -prune -o \( {} \) -exec grep {} \"{}\" \{{\}} \;".format(
+    command = "find . -type d \\( {} \\) -prune -o \\( {} \\) -exec grep {} \"{}\" \\{{\\}} \\;".format(
         " -o ".join([ "-path {}".format(pathname) for pathname in exclude_directory_pathnames ]),
         file_names, " ".join(grep_arguments).strip(), pattern)
     output = devenv.process.execute2(command, working_directory=path_name)

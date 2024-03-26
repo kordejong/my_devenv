@@ -188,6 +188,9 @@ then
 ###     # export CC="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
 ###     # export CXX="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
 
+elif [[ $LUE_HOSTNAME == "hoy" ]];
+then
+    source $LUE/env/Scripts/activate
 elif [[ $LUE_HOSTNAME == "m1compiler" ]];
 then
     # macOS platform for testing build of LUE using Conda packages. These should be installed.
