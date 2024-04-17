@@ -25,6 +25,6 @@ else
     source env/bin/activate
 fi
 
-if [[ -n `type -t lue` ]]; then
+if [[ -n `type -t adaptation_pathways` ]]; then
     unalias adaptation_pathways
 fi

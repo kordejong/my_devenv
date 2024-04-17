@@ -18,3 +18,15 @@ fi
 export BDP_OBJECTS="$OBJECTS/biodiversiteitsplanner"
 
 cd $BDP
+
+# # linux-gnu, darwin, cygwin, win32, freebsd
+# if [[ "$OSTYPE" == "msys" ]];
+# then
+#     source env/Scripts/activate
+# else
+#     source env/bin/activate
+# fi
+
+if [[ -n `type -t bdp` ]]; then
+    unalias bdp
+fi
