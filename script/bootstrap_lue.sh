@@ -48,14 +48,14 @@ function configure_builds()
     elif [[ $hostname == hoy ]]; then
         compiler="cl"
         # vcpkg_packages="boost docopt fmt gdal hdf5 hwloc imgui mimalloc nlohmann-json pybind11 span-lite"
-        conan_packages="docopt.cpp glfw imgui nlohmann_json vulkan-headers vulkan-loader"
+        conan_packages="glfw imgui nlohmann_json vulkan-headers vulkan-loader"
         conda_prefix=${CONDA_PREFIX//\\//}  # HPX' CMake scripts don't like backslashes
         cmake_args="-D BOOST_ROOT=$conda_prefix/Library -D HWLOC_ROOT=$conda_prefix/Library"
         hpx_preset="windows_node"
         nr_jobs=8
     elif [[ $hostname == m1compiler ]]; then
         compiler="clang"
-        conan_packages="docopt.cpp imgui"
+        conan_packages="imgui"
         hpx_preset="macos_node"
         nr_jobs=4
     elif [[ $hostname == orkney ]]; then
@@ -70,7 +70,7 @@ function configure_builds()
         nr_jobs=4
     elif [[ $hostname == velocity ]]; then
         compiler="gcc"
-        conan_packages="docopt.cpp"
+        conan_packages=""
         hpx_preset="linux_node"
         nr_jobs=24
     else
