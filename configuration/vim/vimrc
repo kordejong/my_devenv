@@ -52,6 +52,7 @@ Plug 'bfrg/vim-cpp-modern'
 " Plug 'uiiaoo/java-syntax.vim'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'quarto-dev/quarto-vim'
+Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 " set laststatus=2

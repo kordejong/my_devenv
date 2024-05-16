@@ -1,2 +1,2 @@
-setlocal colorcolumn=89
+" setlocal colorcolumn=89
 setlocal foldmethod=indent
