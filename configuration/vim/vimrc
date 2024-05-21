@@ -201,6 +201,11 @@ let g:ctrlp_custom_ignore = {
 "   colorscheme darkblue
 " endif
 
+" Default length of a line, used by text formatting using gw
+set textwidth=110
+set colorcolumn=+1
+highlight ColorColumn ctermbg=red guibg=red
+
 " http://vimdoc.sourceforge.net/htmldoc/indent.html#cinoptions-values
 "set cinoptions=>1s,{1s
 " autocmd FileType python setlocal textwidth=78 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
@@ -251,7 +256,8 @@ map <F4> :n `find_source_code.py --header %` <CR>
 map <F5> :n `find_source_code.py --module %` <CR>
 
 " fmt current line?
-map <F6> :.!fmt --width 100<CR>
+" map <F6> :.!fmt --width 100<CR>
+map <F6> vipgw
 
 " set makeprg=build_target.py
 
