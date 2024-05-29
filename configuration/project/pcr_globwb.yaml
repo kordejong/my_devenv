@@ -1,0 +1,19 @@
+session_name: pcr_globwb
+shell_command_before:
+    - "source $MY_DEVENV/configuration/project/pcr_globwb.sh"
+windows:
+    - window_name: edit
+      focus: true
+      options:
+          main-pane-height: 25
+      panes:
+          - shell_command:
+              - vim +NERDTreeToggle
+            focus: true
+          - shell_command:
+              - cd $PCR_GLOBWB
+              - pwd
+    - window_name: manage
+      panes:
+          - shell_command:
+              - vifm $PCR_GLOBWB $PCR_GLOBWB

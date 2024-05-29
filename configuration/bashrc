@@ -130,6 +130,10 @@ alias natural_capital_models="source $project/natural_capital_models.sh"
 alias tmux_natural_capital_models="tmuxp load $project/natural_capital_models.yaml"
 alias nature_of_code="source $project/nature_of_code.sh"
 alias tmux_nature_of_code="tmuxp load $project/nature_of_code.yaml"
+
+alias pcr_globwb="source $project/pcr_globwb.sh"
+alias tmux_pcr_globwb="tmuxp load $project/pcr_globwb.yaml"
+
 # alias pcraster_publications="source $project/pcraster_publications.sh"
 alias pcraster="source $project/pcraster.sh"
 # alias pcraster_hpx="source $project/pcraster_hpx.sh"
