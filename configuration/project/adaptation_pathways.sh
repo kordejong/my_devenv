@@ -5,7 +5,7 @@ unset cwd
 parse_commandline $*
 
 if [ ! "$ADAPTATION_PATHWAYS" ]; then
-    export ADAPTATION_PATHWAYS="$PROJECTS/gauja/geoneric/project/adaptation_pathways"
+    export ADAPTATION_PATHWAYS="$PROJECTS/github/geoneric/PathwaysGenerator"
 fi
 
 if [ ! -d "$ADAPTATION_PATHWAYS" ]; then
@@ -13,7 +13,7 @@ if [ ! -d "$ADAPTATION_PATHWAYS" ]; then
     return 1
 fi
 
-export ADAPTATION_PATHWAYS_OBJECTS="$OBJECTS/adaptation_pathways"
+export ADAPTATION_PATHWAYS_OBJECTS="$OBJECTS/PathwaysGenerator"
 
 cd $ADAPTATION_PATHWAYS
 
@@ -25,6 +25,6 @@ else
     source env/bin/activate
 fi
 
-if [[ -n `type -t lue` ]]; then
+if [[ -n `type -t adaptation_pathways` ]]; then
     unalias adaptation_pathways
 fi
