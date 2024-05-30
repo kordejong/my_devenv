@@ -50,7 +50,7 @@ function configure_builds()
         # vcpkg_packages="boost docopt fmt gdal hdf5 hwloc imgui mimalloc nlohmann-json pybind11 span-lite"
         conan_packages="glfw imgui nlohmann_json vulkan-headers vulkan-loader"
         conda_prefix=${CONDA_PREFIX//\\//}  # HPX' CMake scripts don't like backslashes
-        cmake_args="-D BOOST_ROOT=$conda_prefix/Library -D HWLOC_ROOT=$conda_prefix/Library"
+        cmake_args="-D Boost_ROOT=$conda_prefix/Library -D Hwloc_ROOT=$conda_prefix/Library"
         hpx_preset="windows_node"
         nr_jobs=8
     elif [[ $hostname == m1compiler ]]; then
@@ -115,11 +115,11 @@ function install_hpx()
         return
     fi
 
-    hpx_version="1.9.1"
+    hpx_version="1.10.0"
     hpx_repository_zip="$repository_zip_prefix/v${hpx_version}.tar.gz"
 
     if [ ! -f $hpx_repository_zip ]; then
-        wget --directory_prefix=$repository_zip_prefix https://github.com/STEllAR-GROUP/hpx/archive/refs/tags/v${hpx_version}.tar.gz
+        wget --directory-prefix=$repository_zip_prefix https://github.com/STEllAR-GROUP/hpx/archive/refs/tags/v${hpx_version}.tar.gz
     fi
 
     hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
@@ -133,7 +133,6 @@ function install_hpx()
     cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     mkdir $hpx_build_directory
     cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} \
-        -D CMAKE_POLICY_DEFAULT_CMP0144=NEW \
         $cmake_args -D CMAKE_BUILD_TYPE=${build_type}
     cmake --build $hpx_build_directory --parallel $nr_jobs --target all
     cmake --install $hpx_build_directory --prefix $hpx_install_prefix --strip
@@ -149,7 +148,7 @@ function install_mdspan()
     fi
 
     mdspan_repository_url="https://github.com/kokkos/mdspan.git"
-    mdspan_tag="721efd8"  # 20240305
+    mdspan_tag="9ceface91483775a6c74d06ebf717bbb2768452f"  # 0.6.0
 
     mdspan_source_directory="$tmp_prefix/mdspan"
     mdspan_build_directory="$mdspan_source_directory/build"
@@ -165,7 +164,6 @@ function install_mdspan()
 
     mkdir $mdspan_build_directory
     cmake -G "Ninja" -S $mdspan_source_directory -B $mdspan_build_directory \
-        -D CMAKE_POLICY_DEFAULT_CMP0144=NEW \
         -D CMAKE_BUILD_TYPE=${build_type}
     cmake --build $mdspan_build_directory --parallel $nr_jobs --target all
     cmake --install $mdspan_build_directory --prefix $mdspan_install_prefix --strip
@@ -202,9 +200,8 @@ function configure_lue()
     # -D CMAKE_CXX_FLAGS=-pg -D CMAKE_EXE_LINKER_FLAGS=-pg -D CMAKE_SHARED_LINKER_FLAGS=-pg -D CMAKE_MODULE_LINKER_FLAGS=-pg
 
     cmake -S $source_dir --preset ${hostname}_conan_${build_type,,} \
-        -D CMAKE_POLICY_DEFAULT_CMP0144=NEW \
         ${cmake_hpx_arg} \
-        -D MDSPAN_ROOT=$mdspan_install_prefix
+        -D mdspan_ROOT=$mdspan_install_prefix
 
     ln -s -f $build_dir/compile_commands.json $source_dir
 }
