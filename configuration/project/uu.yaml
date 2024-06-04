@@ -4,7 +4,6 @@ shell_command_before:
 windows:
     - window_name: edit
       focus: true
-      # layout: main-horizontal
       options:
           main-pane-height: 25
       panes:
@@ -12,8 +11,6 @@ windows:
               - vim +NERDTreeToggle
             focus: true
           - shell_command:
-              - cd $UU_OBJECTS
-              - clear
               - pwd
     - window_name: manage
       panes:
