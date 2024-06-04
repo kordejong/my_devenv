@@ -212,3 +212,8 @@ configure_builds
 install_hpx
 install_mdspan
 configure_lue
+
+echo -e "\n"
+echo "--------------------------------------------------------------------------------------------"
+echo "All ready for $build_type builds. Rerun this script before building for other build types!!!"
+echo "--------------------------------------------------------------------------------------------"
