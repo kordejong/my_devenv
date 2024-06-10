@@ -356,6 +356,7 @@ def grep_sources(
 
     file_names = [
         "*.bas",  # VB
+        "*.bat",
         "*.bib",
         "*.c",
         "*.cmake",
