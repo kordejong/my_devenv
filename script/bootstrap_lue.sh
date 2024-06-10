@@ -72,7 +72,7 @@ function configure_builds()
         compiler="gcc"
         conan_packages=""
         hpx_preset="linux_node"
-        nr_jobs=24
+        nr_jobs=10
     else
         "Unknown hostname: $hostname"
     fi
