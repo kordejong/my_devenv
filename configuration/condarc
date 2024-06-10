@@ -1,15 +1,21 @@
-# channel_priority: strict
+### # channel_priority: strict
+### 
+### # Conda will *only* search the channels listed, in the order given.
+### channels:
+###   - conda-forge
+###   - defaults
+### 
+### show_channel_urls: true
+### 
+### # Use pip installed packages to satisfy dependencies, cleanly remove pip-installed software,
+### # and replace them with conda packages when appropriate.
+### pip_interop_enabled: true
+### 
+### # Don't activate the base environment by default
+### auto_activate_base: false
 
-# Conda will *only* search the channels listed, in the order given.
-channels:
-  - conda-forge
-  - defaults
-
-show_channel_urls: true
-
-# Use pip installed packages to satisfy dependencies, cleanly remove pip-installed software,
-# and replace them with conda packages when appropriate.
-pip_interop_enabled: true
-
-# Don't activate the base environment by default
-auto_activate_base: false
+### channel_priority: strict
+### channels:
+###   - https://lue.computationalgeography.org/download/conda
+###   - conda-forge
+###   - nodefaults
