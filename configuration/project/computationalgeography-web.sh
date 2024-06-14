@@ -4,6 +4,7 @@ unset cwd
 
 parse_commandline $*
 
+# COMPUTATIONALGEOGRAPHY_WEB="$PROJECTS/github/kordejong/computationalgeography-web"
 COMPUTATIONALGEOGRAPHY_WEB="$PROJECTS/github/computational_geography/computationalgeography-web"
 
 if [ ! -d "$COMPUTATIONALGEOGRAPHY_WEB" ]; then
