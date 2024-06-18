@@ -36,9 +36,13 @@ if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " Plug 'jackguo380/vim-lsp-cxx-highlight'
 endif
-" Plug 'arcticicestudio/nord-vim'
-Plug 'nordtheme/vim'
+if has('nvim')
+    Plug 'shaunsingh/nord.nvim'
+else
+    Plug 'nordtheme/vim'
+endif
 Plug 'scrooloose/nerdtree'
+" Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
@@ -224,9 +228,9 @@ syntax on
 " set background=dark
 
 
-if !has('nvim')
-    colorscheme nord
-endif
+colorscheme nord
+
+" set termguicolors
 
 "set t_Co=256
 "set background=dark
@@ -234,6 +238,8 @@ endif
 "" colorscheme vimspectrgrey-dark
 "highlight Normal ctermbg=NONE
 "highlight nonText ctermbg=NONE
+
+let g:airline_theme='minimalist'
 
 
 "-------------------------------------------------------------------------------
