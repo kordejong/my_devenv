@@ -223,7 +223,10 @@ syntax on
 " color evening
 " set background=dark
 
-colorscheme nord
+
+if !has('nvim')
+    colorscheme nord
+endif
 
 "set t_Co=256
 "set background=dark
