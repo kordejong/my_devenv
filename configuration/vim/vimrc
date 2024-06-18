@@ -61,6 +61,10 @@ call plug#end()
 
 " set laststatus=2
 
+if has('nvim')
+    vim.lsp.inlay_hint.enable()
+endif
+
 scriptencoding utf-8
 set encoding=utf-8
 

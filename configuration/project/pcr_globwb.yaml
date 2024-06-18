@@ -12,7 +12,6 @@ windows:
             focus: true
           - shell_command:
               - cd $PCR_GLOBWB
-              - pwd
     - window_name: manage
       panes:
           - shell_command:

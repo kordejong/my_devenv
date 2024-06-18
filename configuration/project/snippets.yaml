@@ -9,12 +9,10 @@ windows:
           main-pane-height: 25
       panes:
           - shell_command:
-              - vim +NERDTreeToggle
+              - nvim +NERDTreeToggle
             focus: true
           - shell_command:
-              - cd $SNIPPETS_OBJECTS
-              - clear
-              - pwd
+              - cd $SNIPPETS
     - window_name: manage
       panes:
           - shell_command:
