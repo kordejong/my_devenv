@@ -38,6 +38,7 @@ if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon
 endif
 if has('nvim')
     Plug 'shaunsingh/nord.nvim'
+    " Plug 'AlexvZyl/nordic.nvim'
 else
     Plug 'nordtheme/vim'
 endif
@@ -233,7 +234,12 @@ syntax on
 " set background=dark
 
 
-colorscheme nord
+if has('nvim')
+    colorscheme nord
+    " colorscheme nordic
+else
+    colorscheme nord
+endif
 
 " set termguicolors
 
