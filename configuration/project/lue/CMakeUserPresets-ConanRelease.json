@@ -11,8 +11,7 @@
             "inherits": [
                 "conan-release",
                 "kor_release_configuration"
-            ],
-            "binaryDir": "$penv{OBJECTS}/conan/Release/${sourceDirName}"
+            ]
         },
         {
             "name": "gransasso_conan_release",
@@ -28,7 +27,7 @@
                 "hoy_configuration",
                 "kor_conan_release"
             ],
-            "displayName": "gransasso / conan / release"
+            "displayName": "hoy / conan / release"
         },
         {
             "name": "m1compiler_conan_release",
