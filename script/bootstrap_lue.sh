@@ -38,8 +38,8 @@ function parse_command_line()
 
 function configure_builds()
 {
-    cmake_args_hpx=""
-    cmake_args_lue=""
+    cmake_args_hpx="-D CMAKE_POLICY_DEFAULT_CMP0167=NEW -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
+    cmake_args_lue="-D CMAKE_POLICY_DEFAULT_CMP0167=NEW -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
     conan_packages=""
     lue_preset="${hostname}_${build_type,,}"
 
@@ -64,13 +64,13 @@ function configure_builds()
         hwloc_root="C:/local/hwloc-win64-build-2.11.0"
         gdal_root="C:/local/release-1930-x64-dev/release-1930-x64"
 
-        cmake_args_hpx="-D Boost_ROOT=$boost_root -D HPX_WITH_FETCH_HWLOC=TRUE -D HPX_WITH_MALLOC=system"
+        cmake_args_hpx="$cmake_args_hpx -D Boost_DIR=$boost_root/lib64-msvc-14.3/cmake/Boost-1.85.0 -D Boost_USE_STATIC_LIBS=TRUE -D HPX_WITH_FETCH_HWLOC=TRUE -D HPX_WITH_MALLOC=system"
         # -D HWLOC_ROOT=$hwloc_root"
-        cmake_args_lue="-D Boost_ROOT=$boost_root -D GDAL_ROOT=$gdal_root -D HDF5_ROOT=$gdal_root"
+        cmake_args_lue="$cmake_args_lue -D Boost_DIR=$boost_root/lib64-msvc-14.3/cmake/Boost-1.85.0 -D GDAL_ROOT=$gdal_root -D HDF5_ROOT=$gdal_root"
         # -D LUE_QA_WITH_TESTS=FALSE"
 
         hpx_preset="windows_node"
-        nr_jobs=8
+        nr_jobs=10
     elif [[ $hostname == m1compiler ]]; then
         compiler="clang"
         conan_packages="imgui"
@@ -154,6 +154,7 @@ function install_hpx()
     fi
 
     tar -zx --directory=$(dirname $hpx_source_directory) --file $hpx_repository_zip
+    sed -i'' '135 s/MODULE/CONFIG/' $hpx_source_directory/cmake/HPX_SetupBoost.cmake
     cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     mkdir $hpx_build_directory
     cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} \
