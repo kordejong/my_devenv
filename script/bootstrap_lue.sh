@@ -229,6 +229,7 @@ function configure_lue()
 
     cmake -G "Ninja" -S $source_dir --preset ${lue_preset} \
         ${cmake_args_lue} ${cmake_hpx_arg} \
+        -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE \
         -D mdspan_ROOT=$mdspan_install_prefix
 
     ln -s -f $build_dir/compile_commands.json $source_dir
