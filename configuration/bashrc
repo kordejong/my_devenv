@@ -92,6 +92,7 @@ alias tmux_track_time="tmuxp load $PROJECTS/gauja/geoneric/executive/geoneric/en
 ### alias pcraster-4.0="source $PROJECTS/pcraster/environment/configuration/PCRaster-4.0"
 ### alias pcraster-4.1="source $PROJECTS/pcraster/environment/configuration/pcraster-4.1"
 
+alias paper_2024_lue="source $project/paper_2024_lue.sh"
 # alias paper_2019_physical_data_model="source $project/paper_2019_physical_data_model.sh"
 # alias paper_2020_scalable_algorithms="source $project/paper_2020_scalable_algorithms.sh"
 # alias atlas="source $project/atlas.sh"

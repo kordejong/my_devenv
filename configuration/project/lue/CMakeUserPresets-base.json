@@ -8,6 +8,7 @@
             "name": "kor_configuration",
             "hidden": true,
             "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "TRUE",
                 "LUE_DATA_MODEL_WITH_PYTHON_API": "TRUE",
                 "LUE_DATA_MODEL_WITH_UTILITIES": "TRUE",
                 "LUE_FRAMEWORK_WITH_PYTHON_API": "TRUE",
@@ -34,7 +35,8 @@
             ],
             "cacheVariables": {
                 "LUE_ASSERT_CONDITIONS": "TRUE"
-            }
+            },
+            "binaryDir": "$penv{OBJECTS}/Debug/${sourceDirName}"
         },
         {
             "name": "kor_relwithdebinfo_configuration",
@@ -44,7 +46,8 @@
             ],
             "cacheVariables": {
                 "LUE_BUILD_OTF2": "TRUE"
-            }
+            },
+            "binaryDir": "$penv{OBJECTS}/RelWithDebInfo/${sourceDirName}"
         },
         {
             "name": "kor_release_configuration",
@@ -53,7 +56,8 @@
                 "kor_configuration"
             ],
             "cacheVariables": {
-            }
+            },
+            "binaryDir": "$penv{OBJECTS}/Release/${sourceDirName}"
         },
         {
             "name": "gcc_configuration",
@@ -103,6 +107,7 @@
                 "msvc_configuration"
             ],
             "cacheVariables": {
+                "LUE_BUILD_VIEW": "FALSE",
                 "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
                 "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
                 "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",

@@ -11,8 +11,7 @@
             "inherits": [
                 "conan-debug",
                 "kor_debug_configuration"
-            ],
-            "binaryDir": "$penv{OBJECTS}/conan/Debug/${sourceDirName}"
+            ]
         },
         {
             "name": "gransasso_conan_debug",

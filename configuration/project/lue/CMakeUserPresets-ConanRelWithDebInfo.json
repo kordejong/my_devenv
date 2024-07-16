@@ -11,8 +11,7 @@
             "inherits": [
                 "conan-relwithdebinfo",
                 "kor_relwithdebinfo_configuration"
-            ],
-            "binaryDir": "$penv{OBJECTS}/conan/RelWithDebInfo/${sourceDirName}"
+            ]
         },
         {
             "name": "gransasso_conan_relwithdebinfo",

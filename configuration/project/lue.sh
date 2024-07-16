@@ -191,6 +191,8 @@ then
 elif [[ $LUE_HOSTNAME == "hoy" ]];
 then
     source $LUE/env/Scripts/activate
+    # eval "$($HOME/miniforge3/Scripts/conda shell.bash hook)"
+    # conda activate lue_dev
 elif [[ $LUE_HOSTNAME == "m1compiler" ]];
 then
     # macOS platform for testing build of LUE using Conda packages. These should be installed.
