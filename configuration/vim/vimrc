@@ -32,7 +32,7 @@ filetype off
 
 call plug#begin()
 Plug 'vimwiki/vimwiki'
-if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon" || hostname() == "velocity.geo.uu.nl" || hostname() == "UU107273.local"
+if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon" || (hostname() == "velocity.geo.uu.nl" && !has('nvim')) || hostname() == "UU107273.local"
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " Plug 'jackguo380/vim-lsp-cxx-highlight'
 endif
