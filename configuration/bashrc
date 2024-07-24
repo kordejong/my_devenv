@@ -39,40 +39,40 @@ export PATH=$MY_DEVENV/script:$PATH
 
 
 # ------------------------------------------------------------------------------
-platform=$cwd/platform
-
-alias lsb_gransasso="source $platform/lsb_gransasso.sh"
-alias lsb_hyper="source $platform/lsb_hyper.sh"
-alias lsb_jacinto="source $platform/lsb_jacinto.sh"
-
-alias gcc_gransasso="source $platform/gcc_gransasso.sh"
-alias gcc_hyper="source $platform/gcc_hyper.sh"
-alias gcc_jacinto="source $platform/gcc_jacinto.sh"
-alias gcc_triklav="source $platform/gcc_triklav.sh"
-
-alias clang_gransasso="source $platform/clang_gransasso.sh"
-alias clang_triklav="source $platform/clang_triklav.sh"
-alias clang_mpi_triklav="source $platform/clang_mpi_triklav.sh"
-
-alias mingw_32_gransasso="source $platform/mingw_32_gransasso.sh"
-alias mingw_32_win764="source $platform/mingw_32_win764.sh"
-
-alias mingw_64_gransasso="source $platform/mingw_64_gransasso.sh"
-alias mingw_64_win764="source $platform/mingw_64_win764.sh"
-
-alias vs_14_win764.sh="source $platform/vs_14_win764.sh"
-
-unset platform
+# platform=$cwd/platform
+# 
+# alias lsb_gransasso="source $platform/lsb_gransasso.sh"
+# alias lsb_hyper="source $platform/lsb_hyper.sh"
+# alias lsb_jacinto="source $platform/lsb_jacinto.sh"
+# 
+# alias gcc_gransasso="source $platform/gcc_gransasso.sh"
+# alias gcc_hyper="source $platform/gcc_hyper.sh"
+# alias gcc_jacinto="source $platform/gcc_jacinto.sh"
+# alias gcc_triklav="source $platform/gcc_triklav.sh"
+# 
+# alias clang_gransasso="source $platform/clang_gransasso.sh"
+# alias clang_triklav="source $platform/clang_triklav.sh"
+# alias clang_mpi_triklav="source $platform/clang_mpi_triklav.sh"
+# 
+# alias mingw_32_gransasso="source $platform/mingw_32_gransasso.sh"
+# alias mingw_32_win764="source $platform/mingw_32_win764.sh"
+# 
+# alias mingw_64_gransasso="source $platform/mingw_64_gransasso.sh"
+# alias mingw_64_win764="source $platform/mingw_64_win764.sh"
+# 
+# alias vs_14_win764.sh="source $platform/vs_14_win764.sh"
+# 
+# unset platform
 
 
 # ------------------------------------------------------------------------------
-software=$cwd/software
-
-alias pcraster_hyper="source $software/pcraster_hyper.sh"
-alias pcraster_gransasso="source $software/pcraster_gransasso.sh"
-alias pcraster_sonic="source $software/pcraster_sonic.sh"
-
-unset software
+# software=$cwd/software
+# 
+# alias pcraster_hyper="source $software/pcraster_hyper.sh"
+# alias pcraster_gransasso="source $software/pcraster_gransasso.sh"
+# alias pcraster_sonic="source $software/pcraster_sonic.sh"
+# 
+# unset software
 
 
 # ------------------------------------------------------------------------------
@@ -182,12 +182,12 @@ unset project
 
 
 # ------------------------------------------------------------------------------
-export CTEST_OUTPUT_ON_FAILURE=1
+# export CTEST_OUTPUT_ON_FAILURE=1
 
 export HISTSIZE=10000
 export EDITOR=vim
-export CVSEDITOR=vim
-export CVS_RSH=ssh
+# export CVSEDITOR=vim
+# export CVS_RSH=ssh
 
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -216,14 +216,16 @@ alias grep="grep --color=auto"
 alias ls="ls -h --color=auto"
 alias ll="ls -l"
 alias viout="vi out"
+alias vimout="vim out"
+alias nvimout="nvim out"
 alias gitout="git status | tee out && vi out"
 alias shout="bash ./out"
 alias df="df -h"
-alias screen="screen -U"
+# alias screen="screen -U"
 alias tree="tree -C"
-alias start_http_server-2="python -m SimpleHTTPServer"
-alias start_http_server-3="python -m http.server"
-alias update_vim_plugins="vim +PluginInstall +qall"
+# alias start_http_server-2="python -m SimpleHTTPServer"
+alias start_http_server="python -m http.server"
+# alias update_vim_plugins="vim +PluginInstall +qall"
 # alias ssh_triklav_zaadmarkt="ssh -t triklav_zaadmarkt caffeinate -i bash -l"
 
 # alias docker_list_running="docker ps --quiet"
@@ -238,11 +240,11 @@ alias status_of_my_projects="my_git.py status gauja github"
 # export PS1="\u@\h:\W\$ "
 # export PS1="\u@\h:\W👉 "
 
-PYTHONSTARTUP="$cwd/startup.py"
+# PYTHONSTARTUP="$cwd/startup.py"
 # if [ $OSTYPE == "cygwin" ]; then
 #     PYTHONSTARTUP=`cygpath -m "$PYTHONSTARTUP"`
 # fi
-export PYTHONSTARTUP
+# export PYTHONSTARTUP
 
 
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
