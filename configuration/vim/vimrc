@@ -1,3 +1,10 @@
+" https://github.com/neovim/nvim-lspconfig
+" https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins
+" https://github.com/alvarojsino813/nvim-config-guide
+" mkdir -p ~/.config/nvim/pack/nvim/start
+" git clone https://github.com/neovim/nvim-lspconfig ~/.config/nvim/pack/nvim/start/nvim-lspconfig
+" pip install black pyright
+
 " vim-plug commands:
 " :PlugInstall
 " :PlugStatus
@@ -8,314 +15,315 @@
 
 " Upgrade Black installation with :BlackUpgrade
 
+if has('nvim')
+    call plug#begin()
+        Plug 'neovim/nvim-lspconfig'
+        Plug 'hrsh7th/cmp-nvim-lsp'
+        Plug 'hrsh7th/nvim-cmp'
 
-" coc extensions are in ~/.config/coc/extensions/
-" - coc-clangd
-" - coc-cmake
-" - coc-java
-" - coc-json
-" - coc-pyright
-" - coc-yaml
-" Coc commands:
-" CocInfo
-" CocInstall ...
-" CocUpdate
-" CocRestart
+        Plug 'psf/black', {'branch': 'stable'}
+        Plug 'editorconfig/editorconfig-vim'
 
-" coc-pyright:
-" - https://github.com/fannheyward/coc-pyright
-" - https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+        Plug 'scrooloose/nerdtree'
+        Plug 'Xuyuanp/nerdtree-git-plugin'
+        Plug 'tpope/vim-fugitive'
 
-if !has('nvim')
+        Plug 'shaunsingh/nord.nvim'
+        Plug 'vim-airline/vim-airline'
+        Plug 'vim-airline/vim-airline-themes'
+    call plug#end()
+
+    colorscheme nord
+
+    let g:NERDTreeMinimalUI = 1
+    let g:airline_theme='minimalist'
+
+    set nofoldenable
+
+    map <F1> :NERDTreeToggle<CR>
+    map <F5> :ClangdSwitchSourceHeader<CR>
+else
+    " coc extensions are in ~/.config/coc/extensions/
+    " - coc-clangd
+    " - coc-cmake
+    " - coc-java
+    " - coc-json
+    " - coc-pyright
+    " - coc-yaml
+    " Coc commands:
+    " CocInfo
+    " CocInstall ...
+    " CocUpdate
+    " CocRestart
+
+    " coc-pyright:
+    " - https://github.com/fannheyward/coc-pyright
+    " - https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+
     set nocompatible
     filetype off
-endif
 
-call plug#begin()
-Plug 'vimwiki/vimwiki'
-if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon" || (hostname() == "velocity.geo.uu.nl" && !has('nvim')) || hostname() == "UU107273.local"
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    " Plug 'jackguo380/vim-lsp-cxx-highlight'
-endif
-if has('nvim')
-    Plug 'shaunsingh/nord.nvim'
-    " Plug 'AlexvZyl/nordic.nvim'
-else
+    call plug#begin()
+    Plug 'vimwiki/vimwiki'
+    if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon" || hostname() == "velocity.geo.uu.nl" || hostname() == "UU107273.local"
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        " Plug 'jackguo380/vim-lsp-cxx-highlight'
+    endif
     Plug 'nordtheme/vim'
-endif
-Plug 'scrooloose/nerdtree'
-" Plug 'ryanoasis/vim-devicons'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" Plug 'kien/ctrlp.vim'
-Plug 'psf/black', {'branch': 'stable'}
+    Plug 'scrooloose/nerdtree'
+    " Plug 'ryanoasis/vim-devicons'
+    " Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'tpope/vim-fugitive'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    " Plug 'kien/ctrlp.vim'
+    Plug 'psf/black', {'branch': 'stable'}
 
-if !has('nvim')
     Plug 'bfrg/vim-cpp-modern'
-endif
 
-" Plug 'pedrohdz/vim-yaml-folds'
-" Plug 'masukomi/vim-markdown-folding'
-" Plug 'Yggdroot/indentLine'
-" Plug 'uiiaoo/java-syntax.vim'
+    " Plug 'pedrohdz/vim-yaml-folds'
+    " Plug 'masukomi/vim-markdown-folding'
+    " Plug 'Yggdroot/indentLine'
+    " Plug 'uiiaoo/java-syntax.vim'
 
-" Plug 'vim-pandoc/vim-pandoc-syntax'
-" Plug 'quarto-dev/quarto-vim'
-Plug 'editorconfig/editorconfig-vim'
+    " Plug 'vim-pandoc/vim-pandoc-syntax'
+    " Plug 'quarto-dev/quarto-vim'
+    Plug 'editorconfig/editorconfig-vim'
 
-call plug#end()
+    call plug#end()
 
-" set laststatus=2
+    " set laststatus=2
 
-" if has('nvim')
-"     vim.loader.enable()
-"     vim.lsp.inlay_hint.enable()
-" endif
-
-if !has('nvim')
     scriptencoding utf-8
     set encoding=utf-8
-endif
 
-set shiftwidth=4
-set tabstop=4
+    set shiftwidth=4
+    set tabstop=4
 
-" set foldmethod=syntax
-let g:xml_syntax_folding=1
-au FileType xml setlocal foldmethod=syntax
+    " set foldmethod=syntax
+    let g:xml_syntax_folding=1
+    au FileType xml setlocal foldmethod=syntax
 
-set nofoldenable
-set autowrite
-set expandtab
-set showmatch
-set list
-set listchars=tab:»·,trail:·
-set hlsearch
-set digraph
+    set nofoldenable
+    set autowrite
+    set expandtab
+    set showmatch
+    set list
+    set listchars=tab:»·,trail:·
+    set hlsearch
+    set digraph
 
-if !has('nvim')
     set mouse=a
-endif
 
-" highlight ColorColumn ctermbg=7
-" set colorcolumn=89,111
+    " highlight ColorColumn ctermbg=7
+    " set colorcolumn=89,111
 
-" match ErrorMsg '\%>80v.\+'
-
-
-" TODO Test whether coc is loaded, instead of repeating hostnames
-if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon"
-    " coc ----------------------------------------------------------------------
-    " Give more space for displaying messages
-    " set cmdheight=2
-
-    " Always show signcolumn
-    " TODO Only do this when coc is used (C++, Python, ...)
-    " set signcolumn=yes
-
-    nmap <silent> [g <Plug>(coc-diagnostic-prev)
-    nmap <silent> ]g <Plug>(coc-diagnostic-next)
-    " --------------------------------------------------------------------------
-endif
+    " match ErrorMsg '\%>80v.\+'
 
 
-" http://vimdoc.sourceforge.net/htmldoc/options.html#'backspace'
-set backspace=indent,eol,start
+    " TODO Test whether coc is loaded, instead of repeating hostnames
+    if hostname() == "gransasso" || hostname() == "orkney" || hostname() == "snowdon"
+        " coc ----------------------------------------------------------------------
+        " Give more space for displaying messages
+        " set cmdheight=2
 
-runtime macros/matchit.vim
+        " Always show signcolumn
+        " TODO Only do this when coc is used (C++, Python, ...)
+        " set signcolumn=yes
 
-set wildignore+=*.pyc
-
-" " syntax match nonascii "[^\d0-\d127]"
-" highlight nonascii guibg=Red ctermbg=2 term=standout
-" "termbg=2
-" au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
-
-
-let g:NERDTreeMinimalUI = 1
-" let g:NERDTreeNodeDelimiter = " "
-" let g:NERDTreeDirArrows = 1
-let g:NERDTreeDirArrowExpandable = '.'
-let g:NERDTreeDirArrowCollapsible = '.'
-" \'^_build$[[dir]]',
-" \'^_static$[[dir]]',
-" \'^_templates$[[dir]]',
-let g:NERDTreeIgnore=[
-    \'^__pycache__$[[dir]]',
-    \'^out$[[file]]',
-    \'\.pyc$[[file]]',
-\]
+        nmap <silent> [g <Plug>(coc-diagnostic-prev)
+        nmap <silent> ]g <Plug>(coc-diagnostic-next)
+        " --------------------------------------------------------------------------
+    endif
 
 
-" let g:netrw_liststyle=3
+    " http://vimdoc.sourceforge.net/htmldoc/options.html#'backspace'
+    set backspace=indent,eol,start
 
-" autocmd FileType cpp setlocal nowrap
+    runtime macros/matchit.vim
 
-" autocmd FileType cpp setlocal shiftwidth=4 tabstop=4
-" autocmd FileType cmake setlocal shiftwidth=4 tabstop=4
-" autocmd FileType python setlocal shiftwidth=4 tabstop=4
-" autocmd FileType pyrex setlocal shiftwidth=4 tabstop=4
-" autocmd FileType vimwiki setlocal shiftwidth=4 tabstop=4
+    set wildignore+=*.pyc
 
-
-" Disable creation of temporary wikis. This is needed to set the filetype of
-" Markdown files to markdown instead of vimwiki.
-let g:vimwiki_global_ext = 0
+    " " syntax match nonascii "[^\d0-\d127]"
+    " highlight nonascii guibg=Red ctermbg=2 term=standout
+    " "termbg=2
+    " au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 
 
-if !has('nvim')
+    let g:NERDTreeMinimalUI = 1
+    " let g:NERDTreeNodeDelimiter = " "
+    " let g:NERDTreeDirArrows = 1
+    let g:NERDTreeDirArrowExpandable = '.'
+    let g:NERDTreeDirArrowCollapsible = '.'
+    " \'^_build$[[dir]]',
+    " \'^_static$[[dir]]',
+    " \'^_templates$[[dir]]',
+    let g:NERDTreeIgnore=[
+        \'^__pycache__$[[dir]]',
+        \'^out$[[file]]',
+        \'\.pyc$[[file]]',
+    \]
+
+
+    " let g:netrw_liststyle=3
+
+    " autocmd FileType cpp setlocal nowrap
+
+    " autocmd FileType cpp setlocal shiftwidth=4 tabstop=4
+    " autocmd FileType cmake setlocal shiftwidth=4 tabstop=4
+    " autocmd FileType python setlocal shiftwidth=4 tabstop=4
+    " autocmd FileType pyrex setlocal shiftwidth=4 tabstop=4
+    " autocmd FileType vimwiki setlocal shiftwidth=4 tabstop=4
+
+
+    " Disable creation of temporary wikis. This is needed to set the filetype of
+    " Markdown files to markdown instead of vimwiki.
+    let g:vimwiki_global_ext = 0
+
+
     " Associate .dox extension with Doxygen files.
     au BufRead,BufNewFile *.dox setfiletype cpp.doxygen
     au BufRead,BufNewFile *.md setfiletype markdown
-endif
 
-"-------------------------------------------------------------------------------
-" let g:ycm_enable_diagnostic_signs=0
-" 
-" " Let clangd fully control code completion
-" let g:ycm_clangd_uses_ycmd_caching = 0
-" 
-" " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-" " let g:ycm_clangd_binary_path = exepath("clangd")
-
-
-"-------------------------------------------------------------------------------
-" " https://kien.github.io/ctrlp.vim/
-" " let g:ctrlp_by_filename = 1
-" let g:ctrlp_regexp = 1
-" let g:ctrlp_custom_ignore = {
-"     \ "dir": '\vlue-0.0.0$',
-"     \ }
+    "-------------------------------------------------------------------------------
+    " let g:ycm_enable_diagnostic_signs=0
+    " 
+    " " Let clangd fully control code completion
+    " let g:ycm_clangd_uses_ycmd_caching = 0
+    " 
+    " " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
+    " " let g:ycm_clangd_binary_path = exepath("clangd")
 
 
-"-------------------------------------------------------------------------------
-" let g:tagbar_autoclose = 1
-" nnoremap <silent> <F9> :TagbarOpenAutoClose<CR>
-" let g:tagbar_width = 40
+    "-------------------------------------------------------------------------------
+    " " https://kien.github.io/ctrlp.vim/
+    " " let g:ctrlp_by_filename = 1
+    " let g:ctrlp_regexp = 1
+    " let g:ctrlp_custom_ignore = {
+    "     \ "dir": '\vlue-0.0.0$',
+    "     \ }
 
 
-"-------------------------------------------------------------------------------
-"let g:airline_powerline_fonts = 1
-" let g:airline_theme = "solarized"
-" " Whitespace checks slow airline down a lot.
-" let g:airline#extensions#whitespace#checks = []
+    "-------------------------------------------------------------------------------
+    " let g:tagbar_autoclose = 1
+    " nnoremap <silent> <F9> :TagbarOpenAutoClose<CR>
+    " let g:tagbar_width = 40
 
-" set statusline=%F%m%r%h%w\ FF=%{&ff}\ TYPE=%Y\ RC=%l,%v\ %p%%\ LEN=%L
-" TODO How to set this in normal mode...
-" let g:airline_section_z = "%p%"
 
-"-------------------------------------------------------------------------------
-" let g:black_linelength = 110
-" let g:black_use_virtualenv = 0
+    "-------------------------------------------------------------------------------
+    "let g:airline_powerline_fonts = 1
+    " let g:airline_theme = "solarized"
+    " " Whitespace checks slow airline down a lot.
+    " let g:airline#extensions#whitespace#checks = []
 
-" augroup black_on_save
-"     autocmd!
-"     autocmd BufWritePre *.py Black
-" augroup end
+    " set statusline=%F%m%r%h%w\ FF=%{&ff}\ TYPE=%Y\ RC=%l,%v\ %p%%\ LEN=%L
+    " TODO How to set this in normal mode...
+    " let g:airline_section_z = "%p%"
 
-"-------------------------------------------------------------------------------
+    "-------------------------------------------------------------------------------
+    " let g:black_linelength = 110
+    " let g:black_use_virtualenv = 0
 
-" Default color scheme.
-" set background=dark
-" set t_Co=256
-" colorscheme peaksea
-" if &diff
-"   colorscheme darkblue
-" endif
+    " augroup black_on_save
+    "     autocmd!
+    "     autocmd BufWritePre *.py Black
+    " augroup end
 
-" Default length of a line, used by text formatting using gw
-set textwidth=110
-set colorcolumn=+1
-highlight ColorColumn ctermbg=red guibg=red
+    "-------------------------------------------------------------------------------
 
-" http://vimdoc.sourceforge.net/htmldoc/indent.html#cinoptions-values
-"set cinoptions=>1s,{1s
-" autocmd FileType python setlocal textwidth=78 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-" autocmd FileType c      setlocal textwidth=78 tabstop=4 softtabstop=2 shiftwidth=2 expandtab cindent
+    " Default color scheme.
+    " set background=dark
+    " set t_Co=256
+    " colorscheme peaksea
+    " if &diff
+    "   colorscheme darkblue
+    " endif
 
-" colorscheme afterglow
+    " Default length of a line, used by text formatting using gw
+    set textwidth=110
+    set colorcolumn=+1
+    highlight ColorColumn ctermbg=red guibg=red
 
-" syntax enable
-" set background=dark
-" colorscheme solarized
+    " http://vimdoc.sourceforge.net/htmldoc/indent.html#cinoptions-values
+    "set cinoptions=>1s,{1s
+    " autocmd FileType python setlocal textwidth=78 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+    " autocmd FileType c      setlocal textwidth=78 tabstop=4 softtabstop=2 shiftwidth=2 expandtab cindent
 
-" colorscheme vimspectrgrey-dark
+    " colorscheme afterglow
 
-if !has('nvim')
+    " syntax enable
+    " set background=dark
+    " colorscheme solarized
+
+    " colorscheme vimspectrgrey-dark
+
     syntax on
-endif
 
-" color evening
-" set background=dark
+    " color evening
+    " set background=dark
 
 
-if has('nvim')
     colorscheme nord
-    " colorscheme nordic
-else
-    colorscheme nord
+
+    " set termguicolors
+
+    "set t_Co=256
+    "set background=dark
+    "" colorscheme solarized
+    "" colorscheme vimspectrgrey-dark
+    "highlight Normal ctermbg=NONE
+    "highlight nonText ctermbg=NONE
+
+    let g:airline_theme='minimalist'
+
+
+    "-------------------------------------------------------------------------------
+    map <F1> :NERDTreeToggle<CR>
+
+
+    " add a lot of boilerplate for a class property
+    " when current line .h file is like:
+    "  type d_property;
+    " map <F1> :.!cppPropertyCode.py %<.h<CR>
+
+    " tries to add the correct include file for a class name
+    " present at the current line
+    " map <F2> :.!guard_includes.py<CR>
+
+    " switch to test module
+    map <F3> :n `find_source_code.py --test %` <CR>
+
+    " switch to header file
+    map <F4> :n `find_source_code.py --header %` <CR>
+
+    " switch to module file
+    map <F5> :n `find_source_code.py --module %` <CR>
+
+    " fmt current line?
+    " map <F6> :.!fmt --width 100<CR>
+    map <F6> vipgw
+
+    " set makeprg=build_target.py
+
+    " map <F8> :make --project %:p:h<CR>
+    " map <F9> :make --test %:p:h<CR>
+    " map <F10> :make --object %:p<CR>
+
+    " read the doxygen template for function/method header
+    map <F11> :r $MY_DEVENV/template/source/header.dox<CR>
+
+    " step throug compile errors (usually after F8,F9,F10)
+    " map <F12> :cn<CR>
+
+    " C-K is useful for inserting digraph / unicode chars
+    " map <C-K> :py3f $CLANG_FORMAT_PY<cr>
+    " imap <C-K> <c-o>:py3f $CLANG_FORMAT_PY<cr>
+
+
+    let g:tex_comment_nospell=1
+    let g:tex_conceal=""
+
+    " Space to toggle folds
+    nnoremap <Space> za
+    vnoremap <Space> za
 endif
-
-" set termguicolors
-
-"set t_Co=256
-"set background=dark
-"" colorscheme solarized
-"" colorscheme vimspectrgrey-dark
-"highlight Normal ctermbg=NONE
-"highlight nonText ctermbg=NONE
-
-let g:airline_theme='minimalist'
-
-
-"-------------------------------------------------------------------------------
-map <F1> :NERDTreeToggle<CR>
-
-
-" add a lot of boilerplate for a class property
-" when current line .h file is like:
-"  type d_property;
-" map <F1> :.!cppPropertyCode.py %<.h<CR>
-
-" tries to add the correct include file for a class name
-" present at the current line
-" map <F2> :.!guard_includes.py<CR>
-
-" switch to test module
-map <F3> :n `find_source_code.py --test %` <CR>
-
-" switch to header file
-map <F4> :n `find_source_code.py --header %` <CR>
-
-" switch to module file
-map <F5> :n `find_source_code.py --module %` <CR>
-
-" fmt current line?
-" map <F6> :.!fmt --width 100<CR>
-map <F6> vipgw
-
-" set makeprg=build_target.py
-
-" map <F8> :make --project %:p:h<CR>
-" map <F9> :make --test %:p:h<CR>
-" map <F10> :make --object %:p<CR>
-
-" read the doxygen template for function/method header
-map <F11> :r $MY_DEVENV/template/source/header.dox<CR>
-
-" step throug compile errors (usually after F8,F9,F10)
-" map <F12> :cn<CR>
-
-" C-K is useful for inserting digraph / unicode chars
-" map <C-K> :py3f $CLANG_FORMAT_PY<cr>
-" imap <C-K> <c-o>:py3f $CLANG_FORMAT_PY<cr>
-
-
-let g:tex_comment_nospell=1
-let g:tex_conceal=""
-
-" Space to toggle folds
-nnoremap <Space> za
-vnoremap <Space> za
