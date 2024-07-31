@@ -17,6 +17,8 @@
 
 if has('nvim')
     call plug#begin()
+        Plug 'vimwiki/vimwiki'
+
         Plug 'neovim/nvim-lspconfig'
         Plug 'hrsh7th/cmp-nvim-lsp'
         Plug 'hrsh7th/nvim-cmp'
@@ -38,11 +40,22 @@ if has('nvim')
     let g:NERDTreeMinimalUI = 1
     let g:airline_theme='minimalist'
 
+    set digraph
+    set expandtab
     set nofoldenable
+    set list
+    set listchars=tab:»·,trail:·
+    set shiftwidth=4
+    " set tabstop=4
 
     " Default length of a line, used by text formatting using gw
     set textwidth=110
     set colorcolumn=+1
+    set wrapmargin=0
+
+    " Disable creation of temporary wikis. This is needed to set the filetype of Markdown files to markdown
+    " instead of vimwiki.
+    let g:vimwiki_global_ext = 0
 
     map <F1> :NERDTreeToggle<CR>
     map <F5> :ClangdSwitchSourceHeader<CR>
