@@ -40,8 +40,14 @@ if has('nvim')
 
     set nofoldenable
 
+    " Default length of a line, used by text formatting using gw
+    set textwidth=110
+    set colorcolumn=+1
+
     map <F1> :NERDTreeToggle<CR>
     map <F5> :ClangdSwitchSourceHeader<CR>
+    map <F6> vipgw
+    map <F11> :r $MY_DEVENV/template/source/header.dox<CR>
 else
     " coc extensions are in ~/.config/coc/extensions/
     " - coc-clangd
