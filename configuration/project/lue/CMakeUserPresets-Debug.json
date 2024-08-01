@@ -19,14 +19,6 @@
                 "kor_debug"
             ],
             "displayName": "velocity / debug"
-        },
-        {
-            "name": "velocity_relwithdebinfo",
-            "inherits": [
-                "velocity_configuration",
-                "kor_relwithdebinfo"
-            ],
-            "displayName": "velocity / relwithdebinfo"
         }
     ]
 }

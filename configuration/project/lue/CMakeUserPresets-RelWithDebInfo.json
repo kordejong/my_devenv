@@ -5,28 +5,12 @@
     ],
     "configurePresets": [
         {
-            "name": "kor_debug",
-            "hidden": true,
-            "inherits": [
-                "lue_debug_configuration",
-                "kor_debug_configuration"
-            ]
-        },
-        {
             "name": "kor_relwithdebinfo",
             "hidden": true,
             "inherits": [
                 "lue_relwithdebinfo_configuration",
                 "kor_relwithdebinfo_configuration"
             ]
-        },
-        {
-            "name": "velocity_debug",
-            "inherits": [
-                "velocity_configuration",
-                "kor_debug"
-            ],
-            "displayName": "velocity / debug"
         },
         {
             "name": "velocity_relwithdebinfo",

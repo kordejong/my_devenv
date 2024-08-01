@@ -221,6 +221,7 @@
                 "gcc_configuration"
             ],
             "cacheVariables": {
+                "CCACHE_ENV": "CCACHE_DIR=/developtest/ccache;CCACHE_MAXSIZE=25G;CCACHE_SLOPPINESS=pch_defines,time_macros;CCACHE_TEMPDIR=/developtest/tmp",
                 "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
                 "CMAKE_MODULE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
                 "CMAKE_SHARED_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
