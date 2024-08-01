@@ -82,7 +82,6 @@
                 "gcc_configuration"
             ],
             "cacheVariables": {
-                "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",
                 "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
                 "CMAKE_MODULE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
                 "CMAKE_SHARED_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
@@ -152,14 +151,13 @@
                 "gcc_configuration"
             ],
             "cacheVariables": {
-                "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",
+                "CCACHE_ENV": "CCACHE_DIR=/media/data/kor/development/ccache;CCACHE_MAXSIZE=50G;CCACHE_SLOPPINESS=pch_defines,time_macros;CCACHE_TEMPDIR=/media/data/kor/tmp",
                 "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
                 "CMAKE_MODULE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
                 "CMAKE_SHARED_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
                 "CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
-                "CMAKE_CXX_INCLUDE_WHAT_YOU_USE": "include-what-you-use",
                 "LUE_BUILD_DOCUMENTATION": "TRUE",
                 "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
                 "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
