@@ -42,6 +42,7 @@ if has('nvim')
 
     set digraph
     set expandtab
+    set formatoptions-=t
     set nofoldenable
     set list
     set listchars=tab:»·,trail:·
