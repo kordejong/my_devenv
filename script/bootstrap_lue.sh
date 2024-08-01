@@ -98,8 +98,8 @@ function configure_builds()
         "Unknown hostname: $hostname"
     fi
 
-    install_prefix=$(realpath $PROJECTS/../opt)/$build_type
-    repository_zip_prefix=$(realpath $PROJECTS/../repository)
+    install_prefix=$(realpath $OBJECTS/../opt)/$build_type
+    repository_zip_prefix=$(realpath $OBJECTS/../repository)
     tmp_prefix=~/tmp
     hpx_preset="hpx_${build_type,,}_${hpx_preset}_configuration"
 
