@@ -72,16 +72,8 @@ require'lspconfig'.pyright.setup{
 -- require("clangd_extensions.inlay_hints").setup_autocmd()
 -- require("clangd_extensions.inlay_hints").set_inlay_hints()
 
--- Toggle diagnostics
-vim.g.diagnostics_visible = true
 function _G.toggle_diagnostics()
-  if vim.g.diagnostics_visible then
-    vim.g.diagnostics_visible = false
-    vim.diagnostic.disable()
-  else
-    vim.g.diagnostics_visible = true
-    vim.diagnostic.enable()
-  end
+    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end
--- '<Leader>l'
+
 vim.api.nvim_buf_set_keymap(0, 'n', '<F12>', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true})
