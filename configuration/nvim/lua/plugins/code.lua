@@ -1,3 +1,5 @@
+-- https://github.com/hrsh7th/nvim-cmp/blob/main/README.md
+
 return {
     {
         -- "nvim-treesitter/nvim-treesitter",

@@ -12,6 +12,9 @@
 
 https://vonheikemen.github.io/devlog/tools/build-your-first-lua-config-for-neovim/
 
+Example configurations, per plugin:
+- https://www.lunarvim.org/docs/configuration/plugins/example-configurations
+
 
 ### Options
 

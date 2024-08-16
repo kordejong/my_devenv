@@ -18,6 +18,7 @@ vim.opt.formatoptions = "cq"
 -- vim.opt.nofoldenable
 vim.opt.list = true
 vim.opt.listchars = "tab:»·,trail:·"
+vim.opt.mouse = "a"
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 
@@ -29,7 +30,10 @@ vim.g["airline#theme"] = "minimalist"
 vim.api.nvim_set_var("airline_theme", "minimalist")
 
 
+-- vim.keymap.set('n', '<F12>', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true})
 
+
+vim.api.nvim_buf_set_keymap(0, "n", "<F5>", ":ClangdSwitchSourceHeader<CR>", {})
 
 
 -- " Default length of a line, used by text formatting using gw
@@ -47,24 +51,30 @@ vim.g["vimwiki_global_ext"] = 0
 
 
 
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require'lspconfig'.clangd.setup{
-    capabilities = capabilities
-}
-require'lspconfig'.pyright.setup{
-    capabilities = capabilities
-}
+
+
+
+
+
+
+-- Set up lspconfig.
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- require'lspconfig'.clangd.setup{
+--     capabilities = capabilities
+-- }
+-- require'lspconfig'.pyright.setup{
+--     capabilities = capabilities
+-- }
 
 -- require("clangd_extensions.inlay_hints").setup_autocmd()
 -- require("clangd_extensions.inlay_hints").set_inlay_hints()
 
-function _G.toggle_diagnostics()
-    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end
-
--- vim.api.nvim_buf_set_keymap(0, 'n', '<F12>', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true})
-
-vim.keymap.set('n', '<F12>', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true})
-
+-- function _G.toggle_diagnostics()
+--     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+-- end
+-- 
+-- -- vim.api.nvim_buf_set_keymap(0, 'n', '<F12>', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true})
+-- 
+-- vim.keymap.set('n', '<F12>', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true})

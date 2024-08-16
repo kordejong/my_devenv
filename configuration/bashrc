@@ -23,6 +23,8 @@ if [ ! "$OBJECTS" ]; then
     echo "OBJECTS not set yet"
 fi
 
+export CTEST_OUTPUT_ON_FAILURE=1
+
 
 unset VIMINIT
 add_file_to_vim_init $cwd/vim/vimrc

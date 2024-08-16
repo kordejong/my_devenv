@@ -29,8 +29,10 @@ if has('nvim')
         Plug 'psf/black', {'branch': 'stable'}
         Plug 'editorconfig/editorconfig-vim'
 
-        Plug 'scrooloose/nerdtree'
+        " Plug 'scrooloose/nerdtree'
+        Plug 'preservim/nerdtree'
         Plug 'Xuyuanp/nerdtree-git-plugin'
+        Plug 'ryanoasis/vim-devicons'
         Plug 'tpope/vim-fugitive'
 
         Plug 'shaunsingh/nord.nvim'
@@ -46,6 +48,7 @@ if has('nvim')
         \'^out$[[file]]',
         \'\.pyc$[[file]]',
     \]
+    let g:NERDTreeGitStatusUseNerdFonts = 1
     let g:airline_theme='minimalist'
 
     set digraph

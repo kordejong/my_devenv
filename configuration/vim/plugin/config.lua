@@ -76,4 +76,6 @@ function _G.toggle_diagnostics()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end
 
-vim.api.nvim_buf_set_keymap(0, 'n', '<F12>', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true})
+-- vim.api.nvim_buf_set_keymap(0, 'n', '<F12>', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true})
+
+vim.keymap.set('n', '<F12>', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true})
