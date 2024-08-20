@@ -8,7 +8,7 @@ windows:
           main-pane-height: 25
       panes:
           - shell_command:
-              - PYTHONPATH="$OBJECTS/RelWithDebInfo/lue/lib*/python3.*:$PYTHONPATH" nvim +NERDTreeToggle
+              - PYTHONPATH="$OBJECTS/RelWithDebInfo/lue/lib*/python3.*:$PYTHONPATH" nvim +Neotree
             focus: true
           - shell_command:
               - cd $PCR_GLOBWB

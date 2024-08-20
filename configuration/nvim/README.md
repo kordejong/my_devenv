@@ -10,7 +10,8 @@
 - https://neovim.io/doc/user/starting.html#config
 - https://neovim.io/doc/user/vim_diff.html#_configuration
 
-https://vonheikemen.github.io/devlog/tools/build-your-first-lua-config-for-neovim/
+- [X] https://vonheikemen.github.io/devlog/tools/build-your-first-lua-config-for-neovim/
+- [ ] https://github.com/nvim-lua/kickstart.nvim
 
 Example configurations, per plugin:
 - https://www.lunarvim.org/docs/configuration/plugins/example-configurations

@@ -9,7 +9,7 @@ windows:
           main-pane-height: 25
       panes:
           - shell_command:
-              - vim +NERDTreeToggle
+              - vim +Neotree
             focus: true
           - shell_command:
               - cd $PHD_OBJECTS

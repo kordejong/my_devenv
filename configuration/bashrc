@@ -1,13 +1,13 @@
-function add_file_to_vim_init()
-{
-    local filename=$1
-    # VIMINIT Must be a single ex command. We may want to source
-    # multiple init's, so we concatenate them. Source new file before
-    # current ones, assuming the first vimrc's contain the most important
-    # things which override the latter ones. Otherwise finetune this with
-    # {append,prepend}_file_to_vim_init().
-    export VIMINIT="so $filename | $VIMINIT"
-}
+# function add_file_to_vim_init()
+# {
+#     local filename=$1
+#     # VIMINIT Must be a single ex command. We may want to source
+#     # multiple init's, so we concatenate them. Source new file before
+#     # current ones, assuming the first vimrc's contain the most important
+#     # things which override the latter ones. Otherwise finetune this with
+#     # {append,prepend}_file_to_vim_init().
+#     export VIMINIT="so $filename | $VIMINIT"
+# }
 
 
 cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
@@ -26,8 +26,8 @@ fi
 export CTEST_OUTPUT_ON_FAILURE=1
 
 
-unset VIMINIT
-add_file_to_vim_init $cwd/vim/vimrc
+# unset VIMINIT
+# add_file_to_vim_init $cwd/vim/vimrc
 
 
 alias sourceforge="ssh -t kordejong,pcraster@shell.sourceforge.net create"

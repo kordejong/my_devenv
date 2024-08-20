@@ -4,6 +4,7 @@
 
 return {
     "nvim-neo-tree/neo-tree.nvim",
+    lazy = false,  -- Load this during startup, otherwise Neotree command is not available
     branch = "v3.x",
     dependencies = {
         "nvim-lua/plenary.nvim",

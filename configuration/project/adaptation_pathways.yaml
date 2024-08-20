@@ -10,7 +10,7 @@ windows:
           - cd $ADAPTATION_PATHWAYS
       panes:
           - shell_command:
-              - PYTHONPATH="$ADAPTATION_PATHWAYS/source/package:$PYTHONPATH" vim +NERDTreeToggle
+              - PYTHONPATH="$ADAPTATION_PATHWAYS/source/package:$PYTHONPATH" vim +Neotree
             focus: true
           - shell_command:
               - export PATH="$ADAPTATION_PATHWAYS/environment/script:$ADAPTATION_PATHWAYS/source/script:$PATH"

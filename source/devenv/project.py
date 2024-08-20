@@ -389,6 +389,7 @@ def grep_sources(
         "*.xml",
         "*.xsd",
         "*.xsl",
+        "*.yaml",
         "*.yml",
         "bashrc",
         "bash_profile",
