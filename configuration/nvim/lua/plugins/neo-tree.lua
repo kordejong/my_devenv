@@ -22,6 +22,20 @@ return {
     },
     config = function()
         require("neo-tree").setup({
+            filesystem = {
+                filtered_items = {
+                    hide_by_name = {
+                        ".git",
+                        "__pycache__",
+                    },
+                    hide_dotfiles = false,
+                    show_hidden_files = true,
+                    visible = true,  -- Hidden files will be shown, but dimmed
+                },
+                follow_current_file = {
+                    enabled = true,
+                },
+            },
             window = {
                 mapping_options = {
                 },
@@ -33,6 +47,7 @@ return {
                         "navigate_up",
                     },
                 },
+                -- position = "left",
             },
         })
     end

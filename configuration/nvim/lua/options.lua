@@ -30,6 +30,9 @@ vim.opt.scrolloff = 5
 
 vim.opt.shiftwidth = 4
 
+-- Turn on sign column, to prevent the whole text to shift in case the column is actually used
+vim.opt.signcolumn = "yes"
+
 -- Mode is already in the status line
 vim.opt.showmode = false
 
