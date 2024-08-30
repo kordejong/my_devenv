@@ -154,7 +154,10 @@ function install_hpx()
     fi
 
     tar -zx --directory=$(dirname $hpx_source_directory) --file $hpx_repository_zip
+
+    # Port HPX-1.10 to CMake 3.30 (see policy CMP0167)
     sed -i'' '135 s/MODULE/CONFIG/' $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+
     cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     mkdir $hpx_build_directory
     cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} \
