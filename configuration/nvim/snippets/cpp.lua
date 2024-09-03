@@ -51,32 +51,32 @@ namespace {a} {{
 
 namespace {b} {{
 
-    {c}()
+    {c}::{c}()
     {{
     }}
 
 
-    {c}({c} const& other)
+    {c}::{c}({c} const& other)
     {{
     }}
 
 
-    {c}({c}&& other)
+    {c}::{c}({c}&& other)
     {{
     }}
 
 
-    ~{c}()
+    {c}::~{c}()
     {{
     }}
 
 
-    auto operator=({c} const& other) -> {c}& 
+    auto {c}::operator=({c} const& other) -> {c}& 
     {{
     }}
 
 
-    auto operator=({c}&& other) -> {c}& 
+    auto {c}::operator=({c}&& other) -> {c}& 
     {{
     }}
 
