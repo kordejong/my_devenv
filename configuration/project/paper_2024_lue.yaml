@@ -15,4 +15,4 @@ windows:
     - window_name: manage
       panes:
           - shell_command:
-              - vifm $PAPER_2024_LUE $PAPER_2024_LUE
+              - vifm $PAPER_2024_LUE $OBJECTS/paper_2024_lue
