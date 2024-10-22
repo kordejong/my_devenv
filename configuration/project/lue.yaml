@@ -8,6 +8,7 @@ windows:
           main-pane-height: 25
       panes:
           - shell_command:
+              - PYTHONPATH="$OBJECTS/Debug/lue/lib/python3.12:$PYTHONPATH" nvim +Neotree
               - nvim +Neotree
             focus: true
           - shell_command:
