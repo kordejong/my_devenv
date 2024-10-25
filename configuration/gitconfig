@@ -1,3 +1,4 @@
+; Default settings for all repositories
 [user]
 	name = Kor de Jong
 	email = kor@jemig.eu
@@ -8,13 +9,26 @@
 [color]
 	ui = auto
 	interactive = auto
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
 [pull]
 	rebase = false
 [push]
 	default = simple
 [alias]
-	mylog = log --oneline --decorate --graph
+    mylog = log --oneline --decorate --graph
+	myfpush = push --force-with-lease
 [diff]
 	submodule = log
 [status]
 	submodulesummary = 1
+
+; Overwrite default settings in these specific cases
+[includeIf "gitdir:gauja/geoneric/"]
+	path = ~/.gitconfig-geoneric
+[includeIf "gitdir:gauja/uu/"]
+	path = ~/.gitconfig-uu
+[includeIf "hasconfig:remote.*.url:git@github.com:computationalgeography/**"]
+	path = ~/.gitconfig-uu
