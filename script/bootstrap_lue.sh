@@ -67,7 +67,7 @@ function configure_builds()
         cmake_args_hpx="$cmake_args_hpx -D Boost_DIR=$boost_root/lib64-msvc-14.3/cmake/Boost-1.85.0 -D Boost_USE_STATIC_LIBS=TRUE -D HPX_WITH_FETCH_HWLOC=TRUE -D HPX_WITH_MALLOC=system"
         # -D HWLOC_ROOT=$hwloc_root"
         cmake_args_lue="$cmake_args_lue -D Boost_DIR=$boost_root/lib64-msvc-14.3/cmake/Boost-1.85.0 -D GDAL_ROOT=$gdal_root -D HDF5_ROOT=$gdal_root"
-        # -D LUE_QA_WITH_TESTS=FALSE"
+        # -D LUE_QUALITY_ASSURANCE_WITH_TESTS=FALSE"
 
         hpx_preset="windows_node"
         nr_jobs=10

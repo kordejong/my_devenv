@@ -13,9 +13,9 @@
                 "LUE_DATA_MODEL_WITH_UTILITIES": "TRUE",
                 "LUE_FRAMEWORK_WITH_PYTHON_API": "TRUE",
                 "LUE_BUILD_VIEW": "TRUE",
-                "LUE_BUILD_QA": "TRUE",
-                "LUE_QA_WITH_PYTHON_API": "TRUE",
-                "LUE_QA_WITH_TESTS": "TRUE",
+                "LUE_BUILD_QUALITY_ASSURANCE": "TRUE",
+                "LUE_QUALITY_ASSURANCE_WITH_PYTHON_API": "TRUE",
+                "LUE_QUALITY_ASSURANCE_WITH_TESTS": "TRUE",
                 "LUE_BUILD_HPX": "TRUE",
                 "LUE_HPX_REPOSITORY": {
                     "type": "PATH",
@@ -89,10 +89,10 @@
                 "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "LUE_BUILD_DOCUMENTATION": "TRUE",
-                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
-                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
-                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
-                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "2"
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "tcp",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "2"
             },
             "environment": {
                 "LUE_ROUTING_DATA": "mnt/data1/home/kor/data/project/routing",
@@ -107,10 +107,10 @@
             ],
             "cacheVariables": {
                 "LUE_BUILD_VIEW": "FALSE",
-                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
-                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
-                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
-                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "2"
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "tcp",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "2"
             }
         },
         {
@@ -120,10 +120,10 @@
                 "clang_configuration"
             ],
             "cacheVariables": {
-                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
-                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
-                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
-                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "2"
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "tcp",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "2"
             }
         },
         {
@@ -134,10 +134,10 @@
             ],
             "cacheVariables": {
                 "LUE_BUILD_VIEW": "FALSE",
-                "LUE_QA_TEST_HPX_RUNWRAPPER": "mpi",
-                "LUE_QA_TEST_HPX_PARCELPORT": "mpi",
-                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
-                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "3"
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "mpi",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "mpi",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "3"
             },
             "environment": {
                 "LUE_ROUTING_DATA": "/scratch/depfg/jong0137/data/routing",
@@ -159,10 +159,10 @@
                 "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "LUE_BUILD_DOCUMENTATION": "TRUE",
-                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
-                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
-                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "3",
-                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "3"
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "tcp",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "3",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "3"
             },
             "environment": {
                 "LUE_ROUTING_DATA": "doesnotexist/routing",
@@ -177,10 +177,10 @@
             ],
             "cacheVariables": {
                 "LUE_BUILD_VIEW": "FALSE",
-                "LUE_QA_TEST_HPX_RUNWRAPPER": "mpi",
-                "LUE_QA_TEST_HPX_PARCELPORT": "mpi",
-                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
-                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "3"
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "mpi",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "mpi",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "3"
             },
             "environment": {
                 "LUE_ROUTING_DATA": "/TODO",
@@ -202,10 +202,10 @@
                 "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "LUE_BUILD_DOCUMENTATION": "TRUE",
-                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
-                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
-                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
-                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "2"
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "tcp",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "2"
             },
             "environment": {
                 "LUE_ROUTING_DATA": "$HOME/development/data/project/routing",
@@ -228,10 +228,10 @@
                 "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
                 "HPX_WITH_MAX_CPU_COUNT": "96",
                 "LUE_BUILD_VIEW": "FALSE",
-                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
-                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
-                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "3",
-                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "3"
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "tcp",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "3",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "3"
             },
             "environment": {
                 "LUE_ROUTING_DATA": "/TODO",
