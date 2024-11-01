@@ -42,6 +42,9 @@ return {
                             pyls_isort = {
                                 enables = true,
                             },
+                            pycodestyle = {
+                                maxLineLength = 110,
+                            },
                         },
                     },
                 },
