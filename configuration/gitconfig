@@ -30,5 +30,7 @@
 	path = ~/.gitconfig-geoneric
 [includeIf "gitdir:gauja/uu/"]
 	path = ~/.gitconfig-uu
+[includeIf "hasconfig:remote.*.url:https://gitlab.jsc.fz-juelich.de/**"]
+	path = ~/.gitconfig-uu
 [includeIf "hasconfig:remote.*.url:git@github.com:computationalgeography/**"]
 	path = ~/.gitconfig-uu
