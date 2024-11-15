@@ -11,8 +11,8 @@ windows:
               - nvim +Neotree
             focus: true
           - shell_command:
-              - cd $LUE_TUTORIAL_OBJECTS
+              - cd $LUE_TUTORIAL
     - window_name: manage
       panes:
           - shell_command:
-              - vifm $LUE_TUTORIAL $LUE_TUTORIAL_OBJECTS
+              - vifm $LUE_TUTORIAL $OBJECTS
