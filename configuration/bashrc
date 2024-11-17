@@ -140,6 +140,8 @@ alias bdp="source $project/bdp.sh"
 alias tmux_bdp="tmuxp load $project/bdp.yaml"
 alias nature_of_code="source $project/nature_of_code.sh"
 alias tmux_nature_of_code="tmuxp load $project/nature_of_code.yaml"
+alias trekr="source $project/trekr.sh"
+alias tmux_trekr="tmuxp load $project/trekr.yaml"
 
 alias pcr_globwb="source $project/pcr_globwb.sh"
 alias tmux_pcr_globwb="tmuxp load $project/pcr_globwb.yaml"
