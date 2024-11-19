@@ -1,0 +1,21 @@
+session_name: trekr
+shell_command_before:
+  - "source $MY_DEVENV/configuration/project/trekr.sh"
+windows:
+  - window_name: edit
+    focus: true
+    options:
+      main-pane-height: 25
+    shell_command_before:
+      - cd $TREKR
+    panes:
+      - shell_command:
+        - PYTHONPATH="$TREKR/source/package:$PYTHONPATH" nvim +Neotree
+        focus: true
+      - shell_command:
+        # - export PATH="$TREKR/environment/script:$TREKR/source/script:$PATH"
+        # - export PYTHONPATH="$TREKR/source/package:$PYTHONPATH"
+  - window_name: manage
+    panes:
+      - shell_command:
+        - vifm $TREKR $TREKR_OBJECTS
