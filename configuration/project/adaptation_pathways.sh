@@ -28,3 +28,6 @@ fi
 if [[ -n `type -t adaptation_pathways` ]]; then
     unalias adaptation_pathways
 fi
+
+export PATH="$ADAPTATION_PATHWAYS/environment/script:$ADAPTATION_PATHWAYS/source/script:$PATH"
+export PYTHONPATH="$ADAPTATION_PATHWAYS/source/package:$PYTHONPATH"
