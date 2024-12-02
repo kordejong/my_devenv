@@ -38,8 +38,8 @@ function parse_command_line()
 
 function configure_builds()
 {
-    cmake_args_hpx="-D CMAKE_POLICY_DEFAULT_CMP0167=NEW -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
-    cmake_args_lue="-D CMAKE_POLICY_DEFAULT_CMP0167=NEW -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
+    cmake_args_hpx="-D CMAKE_POLICY_DEFAULT_CMP0167=OLD"  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
+    cmake_args_lue=""  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
     conan_packages=""
     lue_preset="${hostname}_${build_type,,}"
 
