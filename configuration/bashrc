@@ -261,4 +261,6 @@ test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 # fi
 shopt -s cdspell  # Fix minor errors in spelling of directory names.
 
+export CDPATH="$PROJECTS"
+
 unset cwd
