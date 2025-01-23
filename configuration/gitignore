@@ -4,6 +4,7 @@
 *.qgs~
 .*.swp
 .directory
+.venv
 CMakeConanPresets.json
 compile_commands.json
 env/
