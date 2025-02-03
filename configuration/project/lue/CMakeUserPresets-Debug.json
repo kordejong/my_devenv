@@ -13,6 +13,14 @@
             ]
         },
         {
+            "name": "spider_debug",
+            "inherits": [
+                "spider_configuration",
+                "kor_debug"
+            ],
+            "displayName": "spider / debug"
+        },
+        {
             "name": "velocity_debug",
             "inherits": [
                 "velocity_configuration",

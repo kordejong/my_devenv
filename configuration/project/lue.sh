@@ -45,6 +45,9 @@ LUE_HOSTNAME="${LUE_HOSTNAME,,}"  # Lower-case the hostname
 if [[ $LUE_HOSTNAME == int? || $LUE_HOSTNAME == tcn* ]];
 then
     LUE_HOSTNAME="snellius"
+elif [[ $LUE_HOSTNAME == wn-dc-05 ]];
+then
+    LUE_HOSTNAME="spider"
 elif [[ $LUE_HOSTNAME == uu107273 ]];
 then
     LUE_HOSTNAME="m1compiler"
@@ -267,6 +270,10 @@ then
     ### LUE_ROUTING_DATA="$HOME/development/data/project/routing"
 
     source $LUE/env/bin/activate
+
+elif [[ $LUE_HOSTNAME == "spider" ]];
+then
+    source $LUE/.venv/bin/activate
 
 elif [[ $LUE_HOSTNAME == "velocity" ]];
 then

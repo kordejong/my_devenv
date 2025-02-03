@@ -89,6 +89,12 @@ function configure_builds()
         hpx_preset="linux_node"
         lue_preset="${hostname}_conan_${build_type,,}"
         nr_jobs=4
+    elif [[ $hostname == spider ]]; then
+        cmake_args_hpx="$cmake_args_hpx"
+        compiler="gcc"
+        conan_packages=""
+        hpx_preset="cluster"
+        nr_jobs=$SLURM_CPUS_ON_NODE
     elif [[ $hostname == velocity ]]; then
         compiler="gcc"
         conan_packages=""
@@ -100,8 +106,8 @@ function configure_builds()
 
     install_prefix=$(realpath $OBJECTS/../opt)/$build_type
     repository_zip_prefix=$(realpath $OBJECTS/../repository)
-    tmp_prefix=~/tmp
     hpx_preset="hpx_${build_type,,}_${hpx_preset}_configuration"
+    tmp_prefix="/tmp/bootstrap_lue-$USER"
 
     echo "Setting up $build_type build on $hostname"
     echo "hostname               : $hostname"
@@ -129,6 +135,8 @@ function configure_builds()
 
     hpx_install_prefix="$install_prefix/hpx"
     mdspan_install_prefix="$install_prefix/mdspan"
+
+    mkdir -p $tmp_prefix
 }
 
 

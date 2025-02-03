@@ -50,6 +50,15 @@
             "displayName": "snowdon / conan / debug"
         },
         {
+            "name": "spider_conan_debug",
+            "inherits": [
+                "spider_configuration",
+                "lue_debug_linux_node",
+                "kor_conan_debug"
+            ],
+            "displayName": "spider / conan / debug"
+        },
+        {
             "name": "velocity_conan_debug",
             "inherits": [
                 "velocity_configuration",
