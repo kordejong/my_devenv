@@ -40,7 +40,7 @@ return {
                             --     enabled = false,
                             -- },
                             pyls_isort = {
-                                enables = true,
+                                enabled = true,
                             },
                             pycodestyle = {
                                 maxLineLength = 110,
