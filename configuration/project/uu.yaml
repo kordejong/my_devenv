@@ -15,4 +15,4 @@ windows:
     - window_name: manage
       panes:
           - shell_command:
-              - vifm $UU $UU_OBJECTS
+              - vifm $UU $OBJECTS
