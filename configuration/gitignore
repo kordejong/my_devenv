@@ -6,6 +6,7 @@
 .directory
 .venv
 CMakeConanPresets.json
+CMakeUserPresets-base.json
 compile_commands.json
 env/
 go.sh
