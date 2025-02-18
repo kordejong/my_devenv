@@ -15,4 +15,4 @@ windows:
     - window_name: manage
       panes:
           - shell_command:
-              - vifm $BDP $BDP_OBJECTS
+              - vifm $BDP $OBJECTS
