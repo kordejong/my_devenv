@@ -1,5 +1,5 @@
 {
-    "version": 6,
+    "version": 10,
     "include": [
         "CMakePresets.json"
     ],
@@ -62,18 +62,23 @@
         {
             "name": "gcc_configuration",
             "hidden": true,
-            "cacheVariables": {
-                "CMAKE_C_FLAGS_INIT": "-W -Wall -Wextra",
-                "CMAKE_CXX_FLAGS_INIT": "-W -Wall -Wextra -ftemplate-backtrace-limit=0"
-            }
+            "inherits": [
+                "lue_gcc_configuration"
+            ]
         },
         {
             "name": "clang_configuration",
-            "hidden": true
+            "hidden": true,
+            "inherits": [
+                "lue_clang_configuration"
+            ]
         },
         {
             "name": "msvc_configuration",
-            "hidden": true
+            "hidden": true,
+            "inherits": [
+                "lue_msvc_configuration"
+            ]
         },
         {
             "name": "gransasso_configuration",
