@@ -39,7 +39,7 @@ function parse_command_line()
 function configure_builds()
 {
     cmake_args_hpx="-D CMAKE_POLICY_DEFAULT_CMP0167=OLD"  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
-    cmake_args_lue=""  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
+    cmake_args_lue="-D CMAKE_POLICY_DEFAULT_CMP0167=OLD"  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
     conan_packages=""
     lue_preset="${hostname}_${build_type,,}"
 
@@ -82,6 +82,7 @@ function configure_builds()
         conan_packages="imgui"
         hpx_preset="linux_node"
         lue_preset="${hostname}_conan_${build_type,,}"
+        cmake_args_hpx="$cmake_args_hpx -D HPX_WITH_FETCH_ASIO=FALSE"  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
         nr_jobs=24
     elif [[ $hostname == snowdon ]]; then
         compiler="gcc"
@@ -162,9 +163,6 @@ function install_hpx()
     fi
 
     tar -zx --directory=$(dirname $hpx_source_directory) --file $hpx_repository_zip
-
-    # Port HPX-1.10 to CMake 3.30 (see policy CMP0167)
-    sed -i'' '135 s/MODULE/CONFIG/' $hpx_source_directory/cmake/HPX_SetupBoost.cmake
 
     cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     mkdir $hpx_build_directory
