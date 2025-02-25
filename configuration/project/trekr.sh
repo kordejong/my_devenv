@@ -17,7 +17,7 @@ export TREKR_OBJECTS="$OBJECTS/trekr"
 
 cd $TREKR
 
-source env/bin/activate
+source .venv/bin/activate
 
 if [[ -n `type -t trekr` ]]; then
     unalias trekr

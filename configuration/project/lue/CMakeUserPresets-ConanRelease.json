@@ -1,5 +1,5 @@
 {
-    "version": 7,
+    "version": 10,
     "include": [
         "CMakeConanPresets.json",
         "CMakeUserPresets-base.json"
@@ -52,6 +52,14 @@
                 "kor_conan_release"
             ],
             "displayName": "snowdon / conan / release"
+        },
+        {
+            "name": "spider_conan_release",
+            "inherits": [
+                "spider_configuration",
+                "kor_conan_release"
+            ],
+            "displayName": "spider / conan / release"
         },
         {
             "name": "velocity_conan_release",

@@ -15,16 +15,14 @@ if [ ! -d "$BDP" ]; then
     return 1
 fi
 
-export BDP_OBJECTS="$OBJECTS/biodiversiteitsplanner"
-
 cd $BDP
 
 # linux-gnu, darwin, cygwin, win32, freebsd
 if [[ "$OSTYPE" == "msys" ]];
 then
-    source env/Scripts/activate
+    source .venv/Scripts/activate
 else
-    source env/bin/activate
+    source .venv/bin/activate
 fi
 
 if [[ -n `type -t bdp` ]]; then

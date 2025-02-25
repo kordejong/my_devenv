@@ -1,5 +1,5 @@
 {
-    "version": 7,
+    "version": 10,
     "include": [
         "CMakeUserPresets-base.json"
     ],
@@ -11,6 +11,14 @@
                 "lue_debug_configuration",
                 "kor_debug_configuration"
             ]
+        },
+        {
+            "name": "spider_debug",
+            "inherits": [
+                "spider_configuration",
+                "kor_debug"
+            ],
+            "displayName": "spider / debug"
         },
         {
             "name": "velocity_debug",

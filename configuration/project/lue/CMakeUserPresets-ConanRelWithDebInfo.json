@@ -1,5 +1,5 @@
 {
-    "version": 7,
+    "version": 10,
     "include": [
         "CMakeConanPresets.json",
         "CMakeUserPresets-base.json"
@@ -44,6 +44,14 @@
                 "kor_conan_relwithdebinfo"
             ],
             "displayName": "snowdon / conan / relwithdebinfo"
+        },
+        {
+            "name": "spider_conan_relwithdebinfo",
+            "inherits": [
+                "spider_configuration",
+                "kor_conan_relwithdebinfo"
+            ],
+            "displayName": "spider / conan / relwithdebinfo"
         },
         {
             "name": "velocity_conan_relwithdebinfo",

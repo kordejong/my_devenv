@@ -4,10 +4,14 @@
 *.qgs~
 .*.swp
 .directory
+.venv
+build_profile
 CMakeConanPresets.json
+CMakeUserPresets-base.json
 compile_commands.json
 env/
 go.sh
+host_profile
 out
 out-*
 tags

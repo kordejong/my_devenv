@@ -1,5 +1,5 @@
 {
-    "version": 6,
+    "version": 10,
     "include": [
         "CMakePresets.json"
     ],
@@ -62,18 +62,23 @@
         {
             "name": "gcc_configuration",
             "hidden": true,
-            "cacheVariables": {
-                "CMAKE_C_FLAGS_INIT": "-W -Wall -Wextra",
-                "CMAKE_CXX_FLAGS_INIT": "-W -Wall -Wextra -ftemplate-backtrace-limit=0"
-            }
+            "inherits": [
+                "lue_gcc_configuration"
+            ]
         },
         {
             "name": "clang_configuration",
-            "hidden": true
+            "hidden": true,
+            "inherits": [
+                "lue_clang_configuration"
+            ]
         },
         {
             "name": "msvc_configuration",
-            "hidden": true
+            "hidden": true,
+            "inherits": [
+                "lue_msvc_configuration"
+            ]
         },
         {
             "name": "gransasso_configuration",
@@ -210,6 +215,27 @@
             "environment": {
                 "LUE_ROUTING_DATA": "$HOME/development/data/project/routing",
                 "LUE_BENCHMARK_DATA": "/TODO"
+            }
+        },
+        {
+            "name": "spider_configuration",
+            "hidden": true,
+            "inherits": [
+                "gcc_configuration"
+            ],
+            "cacheVariables": {
+                "CCACHE_ENV": "CCACHE_DIR=/scratch/luedev/ccache;CCACHE_MAXSIZE=50G;CCACHE_SLOPPINESS=pch_defines,time_macros;CCACHE_TEMPDIR=/tmp",
+                "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "LUE_BUILD_VIEW": "FALSE",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "mpi",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "mpi",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "3",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "3"
             }
         },
         {

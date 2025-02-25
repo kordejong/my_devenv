@@ -39,7 +39,7 @@ function parse_command_line()
 function configure_builds()
 {
     cmake_args_hpx="-D CMAKE_POLICY_DEFAULT_CMP0167=OLD"  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
-    cmake_args_lue=""  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
+    cmake_args_lue="-D CMAKE_POLICY_DEFAULT_CMP0167=OLD"  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
     conan_packages=""
     lue_preset="${hostname}_${build_type,,}"
 
@@ -84,6 +84,7 @@ function configure_builds()
         conan_packages="imgui"
         hpx_preset="linux_node"
         lue_preset="${hostname}_conan_${build_type,,}"
+        cmake_args_hpx="$cmake_args_hpx -D HPX_WITH_FETCH_ASIO=FALSE"  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
         nr_jobs=24
     elif [[ $hostname == snowdon ]]; then
         compiler="gcc"
@@ -91,6 +92,12 @@ function configure_builds()
         hpx_preset="linux_node"
         lue_preset="${hostname}_conan_${build_type,,}"
         nr_jobs=4
+    elif [[ $hostname == spider ]]; then
+        cmake_args_hpx="$cmake_args_hpx"
+        compiler="gcc"
+        conan_packages=""
+        hpx_preset="cluster"
+        nr_jobs=$SLURM_CPUS_ON_NODE
     elif [[ $hostname == velocity ]]; then
         compiler="gcc"
         conan_packages=""
@@ -102,8 +109,8 @@ function configure_builds()
 
     install_prefix=$(realpath $OBJECTS/../opt)/$build_type
     repository_zip_prefix=$(realpath $OBJECTS/../repository)
-    tmp_prefix=~/tmp
     hpx_preset="hpx_${build_type,,}_${hpx_preset}_configuration"
+    tmp_prefix="/tmp/bootstrap_lue-$USER"
 
     echo "Setting up $build_type build on $hostname"
     echo "hostname               : $hostname"
@@ -131,6 +138,8 @@ function configure_builds()
 
     hpx_install_prefix="$install_prefix/hpx"
     mdspan_install_prefix="$install_prefix/mdspan"
+
+    mkdir -p $tmp_prefix
 }
 
 
@@ -156,9 +165,6 @@ function install_hpx()
     fi
 
     tar -zx --directory=$(dirname $hpx_source_directory) --file $hpx_repository_zip
-
-    # Port HPX-1.10 to CMake 3.30 (see policy CMP0167)
-    sed -i'' '135 s/MODULE/CONFIG/' $hpx_source_directory/cmake/HPX_SetupBoost.cmake
 
     cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     mkdir $hpx_build_directory
