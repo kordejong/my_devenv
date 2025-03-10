@@ -20,6 +20,13 @@ then
     exit 1
 fi
 
+if [ -z ${USER+x} ];
+then
+    username=$USERNAME
+else
+    username=$USER
+fi
+
 
 function parse_command_line()
 {
@@ -50,26 +57,15 @@ function configure_builds()
         lue_preset="${hostname}_conan_${build_type,,}"
         nr_jobs=4
     elif [[ $hostname == hoy ]]; then
+        cmake_args_lue="$cmake_args_lue -D LUE_FRAMEWORK_SIGNED_INTEGRAL_ELEMENTS=std::int32_t -D LUE_FRAMEWORK_UNSIGNED_INTEGRAL_ELEMENTS=std::uint8_t -D LUE_FRAMEWORK_FLOATING_POINT_ELEMENTS=float -D LUE_FRAMEWORK_BOOLEAN_ELEMENT=std::uint8_t -D LUE_FRAMEWORK_COUNT_ELEMENT=std::int32_t -D LUE_FRAMEWORK_INDEX_ELEMENT=std::int32_t -D LUE_FRAMEWORK_ID_ELEMENT=std::int32_t"
         compiler="cl"
-        # vcpkg_packages="boost docopt fmt gdal hdf5 hwloc imgui mimalloc nlohmann-json pybind11 span-lite"
-        # conan_packages="glfw imgui nlohmann_json vulkan-headers vulkan-loader"
-        # conda_prefix=${CONDA_PREFIX//\\//}  # HPX' CMake scripts don't like backslashes
-        # cmake_args_hpx="-D Boost_ROOT=$conda_prefix/Library -D Hwloc_ROOT=$conda_prefix/Library"
-
-        # conda_prefix=${CONDA_PREFIX//\\//}  # HPX' CMake scripts don't like backslashes
-        # cmake_args_hpx="-D Boost_ROOT=$conda_prefix/Library -D HWLOC_ROOT=$conda_prefix/Library"
-        # cmake_args_lue="-D Boost_ROOT=$conda_prefix/Library -D GDAL_ROOT=$conda_prefix/Library"
-
-        boost_root="C:/local/boost_1_85_0"
-        hwloc_root="C:/local/hwloc-win64-build-2.11.0"
-        gdal_root="C:/local/release-1930-x64-dev/release-1930-x64"
-
-        cmake_args_hpx="$cmake_args_hpx -D Boost_DIR=$boost_root/lib64-msvc-14.3/cmake/Boost-1.85.0 -D Boost_USE_STATIC_LIBS=TRUE -D HPX_WITH_FETCH_HWLOC=TRUE -D HPX_WITH_MALLOC=system"
-        # -D HWLOC_ROOT=$hwloc_root"
-        cmake_args_lue="$cmake_args_lue -D Boost_DIR=$boost_root/lib64-msvc-14.3/cmake/Boost-1.85.0 -D GDAL_ROOT=$gdal_root -D HDF5_ROOT=$gdal_root"
-        # -D LUE_QUALITY_ASSURANCE_WITH_TESTS=FALSE"
-
+        # TODO Can't be used because HPX' and Conan's CMake logic aren't compatible: asio, hwloc. Sigh...
+        conan_packages="boost cxxopts fmt gdal glfw imgui hdf5 jemalloc mimalloc nlohmann_json pybind11 vulkan-headers vulkan-loader"
         hpx_preset="windows_node"
+        # TODO Finding Conan's jemalloc doesn't work. Sigh...
+        # TODO linking against Conan's mimalloc doesn't work. Sigh...
+        cmake_args_hpx="${cmake_args_hpx} -D CMAKE_POLICY_DEFAULT_CMP0169=OLD -D HPX_WITH_MALLOC=system"
+        lue_preset="${hostname}_conan_${build_type,,}"
         nr_jobs=10
     elif [[ $hostname == m1compiler ]]; then
         compiler="clang"
@@ -82,7 +78,7 @@ function configure_builds()
         conan_packages="imgui"
         hpx_preset="linux_node"
         lue_preset="${hostname}_conan_${build_type,,}"
-        cmake_args_hpx="$cmake_args_hpx -D HPX_WITH_FETCH_ASIO=FALSE"  # -D CMAKE_POLICY_DEFAULT_CMP0169=OLD"
+        cmake_args_hpx="$cmake_args_hpx"
         nr_jobs=24
     elif [[ $hostname == snowdon ]]; then
         compiler="gcc"
@@ -107,13 +103,19 @@ function configure_builds()
 
     install_prefix=$(realpath $OBJECTS/../opt)/$build_type
     repository_zip_prefix=$(realpath $OBJECTS/../repository)
+
+    if [[ ${conan_packages} ]]; then
+        hpx_preset="${hpx_preset}_conan"
+    fi
+
     hpx_preset="hpx_${build_type,,}_${hpx_preset}_configuration"
-    tmp_prefix="/tmp/bootstrap_lue-$USER"
+
+    tmp_prefix="/tmp/bootstrap_lue-$username"
 
     echo "Setting up $build_type build on $hostname"
     echo "hostname               : $hostname"
     echo "build type             : $build_type"
-    echo "conan packages         : $conan_packages"
+    echo "conan_packages         : $conan_packages"
     echo "compiler               : $compiler"
     echo "cmake_args_hpx         : $cmake_args_hpx"
     echo "cmake_args_lue         : $cmake_args_lue"
@@ -137,7 +139,20 @@ function configure_builds()
     hpx_install_prefix="$install_prefix/hpx"
     mdspan_install_prefix="$install_prefix/mdspan"
 
+    lue_source_directory="$LUE"
+    lue_build_directory="$OBJECTS/$build_type/lue"
+
+    mkdir -p $lue_build_directory
     mkdir -p $tmp_prefix
+
+    cmake_args_lue="$cmake_args_lue -D LUE_BUILD_HPX=FALSE -D HPX_ROOT=$hpx_install_prefix -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE -D mdspan_ROOT=$mdspan_install_prefix"
+}
+
+
+function preprocess_conan_install()
+{
+    python "$lue_source_directory/environment/script/write_conan_profile.py" $compiler $lue_source_directory/host_profile
+    python "$lue_source_directory/environment/script/write_conan_profile.py" $compiler $lue_source_directory/build_profile
 }
 
 
@@ -164,12 +179,46 @@ function install_hpx()
 
     tar -zx --directory=$(dirname $hpx_source_directory) --file $hpx_repository_zip
 
-    cp $LUE/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     mkdir $hpx_build_directory
-    cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} \
-        $cmake_args_hpx -D CMAKE_BUILD_TYPE=${build_type}
+
+    ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $hpx_source_directory
+
+    if [[ ${conan_packages} ]]; then
+        LUE_CONAN_PACKAGES="$conan_packages" \
+            conan install $lue_source_directory \
+                --profile:host=$lue_source_directory/host_profile \
+                --profile:build=$lue_source_directory/build_profile \
+                --settings=build_type=$build_type \
+                --build=missing \
+                --output-folder=$hpx_build_directory
+
+        ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${build_type}.json $hpx_source_directory/CMakeUserPresets.json
+        ln -s -f $hpx_build_directory/conan_toolchain.cmake $hpx_source_directory/conan_toolchain.cmake
+        ln -s -f $hpx_build_directory/CMakePresets.json $hpx_source_directory/CMakeConanPresets.json
+        ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory
+        ln -s -f $lue_source_directory/CMakePresets.json $hpx_source_directory
+
+        # Port HPX-1.10 to CMake 3.30 (see policy CMP0167). Otherwise it won't pick up Conan's Boost module.
+        sed -i'' '135 s/MODULE/CONFIG/' $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+
+        # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
+        sed -i'' "/\${Boost_MINIMUM_VERSION} REQUIRED)/a \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+
+        # cmake_args_hpx="$cmake_args_hpx -D CMAKE_PREFIX_PATH=$hpx_build_directory -D CMAKE_POLICY_DEFAULT_CMP0167=NEW"
+    else
+        ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
+    fi
+
+    cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} $cmake_args_hpx
     cmake --build $hpx_build_directory --parallel $nr_jobs --target all
     cmake --install $hpx_build_directory --prefix $hpx_install_prefix --strip
+
+    if [[ $OSTYPE == "msys" ]];
+    then
+        # On Windows, Conan's hwloc can't be used (see above), so we let HPX fetch it. The dll isn't installed though, so we do it
+        # here ourselves. Sigh...
+        cp $hpx_build_directory/_deps/hwloc-src/bin/* $hpx_install_prefix/bin
+    fi
     rm -fr $hpx_source_directory
 }
 
@@ -207,46 +256,38 @@ function install_mdspan()
 
 function configure_lue()
 {
-    source_dir="$LUE"
-    build_dir="$OBJECTS/$build_type/lue"
-    mkdir -p $build_dir
-
-    ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $source_dir
+    ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $lue_source_directory
 
     if [[ ${conan_packages} ]]; then
-        python "$source_dir/environment/script/write_conan_profile.py" $compiler $source_dir/host_profile
-        python "$source_dir/environment/script/write_conan_profile.py" $compiler $source_dir/build_profile
-
         LUE_CONAN_PACKAGES="$conan_packages" \
-            conan install $source_dir \
-                --profile:host=$source_dir/host_profile \
-                --profile:build=$source_dir/build_profile \
+            conan install $lue_source_directory \
+                --profile:host=$lue_source_directory/host_profile \
+                --profile:build=$lue_source_directory/build_profile \
                 --settings=build_type=$build_type \
                 --build=missing \
-                --output-folder=$build_dir
+                --output-folder=$lue_build_directory
 
-        ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${build_type}.json $source_dir/CMakeUserPresets.json
-        ln -s -f $build_dir/CMakePresets.json $source_dir/CMakeConanPresets.json
+        ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${build_type}.json $lue_source_directory/CMakeUserPresets.json
+        ln -s -f $lue_build_directory/conan_toolchain.cmake $lue_source_directory/conan_toolchain.cmake
+        ln -s -f $lue_build_directory/CMakePresets.json $lue_source_directory/CMakeConanPresets.json
     else
-        ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-${build_type}.json $source_dir/CMakeUserPresets.json
+        ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-${build_type}.json $lue_source_directory/CMakeUserPresets.json
     fi
-
-    cmake_hpx_arg="-D LUE_BUILD_HPX=FALSE -D HPX_ROOT=$hpx_install_prefix"
 
     # Add for profiling (linux, gprof):
     # -D CMAKE_CXX_FLAGS=-pg -D CMAKE_EXE_LINKER_FLAGS=-pg -D CMAKE_SHARED_LINKER_FLAGS=-pg -D CMAKE_MODULE_LINKER_FLAGS=-pg
 
-    cmake -G "Ninja" -S $source_dir --preset ${lue_preset} \
-        ${cmake_args_lue} ${cmake_hpx_arg} \
-        -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE \
-        -D mdspan_ROOT=$mdspan_install_prefix
+    cmake -G "Ninja" -S $lue_source_directory -B $lue_build_directory --preset ${lue_preset} ${cmake_args_lue}
 
-    ln -s -f $build_dir/compile_commands.json $source_dir
+    ln -s -f $lue_build_directory/compile_commands.json $lue_source_directory
 }
 
 
 parse_command_line $@
 configure_builds
+if [[ ${conan_packages} ]]; then
+    preprocess_conan_install
+fi
 install_hpx
 install_mdspan
 configure_lue
