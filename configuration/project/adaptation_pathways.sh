@@ -5,7 +5,7 @@ unset cwd
 parse_commandline $*
 
 if [ ! "$ADAPTATION_PATHWAYS" ]; then
-    export ADAPTATION_PATHWAYS="$PROJECTS/github/geoneric/PathwaysGenerator"
+    export ADAPTATION_PATHWAYS="$PROJECTS/github/Deltares-research/PathwaysGenerator"
 fi
 
 if [ ! -d "$ADAPTATION_PATHWAYS" ]; then
@@ -20,9 +20,9 @@ cd $ADAPTATION_PATHWAYS
 # linux-gnu, darwin, cygwin, win32, freebsd
 if [[ "$OSTYPE" == "msys" ]];
 then
-    source env/Scripts/activate
+    source .venv/Scripts/activate
 else
-    source env/bin/activate
+    source .venv/bin/activate
 fi
 
 if [[ -n `type -t adaptation_pathways` ]]; then
