@@ -352,6 +352,8 @@ def grep_sources(
     # https://stackoverflow.com/questions/4210042/how-do-i-exclude-a-directory-when-using-find
     exclude_directory_pathnames = [
             "./env",
+            "./.venv",
+            "./.mypy_cache",
         ]
 
     file_names = [
