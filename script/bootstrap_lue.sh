@@ -60,7 +60,7 @@ function configure_builds()
         cmake_args_lue="$cmake_args_lue -D LUE_FRAMEWORK_SIGNED_INTEGRAL_ELEMENTS=std::int32_t -D LUE_FRAMEWORK_UNSIGNED_INTEGRAL_ELEMENTS=std::uint8_t -D LUE_FRAMEWORK_FLOATING_POINT_ELEMENTS=float -D LUE_FRAMEWORK_BOOLEAN_ELEMENT=std::uint8_t -D LUE_FRAMEWORK_COUNT_ELEMENT=std::int32_t -D LUE_FRAMEWORK_INDEX_ELEMENT=std::int32_t -D LUE_FRAMEWORK_ID_ELEMENT=std::int32_t"
         compiler="cl"
         # TODO Can't be used because HPX' and Conan's CMake logic aren't compatible: asio, hwloc. Sigh...
-        conan_packages="boost cxxopts fmt gdal glfw imgui hdf5 jemalloc mimalloc nlohmann_json pybind11 vulkan-headers vulkan-loader"
+        conan_packages="boost cxxopts gdal glfw imgui hdf5 mimalloc nlohmann_json pybind11 vulkan-headers vulkan-loader"
         hpx_preset="windows_node"
         # TODO Finding Conan's jemalloc doesn't work. Sigh...
         # TODO linking against Conan's mimalloc doesn't work. Sigh...
@@ -111,6 +111,22 @@ function configure_builds()
     hpx_preset="hpx_${build_type,,}_${hpx_preset}_configuration"
 
     tmp_prefix="/tmp/bootstrap_lue-$username"
+    hpx_version="1.10.0"
+    hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
+    hpx_build_directory="$hpx_source_directory/build"
+    hpx_install_prefix="$install_prefix/hpx"
+    mdspan_install_prefix="$install_prefix/mdspan"
+    lue_source_directory="$LUE"
+    lue_build_directory="$OBJECTS/$build_type/lue"
+
+    cmake_args_lue=" \
+        $cmake_args_lue \
+        -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE \
+        -D HPX_ROOT=$hpx_install_prefix \
+        -D mdspan_ROOT=$mdspan_install_prefix \
+        -D LUE_BUILD_HPX=FALSE \
+        -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE
+    "
 
     echo "Setting up $build_type build on $hostname"
     echo "hostname               : $hostname"
@@ -118,12 +134,19 @@ function configure_builds()
     echo "conan_packages         : $conan_packages"
     echo "compiler               : $compiler"
     echo "cmake_args_hpx         : $cmake_args_hpx"
-    echo "cmake_args_lue         : $cmake_args_lue"
+    echo "cmake_args_lue         : "$cmake_args_lue
     echo "nr parallel jobs to use: $nr_jobs"
     echo "install prefix         : $install_prefix"
     echo "repository zip prefix  : $repository_zip_prefix"
     echo "tmp prefix             : $tmp_prefix"
+    echo "hpx_version            : $hpx_version"
+    echo "hpx_source_directory   : $hpx_source_directory"
+    echo "hpx_build_directory    : $hpx_build_directory"
+    echo "hpx_install_prefix     : $hpx_install_prefix"
     echo "hpx preset             : $hpx_preset"
+    echo "mdspan_install_prefix  : $mdspan_install_prefix"
+    echo "lue_source_directory   : $lue_source_directory"
+    echo "lue_build_directory    : $lue_build_directory"
     echo "lue preset             : $lue_preset"
 
     echo
@@ -136,16 +159,8 @@ function configure_builds()
         exit 1
     fi
 
-    hpx_install_prefix="$install_prefix/hpx"
-    mdspan_install_prefix="$install_prefix/mdspan"
-
-    lue_source_directory="$LUE"
-    lue_build_directory="$OBJECTS/$build_type/lue"
-
     mkdir -p $lue_build_directory
     mkdir -p $tmp_prefix
-
-    cmake_args_lue="$cmake_args_lue -D LUE_BUILD_HPX=FALSE -D HPX_ROOT=$hpx_install_prefix -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE -D mdspan_ROOT=$mdspan_install_prefix"
 }
 
 
@@ -163,15 +178,11 @@ function install_hpx()
         return
     fi
 
-    hpx_version="1.10.0"
     hpx_repository_zip="$repository_zip_prefix/v${hpx_version}.tar.gz"
 
     if [ ! -f $hpx_repository_zip ]; then
         wget --directory-prefix=$repository_zip_prefix https://github.com/STEllAR-GROUP/hpx/archive/refs/tags/v${hpx_version}.tar.gz
     fi
-
-    hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
-    hpx_build_directory="$hpx_source_directory/build"
 
     if [ -d $hpx_source_directory ]; then
         rm -fr $hpx_source_directory
@@ -203,8 +214,6 @@ function install_hpx()
 
         # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
         sed -i'' "/\${Boost_MINIMUM_VERSION} REQUIRED)/a \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
-
-        # cmake_args_hpx="$cmake_args_hpx -D CMAKE_PREFIX_PATH=$hpx_build_directory -D CMAKE_POLICY_DEFAULT_CMP0167=NEW"
     else
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     fi
