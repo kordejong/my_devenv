@@ -111,7 +111,6 @@
                 "msvc_configuration"
             ],
             "cacheVariables": {
-                "LUE_BUILD_VIEW": "FALSE",
                 "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "none",
                 "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "tcp",
                 "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "2",
