@@ -20,6 +20,7 @@
 
 \PassOptionsToPackage{
 }{tikzposter}
+
 \LoadClass[
     \nordpaper,
     \nordorientation,
@@ -57,28 +58,35 @@
     % \colorlet{colorThree}{mygray}
 }{
     % Background Colors ----------------
-    \colorlet{backgroundcolor}{nord10}
+    % \colorlet{backgroundcolor}{nord10}
+    \colorlet{backgroundcolor}{nord4}
     \colorlet{framecolor}{white}
     % Title Colors ---------------------
-    \colorlet{titlefgcolor}{black}
+    % \colorlet{titlefgcolor}{black}
+    \colorlet{titlefgcolor}{nord0}
     \colorlet{titlebgcolor}{white}
     % Block Colors ---------------------
-    \colorlet{blocktitlebgcolor}{white}
-    \colorlet{blocktitlefgcolor}{black}
-    \colorlet{blockbodybgcolor}{white}
+    % \colorlet{blocktitlebgcolor}{white}
+    \colorlet{blocktitlebgcolor}{nord6}
+    % \colorlet{blocktitlefgcolor}{black}
+    \colorlet{blocktitlefgcolor}{nord0}
+    % \colorlet{blockbodybgcolor}{white}
     \colorlet{blockbodyfgcolor}{black}
     % Innerblock Colors ----------------
     \colorlet{innerblocktitlebgcolor}{nord4}
-    \colorlet{innerblocktitlefgcolor}{black}
+    % \colorlet{innerblocktitlefgcolor}{black}
+    \colorlet{innerblocktitlefgcolor}{nord0}
     \colorlet{innerblockbodybgcolor}{white}
-    \colorlet{innerblockbodyfgcolor}{black}
-    % Note colors ----------------------
-    \colorlet{notefgcolor}{black}
-    \colorlet{notebgcolor}{nord13}
-    \colorlet{notefrcolor}{white}
+    % \colorlet{innerblockbodyfgcolor}{black}
+    \colorlet{innerblockbodyfgcolor}{nord0}
+%     % Note colors ----------------------
+%     \colorlet{notefgcolor}{black}
+%     \colorlet{notebgcolor}{nord13}
+%     \colorlet{notefrcolor}{white}
 }
 
 % \usetheme{Default}
 % \usetheme{Autumn}\usecolorstyle[colorPalette=BrownBlueOrange]{Germany}
 \usecolorstyle{nordcolourstyle}
-\usetitlestyle{Default}
+\usetitlestyle[roundedcorners=0]{Default}
+\useblockstyle[roundedcorners=0]{Envelope}
