@@ -14,4 +14,4 @@ fi
 export LUE_WEB
 
 cd $LUE_WEB
-source env/bin/activate
+source .venv/bin/activate

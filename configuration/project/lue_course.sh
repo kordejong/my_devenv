@@ -24,6 +24,6 @@ unalias lue_course 2>/dev/null
 
 hostname=`hostname -s`
 
-source env/bin/activate
+source .venv/bin/activate
 
 unset hostname
