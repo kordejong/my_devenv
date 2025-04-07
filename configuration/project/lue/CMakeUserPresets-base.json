@@ -23,7 +23,7 @@
                 },
                 "LUE_REPOSITORY_CACHE": {
                     "type": "PATH",
-                    "value": "file://$penv{PROJECTS}/../repository"
+                    "value": "file://$penv{OBJECTS}/../repository"
                 }
             }
         },
@@ -79,6 +79,27 @@
             "inherits": [
                 "lue_msvc_configuration"
             ]
+        },
+        {
+            "name": "eejit_configuration",
+            "hidden": true,
+            "inherits": [
+                "gcc_configuration"
+            ],
+            "cacheVariables": {
+                "CCACHE_ENV": "CCACHE_DIR=/eejit/home/jong0137/development/ccache;CCACHE_MAXSIZE=50G;CCACHE_SLOPPINESS=pch_defines,time_macros",
+                "CMAKE_EXE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_DEBUG_INIT": "-fuse-ld=mold",
+                "CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_INIT": "-fuse-ld=mold",
+                "LUE_BUILD_VIEW": "FALSE",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_RUNWRAPPER": "mpi",
+                "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "mpi",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "3"
+            }
         },
         {
             "name": "gransasso_configuration",

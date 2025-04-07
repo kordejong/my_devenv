@@ -51,6 +51,9 @@ then
 elif [[ $LUE_HOSTNAME == uu107273 ]];
 then
     LUE_HOSTNAME="m1compiler"
+elif [[ $HOME == /eejit/* ]];
+then
+    LUE_HOSTNAME="eejit"
 fi
 
 #   -DCMAKE_RULE_MESSAGES=OFF
@@ -88,7 +91,10 @@ unset basename
 ### fi
 
 
-if [[ $LUE_HOSTNAME == "gransasso" ]];
+if [[ $LUE_HOSTNAME == "eejit" ]];
+then
+    source $LUE/.venv/bin/activate
+elif [[ $LUE_HOSTNAME == "gransasso" ]];
 then
     ### # Platform for testing use of the Ubuntu packages of 3rd party
     ### # software LUE depends on. No LUE_HAVE_<NAME> variables set to FALSE.

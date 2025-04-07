@@ -50,7 +50,11 @@ function configure_builds()
     conan_packages=""
     lue_preset="${hostname}_${build_type,,}"
 
-    if [[ $hostname == gransasso ]]; then
+    if [[ $hostname == eejit ]]; then
+        compiler="gcc"
+        hpx_preset="cluster"
+        nr_jobs=$SLURM_CPUS_ON_NODE
+    elif [[ $hostname == gransasso ]]; then
         compiler="gcc"
         conan_packages="imgui"
         hpx_preset="linux_node"

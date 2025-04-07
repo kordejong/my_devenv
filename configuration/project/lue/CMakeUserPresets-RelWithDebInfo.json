@@ -13,6 +13,14 @@
             ]
         },
         {
+            "name": "eejit_relwithdebinfo",
+            "inherits": [
+                "eejit_configuration",
+                "kor_relwithdebinfo"
+            ],
+            "displayName": "eejit / relwithdebinfo"
+        },
+        {
             "name": "velocity_relwithdebinfo",
             "inherits": [
                 "velocity_configuration",
