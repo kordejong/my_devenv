@@ -12,29 +12,30 @@ Options:
   name               Name of project to build. If not given, it is
                      auto-detected.
 """
+
 import os
 import sys
 import docopt
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "source"))
 import devenv
 
 
 @devenv.checked_call
-def build_project(
-        project_name,
-        build_type):
+def build_project(project_name, build_type):
     devenv.build_project(project_name, build_type)
 
 
 if __name__ == "__main__":
     arguments = docopt.docopt(__doc__)
     name = arguments["<name>"]
-    build_type = \
-        arguments["--build_type"] if \
-            arguments["--build_type"] is not None else \
-        os.environ["MY_DEVENV_BUILD_TYPE"] if \
-            "MY_DEVENV_BUILD_TYPE" in os.environ else \
-        "Debug"
+    build_type = (
+        arguments["--build_type"]
+        if arguments["--build_type"] is not None
+        else os.environ["MY_DEVENV_BUILD_TYPE"]
+        if "MY_DEVENV_BUILD_TYPE" in os.environ
+        else "Debug"
+    )
 
     if name is None:
         name = devenv.detect_project_name()

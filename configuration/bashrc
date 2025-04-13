@@ -9,9 +9,7 @@
 #     export VIMINIT="so $filename | $VIMINIT"
 # }
 
-
-cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
-
+cwd=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 export MY_DEVENV="$cwd/.."
 
@@ -25,10 +23,8 @@ fi
 
 export CTEST_OUTPUT_ON_FAILURE=1
 
-
 # unset VIMINIT
 # add_file_to_vim_init $cwd/vim/vimrc
-
 
 alias sourceforge="ssh -t kordejong,pcraster@shell.sourceforge.net create"
 
@@ -36,46 +32,43 @@ alias sourceforge="ssh -t kordejong,pcraster@shell.sourceforge.net create"
 export PATH=$MY_DEVENV/script:$PATH
 
 # os_path_sep=`python -c "import os; print os.pathsep"`
-# 
+#
 # export PYTHONPATH=$MY_DEVENV/source$os_path_sep$PYTHONPATH
-
 
 # ------------------------------------------------------------------------------
 # platform=$cwd/platform
-# 
+#
 # alias lsb_gransasso="source $platform/lsb_gransasso.sh"
 # alias lsb_hyper="source $platform/lsb_hyper.sh"
 # alias lsb_jacinto="source $platform/lsb_jacinto.sh"
-# 
+#
 # alias gcc_gransasso="source $platform/gcc_gransasso.sh"
 # alias gcc_hyper="source $platform/gcc_hyper.sh"
 # alias gcc_jacinto="source $platform/gcc_jacinto.sh"
 # alias gcc_triklav="source $platform/gcc_triklav.sh"
-# 
+#
 # alias clang_gransasso="source $platform/clang_gransasso.sh"
 # alias clang_triklav="source $platform/clang_triklav.sh"
 # alias clang_mpi_triklav="source $platform/clang_mpi_triklav.sh"
-# 
+#
 # alias mingw_32_gransasso="source $platform/mingw_32_gransasso.sh"
 # alias mingw_32_win764="source $platform/mingw_32_win764.sh"
-# 
+#
 # alias mingw_64_gransasso="source $platform/mingw_64_gransasso.sh"
 # alias mingw_64_win764="source $platform/mingw_64_win764.sh"
-# 
+#
 # alias vs_14_win764.sh="source $platform/vs_14_win764.sh"
-# 
+#
 # unset platform
-
 
 # ------------------------------------------------------------------------------
 # software=$cwd/software
-# 
+#
 # alias pcraster_hyper="source $software/pcraster_hyper.sh"
 # alias pcraster_gransasso="source $software/pcraster_gransasso.sh"
 # alias pcraster_sonic="source $software/pcraster_sonic.sh"
-# 
+#
 # unset software
-
 
 # ------------------------------------------------------------------------------
 project=$cwd/project
@@ -154,7 +147,7 @@ alias pcraster="source $project/pcraster.sh"
 # alias tmux_phd="tmuxp load $project/phd.yaml"
 # alias pigeon="source $project/pigeon.sh"
 # alias quick_scan="source $project/quick_scan.sh"
- # alias rasterformat="source $project/rasterformat.sh"
+# alias rasterformat="source $project/rasterformat.sh"
 # alias rivm_afweging="source $project/rivm_afweging.sh"
 # alias rivm_atlas="source $project/rivm_atlas.sh"
 # alias rivm_teebstad_doc="source $project/rivm_teebstad_doc.sh"
@@ -185,7 +178,6 @@ alias tmux_lue_course="tmuxp load $project/lue_course.yaml"
 
 unset project
 
-
 # ------------------------------------------------------------------------------
 # export CTEST_OUTPUT_ON_FAILURE=1
 
@@ -196,7 +188,6 @@ export EDITOR=vim
 
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-
 
 ### export PCRASTER_DAL_FORMATS="CSF, ESRI Shapefile"
 
@@ -216,13 +207,13 @@ if [ ! -e "$HOME/.inputrc" ]; then
     export INPUTRC=$cwd/inputrc
 fi
 
-
 alias grep="grep --color=auto"
 alias ls="ls -h --color=auto"
 alias ll="ls -l"
 alias viout="vi out"
 alias vimout="vim out"
 alias nvimout="nvim out"
+alias lvim="NVIM_APPNAME=lazyvim nvim"
 alias gitout="git status | tee out && nvim out"
 alias shout="bash ./out"
 alias df="df -h"
@@ -240,7 +231,6 @@ alias start_http_server="python -m http.server"
 
 alias status_of_my_projects="my_git.py status gauja github"
 
-
 # bashrc:
 # export PS1="\u@\h:\W\$ "
 # export PS1="\u@\h:\W👉 "
@@ -251,15 +241,13 @@ alias status_of_my_projects="my_git.py status gauja github"
 # fi
 # export PYTHONSTARTUP
 
-
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
-
 
 # Make sure environment variables are expanded on the command line.
 # if [[ $BASH_VERSION >= "4.2."* ]]; then
-    shopt -s direxpand
+shopt -s direxpand
 # fi
-shopt -s cdspell  # Fix minor errors in spelling of directory names.
+shopt -s cdspell # Fix minor errors in spelling of directory names.
 
 export CDPATH="$PROJECTS"
 
