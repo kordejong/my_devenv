@@ -1,18 +1,18 @@
 session_name: bdp
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/bdp.sh"
+  - "source $MY_DEVENV/configuration/project/bdp.sh"
 windows:
-    - window_name: edit
-      focus: true
-      options:
-          main-pane-height: 25
-      panes:
-          - shell_command:
-              - nvim +Neotree
-            focus: true
-          - shell_command:
-              - cd $BDP
-    - window_name: manage
-      panes:
-          - shell_command:
-              - vifm $BDP $OBJECTS
+  - window_name: edit
+    focus: true
+    options:
+      main-pane-height: 25
+    panes:
+      - shell_command:
+          - nvim
+        focus: true
+      - shell_command:
+          - cd $BDP
+  - window_name: manage
+    panes:
+      - shell_command:
+          - ranger $BDP $OBJECTS

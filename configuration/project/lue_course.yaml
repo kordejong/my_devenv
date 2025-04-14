@@ -1,21 +1,22 @@
 session_name: lue_course
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/lue_course.sh"
+  - "source $MY_DEVENV/configuration/project/lue_course.sh"
 windows:
-    - window_name: edit
-      focus: true
-        # layout: main-horizontal
-      options:
-          main-pane-height: 25
-      panes:
-          - shell_command:
-              - vim +Neotree
-            focus: true
-          - shell_command:
-              - cd $LUE_COURSE_OBJECTS
-              - clear
-              - pwd
-    - window_name: manage
-      panes:
-          - shell_command:
-              - vifm $LUE_COURSE $LUE_COURSE_OBJECTS
+  - window_name: edit
+    focus:
+      true
+      # layout: main-horizontal
+    options:
+      main-pane-height: 25
+    panes:
+      - shell_command:
+          - vim
+        focus: true
+      - shell_command:
+          - cd $LUE_COURSE_OBJECTS
+          - clear
+          - pwd
+  - window_name: manage
+    panes:
+      - shell_command:
+          - ranger $LUE_COURSE $LUE_COURSE_OBJECTS

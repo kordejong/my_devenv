@@ -1,19 +1,20 @@
 session_name: parallel_computing_course
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/parallel_computing_course.sh"
+  - "source $MY_DEVENV/configuration/project/parallel_computing_course.sh"
 windows:
-    - window_name: edit
-      focus: true
-        # layout: main-horizontal
-      options:
-          main-pane-height: 25
-      panes:
-          - shell_command:
-              - nvim +Neotree
-            focus: true
-          - shell_command:
-              - cd $PARALLEL_COMPUTING_COURSE
-    - window_name: manage
-      panes:
-          - shell_command:
-              - vifm $PARALLEL_COMPUTING_COURSE $PARALLEL_COMPUTING_COURSE_OBJECTS
+  - window_name: edit
+    focus:
+      true
+      # layout: main-horizontal
+    options:
+      main-pane-height: 25
+    panes:
+      - shell_command:
+          - nvim
+        focus: true
+      - shell_command:
+          - cd $PARALLEL_COMPUTING_COURSE
+  - window_name: manage
+    panes:
+      - shell_command:
+          - ranger $PARALLEL_COMPUTING_COURSE $PARALLEL_COMPUTING_COURSE_OBJECTS

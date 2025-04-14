@@ -8,11 +8,11 @@ windows:
       main-pane-height: 25
     panes:
       - shell_command:
-        - PYTHONPATH="$OBJECTS/Debug/lue/lib/python3.12:$PYTHONPATH" nvim +Neotree
+          - PYTHONPATH="$OBJECTS/Debug/lue/lib/python3.12:$PYTHONPATH" nvim
         focus: true
       - shell_command:
-        - cd $LUE
+          - cd $LUE
   - window_name: manage
     panes:
       - shell_command:
-        - vifm $LUE $OBJECTS
+          - ranger $LUE $OBJECTS

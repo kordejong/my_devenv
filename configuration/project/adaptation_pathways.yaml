@@ -10,11 +10,11 @@ windows:
       - cd $ADAPTATION_PATHWAYS
     panes:
       - shell_command:
-        - nvim +Neotree
+          - nvim
         focus: true
       - shell_command:
-        - clear
+          - clear
   - window_name: manage
     panes:
       - shell_command:
-        - vifm $ADAPTATION_PATHWAYS $ADAPTATION_PATHWAYS_OBJECTS
+          - ranger $ADAPTATION_PATHWAYS $ADAPTATION_PATHWAYS_OBJECTS

@@ -1,19 +1,19 @@
 session_name: natural_capital_models
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/natural_capital_models.sh"
+  - "source $MY_DEVENV/configuration/project/natural_capital_models.sh"
 windows:
-    - window_name: edit
-      focus: true
-      # layout: main-horizontal
-      options:
-          main-pane-height: 25
-      panes:
-          - shell_command:
-              - nvim +Neotree
-            focus: true
-          - shell_command:
-              - cd $NATURAL_CAPITAL_MODELS
-    - window_name: manage
-      panes:
-          - shell_command:
-              - vifm $NATURAL_CAPITAL_MODELS $NATURAL_CAPITAL_MODELS
+  - window_name: edit
+    focus: true
+    # layout: main-horizontal
+    options:
+      main-pane-height: 25
+    panes:
+      - shell_command:
+          - nvim
+        focus: true
+      - shell_command:
+          - cd $NATURAL_CAPITAL_MODELS
+  - window_name: manage
+    panes:
+      - shell_command:
+          - ranger $NATURAL_CAPITAL_MODELS
