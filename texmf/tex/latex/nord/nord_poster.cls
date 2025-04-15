@@ -30,7 +30,7 @@
     backend=biber,
     bibencoding=utf8,
     language=auto,
-    style=numeric-comp,
+    style=authoryear,
     sorting=nyt,
     maxbibnames=99,
     maxcitenames=1,
