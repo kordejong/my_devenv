@@ -12,18 +12,22 @@ return {
         -- vim.api.nvim_cmd({cmd = "source", args = { wikipath } }, {})
         vim.g.vimwiki_list = {
           {
-            path = '$PERSONAL_FILES/Documents/wiki',
+            path = "$PERSONAL_FILES/Documents/wiki",
             -- nested_syntaxes = {
             --   \ 'python': 'python',
             --   \ 'c++': 'cpp',
             --   \ 'bash': 'sh',
             --   \ 'haskell': 'hs'}
             -- maxhi = 1
+            -- syntax = "markdown",
+            -- ext = ".wiki",
           },
           {
-            path = '$PERSONAL_FILES/../../geoneric/executive/geoneric/document/wiki',
+            path = "$PERSONAL_FILES/../../geoneric/executive/geoneric/document/wiki",
           },
         }
+        -- Don't treat every Markdown file as a VimWiki file
+        vim.g.vimwiki_global_ext = 0
       end
     end,
   },
