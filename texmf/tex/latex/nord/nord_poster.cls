@@ -95,6 +95,6 @@
 
 % \usetheme{Default}
 % \usetheme{Autumn}\usecolorstyle[colorPalette=BrownBlueOrange]{Germany}
+\usetitlestyle{Empty}
 \usecolorstyle{nordcolourstyle}
-\usetitlestyle[roundedcorners=0]{Default}
 \useblockstyle[roundedcorners=0]{Envelope}
