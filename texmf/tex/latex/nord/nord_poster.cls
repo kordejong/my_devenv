@@ -47,8 +47,16 @@
 \RequirePackage{filecontents}
 \RequirePackage[utf8]{inputenc}
 
+\RequirePackage[fixed]{fontawesome5}
+\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{multicol}
 
 \RequirePackage{nord_colour}
+
+% multicol settings
+\setlength{\columnsep}{2cm}
+\setlength{\columnseprule}{1pt}
+\def\columnseprulecolor{\color{nord text}}
 
 % TODO Make style switch on background
 
