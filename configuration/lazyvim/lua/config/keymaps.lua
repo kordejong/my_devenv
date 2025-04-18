@@ -2,10 +2,10 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- -- :help vim.keymap.set()
---
--- -- Only relevant in case file type is cpp
--- vim.keymap.set("n", "<F4>", "<cmd>ClangdShowSymbolInfo<CR>")
+-- :help vim.keymap.set()
+
+-- Only relevant in case file type is cpp
+vim.keymap.set("n", "<F4>", "<cmd>ClangdShowSymbolInfo<CR>")
 vim.keymap.set("n", "<F5>", "<cmd>ClangdSwitchSourceHeader<CR>")
 
 -- -- Format paragraph
