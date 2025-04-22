@@ -24,6 +24,9 @@
 \LoadClass[
     \nordpaper,
     \nordorientation,
+    innermargin=10mm,  % default: 15
+    blockverticalspace=10mm,  % default: 15
+    colspace=10mm,  % default: 15
 ]{tikzposter}
 
 \PassOptionsToPackage{
