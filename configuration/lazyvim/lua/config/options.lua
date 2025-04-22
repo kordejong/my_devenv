@@ -12,6 +12,7 @@ opt.number = false
 opt.relativenumber = false
 opt.shiftwidth = 4 -- Number of spaces for each step of (auto)indent
 opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
+opt.wrap = true
 
 -- TODO Port from my own nvim configuration
 -- -- :help vim.opt
@@ -51,5 +52,4 @@ opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
 -- -- Mode is already in the status line
 -- vim.opt.showmode = false
 --
--- vim.opt.tabstop = 4
 -- vim.opt.termguicolors = true
