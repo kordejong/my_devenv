@@ -15,4 +15,4 @@ fi
 export COMPUTATIONALGEOGRAPHY_WEB
 
 cd $COMPUTATIONALGEOGRAPHY_WEB
-source env/bin/activate
+source .venv/bin/activate

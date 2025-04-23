@@ -1,18 +1,18 @@
 session_name: pcr_globwb
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/pcr_globwb.sh"
+  - "source $MY_DEVENV/configuration/project/pcr_globwb.sh"
 windows:
-    - window_name: edit
-      focus: true
-      options:
-          main-pane-height: 25
-      panes:
-          - shell_command:
-              - PYTHONPATH="$OBJECTS/RelWithDebInfo/lue/lib*/python3.*:$PYTHONPATH" nvim +Neotree
-            focus: true
-          - shell_command:
-              - cd $PCR_GLOBWB
-    - window_name: manage
-      panes:
-          - shell_command:
-              - vifm $PCR_GLOBWB $PCR_GLOBWB
+  - window_name: edit
+    focus: true
+    options:
+      main-pane-height: 25
+    panes:
+      - shell_command:
+          - PYTHONPATH="$OBJECTS/RelWithDebInfo/lue/lib*/python3.*:$PYTHONPATH" nvim
+        focus: true
+      - shell_command:
+          - cd $PCR_GLOBWB
+  - window_name: manage
+    panes:
+      - shell_command:
+          - ranger $PCR_GLOBWB

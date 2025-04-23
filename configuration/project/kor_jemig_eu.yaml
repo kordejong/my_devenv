@@ -1,26 +1,26 @@
 session_name: kor_jemig_eu
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/kor_jemig_eu.sh"
+  - "source $MY_DEVENV/configuration/project/kor_jemig_eu.sh"
 windows:
-    - window_name: edit
-      focus: true
-      layout: main-horizontal
-      options:
-          main-pane-height: 25
-      panes:
-          - shell_command:
-              - vim +Neotree
-            focus: true
-          - shell_command:
-              - cd $KOR_JEMIG_EU_OBJECTS
-              - clear
-              - pwd
-    - window_name: manage
-      panes:
-          - shell_command:
-              - vifm $KOR_JEMIG_EU $KOR_JEMIG_EU_OBJECTS
-    - window_name: serve
-      panes:
-          - shell_command:
-              - cd $KOR_JEMIG_EU/site/kor.jemig.eu
-              - nikola auto
+  - window_name: edit
+    focus: true
+    layout: main-horizontal
+    options:
+      main-pane-height: 25
+    panes:
+      - shell_command:
+          - vim
+        focus: true
+      - shell_command:
+          - cd $KOR_JEMIG_EU_OBJECTS
+          - clear
+          - pwd
+  - window_name: manage
+    panes:
+      - shell_command:
+          - ranger $KOR_JEMIG_EU $KOR_JEMIG_EU_OBJECTS
+  - window_name: serve
+    panes:
+      - shell_command:
+          - cd $KOR_JEMIG_EU/site/kor.jemig.eu
+          - nikola auto

@@ -13,6 +13,14 @@
             ]
         },
         {
+            "name": "eejit_debug",
+            "inherits": [
+                "eejit_configuration",
+                "kor_debug"
+            ],
+            "displayName": "eejit / debug"
+        },
+        {
             "name": "m1compiler_debug",
             "inherits": [
                 "m1compiler_configuration",

@@ -1,0 +1,57 @@
+% https://www.overleaf.com/learn/latex/Writing_your_own_package
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{nord_minted}[2025/03/26 Minted listing with colours from Nord theme]
+
+\RequirePackage{nord_colour}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted}
+
+% TODO Add environment for Python, reusing most of the C++ stuff (default environment?)
+%    - Make a nordlisting environment that accepts a language argument
+% TODO Add / verify support for inline code(?)
+% TODO Make style switch on background
+
+\tcbset{
+    default minted options={
+        autogobble,
+        fontsize=\footnotesize,
+        stripall,
+        tabsize=4,
+    },
+    colback=nord bg,
+    colframe=nord frame,
+    fonttitle=\footnotesize,
+    listing only,
+}
+\ifthenelse{\equal{\nordbackground}{light}}
+{
+    % \tcbset{
+    %     minted style=bw,
+    % }
+    \usemintedstyle{bw}
+}
+{
+    % \tcbset{
+    %     minted style=nord,
+    % }
+    \usemintedstyle{nord}
+}
+\newtcblisting[]{nordcpplisting}[1]{%
+    minted language=c++,
+    title={#1},
+}
+\newtcblisting[]{nordpythonlisting}[1]{%
+    minted language=python,
+    title={#1},
+}
+% TODO For some reason bash statements are always shown in black, also on dark background
+\newtcblisting[]{nordbashlisting}[1]{%
+    minted language=bash,
+    title={#1},
+}
+
+% \newmintinline{"nordcpp"}{c++}{style=nord}
+% \newmintinline["nordpython"]{"c++"}{}
+
+

@@ -1,18 +1,18 @@
 session_name: invest
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/invest.sh"
+  - "source $MY_DEVENV/configuration/project/invest.sh"
 windows:
-    - window_name: edit
-      focus: true
-      options:
-          main-pane-height: 25
-      panes:
-          - shell_command:
-              - nvim +Neotree
-            focus: true
-          - shell_command:
-              - cd $INVEST
-    - window_name: manage
-      panes:
-          - shell_command:
-              - vifm $INVEST $INVEST
+  - window_name: edit
+    focus: true
+    options:
+      main-pane-height: 25
+    panes:
+      - shell_command:
+          - nvim
+        focus: true
+      - shell_command:
+          - cd $INVEST
+  - window_name: manage
+    panes:
+      - shell_command:
+          - ranger $INVEST

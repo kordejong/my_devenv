@@ -1,21 +1,21 @@
 session_name: phd
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/phd.sh"
+  - "source $MY_DEVENV/configuration/project/phd.sh"
 windows:
-    - window_name: edit
-      focus: true
-      layout: main-horizontal
-      options:
-          main-pane-height: 25
-      panes:
-          - shell_command:
-              - vim +Neotree
-            focus: true
-          - shell_command:
-              - cd $PHD_OBJECTS
-              - clear
-              - pwd
-    - window_name: manage
-      panes:
-          - shell_command:
-              - vifm $PHD $PHD_OBJECTS
+  - window_name: edit
+    focus: true
+    layout: main-horizontal
+    options:
+      main-pane-height: 25
+    panes:
+      - shell_command:
+          - vim
+        focus: true
+      - shell_command:
+          - cd $PHD_OBJECTS
+          - clear
+          - pwd
+  - window_name: manage
+    panes:
+      - shell_command:
+          - ranger $PHD $PHD_OBJECTS

@@ -1,18 +1,18 @@
 session_name: paper_2024_lue
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/paper_2024_lue.sh"
+  - "source $MY_DEVENV/configuration/project/paper_2024_lue.sh"
 windows:
-    - window_name: edit
-      focus: true
-      options:
-          main-pane-height: 25
-      panes:
-          - shell_command:
-              - nvim +Neotree
-            focus: true
-          - shell_command:
-              - cd $PAPER_2024_LUE
-    - window_name: manage
-      panes:
-          - shell_command:
-              - vifm $PAPER_2024_LUE $OBJECTS/paper_2024_lue
+  - window_name: edit
+    focus: true
+    options:
+      main-pane-height: 25
+    panes:
+      - shell_command:
+          - nvim
+        focus: true
+      - shell_command:
+          - cd $PAPER_2024_LUE
+  - window_name: manage
+    panes:
+      - shell_command:
+          - ranger $PAPER_2024_LUE $OBJECTS/paper_2024_lue

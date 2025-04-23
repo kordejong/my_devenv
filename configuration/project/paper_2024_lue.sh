@@ -16,4 +16,4 @@ export PAPER_2024_LUE PAPER_2024_LUE_OBJECTS
 
 cd $PAPER_2024_LUE
 
-source env/bin/activate
+source .venv/bin/activate

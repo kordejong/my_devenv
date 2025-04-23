@@ -1,18 +1,18 @@
 session_name: my_documents
 shell_command_before:
-    - "source $MY_DEVENV/configuration/project/my_documents.sh"
+  - "source $MY_DEVENV/configuration/project/my_documents.sh"
 windows:
-    - window_name: edit
-      focus: true
-      options:
-          main-pane-height: 25
-      panes:
-          - shell_command:
-              - nvim +Neotree
-            focus: true
-          - shell_command:
-              - cd $MY_DOCUMENTS_OBJECTS
-    - window_name: manage
-      panes:
-          - shell_command:
-              - vifm $MY_DOCUMENTS $MY_DOCUMENTS_OBJECTS
+  - window_name: edit
+    focus: true
+    options:
+      main-pane-height: 25
+    panes:
+      - shell_command:
+          - nvim
+        focus: true
+      - shell_command:
+          - cd $MY_DOCUMENTS_OBJECTS
+  - window_name: manage
+    panes:
+      - shell_command:
+          - ranger $MY_DOCUMENTS $MY_DOCUMENTS_OBJECTS

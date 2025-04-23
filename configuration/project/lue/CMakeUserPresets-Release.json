@@ -13,6 +13,14 @@
             ]
         },
         {
+            "name": "eejit_release",
+            "inherits": [
+                "eejit_configuration",
+                "kor_release"
+            ],
+            "displayName": "eejit / release"
+        },
+        {
             "name": "hoy_release",
             "inherits": [
                 "hoy_configuration",
