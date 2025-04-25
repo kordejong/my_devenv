@@ -1,0 +1,7 @@
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+os:
+  editPreset: "nvim"
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
