@@ -27,6 +27,14 @@
                 "kor_release"
             ],
             "displayName": "hoy / release"
+        },
+        {
+            "name": "m1compiler_release",
+            "inherits": [
+                "m1compiler_configuration",
+                "kor_release"
+            ],
+            "displayName": "m1compiler / release"
         }
     ]
 }

@@ -21,6 +21,14 @@
             "displayName": "eejit / debug"
         },
         {
+            "name": "m1compiler_debug",
+            "inherits": [
+                "m1compiler_configuration",
+                "kor_debug"
+            ],
+            "displayName": "m1compiler / debug"
+        },
+        {
             "name": "spider_debug",
             "inherits": [
                 "spider_configuration",

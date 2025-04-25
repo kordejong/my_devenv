@@ -48,7 +48,7 @@ then
 elif [[ $LUE_HOSTNAME == wn-dc-05 ]];
 then
     LUE_HOSTNAME="spider"
-elif [[ $LUE_HOSTNAME == uu107273 ]];
+elif [[ $LUE_HOSTNAME == uu107273 || $LUE_HOSTNAME == uu-c07hg08bq6p0 ]];
 then
     LUE_HOSTNAME="m1compiler"
 elif [[ $HOME == /eejit/* ]];
@@ -306,6 +306,9 @@ then
 
     source $LUE/env/bin/activate
 
+else
+    echo "Unknown hostname: $LUE_HOSTNAME"
+    return 1
 fi
 
 
