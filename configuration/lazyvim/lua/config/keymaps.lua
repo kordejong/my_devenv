@@ -8,8 +8,8 @@
 vim.keymap.set("n", "<F4>", "<cmd>ClangdShowSymbolInfo<CR>")
 vim.keymap.set("n", "<F5>", "<cmd>ClangdSwitchSourceHeader<CR>")
 
--- -- Format paragraph
--- vim.keymap.set("n", "<F6>", "vipgw<CR>")
+-- Format paragraph
+vim.keymap.set("n", "<F6>", "vipgw<CR>")
 
 local function quickfix()
   vim.lsp.buf.code_action({
