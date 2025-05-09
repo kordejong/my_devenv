@@ -3,18 +3,18 @@
 	name = Kor de Jong
 	email = kor@jemig.eu
 [core]
-    excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore
 	autocrlf = input
 	pager = delta
 	quotepath = false
 [interactive]
     diffFilter = delta --color-only
 [delta]
-    navigate = true  # use n and N to move between diff settings
-    # dark = true  # or light = true, or omit for auto-detection
-    syntax-theme = Nord
+	navigate = true  # use n and N to move between diff settings
+	# dark = true  # or light = true, or omit for auto-detection
+	syntax-theme = Nord
 [merge]
-    conflictstyle = zdiff3
+	conflictstyle = zdiff3
 [color]
 	ui = auto
 	interactive = auto
@@ -27,7 +27,7 @@
 [push]
 	default = simple
 [alias]
-    mylog = log --oneline --decorate --graph
+	mylog = log --oneline --decorate --graph
 	myfpush = push --force-with-lease
 [diff]
 	submodule = log
