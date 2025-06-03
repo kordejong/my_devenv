@@ -45,3 +45,5 @@
 	path = ~/.gitconfig-uu
 [includeIf "hasconfig:remote.*.url:https://github.com/computationalgeography/**"]
 	path = ~/.gitconfig-uu
+[includeIf "hasconfig:remote.*.url:https://github.com/JudithVerstegen/**"]
+	path = ~/.gitconfig-uu
