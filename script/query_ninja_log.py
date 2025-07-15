@@ -28,7 +28,7 @@ source_suffixes = {
     "posix": [".cpp", ".hpp"],
 }
 shared_library_suffixes = {
-    "posix": [".so"],
+    "posix": [".dylib", ".so"],
 }
 static_library_suffixes = {
     "posix": [".a"],
@@ -74,7 +74,7 @@ def parse_ninja_log(path: Path) -> pd.DataFrame:
 
     header = lines[0]
     ninja_version = header.split()[-1]
-    assert ninja_version == "v5", ninja_version
+    # assert ninja_version == "v5", ninja_version
 
     records = {
         "output_path": [],
