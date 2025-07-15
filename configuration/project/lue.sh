@@ -1,4 +1,4 @@
-cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
+cwd=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 source $cwd/util.sh
 unset cwd
 
@@ -7,7 +7,6 @@ unset cwd
 # export CTEST_OUTPUT_ON_FAILURE=1
 
 parse_commandline $*
-
 
 if [ ! "$LUE" ]; then
     export LUE="$PROJECTS/github/computational_geography/lue"
@@ -18,7 +17,7 @@ if [ ! -d "$LUE" ]; then
     return 1
 fi
 
-basename=`basename $LUE`
+basename=$(basename $LUE)
 
 # LUE_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
 # LUE_DATA="$OBJECTS/../data/$MY_DEVENV_BUILD_TYPE/$basename"
@@ -27,32 +26,28 @@ PATH="\
 $LUE/environment/script:\
 $PATH"
 
-LUE_HOSTNAME=`hostname -s 2>/dev/null`
+LUE_HOSTNAME=$(hostname -s 2>/dev/null)
 
-if [ ! "$LUE_HOSTNAME" ];
-then
-    LUE_HOSTNAME=`hostname`
+if [ ! "$LUE_HOSTNAME" ]; then
+    LUE_HOSTNAME=$(hostname)
 fi
 
-if [ ! "$LUE_HOSTNAME" ];
-then
+if [ ! "$LUE_HOSTNAME" ]; then
     echo "Could not figure out the hostname"
     exit 1
 fi
 
-LUE_HOSTNAME="${LUE_HOSTNAME,,}"  # Lower-case the hostname
+LUE_HOSTNAME="${LUE_HOSTNAME,,}" # Lower-case the hostname
 
-if [[ $LUE_HOSTNAME == int? || $LUE_HOSTNAME == tcn* ]];
-then
+if [[ $LUE_HOSTNAME == int? || $LUE_HOSTNAME == tcn* ]]; then
     LUE_HOSTNAME="snellius"
-elif [[ $LUE_HOSTNAME == wn-dc-05 ]];
-then
+elif [[ $LUE_HOSTNAME == jr* ]]; then
+    LUE_HOSTNAME="jureca"
+elif [[ $LUE_HOSTNAME == wn-dc-05 ]]; then
     LUE_HOSTNAME="spider"
-elif [[ $LUE_HOSTNAME == uu107273 || $LUE_HOSTNAME == uu-c07hg08bq6p0 ]];
-then
+elif [[ $LUE_HOSTNAME == uu107273 || $LUE_HOSTNAME == uu-c07hg08bq6p0 ]]; then
     LUE_HOSTNAME="m1compiler"
-elif [[ $HOME == /eejit/* ]];
-then
+elif [[ $HOME == /eejit/* ]]; then
     LUE_HOSTNAME="eejit"
 fi
 
@@ -76,11 +71,11 @@ unset basename
 ### fi
 
 ### cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$LUE_HOSTNAME/$MY_DEVENV_BUILD_TYPE.cmake
-### 
+###
 ### if [ ! -f $cmake_toolchain_file ]; then
 ###     cmake_toolchain_file=$MY_DEVENV/configuration/platform/cmake/$LUE_HOSTNAME.cmake
 ### fi
-### 
+###
 ### if [ ! -f $cmake_toolchain_file ]; then
 ###     echo "INFO: No CMake toolchain file found for a $MY_DEVENV_BUILD_TYPE build on $LUE_HOSTNAME"
 ### else
@@ -90,12 +85,9 @@ unset basename
 ###     "
 ### fi
 
-
-if [[ $LUE_HOSTNAME == "eejit" ]];
-then
+if [[ $LUE_HOSTNAME == "eejit" ]]; then
     source $LUE/.venv/bin/activate
-elif [[ $LUE_HOSTNAME == "gransasso" ]];
-then
+elif [[ $LUE_HOSTNAME == "gransasso" ]]; then
     ### # Platform for testing use of the Ubuntu packages of 3rd party
     ### # software LUE depends on. No LUE_HAVE_<NAME> variables set to FALSE.
     ### LUE_CMAKE_ARGUMENTS="
@@ -110,12 +102,13 @@ then
 
     source $LUE/env/bin/activate
 
-elif [[ $LUE_HOSTNAME == "orkney" ]];
-then
+elif [[ $LUE_HOSTNAME == "jureca" ]]; then
+    source $LUE/.venv/bin/activate
+
+elif [[ $LUE_HOSTNAME == "orkney" ]]; then
     source $LUE/env/bin/activate
 
-elif [[ $LUE_HOSTNAME == "fg-vm12" ]];
-then
+elif [[ $LUE_HOSTNAME == "fg-vm12" ]]; then
     ### if [ -d "$repository_cache" ]; then
     ###     LUE_CMAKE_ARGUMENTS="
     ###         $LUE_CMAKE_ARGUMENTS
@@ -163,12 +156,12 @@ then
 ###             -DLUE_REPOSITORY_CACHE:PATH=$(cygpath --mixed $repository_cache)
 ###         "
 ###     fi
-### 
+###
 ###     LUE_CMAKE_ARGUMENTS="
 ###         $LUE_CMAKE_ARGUMENTS
 ###         -DCMAKE_TOOLCHAIN_FILE=$(cygpath --mixed $cmake_toolchain_file)
 ###     "
-### 
+###
 ###     # Platform for testing use of the Conan packages of 3rd party software
 ###     # LUE depends on. LUE_HAVE_<NAME> variables set to FALSE.
 ###     LUE_CMAKE_ARGUMENTS="
@@ -190,20 +183,18 @@ then
 ###     CMAKE_BUILD_PARALLEL_LEVEL=2
 ###     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
 ###     LUE_ROUTING_DATA="$HOME/not_needed_on_windows_yet"
-### 
+###
 ###     # export PATH="`cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64`:$PATH"
 ###     export CC=C:/PROGRA~2/MICROS~1/2019/COMMUN~1/VC/Tools/MSVC/1429~1.301/bin/Hostx64/x64/cl
 ###     export CXX=C:/PROGRA~2/MICROS~1/2019/COMMUN~1/VC/Tools/MSVC/1429~1.301/bin/Hostx64/x64/cl
 ###     # export CC="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
 ###     # export CXX="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
 
-elif [[ $LUE_HOSTNAME == "hoy" ]];
-then
+elif [[ $LUE_HOSTNAME == "hoy" ]]; then
     source $LUE/env/Scripts/activate
     # eval "$($HOME/miniforge3/Scripts/conda shell.bash hook)"
     # conda activate lue_dev
-elif [[ $LUE_HOSTNAME == "m1compiler" ]];
-then
+elif [[ $LUE_HOSTNAME == "m1compiler" ]]; then
     # macOS platform for testing build of LUE using Conda packages. These should be installed.
     ### LUE_CMAKE_ARGUMENTS="
     ###     $LUE_CMAKE_ARGUMENTS
@@ -217,8 +208,7 @@ then
 
     source $LUE/env/bin/activate
 
-elif [[ $LUE_HOSTNAME == "login01" ]];
-then
+elif [[ $LUE_HOSTNAME == "login01" ]]; then
     # Platform for production runs.
     ### LUE_CMAKE_ARGUMENTS="
     ###     $LUE_CMAKE_ARGUMENTS
@@ -240,8 +230,7 @@ then
 
     conda activate lue
 
-elif [[ $LUE_HOSTNAME == "snellius" ]];
-then
+elif [[ $LUE_HOSTNAME == "snellius" ]]; then
     # Platform for production runs.
     ### LUE_CMAKE_ARGUMENTS="
     ###     $LUE_CMAKE_ARGUMENTS
@@ -264,8 +253,7 @@ then
 
     source $LUE/env/bin/activate
 
-elif [[ $LUE_HOSTNAME == "snowdon" ]];
-then
+elif [[ $LUE_HOSTNAME == "snowdon" ]]; then
     ### LUE_CMAKE_ARGUMENTS="
     ###     $LUE_CMAKE_ARGUMENTS
     ###     -DLUE_QA_TEST_NR_LOCALITIES_PER_TEST=2
@@ -277,12 +265,10 @@ then
 
     source $LUE/env/bin/activate
 
-elif [[ $LUE_HOSTNAME == "spider" ]];
-then
+elif [[ $LUE_HOSTNAME == "spider" ]]; then
     source $LUE/.venv/bin/activate
 
-elif [[ $LUE_HOSTNAME == "velocity" ]];
-then
+elif [[ $LUE_HOSTNAME == "velocity" ]]; then
     # Platform for development. All 3rd party packages should be available on the system.
     # TODO boost, gdal, hdf5
     ### LUE_CMAKE_ARGUMENTS="
@@ -311,20 +297,19 @@ else
     return 1
 fi
 
-
 ### if [[ $MY_DEVENV_BUILD_TYPE == "Debug" ]];
 ### then
 ###     LUE_CMAKE_ARGUMENTS="
 ###         $LUE_CMAKE_ARGUMENTS
 ###         -DLUE_ASSERT_CONDITIONS:BOOL=TRUE
 ###     "
-### 
+###
 ###     # LUE_CMAKE_ARGUMENTS="
 ###     #     $LUE_CMAKE_ARGUMENTS
 ###     #     -DLUE_ENABLE_CPPCHECK:BOOL=FALSE
 ###     #     -DLUE_ENABLE_CLANG_TIDY:BOOL=FALSE
 ###     # "
-### 
+###
 ### elif [[ $MY_DEVENV_BUILD_TYPE == "RelWithDebInfo" ]];
 ### then
 ###     LUE_CMAKE_ARGUMENTS="
@@ -333,9 +318,7 @@ fi
 ###     "
 ### fi
 
-
 ### unset repository_cache cmake_toolchain_file
-
 
 # export LUE_CMAKE_ARGUMENTS
 # export CMAKE_BUILD_PARALLEL_LEVEL
@@ -347,6 +330,6 @@ export PATH
 
 cd $LUE
 
-if [[ -n `type -t lue` ]]; then
+if [[ -n $(type -t lue) ]]; then
     unalias lue
 fi
