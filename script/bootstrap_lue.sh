@@ -1,39 +1,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-
-if [ -z ${MY_DEVENV+x} ];
-then
+if [ -z ${MY_DEVENV+x} ]; then
     echo "\$MY_DEVENV is unset"
     exit 1
 fi
 
-if [ -z ${LUE+x} ];
-then
+if [ -z ${LUE+x} ]; then
     echo "\$LUE is unset"
     exit 1
 fi
 
-if [ -z ${OBJECTS+x} ];
-then
+if [ -z ${OBJECTS+x} ]; then
     echo "\$OBJECTS is unset"
     exit 1
 fi
 
-if [ -z ${USER+x} ];
-then
+if [ -z ${USER+x} ]; then
     username=$USERNAME
 else
     username=$USER
 fi
 
-
-function parse_command_line()
-{
+function parse_command_line() {
     usage="$(basename $0) hostname build_type"
 
-    if [[ $# != 2 ]];
-    then
+    if [[ $# != 2 ]]; then
         echo $usage
         exit 1
     fi
@@ -42,9 +34,7 @@ function parse_command_line()
     cmake_build_type=$2
 }
 
-
-function configure_builds()
-{
+function configure_builds() {
     cmake_args_hpx="\
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
         -D CMAKE_CXX_STANDARD=20 \
@@ -57,6 +47,7 @@ function configure_builds()
     "
     conan_packages=""
     lue_preset="${hostname}_${cmake_build_type,,}"
+    install_hpx=1
 
     if [[ $hostname == eejit ]]; then
         compiler="gcc"
@@ -91,6 +82,12 @@ function configure_builds()
         "
         lue_preset="${hostname}_conan_${cmake_build_type,,}"
         nr_jobs=10
+    elif [[ $hostname == jureca ]]; then
+        compiler="gcc"
+        conan_compiler="gcc"
+        hpx_preset="cluster"
+        install_hpx=0
+        nr_jobs=8
     elif [[ $hostname == m1compiler ]]; then
         conan_compiler="clang"
         hpx_preset="macos_node"
@@ -170,11 +167,13 @@ function configure_builds()
     echo "install prefix         : $install_prefix"
     echo "repository zip prefix  : $repository_zip_prefix"
     echo "tmp prefix             : $tmp_prefix"
-    echo "hpx_version            : $hpx_version"
-    echo "hpx_source_directory   : $hpx_source_directory"
-    echo "hpx_build_directory    : $hpx_build_directory"
-    echo "hpx_install_prefix     : $hpx_install_prefix"
-    echo "hpx preset             : $hpx_preset"
+    if [[ $install_hpx == 1 ]]; then
+        echo "hpx_version            : $hpx_version"
+        echo "hpx_source_directory   : $hpx_source_directory"
+        echo "hpx_build_directory    : $hpx_build_directory"
+        echo "hpx_install_prefix     : $hpx_install_prefix"
+        echo "hpx preset             : $hpx_preset"
+    fi
     echo "mdspan_install_prefix  : $mdspan_install_prefix"
     echo "lue_source_directory   : $lue_source_directory"
     echo "lue_build_directory    : $lue_build_directory"
@@ -185,8 +184,7 @@ function configure_builds()
     echo
     read -p "Continue? [y/n] " -n 1 -r
     echo
-    if [[ ! $REPLY =~ ^[y]$ ]]
-    then
+    if [[ ! $REPLY =~ ^[y]$ ]]; then
         exit 1
     fi
 
@@ -200,16 +198,12 @@ function configure_builds()
     mkdir -p $tmp_prefix
 }
 
-
-function preprocess_conan_install()
-{
+function preprocess_conan_install() {
     python "$lue_source_directory/environment/script/write_conan_profile.py" $conan_compiler $lue_source_directory/host_profile
     python "$lue_source_directory/environment/script/write_conan_profile.py" $conan_compiler $lue_source_directory/build_profile
 }
 
-
-function install_hpx()
-{
+function install_hpx() {
     if [ -d $hpx_install_prefix ]; then
         echo "→ Not installing HPX because it already exists: $hpx_install_prefix"
         return
@@ -234,11 +228,11 @@ function install_hpx()
     if [[ ${conan_packages} ]]; then
         LUE_CONAN_PACKAGES="$conan_packages" \
             conan install $lue_source_directory \
-                --profile:host=$lue_source_directory/host_profile \
-                --profile:build=$lue_source_directory/build_profile \
-                --settings=build_type=$cmake_build_type \
-                --build=missing \
-                --output-folder=$hpx_build_directory
+            --profile:host=$lue_source_directory/host_profile \
+            --profile:build=$lue_source_directory/build_profile \
+            --settings=build_type=$cmake_build_type \
+            --build=missing \
+            --output-folder=$hpx_build_directory
 
         ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${cmake_build_type}.json $hpx_source_directory/CMakeUserPresets.json
         ln -s -f $hpx_build_directory/conan_toolchain.cmake $hpx_source_directory/conan_toolchain.cmake
@@ -261,8 +255,7 @@ function install_hpx()
     cmake --build $hpx_build_directory --parallel $nr_jobs --target all
     cmake --install $hpx_build_directory --prefix $hpx_install_prefix --strip
 
-    if [[ $OSTYPE == "msys" ]];
-    then
+    if [[ $OSTYPE == "msys" ]]; then
         # On Windows, Conan's hwloc can't be used (see above), so we let HPX fetch it. The dll isn't installed though, so we do it
         # here ourselves. Sigh...
         cp $hpx_build_directory/_deps/hwloc-src/bin/* $hpx_install_prefix/bin
@@ -270,16 +263,14 @@ function install_hpx()
     rm -fr $hpx_source_directory
 }
 
-
-function install_mdspan()
-{
+function install_mdspan() {
     if [ -d $mdspan_install_prefix ]; then
         echo "→ Not installing mdspan because it already exists: $mdspan_install_prefix"
         return
     fi
 
     mdspan_repository_url="https://github.com/kokkos/mdspan.git"
-    mdspan_tag="9ceface91483775a6c74d06ebf717bbb2768452f"  # 0.6.0
+    mdspan_tag="9ceface91483775a6c74d06ebf717bbb2768452f" # 0.6.0
 
     mdspan_source_directory="$tmp_prefix/mdspan"
     mdspan_build_directory="$mdspan_source_directory/build"
@@ -301,19 +292,17 @@ function install_mdspan()
     rm -fr $mdspan_source_directory
 }
 
-
-function configure_lue()
-{
+function configure_lue() {
     ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $lue_source_directory
 
     if [[ ${conan_packages} ]]; then
         LUE_CONAN_PACKAGES="$conan_packages" \
             conan install $lue_source_directory \
-                --profile:host=$lue_source_directory/host_profile \
-                --profile:build=$lue_source_directory/build_profile \
-                --settings=build_type=$cmake_build_type \
-                --build=missing \
-                --output-folder=$lue_build_directory
+            --profile:host=$lue_source_directory/host_profile \
+            --profile:build=$lue_source_directory/build_profile \
+            --settings=build_type=$cmake_build_type \
+            --build=missing \
+            --output-folder=$lue_build_directory
 
         ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${cmake_build_type}.json $lue_source_directory/CMakeUserPresets.json
         ln -s -f $lue_build_directory/conan_toolchain.cmake $lue_source_directory/conan_toolchain.cmake
@@ -330,13 +319,14 @@ function configure_lue()
     ln -s -f $lue_build_directory/compile_commands.json $lue_source_directory
 }
 
-
 parse_command_line $@
 configure_builds
 if [[ ${conan_packages} ]]; then
     preprocess_conan_install
 fi
-install_hpx
+if [[ $install_hpx == 1 ]]; then
+    install_hpx
+fi
 install_mdspan
 configure_lue
 
