@@ -40,6 +40,7 @@ function configure_builds() {
         -D CMAKE_CXX_STANDARD=20 \
         -D CMAKE_POLICY_DEFAULT_CMP0167=OLD \
         -D CMAKE_POLICY_DEFAULT_CMP0169=OLD \
+        -D HPX_WITH_APEX_TAG=develop \
     "
     cmake_args_lue=" \
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
@@ -57,7 +58,6 @@ function configure_builds() {
         conan_compiler="gcc"
         conan_packages="imgui"
         hpx_preset="linux_node"
-        lue_preset="${hostname}_conan_${cmake_build_type,,}"
         nr_jobs=4
     elif [[ $hostname == hoy ]]; then
         cmake_args_lue=" \
@@ -80,7 +80,6 @@ function configure_builds() {
             ${cmake_args_hpx} \
             -D HPX_WITH_MALLOC=system \
         "
-        lue_preset="${hostname}_conan_${cmake_build_type,,}"
         nr_jobs=10
     elif [[ $hostname == jureca ]]; then
         compiler="gcc"
@@ -105,14 +104,12 @@ function configure_builds() {
         conan_compiler="gcc"
         conan_packages="imgui"
         hpx_preset="linux_node"
-        lue_preset="${hostname}_conan_${cmake_build_type,,}"
         cmake_args_hpx="$cmake_args_hpx"
         nr_jobs=24
     elif [[ $hostname == snowdon ]]; then
         conan_compiler="gcc"
         conan_packages="imgui"
         hpx_preset="linux_node"
-        lue_preset="${hostname}_conan_${cmake_build_type,,}"
         nr_jobs=4
     elif [[ $hostname == spider ]]; then
         cmake_args_hpx="$cmake_args_hpx"
@@ -132,11 +129,15 @@ function configure_builds() {
     install_prefix=$(realpath $OBJECTS/../opt)/$cmake_build_type
     repository_zip_prefix=$(realpath $OBJECTS/../repository)
 
+    lue_preset="${hostname}"
+
     if [[ ${conan_packages} ]]; then
         hpx_preset="${hpx_preset}_conan"
+        lue_preset="${lue_preset}_conan"
     fi
 
     hpx_preset="hpx_${cmake_build_type,,}_${hpx_preset}_configuration"
+    lue_preset="${lue_preset}_${cmake_build_type,,}"
 
     tmp_prefix="/tmp/bootstrap_lue-$username"
     hpx_version="1.10.0"
@@ -240,11 +241,13 @@ function install_hpx() {
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory
         ln -s -f $lue_source_directory/CMakePresets.json $hpx_source_directory
 
-        # Port HPX-1.10 to CMake 3.30 (see policy CMP0167). Otherwise it won't pick up Conan's Boost module.
-        sed -i'' '135 s/MODULE/CONFIG/' $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+        if [[ ${conan_packages} == *boost* ]]; then
+            # Port HPX-1.10 to CMake 3.30 (see policy CMP0167). Otherwise it won't pick up Conan's Boost module.
+            sed -i'' '135 s/MODULE/CONFIG/' $hpx_source_directory/cmake/HPX_SetupBoost.cmake
 
-        # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
-        sed -i'' "/\${Boost_MINIMUM_VERSION} REQUIRED)/a \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${cmake_build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+            # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
+            sed -i'' "/\${Boost_MINIMUM_VERSION} REQUIRED)/a \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${cmake_build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+        fi
 
         # cmake_args_hpx="$cmake_args_hpx -D CMAKE_PREFIX_PATH=$hpx_build_directory -D CMAKE_POLICY_DEFAULT_CMP0167=NEW"
     else
