@@ -60,6 +60,14 @@
                 "kor_conan_relwithdebinfo"
             ],
             "displayName": "velocity / conan / relwithdebinfo"
+        },
+        {
+            "name": "hpx_relwithdebinfo_linux_node_conan_configuration",
+            "inherits": [
+                "hpx_relwithdebinfo_linux_node_configuration",
+                "conan-relwithdebinfo"
+            ],
+            "displayName": "hpx / relwithdebinfo / linux node / conan"
         }
     ]
 }
