@@ -29,6 +29,14 @@
             "displayName": "hoy / release"
         },
         {
+            "name": "jureca_release",
+            "inherits": [
+                "jureca_configuration",
+                "kor_release"
+            ],
+            "displayName": "jureca / release"
+        },
+        {
             "name": "m1compiler_release",
             "inherits": [
                 "m1compiler_configuration",
