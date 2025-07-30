@@ -16,7 +16,6 @@
                 "LUE_BUILD_QUALITY_ASSURANCE": "TRUE",
                 "LUE_QUALITY_ASSURANCE_WITH_PYTHON_API": "TRUE",
                 "LUE_QUALITY_ASSURANCE_WITH_TESTS": "TRUE",
-                "LUE_BUILD_HPX": "TRUE",
                 "LUE_HPX_REPOSITORY": {
                     "type": "PATH",
                     "value": "file://$penv{PROJECTS}/github/kordejong/hpx"
@@ -44,9 +43,6 @@
             "inherits": [
                 "kor_configuration"
             ],
-            "cacheVariables": {
-                "LUE_BUILD_OTF2": "TRUE"
-            },
             "binaryDir": "$penv{OBJECTS}/RelWithDebInfo/${sourceDirName}"
         },
         {
