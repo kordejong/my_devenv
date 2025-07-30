@@ -1,0 +1,25 @@
+{
+    "version": 10,
+    "include": [
+        "CMakeConanPresets.json",
+        "CMakeUserPresets-base.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "hpx_release_linux_node_conan_configuration",
+            "inherits": [
+                "hpx_release_linux_node_configuration",
+                "conan-release"
+            ],
+            "displayName": "hpx / release / linux node / conan"
+        },
+        {
+            "name": "hpx_release_windows_node_conan_configuration",
+            "inherits": [
+                "hpx_release_windows_node_configuration",
+                "conan-release"
+            ],
+            "displayName": "hpx / release / windows node / conan"
+        }
+    ]
+}

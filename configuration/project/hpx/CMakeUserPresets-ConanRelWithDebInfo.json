@@ -1,0 +1,17 @@
+{
+    "version": 10,
+    "include": [
+        "CMakeConanPresets.json",
+        "CMakeUserPresets-base.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "hpx_relwithdebinfo_linux_node_conan_configuration",
+            "inherits": [
+                "hpx_relwithdebinfo_linux_node_configuration",
+                "conan-relwithdebinfo"
+            ],
+            "displayName": "hpx / relwithdebinfo / linux node / conan"
+        }
+    ]
+}
