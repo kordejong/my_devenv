@@ -38,13 +38,9 @@ function configure_builds() {
     cmake_args_hpx="\
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
         -D CMAKE_CXX_STANDARD=20 \
-        -D CMAKE_POLICY_DEFAULT_CMP0167=OLD \
-        -D CMAKE_POLICY_DEFAULT_CMP0169=OLD \
-        -D HPX_WITH_APEX_TAG=develop \
     "
     cmake_args_lue=" \
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
-        -D CMAKE_POLICY_DEFAULT_CMP0167=OLD \
     "
     conan_packages=""
     lue_preset="${hostname}_${cmake_build_type,,}"
@@ -140,7 +136,7 @@ function configure_builds() {
     lue_preset="${lue_preset}_${cmake_build_type,,}"
 
     tmp_prefix="/tmp/bootstrap_lue-$username"
-    hpx_version="1.10.0"
+    hpx_version="1.11.0"
     hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
     hpx_build_directory="$hpx_source_directory/build"
     hpx_install_prefix="$install_prefix/hpx"
@@ -241,15 +237,13 @@ function install_hpx() {
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory
         ln -s -f $lue_source_directory/CMakePresets.json $hpx_source_directory
 
-        if [[ ${conan_packages} == *boost* ]]; then
-            # Port HPX-1.10 to CMake 3.30 (see policy CMP0167). Otherwise it won't pick up Conan's Boost module.
-            sed -i'' '135 s/MODULE/CONFIG/' $hpx_source_directory/cmake/HPX_SetupBoost.cmake
-
-            # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
-            sed -i'' "/\${Boost_MINIMUM_VERSION} REQUIRED)/a \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${cmake_build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
-        fi
-
-        # cmake_args_hpx="$cmake_args_hpx -D CMAKE_PREFIX_PATH=$hpx_build_directory -D CMAKE_POLICY_DEFAULT_CMP0167=NEW"
+        # if [[ ${conan_packages} == *boost* ]]; then
+        #     # Port HPX-1.10 to CMake 3.30 (see policy CMP0167). Otherwise it won't pick up Conan's Boost module.
+        #     sed -i'' '135 s/MODULE/CONFIG/' $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+        #
+        #     # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
+        #     sed -i'' "/\${Boost_MINIMUM_VERSION} REQUIRED)/a \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${cmake_build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+        # fi
     else
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     fi
