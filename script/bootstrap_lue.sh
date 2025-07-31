@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+set -x
 
 if [ -z ${MY_DEVENV+x} ]; then
     echo "\$MY_DEVENV is unset"
@@ -67,8 +68,7 @@ function configure_builds() {
             -D LUE_FRAMEWORK_ID_ELEMENT=std::int32_t \
         "
         conan_compiler="cl"
-        # TODO Can't be used because HPX' and Conan's CMake logic aren't compatible: asio, hwloc. Sigh...
-        conan_packages="boost cxxopts gdal glfw imgui hdf5 mimalloc nlohmann_json pybind11 vulkan-headers vulkan-loader"
+        conan_packages="asio boost cxxopts gdal glfw hwloc imgui hdf5 mimalloc nlohmann_json pybind11 vulkan-headers vulkan-loader"
         hpx_preset="windows_node"
         # TODO Finding Conan's jemalloc doesn't work. Sigh...
         # TODO linking against Conan's mimalloc doesn't work. Sigh...
@@ -209,7 +209,7 @@ function install_hpx() {
     hpx_repository_zip="$repository_zip_prefix/v${hpx_version}.tar.gz"
 
     if [ ! -f $hpx_repository_zip ]; then
-        wget --directory-prefix=$repository_zip_prefix https://github.com/STEllAR-GROUP/hpx/archive/refs/tags/v${hpx_version}.tar.gz
+        curl --location --remote-name --output-dir $repository_zip_prefix https://github.com/STEllAR-GROUP/hpx/archive/refs/tags/v${hpx_version}.tar.gz
     fi
 
     if [ -d $hpx_source_directory ]; then
@@ -220,7 +220,7 @@ function install_hpx() {
 
     mkdir $hpx_build_directory
 
-    ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $hpx_source_directory
+    ln -s -f $MY_DEVENV/configuration/project/hpx/CMakeUserPresets-base.json $hpx_source_directory
 
     if [[ ${conan_packages} ]]; then
         LUE_CONAN_PACKAGES="$conan_packages" \
@@ -231,32 +231,41 @@ function install_hpx() {
             --build=missing \
             --output-folder=$hpx_build_directory
 
-        ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${cmake_build_type}.json $hpx_source_directory/CMakeUserPresets.json
+        ln -s -f $MY_DEVENV/configuration/project/hpx/CMakeUserPresets-Conan${cmake_build_type}.json $hpx_source_directory/CMakeUserPresets.json
         ln -s -f $hpx_build_directory/conan_toolchain.cmake $hpx_source_directory/conan_toolchain.cmake
         ln -s -f $hpx_build_directory/CMakePresets.json $hpx_source_directory/CMakeConanPresets.json
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory
         ln -s -f $lue_source_directory/CMakePresets.json $hpx_source_directory
 
-        # if [[ ${conan_packages} == *boost* ]]; then
-        #     # Port HPX-1.10 to CMake 3.30 (see policy CMP0167). Otherwise it won't pick up Conan's Boost module.
-        #     sed -i'' '135 s/MODULE/CONFIG/' $hpx_source_directory/cmake/HPX_SetupBoost.cmake
-        #
-        #     # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
-        #     sed -i'' "/\${Boost_MINIMUM_VERSION} REQUIRED)/a \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${cmake_build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
-        # fi
+        if [[ ${conan_packages} == *boost* ]]; then
+            # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
+            sed -i'' "54 a \ \ \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${cmake_build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+
+            # Conan's hwloc target is named different than in all other cases. Sigh...
+            sed -i'' '23 a \ \ add_library(Hwloc::hwloc ALIAS hwloc::hwloc)' $hpx_source_directory/cmake/HPX_SetupHwloc.cmake
+
+            # Conan's asio target is named different than in all other cases. Sigh...
+            sed -i'' '17 a \ \ add_library(Asio::asio ALIAS asio::asio)' $hpx_source_directory/cmake/HPX_SetupAsio.cmake
+        fi
     else
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     fi
 
     cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} $cmake_args_hpx
     cmake --build $hpx_build_directory --parallel $nr_jobs --target all
+
+    # if [[ $OSTYPE == "msys" ]]; then
+    #     # HPX tries to install hwloc in Program Files, which fails. Sigh...
+    #     sed -i'' '72 s/file/# file/' $hpx_build_directory/cmake_install.cmake
+    # fi
+
     cmake --install $hpx_build_directory --prefix $hpx_install_prefix --strip
 
-    if [[ $OSTYPE == "msys" ]]; then
-        # On Windows, Conan's hwloc can't be used (see above), so we let HPX fetch it. The dll isn't installed though, so we do it
-        # here ourselves. Sigh...
-        cp $hpx_build_directory/_deps/hwloc-src/bin/* $hpx_install_prefix/bin
-    fi
+    # if [[ $OSTYPE == "msys" ]]; then
+    #     # On Windows, Conan's hwloc can't be used (see above), so we let HPX fetch it. The dll isn't installed though, so we do it
+    #     # here ourselves. Sigh...
+    #     cp $hpx_build_directory/_deps/hwloc-src/bin/* $hpx_install_prefix/bin
+    # fi
     rm -fr $hpx_source_directory
 }
 

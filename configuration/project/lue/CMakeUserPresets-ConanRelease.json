@@ -38,15 +38,6 @@
             "displayName": "hoy / conan / release"
         },
         {
-            "name": "hoy_hpx_release_conan",
-            "inherits": [
-                "hoy_configuration",
-                "hpx_release_windows_node_configuration",
-                "conan-release"
-            ],
-            "displayName": "hoy / hpx / release / conan"
-        },
-        {
             "name": "m1compiler_conan_release",
             "inherits": [
                 "m1compiler_configuration",
