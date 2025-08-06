@@ -39,6 +39,8 @@
 	path = ~/.gitconfig-geoneric
 [includeIf "gitdir:gauja/uu/"]
 	path = ~/.gitconfig-uu
+[includeIf "gitdir:github/regro-cf-autotick-bot/"]
+	path = ~/.gitconfig-uu
 [includeIf "hasconfig:remote.*.url:https://gitlab.jsc.fz-juelich.de/**"]
 	path = ~/.gitconfig-uu
 [includeIf "hasconfig:remote.*.url:git@github.com:computationalgeography/**"]
