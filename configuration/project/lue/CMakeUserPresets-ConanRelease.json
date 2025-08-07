@@ -22,14 +22,6 @@
             "displayName": "eejit / conan / release"
         },
         {
-            "name": "gransasso_conan_release",
-            "inherits": [
-                "gransasso_configuration",
-                "kor_conan_release"
-            ],
-            "displayName": "gransasso / conan / release"
-        },
-        {
             "name": "hoy_conan_release",
             "inherits": [
                 "hoy_configuration",

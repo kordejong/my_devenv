@@ -23,15 +23,6 @@
             "displayName": "eejit / conan / debug"
         },
         {
-            "name": "gransasso_conan_debug",
-            "inherits": [
-                "gransasso_configuration",
-                "lue_debug_linux_node",
-                "kor_conan_debug"
-            ],
-            "displayName": "gransasso / conan / debug"
-        },
-        {
             "name": "m1compiler_conan_debug",
             "inherits": [
                 "m1compiler_configuration",

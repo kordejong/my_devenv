@@ -14,14 +14,6 @@
             ]
         },
         {
-            "name": "gransasso_conan_relwithdebinfo",
-            "inherits": [
-                "gransasso_configuration",
-                "kor_conan_relwithdebinfo"
-            ],
-            "displayName": "gransasso / conan / relwithdebinfo"
-        },
-        {
             "name": "m1compiler_conan_relwithdebinfo",
             "inherits": [
                 "m1compiler_configuration",
