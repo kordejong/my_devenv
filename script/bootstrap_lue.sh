@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-set -x
 
 if [ -z ${MY_DEVENV+x} ]; then
     echo "\$MY_DEVENV is unset"
@@ -43,7 +42,8 @@ function configure_builds() {
     cmake_args_lue=" \
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
     "
-    conan_packages=""
+    hpx_conan_packages=""
+    lue_conan_packages=""
     lue_preset="${hostname}_${cmake_build_type,,}"
     install_hpx=1
 
@@ -51,11 +51,6 @@ function configure_builds() {
         compiler="gcc"
         hpx_preset="cluster"
         nr_jobs=$SLURM_CPUS_ON_NODE
-    elif [[ $hostname == gransasso ]]; then
-        conan_compiler="gcc"
-        conan_packages="imgui"
-        hpx_preset="linux_node"
-        nr_jobs=4
     elif [[ $hostname == hoy ]]; then
         cmake_args_lue=" \
             $cmake_args_lue \
@@ -68,10 +63,11 @@ function configure_builds() {
             -D LUE_FRAMEWORK_ID_ELEMENT=std::int32_t \
         "
         conan_compiler="cl"
-        conan_packages="asio boost cxxopts gdal glfw hwloc imgui hdf5 mimalloc nlohmann_json pybind11 vulkan-headers vulkan-loader"
-        hpx_preset="windows_node"
+        hpx_conan_packages="asio boost hwloc mimalloc"
+        lue_conan_packages="boost cxxopts gdal glfw imgui hdf5 nlohmann_json pybind11 vulkan-headers vulkan-loader"
         # TODO Finding Conan's jemalloc doesn't work. Sigh...
         # TODO linking against Conan's mimalloc doesn't work. Sigh...
+        # TODO This is likely due to target name casing. Patch HPX CMake find logic. See also sed calls below.
         cmake_args_hpx=" \
             ${cmake_args_hpx} \
             -D HPX_WITH_MALLOC=system \
@@ -95,27 +91,32 @@ function configure_builds() {
             $cmake_args_lue \
             -D LUE_BUILD_VIEW=FALSE \
         "
+        # if [[ $cmake_build_type == Debug ]]; then
+        #     cmake_args_lue=" \
+        #         $cmake_args_lue \
+        #         -D LUE_ENABLE_ASAN=TRUE \
+        #         -D LUE_ENABLE_UBSAN=TRUE \
+        #     "
+        # fi
         nr_jobs=4
     elif [[ $hostname == orkney ]]; then
         conan_compiler="gcc"
-        conan_packages="imgui"
+        lue_conan_packages="imgui"
         hpx_preset="linux_node"
         cmake_args_hpx="$cmake_args_hpx"
         nr_jobs=24
     elif [[ $hostname == snowdon ]]; then
         conan_compiler="gcc"
-        conan_packages="imgui"
+        lue_conan_packages="imgui"
         hpx_preset="linux_node"
         nr_jobs=4
     elif [[ $hostname == spider ]]; then
         cmake_args_hpx="$cmake_args_hpx"
         conan_compiler="gcc"
-        conan_packages=""
         hpx_preset="cluster"
         nr_jobs=$SLURM_CPUS_ON_NODE
     elif [[ $hostname == velocity ]]; then
         conan_compiler="gcc"
-        conan_packages=""
         hpx_preset="linux_node"
         nr_jobs=8
     else
@@ -127,8 +128,11 @@ function configure_builds() {
 
     lue_preset="${hostname}"
 
-    if [[ ${conan_packages} ]]; then
+    if [[ ${hpx_conan_packages} ]]; then
         hpx_preset="${hpx_preset}_conan"
+    fi
+
+    if [[ ${lue_conan_packages} ]]; then
         lue_preset="${lue_preset}_conan"
     fi
 
@@ -149,14 +153,14 @@ function configure_builds() {
         -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE \
         -D HPX_ROOT=$hpx_install_prefix \
         -D mdspan_ROOT=$mdspan_install_prefix \
-        -D LUE_BUILD_HPX=FALSE \
         -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE
     "
 
     echo "Setting up $cmake_build_type build on $hostname"
     echo "hostname               : $hostname"
     echo "build type             : $cmake_build_type"
-    echo "conan_packages         : $conan_packages"
+    echo "hpx_conan_packages     : $hpx_conan_packages"
+    echo "lue_conan_packages     : $lue_conan_packages"
     echo "conan_compiler         : $conan_compiler"
     echo "cmake_args_hpx         : "$cmake_args_hpx
     echo "cmake_args_lue         : "$cmake_args_lue
@@ -222,8 +226,8 @@ function install_hpx() {
 
     ln -s -f $MY_DEVENV/configuration/project/hpx/CMakeUserPresets-base.json $hpx_source_directory
 
-    if [[ ${conan_packages} ]]; then
-        LUE_CONAN_PACKAGES="$conan_packages" \
+    if [[ ${hpx_conan_packages} ]]; then
+        LUE_CONAN_PACKAGES="$hpx_conan_packages" \
             conan install $lue_source_directory \
             --profile:host=$lue_source_directory/host_profile \
             --profile:build=$lue_source_directory/build_profile \
@@ -237,7 +241,7 @@ function install_hpx() {
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory
         ln -s -f $lue_source_directory/CMakePresets.json $hpx_source_directory
 
-        if [[ ${conan_packages} == *boost* ]]; then
+        if [[ ${hpx_conan_packages} == *boost* ]]; then
             # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
             sed -i'' "54 a \ \ \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${cmake_build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
 
@@ -253,19 +257,8 @@ function install_hpx() {
 
     cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} $cmake_args_hpx
     cmake --build $hpx_build_directory --parallel $nr_jobs --target all
-
-    # if [[ $OSTYPE == "msys" ]]; then
-    #     # HPX tries to install hwloc in Program Files, which fails. Sigh...
-    #     sed -i'' '72 s/file/# file/' $hpx_build_directory/cmake_install.cmake
-    # fi
-
     cmake --install $hpx_build_directory --prefix $hpx_install_prefix --strip
 
-    # if [[ $OSTYPE == "msys" ]]; then
-    #     # On Windows, Conan's hwloc can't be used (see above), so we let HPX fetch it. The dll isn't installed though, so we do it
-    #     # here ourselves. Sigh...
-    #     cp $hpx_build_directory/_deps/hwloc-src/bin/* $hpx_install_prefix/bin
-    # fi
     rm -fr $hpx_source_directory
 }
 
@@ -301,8 +294,9 @@ function install_mdspan() {
 function configure_lue() {
     ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $lue_source_directory
 
-    if [[ ${conan_packages} ]]; then
-        LUE_CONAN_PACKAGES="$conan_packages" \
+    # NOTE We may have to merge hpx_conan_packages with lue_conan_packages here. If CMake can't find hpx_conan_packages.
+    if [[ ${lue_conan_packages} ]]; then
+        LUE_CONAN_PACKAGES="$lue_conan_packages" \
             conan install $lue_source_directory \
             --profile:host=$lue_source_directory/host_profile \
             --profile:build=$lue_source_directory/build_profile \
@@ -327,7 +321,7 @@ function configure_lue() {
 
 parse_command_line $@
 configure_builds
-if [[ ${conan_packages} ]]; then
+if [ ! -z "${hpx_conan_packages}${lue_conan_packages}" ]; then
     preprocess_conan_install
 fi
 if [[ $install_hpx == 1 ]]; then
