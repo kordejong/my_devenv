@@ -16,14 +16,7 @@
                 "LUE_BUILD_QUALITY_ASSURANCE": "TRUE",
                 "LUE_QUALITY_ASSURANCE_WITH_PYTHON_API": "TRUE",
                 "LUE_QUALITY_ASSURANCE_WITH_TESTS": "TRUE",
-                "LUE_HPX_REPOSITORY": {
-                    "type": "PATH",
-                    "value": "file://$penv{PROJECTS}/github/kordejong/hpx"
-                },
-                "LUE_REPOSITORY_CACHE": {
-                    "type": "PATH",
-                    "value": "file://$penv{OBJECTS}/../repository"
-                }
+                "LUE_WITH_EXAMPLES": "TRUE"
             }
         },
         {
