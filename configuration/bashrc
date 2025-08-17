@@ -218,6 +218,7 @@ alias ll="ls -l"
 alias viout="vi out"
 alias vimout="vim out"
 alias nvimout="nvim out"
+alias nvimerr='nvimout +0 +/"error: "'
 alias lvim="NVIM_APPNAME=lazyvim nvim"
 alias gitout="git status | tee out && nvim out"
 alias shout="bash ./out"
