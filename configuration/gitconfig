@@ -13,8 +13,15 @@
 	navigate = true  # use n and N to move between diff settings
 	# dark = true  # or light = true, or omit for auto-detection
 	syntax-theme = Nord
+[diff]
+	tool = vimdiff
+	submodule = log
 [merge]
+	tool = vimdiff
 	conflictstyle = zdiff3
+[mergetool "vimdiff"]
+    cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED \
+        -c '$wincmd w' -c 'wincmd J'
 [color]
 	ui = auto
 	interactive = auto
@@ -29,8 +36,6 @@
 [alias]
 	mylog = log --oneline --decorate --graph
 	myfpush = push --force-with-lease
-[diff]
-	submodule = log
 [status]
 	submodulesummary = 1
 
