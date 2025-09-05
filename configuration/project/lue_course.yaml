@@ -10,7 +10,7 @@ windows:
       main-pane-height: 25
     panes:
       - shell_command:
-          - vim
+          - nvim
         focus: true
       - shell_command:
           - cd $LUE_COURSE_OBJECTS
