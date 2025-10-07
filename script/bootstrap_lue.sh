@@ -64,7 +64,8 @@ function configure_builds() {
         "
         conan_compiler="cl"
         hpx_conan_packages="asio boost hwloc mimalloc"
-        lue_conan_packages="boost cxxopts gdal glfw imgui hdf5 nlohmann_json pybind11 vulkan-headers vulkan-loader"
+        lue_conan_packages="boost cxxopts gdal glfw imgui hdf5 nlohmann_json proj pybind11 vulkan-headers vulkan-loader"
+        hpx_preset="windows_node"
         # TODO Finding Conan's jemalloc doesn't work. Sigh...
         # TODO linking against Conan's mimalloc doesn't work. Sigh...
         # TODO This is likely due to target name casing. Patch HPX CMake find logic. See also sed calls below.
