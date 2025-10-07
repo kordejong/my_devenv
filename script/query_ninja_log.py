@@ -16,23 +16,25 @@ class FileType(enum.Enum):
     SOURCE = enum.auto()
     STATIC_LIBRARY = enum.auto()
     EXECUTABLE = enum.auto()
-    CMAKE = enum.auto()
     NINJA = enum.auto()
     OTHER = enum.auto()
     UNKNOWN = enum.auto()
 
 
 object_suffixes = {
-    "posix": [".o"],
+    "posix": [".o", ".obj"],
+}
+executable_suffixes = {
+    "posix": [".exe"],
 }
 source_suffixes = {
     "posix": [".cpp", ".hpp"],
 }
 shared_library_suffixes = {
-    "posix": [".dylib", ".so"],
+    "posix": [".dll", ".dylib", ".pyd", ".so"],
 }
 static_library_suffixes = {
-    "posix": [".a"],
+    "posix": [".a", ".lib"],
 }
 
 
@@ -60,26 +62,30 @@ def path_to_file_type(path: Path) -> FileType:
 
     os_name = os.name
 
-    # Order matters!
-    if not suffixes:
+    # NOTE: Order matters
+    # NOTE: Try to test using the last suffix as much as possible
+    if suffixes:
+        if suffixes[-1] in executable_suffixes[os_name]:
+            file_type = FileType.EXECUTABLE
+        elif suffixes[-1] in object_suffixes[os_name]:
+            file_type = FileType.OBJECT
+        elif suffixes[-1] in source_suffixes[os_name]:
+            file_type = FileType.SOURCE
+        elif suffixes[-1] in static_library_suffixes[os_name]:
+            file_type = FileType.STATIC_LIBRARY
+        elif suffixes[-1] in [".ninja"]:
+            file_type = FileType.NINJA
+        elif any(suffix in shared_library_suffixes[os_name] for suffix in suffixes):
+            file_type = FileType.SHARED_LIBRARY
+        elif "CMakeFiles" in path.parts:
+            file_type = FileType.OTHER
+    else:
         if "CMakeFiles" in path.parts:
             file_type = FileType.OTHER
         else:
             file_type = FileType.EXECUTABLE
-    elif any(suffix in object_suffixes[os_name] for suffix in suffixes):
-        file_type = FileType.OBJECT
-    elif any(suffix in source_suffixes[os_name] for suffix in suffixes):
-        file_type = FileType.SOURCE
-    elif any(suffix in static_library_suffixes[os_name] for suffix in suffixes):
-        file_type = FileType.STATIC_LIBRARY
-    elif any(suffix in shared_library_suffixes[os_name] for suffix in suffixes):
-        file_type = FileType.SHARED_LIBRARY
-    elif any(suffix in [".ninja"] for suffix in suffixes):
-        file_type = FileType.NINJA
-    elif "CMakeFiles" in path.parts:
-        file_type = FileType.CMAKE
 
-    assert not file_type == FileType.UNKNOWN, path
+    assert not file_type == FileType.UNKNOWN, f"{os_name}: {path} ({suffixes})"
 
     return file_type
 
@@ -180,7 +186,7 @@ def format_markdown(
         data_frame, file_type=FileType.SHARED_LIBRARY
     )
     link_executables_duration = duration(data_frame, file_type=FileType.EXECUTABLE)
-    other_duration = duration(data_frame, file_type=FileType.OTHER)
+    others_duration = duration(data_frame, file_type=FileType.OTHER)
 
     markdown = f"""
 # Ninja log: {path}
@@ -196,7 +202,7 @@ def format_markdown(
 | Link static libraries | {link_static_libraries_duration} |
 | Link shared libraries | {link_shared_libraries_duration} |
 | Link executables | {link_executables_duration} |
-| Other | {other_duration} |
+| Others | {others_duration} |
 | **All** | **{total_duration}** |
 
 Durations listed in the tables below are in milliseconds.
@@ -222,7 +228,7 @@ Durations listed in the tables below are in milliseconds.
 #### Executables
 {executables.to_markdown(index=False)}
 
-### Other
+### Others
 {others.to_markdown(index=False)}
 """
 
@@ -240,6 +246,7 @@ def query_ninja_log(
         include_patterns=include_patterns,
         exclude_patterns=exclude_patterns,
     )
+
     markdown = format_markdown(
         path,
         data_frame,
