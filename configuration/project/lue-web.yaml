@@ -22,4 +22,5 @@ windows:
     panes:
       - shell_command:
           - cd $LUE_WEB/site
-          - nikola auto
+          - nikola build
+          - nikola serve

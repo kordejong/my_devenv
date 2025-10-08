@@ -49,8 +49,13 @@ function configure_builds() {
 
     if [[ $hostname == eejit ]]; then
         compiler="gcc"
+        conan_compiler="gcc"
         hpx_preset="cluster"
-        nr_jobs=$SLURM_CPUS_ON_NODE
+        nr_jobs=8
+        cmake_args_hpx=" \
+            ${cmake_args_hpx} \
+            -D HPX_WITH_FETCH_ASIO=ON \
+        "
     elif [[ $hostname == hoy ]]; then
         cmake_args_lue=" \
             $cmake_args_lue \
