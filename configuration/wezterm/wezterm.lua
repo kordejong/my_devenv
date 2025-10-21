@@ -71,5 +71,11 @@ for i = 1, 9 do
 	})
 end
 
+config.ssh_domains = wezterm.default_ssh_domains()
+
+for _, domain in ipairs(config.ssh_domains) do
+	domain.remote_wezterm_path = "/home/kor/opt/bin/wezterm"
+end
+
 -- Finally, return the configuration to wezterm:
 return config
