@@ -1,5 +1,5 @@
 local wezterm = require("wezterm")
-local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
+-- local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 -- local project = require("project")
 
 local config = wezterm.config_builder()
@@ -34,13 +34,13 @@ config.window_padding = {
 
 -- CTRL|SHIFT - p: command palette
 
--- local function move_pane(key, direction)
--- 	return { mods = "LEADER", key = key, action = wezterm.action.ActivatePaneDirection(direction) }
--- end
---
--- local function resize_pane(key, direction)
--- 	return { key = key, action = wezterm.action.AdjustPaneSize({ direction, 1 }) }
--- end
+local function activate_pane(key, direction)
+	return { mods = "LEADER", key = key, action = wezterm.action.ActivatePaneDirection(direction) }
+end
+
+local function resize_pane(key, direction)
+	return { key = key, action = wezterm.action.AdjustPaneSize({ direction, 1 }) }
+end
 
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2000 }
 config.keys = {
@@ -51,13 +51,13 @@ config.keys = {
 
 	-- Pane / split mangement
 	{ mods = "LEADER", key = "-", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
-	{ mods = "LEADER", key = "=", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+	{ mods = "LEADER|SHIFT", key = "|", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ mods = "LEADER", key = "z", action = wezterm.action.TogglePaneZoomState },
 
-	-- move_pane("h", "Left"),
-	-- move_pane("j", "Down"),
-	-- move_pane("k", "Up"),
-	-- move_pane("l", "Right"),
+	activate_pane("h", "Left"),
+	activate_pane("j", "Down"),
+	activate_pane("k", "Up"),
+	activate_pane("l", "Right"),
 
 	-- When we push LEADER + r...
 	-- Activate the `resize_panes` keytable
@@ -102,14 +102,14 @@ for i = 1, 9 do
 	})
 end
 
--- config.key_tables = {
--- 	resize_panes = {
--- 		resize_pane("j", "Down"),
--- 		resize_pane("k", "Up"),
--- 		resize_pane("h", "Left"),
--- 		resize_pane("l", "Right"),
--- 	},
--- }
+config.key_tables = {
+	resize_panes = {
+		resize_pane("j", "Down"),
+		resize_pane("k", "Up"),
+		resize_pane("h", "Left"),
+		resize_pane("l", "Right"),
+	},
+}
 
 config.ssh_domains = wezterm.default_ssh_domains()
 
@@ -118,6 +118,6 @@ for _, domain in ipairs(config.ssh_domains) do
 end
 
 -- Use default key-bindings. This assumes default key-bindings are used in LazyVim configuration as well.
-smart_splits.apply_to_config(config)
+-- smart_splits.apply_to_config(config)
 
 return config
