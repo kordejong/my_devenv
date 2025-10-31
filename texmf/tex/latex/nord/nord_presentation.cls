@@ -155,13 +155,15 @@
     % \tcbset{
     %     minted style=bw,
     % }
-    \usemintedstyle{bw}
+    % \usemintedstyle{bw}
+    \usemintedstyle{friendly}
 }
 {
     % \tcbset{
     %     minted style=nord,
     % }
     \usemintedstyle{nord}
+    % \usemintedstyle{native}
 }
 \newtcblisting[]{nordcpplisting}[1]{%
     minted language=c++,
@@ -173,7 +175,7 @@
 }
 % TODO For some reason bash statements are always shown in black, also on dark background
 \newtcblisting[]{nordbashlisting}[1]{%
-    minted language=bash,
+    minted language=shell,
     title={#1},
 }
 
