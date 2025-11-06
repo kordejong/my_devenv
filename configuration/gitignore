@@ -9,6 +9,7 @@ build_profile
 CMakeConanPresets.json
 CMakeUserPresets-base.json
 compile_commands.json
+conan_toolchain.cmake
 env/
 go.sh
 host_profile
