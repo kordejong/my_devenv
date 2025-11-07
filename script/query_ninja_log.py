@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from dataclasses import dataclass
 import datetime
 import enum
@@ -17,6 +17,7 @@ class FileType(enum.Enum):
     STATIC_LIBRARY = enum.auto()
     EXECUTABLE = enum.auto()
     NINJA = enum.auto()
+    TEX = enum.auto()
     OTHER = enum.auto()
     UNKNOWN = enum.auto()
 
@@ -36,6 +37,7 @@ shared_library_suffixes = {
 static_library_suffixes = {
     "posix": [".a", ".lib"],
 }
+tex_suffixes = [".ico", ".pdf", ".png", ".tex", ".svg"]
 
 
 @dataclass
@@ -75,6 +77,8 @@ def path_to_file_type(path: Path) -> FileType:
             file_type = FileType.STATIC_LIBRARY
         elif suffixes[-1] in [".ninja"]:
             file_type = FileType.NINJA
+        elif suffixes[-1] in tex_suffixes:
+            file_type = FileType.TEX
         elif any(suffix in shared_library_suffixes[os_name] for suffix in suffixes):
             file_type = FileType.SHARED_LIBRARY
         elif "CMakeFiles" in path.parts:
