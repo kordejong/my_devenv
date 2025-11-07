@@ -90,6 +90,10 @@ config.keys = {
 	-- CTRL-SHIFT-d activates the debug overlay
 	{ mods = "CTRL", key = "D", action = wezterm.action.ShowDebugOverlay },
 
+	-- Attach / detach to the Unix domain
+	{ mods = "LEADER", key = "a", action = wezterm.action.AttachDomain("unix") },
+	{ mods = "LEADER", key = "d", action = wezterm.action.DetachDomain("CurrentPaneDomain") },
+
 	-- ...
 }
 
@@ -111,11 +115,45 @@ config.key_tables = {
 	},
 }
 
+-- Multiplexing is based around concept of multiplexing domains
+-- Domain is distinct set of windows and tabs
+-- Default: wezterm starts a local domain
+-- Optional: wezterm starts or connects to additional domains
+-- Once connected, wezterm attaches the domain's windows and tabs to the local native UI
+
+-- SSH domain:
+-- Connection with a remote wezterm multiplexer via an ssh connection
+-- This code will auto-populate SSH domains from ~/.ssh/config. Plain SSH hosts are defined with a SSH:
+-- prefix and multiplexing hosts are defined with a SSHMUX: prefix. Plain SSH hosts don't require wezterm
+-- on the server!
+-- $ wezterm connect SSHMUX:my_server
+-- $ wezterm connect SSHMUX:my_server --workspace my_project
+-- $ wezterm cli spawn --domain-name SSHMUX:my_server
 config.ssh_domains = wezterm.default_ssh_domains()
 
 for _, domain in ipairs(config.ssh_domains) do
+	-- TODO: This is needed, otherwise wezterm isn't found. How to get PATH setup correctly?
 	domain.remote_wezterm_path = "/home/kor/opt/bin/wezterm"
+	-- Inform wezterm that all hosts are "Unix" machines. This enables features like spawning a tab in the
+	-- same directory as an existing tab.
+	domain.assume_shell = "Posix"
 end
+
+-- Unix domain:
+-- Connection to a multiplexer made via a unix socket
+-- $ wezterm connect unix
+-- $ wezterm connect unix --workspace my_project
+-- $ wezterm cli spawn --domain-name unix
+config.unix_domains = {
+	{
+		-- This name must be unique amongst all domains
+		name = "unix",
+	},
+}
+
+-- This causes wezterm to act as though it was started as a "wezterm connect unix" by default, connecting
+-- to the unix domain on startup
+-- config.default_gui_startup_args = { "connect", "unix" }
 
 -- Use default key-bindings. This assumes default key-bindings are used in LazyVim configuration as well.
 -- smart_splits.apply_to_config(config)
