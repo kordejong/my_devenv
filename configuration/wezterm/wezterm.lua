@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 -- local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 -- local project = require("project")
+local mux = wezterm.mux
 
 local config = wezterm.config_builder()
 
@@ -93,6 +94,27 @@ config.keys = {
 	-- Attach / detach to the Unix domain
 	{ mods = "LEADER", key = "a", action = wezterm.action.AttachDomain("unix") },
 	{ mods = "LEADER", key = "d", action = wezterm.action.DetachDomain("CurrentPaneDomain") },
+
+	-- Rename workspace
+	{
+		mods = "LEADER|SHIFT",
+		key = "$",
+		action = wezterm.action.PromptInputLine({
+			description = "Enter new name for workspace",
+			action = wezterm.action_callback(function(window, pane, line)
+				if line then
+					mux.rename_workspace(window:mux_window():get_workspace(), line)
+				end
+			end),
+		}),
+	},
+
+	-- Show list of workspaces
+	{
+		mods = "LEADER",
+		key = "s",
+		action = wezterm.action.ShowLauncherArgs({ flags = "WORKSPACES" }),
+	},
 
 	-- ...
 }
