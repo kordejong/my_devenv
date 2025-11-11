@@ -112,7 +112,7 @@ config.keys = {
 	-- Show list of workspaces
 	{
 		mods = "LEADER",
-		key = "s",
+		key = "w",
 		action = wezterm.action.ShowLauncherArgs({ flags = "WORKSPACES" }),
 	},
 
