@@ -49,7 +49,8 @@ function configure_builds() {
 
     if [[ $hostname == archlinux ]]; then
         compiler="gcc"
-        conan_packages="imgui"
+        conan_compiler="gcc"
+        lue_conan_packages="imgui"
         hpx_preset="linux_node"
         nr_jobs=8
     elif [[ $hostname == eejit ]]; then
