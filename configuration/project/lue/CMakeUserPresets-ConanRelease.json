@@ -14,6 +14,14 @@
             ]
         },
         {
+            "name": "archlinux_conan_release",
+            "inherits": [
+                "archlinux_configuration",
+                "kor_conan_release"
+            ],
+            "displayName": "archlinux / conan / release"
+        },
+        {
             "name": "eejit_conan_release",
             "inherits": [
                 "eejit_configuration",

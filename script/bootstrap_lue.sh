@@ -44,10 +44,15 @@ function configure_builds() {
     "
     hpx_conan_packages=""
     lue_conan_packages=""
-    lue_preset="${hostname}_${cmake_build_type,,}"
+    # lue_preset="${hostname}_${cmake_build_type,,}"
     install_hpx=1
 
-    if [[ $hostname == eejit ]]; then
+    if [[ $hostname == archlinux ]]; then
+        compiler="gcc"
+        conan_packages="imgui"
+        hpx_preset="linux_node"
+        nr_jobs=8
+    elif [[ $hostname == eejit ]]; then
         compiler="gcc"
         conan_compiler="gcc"
         hpx_preset="cluster"
