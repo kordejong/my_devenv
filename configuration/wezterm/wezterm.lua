@@ -137,7 +137,7 @@ config.key_tables = {
 	},
 }
 
--- Multiplexing is based around concept of multiplexing domains
+-- Multiplexing is based around the concept of multiplexing domains
 -- Domain is distinct set of windows and tabs
 -- Default: wezterm starts a local domain
 -- Optional: wezterm starts or connects to additional domains
