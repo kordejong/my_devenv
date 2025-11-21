@@ -37,7 +37,7 @@ function parse_command_line() {
 function configure_builds() {
     cmake_args_hpx="\
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
-        -D CMAKE_CXX_STANDARD=20 \
+        -D CMAKE_CXX_STANDARD=23 \
     "
     cmake_args_lue=" \
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
