@@ -155,7 +155,7 @@ config.ssh_domains = wezterm.default_ssh_domains()
 
 for _, domain in ipairs(config.ssh_domains) do
 	-- TODO: This is needed, otherwise wezterm isn't found. How to get PATH setup correctly?
-	domain.remote_wezterm_path = "/home/kor/opt/bin/wezterm"
+	-- domain.remote_wezterm_path = "/home/kor/opt/bin/wezterm"
 	-- Inform wezterm that all hosts are "Unix" machines. This enables features like spawning a tab in the
 	-- same directory as an existing tab.
 	domain.assume_shell = "Posix"
