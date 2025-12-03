@@ -12,6 +12,7 @@
                 "LUE_DATA_MODEL_WITH_PYTHON_API": "TRUE",
                 "LUE_DATA_MODEL_WITH_UTILITIES": "TRUE",
                 "LUE_FRAMEWORK_WITH_PYTHON_API": "TRUE",
+                "LUE_FRAMEWORK_WITH_DEVELOPMENT_OPERATIONS": "TRUE",
                 "LUE_BUILD_VIEW": "TRUE",
                 "LUE_BUILD_QUALITY_ASSURANCE": "TRUE",
                 "LUE_QUALITY_ASSURANCE_WITH_PYTHON_API": "TRUE",
@@ -87,6 +88,19 @@
                 "LUE_QUALITY_ASSURANCE_TEST_HPX_PARCELPORT": "mpi",
                 "LUE_QUALITY_ASSURANCE_TEST_NR_LOCALITIES_PER_TEST": "2",
                 "LUE_QUALITY_ASSURANCE_TEST_NR_THREADS_PER_LOCALITY": "3"
+            }
+        },
+        {
+            "name": "archlinux_configuration",
+            "hidden": true,
+            "inherits": [
+                "gcc_configuration"
+            ],
+            "cacheVariables": {
+                "LUE_QA_TEST_HPX_RUNWRAPPER": "none",
+                "LUE_QA_TEST_HPX_PARCELPORT": "tcp",
+                "LUE_QA_TEST_NR_LOCALITIES_PER_TEST": "2",
+                "LUE_QA_TEST_NR_THREADS_PER_LOCALITY": "2"
             }
         },
         {

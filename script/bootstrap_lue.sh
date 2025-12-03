@@ -37,17 +37,23 @@ function parse_command_line() {
 function configure_builds() {
     cmake_args_hpx="\
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
-        -D CMAKE_CXX_STANDARD=20 \
+        -D CMAKE_CXX_STANDARD=23 \
     "
     cmake_args_lue=" \
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
     "
     hpx_conan_packages=""
     lue_conan_packages=""
-    lue_preset="${hostname}_${cmake_build_type,,}"
+    # lue_preset="${hostname}_${cmake_build_type,,}"
     install_hpx=1
 
-    if [[ $hostname == eejit ]]; then
+    if [[ $hostname == archlinux ]]; then
+        compiler="gcc"
+        conan_compiler="gcc"
+        lue_conan_packages="imgui"
+        hpx_preset="linux_node"
+        nr_jobs=8
+    elif [[ $hostname == eejit ]]; then
         compiler="gcc"
         conan_compiler="gcc"
         hpx_preset="cluster"

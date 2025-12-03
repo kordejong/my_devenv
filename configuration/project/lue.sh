@@ -293,8 +293,8 @@ elif [[ $LUE_HOSTNAME == "velocity" ]]; then
     source $LUE/env/bin/activate
 
 else
-    echo "Unknown hostname: $LUE_HOSTNAME"
-    return 1
+    # Default
+    source $LUE/.venv/bin/activate
 fi
 
 ### if [[ $MY_DEVENV_BUILD_TYPE == "Debug" ]];

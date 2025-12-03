@@ -14,6 +14,15 @@
             ]
         },
         {
+            "name": "archlinux_conan_debug",
+            "inherits": [
+                "archlinux_configuration",
+                "lue_debug_linux_node",
+                "kor_conan_debug"
+            ],
+            "displayName": "archlinux / conan / debug"
+        },
+        {
             "name": "eejit_conan_debug",
             "inherits": [
                 "eejit_configuration",

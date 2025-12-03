@@ -52,6 +52,10 @@
 	path = ~/.gitconfig-uu
 [includeIf "hasconfig:remote.*.url:https://github.com/computationalgeography/**"]
 	path = ~/.gitconfig-uu
+[includeIf "hasconfig:remote.*.url:https://codeberg.org/computationalgeography/**"]
+	path = ~/.gitconfig-uu
+[includeIf "hasconfig:remote.*.url:ssh://git@codeberg.org/computationalgeography/**"]
+	path = ~/.gitconfig-uu
 [includeIf "hasconfig:remote.*.url:https://github.com/JudithVerstegen/**"]
 	path = ~/.gitconfig-uu
 [includeIf "hasconfig:remote.*.url:https://github.com/conda-forge/**"]

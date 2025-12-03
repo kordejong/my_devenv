@@ -74,8 +74,8 @@ def determine_shared_library_dependencies_win32(
         "api-ms-win-appmodel-runtime-l1-1-0.dll",
 
         # win32
-        "c:\windows\system32\gpsvc.dll",
-        "c:\windows\system32\sysntfy.dll"
+        "c:\\windows\\system32\\gpsvc.dll",
+        "c:\\windows\\system32\\sysntfy.dll"
     ]
 
     # Read depends output and pick our libraries.
@@ -377,7 +377,7 @@ def fixup_dll_client_linux(
         path_name,
         project_prefix,
         offset):
-    rpath = "\$ORIGIN/{}/lib".format(offset)
+    rpath = "\\$ORIGIN/{}/lib".format(offset)
     command = "chrpath --replace {} {}".format(rpath, path_name)
     devenv.process.execute(command)
 

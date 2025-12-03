@@ -1,0 +1,183 @@
+local wezterm = require("wezterm")
+-- local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
+-- local project = require("project")
+local mux = wezterm.mux
+
+local config = wezterm.config_builder()
+
+config.font_size = 15
+config.color_scheme = "nord"
+config.enable_tab_bar = false
+
+-- https://wezterm.org/config/lua/wezterm/index.html
+-- e.g.: wezterm.home_dir
+wezterm.log_info("hostname: " .. wezterm.hostname())
+
+-- -- Switch to the last active tab when I close a tab
+-- config.switch_to_last_active_tab_when_closing_tab = true
+
+-- config.window_background_opacity = 0.9
+
+-- config.window_decorations = "RESIZE"
+config.window_padding = {
+	top = 10,
+	bottom = 10,
+	left = 10,
+	right = 10,
+}
+
+-- If a character requires hitting the shift key normally, such as any of the
+-- symbols above the numeric keys, or even keys like ?, <, >, the | and {/}
+-- symbols, the SHIFT mod MUST be included! (really?)
+
+-- Turn all defaults off
+-- config.disable_default_key_bindings = true
+
+-- CTRL|SHIFT - p: command palette
+
+local function activate_pane(key, direction)
+	return { mods = "LEADER", key = key, action = wezterm.action.ActivatePaneDirection(direction) }
+end
+
+local function resize_pane(key, direction)
+	return { key = key, action = wezterm.action.AdjustPaneSize({ direction, 1 }) }
+end
+
+config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2000 }
+config.keys = {
+	-- Tab management
+	{ mods = "LEADER", key = "c", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
+	{ mods = "LEADER", key = "p", action = wezterm.action.ActivateTabRelative(-1) },
+	{ mods = "LEADER", key = "n", action = wezterm.action.ActivateTabRelative(1) },
+
+	-- Pane / split mangement
+	{ mods = "LEADER", key = "-", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ mods = "LEADER|SHIFT", key = "|", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+	{ mods = "LEADER", key = "z", action = wezterm.action.TogglePaneZoomState },
+
+	activate_pane("h", "Left"),
+	activate_pane("j", "Down"),
+	activate_pane("k", "Up"),
+	activate_pane("l", "Right"),
+
+	-- When we push LEADER + r...
+	-- Activate the `resize_panes` keytable
+	{
+		mods = "LEADER",
+		key = "r",
+		action = wezterm.action.ActivateKeyTable({
+			name = "resize_panes",
+			-- Ensures the keytable stays active after it handles its
+			-- first keypress.
+			one_shot = false,
+			-- Deactivate the keytable after a timeout.
+			timeout_milliseconds = 1000,
+		}),
+	},
+
+	-- Activate VI mode (CTRL-C to exit)
+	{ mods = "LEADER", key = "[", action = wezterm.action.ActivateCopyMode },
+
+	-- -- Show list of workspaces
+	-- { mods = "LEADER", key = "s", action = wezterm.action.ShowLauncherArgs({ flags = "WORKSPACES" }) },
+
+	-- TODO: key already mapped
+	-- -- Present our project picker
+	-- { mods = "LEADER", key = "p", action = project.choose_project() },
+
+	-- -- Present a list of existing workspaces
+	-- { mods = "LEADER", key = "f", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+
+	-- CTRL-SHIFT-d activates the debug overlay
+	{ mods = "CTRL", key = "D", action = wezterm.action.ShowDebugOverlay },
+
+	-- Attach / detach to the Unix domain
+	{ mods = "LEADER", key = "a", action = wezterm.action.AttachDomain("unix") },
+	{ mods = "LEADER", key = "d", action = wezterm.action.DetachDomain("CurrentPaneDomain") },
+
+	-- Rename workspace
+	{
+		mods = "LEADER|SHIFT",
+		key = "$",
+		action = wezterm.action.PromptInputLine({
+			description = "Enter new name for workspace",
+			action = wezterm.action_callback(function(window, pane, line)
+				if line then
+					mux.rename_workspace(window:mux_window():get_workspace(), line)
+				end
+			end),
+		}),
+	},
+
+	-- Show list of workspaces
+	{
+		mods = "LEADER",
+		key = "w",
+		action = wezterm.action.ShowLauncherArgs({ flags = "WORKSPACES" }),
+	},
+
+	-- ...
+}
+
+-- Select tab by number
+for i = 1, 9 do
+	table.insert(config.keys, {
+		key = tostring(i),
+		mods = "LEADER",
+		action = wezterm.action.ActivateTab(i - 1),
+	})
+end
+
+config.key_tables = {
+	resize_panes = {
+		resize_pane("j", "Down"),
+		resize_pane("k", "Up"),
+		resize_pane("h", "Left"),
+		resize_pane("l", "Right"),
+	},
+}
+
+-- Multiplexing is based around the concept of multiplexing domains
+-- Domain is distinct set of windows and tabs
+-- Default: wezterm starts a local domain
+-- Optional: wezterm starts or connects to additional domains
+-- Once connected, wezterm attaches the domain's windows and tabs to the local native UI
+
+-- SSH domain:
+-- Connection with a remote wezterm multiplexer via an ssh connection
+-- This code will auto-populate SSH domains from ~/.ssh/config. Plain SSH hosts are defined with a SSH:
+-- prefix and multiplexing hosts are defined with a SSHMUX: prefix. Plain SSH hosts don't require wezterm
+-- on the server!
+-- $ wezterm connect SSHMUX:my_server
+-- $ wezterm connect SSHMUX:my_server --workspace my_project
+-- $ wezterm cli spawn --domain-name SSHMUX:my_server
+config.ssh_domains = wezterm.default_ssh_domains()
+
+for _, domain in ipairs(config.ssh_domains) do
+	-- TODO: This is needed, otherwise wezterm isn't found. How to get PATH setup correctly?
+	-- domain.remote_wezterm_path = "/home/kor/opt/bin/wezterm"
+	-- Inform wezterm that all hosts are "Unix" machines. This enables features like spawning a tab in the
+	-- same directory as an existing tab.
+	domain.assume_shell = "Posix"
+end
+
+-- Unix domain:
+-- Connection to a multiplexer made via a unix socket
+-- $ wezterm connect unix
+-- $ wezterm connect unix --workspace my_project
+-- $ wezterm cli spawn --domain-name unix
+config.unix_domains = {
+	{
+		-- This name must be unique amongst all domains
+		name = "unix",
+	},
+}
+
+-- This causes wezterm to act as though it was started as a "wezterm connect unix" by default, connecting
+-- to the unix domain on startup
+-- config.default_gui_startup_args = { "connect", "unix" }
+
+-- Use default key-bindings. This assumes default key-bindings are used in LazyVim configuration as well.
+-- smart_splits.apply_to_config(config)
+
+return config

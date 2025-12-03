@@ -9,7 +9,7 @@
 
 -- https://www.lazyvim.org/configuration/tips
 
--- Disable autoformat for tex files
+-- Disable autoformat for some kind of files. Use <leader>uF to enable autoformat for a buffer anyway
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "tex" },
   callback = function()
