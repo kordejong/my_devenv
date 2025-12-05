@@ -42,6 +42,8 @@
 ; Overwrite default settings in these specific cases
 [includeIf "gitdir:gauja/geoneric/"]
 	path = ~/.gitconfig-geoneric
+[includeIf "hasconfig:remote.*.url:git@github.com:jspijker/**"]
+	path = ~/.gitconfig-geoneric
 [includeIf "gitdir:gauja/uu/"]
 	path = ~/.gitconfig-uu
 [includeIf "gitdir:github/regro-cf-autotick-bot/"]
