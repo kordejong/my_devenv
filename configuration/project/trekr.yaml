@@ -10,12 +10,11 @@ windows:
       - cd $TREKR
     panes:
       - shell_command:
-          - PYTHONPATH="$TREKR/source/package:$PYTHONPATH" nvim
+          - nvim
         focus: true
       - shell_command:
-        # - export PATH="$TREKR/environment/script:$TREKR/source/script:$PATH"
-        # - export PYTHONPATH="$TREKR/source/package:$PYTHONPATH"
+          - cd $TREKR
   - window_name: manage
     panes:
       - shell_command:
-          - ranger $TREKR $TREKR_OBJECTS
+          - ranger $TREKR $OBJECTS
