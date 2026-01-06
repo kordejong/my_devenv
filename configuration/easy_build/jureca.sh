@@ -24,5 +24,11 @@ module load \
     mold \
     nlohmann_json \
     tmux
-module load Clang
-module load CMake/4.0.3 HPX/1.10.0-RelDeb
+module load \
+    Clang \
+    CMake/4.0.3
+module load \
+    HPX/1.11.0-RelWithDebInfo
+
+# module load HPX/1.10.0-RelDeb
+# module load HPX/1.11.x-RelWithDebInfo
