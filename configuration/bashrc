@@ -235,7 +235,7 @@ alias start_http_server="python -m http.server"
 # alias docker_stop_running="docker stop \$(docker_list_running)"
 # alias docker_remove_exited="docker rm -v \$(docker_list_exited)"
 
-alias status_of_my_projects="my_git.py status gauja github"
+alias status_of_my_projects="my_git.py status codeberg gauja github juelich"
 
 # bashrc:
 # export PS1="\u@\h:\W\$ "
