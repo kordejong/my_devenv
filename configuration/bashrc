@@ -247,7 +247,7 @@ alias status_of_my_projects="my_git.py status codeberg gauja github juelich"
 # fi
 # export PYTHONSTARTUP
 
-test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
+# test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
 # Make sure environment variables are expanded on the command line.
 # if [[ $BASH_VERSION >= "4.2."* ]]; then
