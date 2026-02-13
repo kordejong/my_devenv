@@ -87,26 +87,11 @@ unset basename
 
 if [[ $LUE_HOSTNAME == "eejit" ]]; then
     source $LUE/.venv/bin/activate
-elif [[ $LUE_HOSTNAME == "gransasso" ]]; then
-    ### # Platform for testing use of the Ubuntu packages of 3rd party
-    ### # software LUE depends on. No LUE_HAVE_<NAME> variables set to FALSE.
-    ### LUE_CMAKE_ARGUMENTS="
-    ###     $LUE_CMAKE_ARGUMENTS
-    ###     -DLUE_QA_TEST_NR_LOCALITIES_PER_TEST=2
-    ###     -DLUE_QA_TEST_NR_THREADS_PER_LOCALITY=2
-    ### "
-    ### CMAKE_BUILD_PARALLEL_LEVEL=5
-    # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
-    ### LUE_ROUTING_DATA="/mnt/data1/home/kor/data/project/routing"
-    ### LUE_BENCHMARK_DATA="/mnt/data1/home/kor/data/project/lue/benchmark/gransasso/"
-
-    source $LUE/env/bin/activate
-
 elif [[ $LUE_HOSTNAME == "jureca" ]]; then
     source $LUE/.venv/bin/activate
 
 elif [[ $LUE_HOSTNAME == "orkney" ]]; then
-    source $LUE/env/bin/activate
+    source $LUE/.venv/bin/activate
 
 elif [[ $LUE_HOSTNAME == "fg-vm12" ]]; then
     ### if [ -d "$repository_cache" ]; then
@@ -147,48 +132,6 @@ elif [[ $LUE_HOSTNAME == "fg-vm12" ]]; then
     ### # export CXX="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
 
     conda activate lue
-
-### elif [[ $LUE_HOSTNAME == "ketjen" ]];
-### then
-###     if [ -d "$repository_cache" ]; then
-###         LUE_CMAKE_ARGUMENTS="
-###             $LUE_CMAKE_ARGUMENTS
-###             -DLUE_REPOSITORY_CACHE:PATH=$(cygpath --mixed $repository_cache)
-###         "
-###     fi
-###
-###     LUE_CMAKE_ARGUMENTS="
-###         $LUE_CMAKE_ARGUMENTS
-###         -DCMAKE_TOOLCHAIN_FILE=$(cygpath --mixed $cmake_toolchain_file)
-###     "
-###
-###     # Platform for testing use of the Conan packages of 3rd party software
-###     # LUE depends on. LUE_HAVE_<NAME> variables set to FALSE.
-###     LUE_CMAKE_ARGUMENTS="
-###         $LUE_CMAKE_ARGUMENTS
-###         -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
-###         -DLUE_BUILD_FRAMEWORK:BOOL=FALSE
-###         -DLUE_FRAMEWORK_WITH_PYTHON_API:BOOL=TRUE
-###         -DLUE_QA_TEST_NR_LOCALITIES_PER_TEST=2
-###         -DLUE_QA_TEST_NR_THREADS_PER_LOCALITY=1
-###         -DLUE_HAVE_BOOST:BOOL=FALSE
-###         -DLUE_HAVE_DOCOPT:BOOL=FALSE
-###         -DLUE_HAVE_FMT:BOOL=FALSE
-###         -DLUE_HAVE_GDAL:BOOL=FALSE
-###         -DLUE_HAVE_GLFW:BOOL=FALSE
-###         -DLUE_HAVE_HDF5:BOOL=FALSE
-###         -DLUE_HAVE_NLOHMANN_JSON:BOOL=FALSE
-###         -DLUE_HAVE_PYBIND11:BOOL=FALSE
-###     "
-###     CMAKE_BUILD_PARALLEL_LEVEL=2
-###     PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
-###     LUE_ROUTING_DATA="$HOME/not_needed_on_windows_yet"
-###
-###     # export PATH="`cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64`:$PATH"
-###     export CC=C:/PROGRA~2/MICROS~1/2019/COMMUN~1/VC/Tools/MSVC/1429~1.301/bin/Hostx64/x64/cl
-###     export CXX=C:/PROGRA~2/MICROS~1/2019/COMMUN~1/VC/Tools/MSVC/1429~1.301/bin/Hostx64/x64/cl
-###     # export CC="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
-###     # export CXX="$(cygpath --mixed /C/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl)"
 
 elif [[ $LUE_HOSTNAME == "hoy" ]]; then
     source $LUE/env/Scripts/activate
