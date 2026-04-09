@@ -37,6 +37,16 @@
             "displayName": "m1compiler / debug"
         },
         {
+            "name": "mammoth_debug",
+            "inherits": [
+                "mammoth_configuration",
+                "kor_debug"
+            ],
+            "displayName": "mammoth / debug",
+            "cacheVariables": {
+            }
+        },
+        {
             "name": "spider_debug",
             "inherits": [
                 "spider_configuration",
