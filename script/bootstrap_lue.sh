@@ -107,6 +107,15 @@ function configure_builds() {
         #     "
         # fi
         nr_jobs=4
+    elif [[ $hostname == mammoth ]]; then
+        compiler="gcc"
+        conan_compiler="gcc"
+        hpx_preset="linux_node"
+        nr_jobs=12
+        cmake_args_hpx=" \
+            ${cmake_args_hpx} \
+            -D HPX_WITH_FETCH_ASIO=ON \
+        "
     elif [[ $hostname == orkney ]]; then
         conan_compiler="gcc"
         lue_conan_packages="imgui"
@@ -144,6 +153,9 @@ function configure_builds() {
 
     hpx_preset="hpx_${cmake_build_type,,}_${hpx_preset}_configuration"
     lue_preset="${lue_preset}_${cmake_build_type,,}"
+
+    # NOTE: uncomment when needed
+    # lue_preset="${lue_preset}_sanitize"
 
     tmp_prefix="/tmp/bootstrap_lue-$username"
     hpx_version="1.11.0"
@@ -214,26 +226,32 @@ function preprocess_conan_install() {
 }
 
 function install_hpx() {
-    if [ -d $hpx_install_prefix ]; then
+    if [ -d "$hpx_install_prefix" ]; then
         echo "→ Not installing HPX because it already exists: $hpx_install_prefix"
         return
     fi
 
-    hpx_repository_zip="$repository_zip_prefix/v${hpx_version}.tar.gz"
+    # hpx_branch="reduce_memory_caching"
 
-    if [ ! -f $hpx_repository_zip ]; then
-        curl --location --remote-name --output-dir $repository_zip_prefix https://github.com/STEllAR-GROUP/hpx/archive/refs/tags/v${hpx_version}.tar.gz
+    if [ -d "$hpx_source_directory" ]; then
+        rm -fr "$hpx_source_directory"
     fi
 
-    if [ -d $hpx_source_directory ]; then
-        rm -fr $hpx_source_directory
+    if [ -z ${hpx_branch+x} ]; then
+        hpx_repository_zip="$repository_zip_prefix/v${hpx_version}.tar.gz"
+
+        if [ ! -f "$hpx_repository_zip" ]; then
+            curl --location --remote-name --output-dir "$repository_zip_prefix" https://github.com/STEllAR-GROUP/hpx/archive/refs/tags/v${hpx_version}.tar.gz
+        fi
+
+        tar -zx --directory="$(dirname "$hpx_source_directory")" --file "$hpx_repository_zip"
+    else
+        git clone --depth 1 --branch "$hpx_branch" https://github.com/STEllAR-GROUP/hpx.git "$hpx_source_directory"
     fi
 
-    tar -zx --directory=$(dirname $hpx_source_directory) --file $hpx_repository_zip
+    mkdir "$hpx_build_directory"
 
-    mkdir $hpx_build_directory
-
-    ln -s -f $MY_DEVENV/configuration/project/hpx/CMakeUserPresets-base.json $hpx_source_directory
+    ln -s -f $MY_DEVENV/configuration/project/hpx/CMakeUserPresets-base.json "$hpx_source_directory"
 
     if [[ ${hpx_conan_packages} ]]; then
         LUE_CONAN_PACKAGES="$hpx_conan_packages" \
