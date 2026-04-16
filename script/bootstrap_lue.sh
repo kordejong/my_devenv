@@ -108,7 +108,6 @@ function configure_builds() {
         # fi
         nr_jobs=4
     elif [[ $hostname == mammoth ]]; then
-        compiler="gcc"
         conan_compiler="gcc"
         hpx_preset="linux_node"
         nr_jobs=12
