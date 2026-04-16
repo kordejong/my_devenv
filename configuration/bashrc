@@ -260,3 +260,13 @@ shopt -s cdspell # Fix minor errors in spelling of directory names.
 export CDPATH="$PROJECTS"
 
 unset cwd
+
+# Start SSH agent if it is not already running
+if ! pgrep -f "[s]sh-agent" &>/dev/null; then
+    eval "$(ssh-agent -s)"
+fi
+
+# Add keys if no keys are added yet. Set a timeout of 1 day.
+if ! ssh-add -l &>/dev/null; then
+    ssh-add -t 1d
+fi
