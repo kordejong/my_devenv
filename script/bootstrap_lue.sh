@@ -48,13 +48,11 @@ function configure_builds() {
     install_hpx=1
 
     if [[ $hostname == archlinux ]]; then
-        compiler="gcc"
         conan_compiler="gcc"
         lue_conan_packages="imgui"
         hpx_preset="linux_node"
         nr_jobs=8
     elif [[ $hostname == eejit ]]; then
-        compiler="gcc"
         conan_compiler="gcc"
         hpx_preset="cluster"
         nr_jobs=8
@@ -86,7 +84,6 @@ function configure_builds() {
         "
         nr_jobs=10
     elif [[ $hostname == jureca ]]; then
-        compiler="gcc"
         conan_compiler="gcc"
         hpx_preset="cluster"
         install_hpx=0
@@ -94,10 +91,9 @@ function configure_builds() {
     elif [[ $hostname == m1compiler ]]; then
         conan_compiler="clang"
         hpx_preset="macos_node"
-        # TODO Get rid of these again
         cmake_args_hpx=" \
-            $cmake_args_hpx \
-            -D HPX_WITH_EXAMPLES=TRUE \
+            ${cmake_args_hpx} \
+            -D HPX_WITH_FETCH_ASIO=ON \
         "
         cmake_args_lue=" \
             $cmake_args_lue \
@@ -124,7 +120,6 @@ function configure_builds() {
         conan_compiler="gcc"
         lue_conan_packages="imgui"
         hpx_preset="linux_node"
-        cmake_args_hpx="$cmake_args_hpx"
         nr_jobs=24
     elif [[ $hostname == snowdon ]]; then
         conan_compiler="gcc"
@@ -132,7 +127,6 @@ function configure_builds() {
         hpx_preset="linux_node"
         nr_jobs=4
     elif [[ $hostname == spider ]]; then
-        cmake_args_hpx="$cmake_args_hpx"
         conan_compiler="gcc"
         hpx_preset="cluster"
         nr_jobs=$SLURM_CPUS_ON_NODE
@@ -144,8 +138,8 @@ function configure_builds() {
         "Unknown hostname: $hostname"
     fi
 
-    install_prefix=$(realpath $OBJECTS/../opt)/$cmake_build_type
-    repository_zip_prefix=$(realpath $OBJECTS/../repository)
+    install_prefix=$(realpath "$OBJECTS/../opt")/$cmake_build_type
+    repository_zip_prefix=$(realpath "$OBJECTS/../repository")
 
     lue_preset="${hostname}"
 
@@ -175,10 +169,16 @@ function configure_builds() {
     cmake_args_lue=" \
         $cmake_args_lue \
         -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE \
-        -D HPX_ROOT=$hpx_install_prefix \
         -D mdspan_ROOT=$mdspan_install_prefix \
         -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE
     "
+
+    if [[ $install_hpx == 1 ]]; then
+        cmake_args_lue="
+            $cmake_args_lue \
+            -D HPX_ROOT=$hpx_install_prefix
+        "
+    fi
 
     echo "Setting up $cmake_build_type build on $hostname"
     echo "hostname               : $hostname"
@@ -212,9 +212,6 @@ function configure_builds() {
     if [[ ! $REPLY =~ ^[y]$ ]]; then
         exit 1
     fi
-
-    hpx_install_prefix="$install_prefix/hpx"
-    mdspan_install_prefix="$install_prefix/mdspan"
 
     lue_source_directory="$LUE"
     lue_build_directory="$OBJECTS/$cmake_build_type/lue"
