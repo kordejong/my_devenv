@@ -268,5 +268,11 @@ fi
 
 # Add keys if no keys are added yet
 if ! ssh-add -l &>/dev/null; then
-    grep -slR PRIVATE $HOME/.ssh/ | xargs ssh-add
+    grep -slR PRIVATE "$HOME"/.ssh/ | xargs ssh-add
+fi
+
+if zoxide --version &>/dev/null; then
+    eval "$(zoxide init bash)"
+else
+    echo "BTW: zoxide not found"
 fi
