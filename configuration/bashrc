@@ -257,7 +257,7 @@ shopt -s direxpand
 # fi
 shopt -s cdspell # Fix minor errors in spelling of directory names.
 
-export CDPATH="$PROJECTS"
+# export CDPATH="$PROJECTS"
 
 unset cwd
 
