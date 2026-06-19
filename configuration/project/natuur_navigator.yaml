@@ -1,0 +1,18 @@
+session_name: natuur_navigator
+shell_command_before:
+    - "source $MY_DEVENV/configuration/project/natuur_navigator.sh"
+windows:
+    - window_name: edit
+      focus: true
+      options:
+          main-pane-height: 25
+      panes:
+          - shell_command:
+                - nvim
+            focus: true
+          - shell_command:
+                - cd $NATUUR_NAVIGATOR
+    - window_name: manage
+      panes:
+          - shell_command:
+                - ranger $NATUUR_NAVIGATOR $OBJECTS
