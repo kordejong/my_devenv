@@ -23,7 +23,7 @@ else
 fi
 
 function parse_command_line() {
-    usage="$(basename $0) hostname build_type"
+    usage="$(basename $0) <hostname> <build_type>"
 
     if [[ $# != 2 ]]; then
         echo $usage
@@ -38,6 +38,7 @@ function configure_builds() {
     cmake_args_hpx="\
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
         -D CMAKE_CXX_STANDARD=23 \
+        -D HPX_WITH_EXAMPLES=ON \
     "
     cmake_args_lue=" \
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
@@ -157,10 +158,17 @@ function configure_builds() {
     # lue_preset="${lue_preset}_sanitize"
 
     tmp_prefix="/tmp/bootstrap_lue-$username"
-    hpx_version="1.11.0"
+
+    # NOTE: edit when needed
+    # hpx_branch="reduce_memory_caching"
+    # hpx_branch="cached_allocator"
+    hpx_branch="master"
+    hpx_version="2.0.0"
+    # hpx_version="1.11.0"
     hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
     hpx_build_directory="$hpx_source_directory/build"
     hpx_install_prefix="$install_prefix/hpx"
+
     mdspan_install_prefix="$install_prefix/mdspan"
     lue_source_directory="$LUE"
     lue_build_directory="$OBJECTS/$cmake_build_type/lue"
@@ -229,8 +237,6 @@ function install_hpx() {
         echo "→ Not installing HPX because it already exists: $hpx_install_prefix"
         return
     fi
-
-    # hpx_branch="reduce_memory_caching"
 
     if [ -d "$hpx_source_directory" ]; then
         rm -fr "$hpx_source_directory"
