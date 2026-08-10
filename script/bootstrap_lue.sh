@@ -162,21 +162,19 @@ function configure_builds() {
     # NOTE: edit when needed
     # hpx_branch="reduce_memory_caching"
     # hpx_branch="cached_allocator"
-    hpx_branch="master"
+    hpx_branch="master" # Comment to use a released version
     hpx_version="2.0.0"
     # hpx_version="1.11.0"
     hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
     hpx_build_directory="$hpx_source_directory/build"
     hpx_install_prefix="$install_prefix/hpx"
 
-    mdspan_install_prefix="$install_prefix/mdspan"
     lue_source_directory="$LUE"
     lue_build_directory="$OBJECTS/$cmake_build_type/lue"
 
     cmake_args_lue=" \
         $cmake_args_lue \
         -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE \
-        -D mdspan_ROOT=$mdspan_install_prefix \
         -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE
     "
 
@@ -206,7 +204,6 @@ function configure_builds() {
         echo "hpx_install_prefix     : $hpx_install_prefix"
         echo "hpx preset             : $hpx_preset"
     fi
-    echo "mdspan_install_prefix  : $mdspan_install_prefix"
     echo "lue_source_directory   : $lue_source_directory"
     echo "lue_build_directory    : $lue_build_directory"
     echo "lue preset             : $lue_preset"
@@ -242,7 +239,10 @@ function install_hpx() {
         rm -fr "$hpx_source_directory"
     fi
 
+    # TODO: Pick tar file from: /p/project1/paj2600/User_EB_files and use that version
+
     if [ -z ${hpx_branch+x} ]; then
+        # Use a released version
         hpx_repository_zip="$repository_zip_prefix/v${hpx_version}.tar.gz"
 
         if [ ! -f "$hpx_repository_zip" ]; then
@@ -251,6 +251,7 @@ function install_hpx() {
 
         tar -zx --directory="$(dirname "$hpx_source_directory")" --file "$hpx_repository_zip"
     else
+        # Use an unreleased version
         git clone --depth 1 --branch "$hpx_branch" https://github.com/STEllAR-GROUP/hpx.git "$hpx_source_directory"
     fi
 
@@ -294,35 +295,6 @@ function install_hpx() {
     rm -fr $hpx_source_directory
 }
 
-function install_mdspan() {
-    if [ -d $mdspan_install_prefix ]; then
-        echo "→ Not installing mdspan because it already exists: $mdspan_install_prefix"
-        return
-    fi
-
-    mdspan_repository_url="https://github.com/kokkos/mdspan.git"
-    mdspan_tag="9ceface91483775a6c74d06ebf717bbb2768452f" # 0.6.0
-
-    mdspan_source_directory="$tmp_prefix/mdspan"
-    mdspan_build_directory="$mdspan_source_directory/build"
-
-    if [ -d $mdspan_source_directory ]; then
-        rm -fr $mdspan_source_directory
-    fi
-
-    git clone $mdspan_repository_url $mdspan_source_directory
-    cd $mdspan_source_directory
-    git checkout $mdspan_tag
-    cd -
-
-    mkdir $mdspan_build_directory
-    cmake -G "Ninja" -S $mdspan_source_directory -B $mdspan_build_directory \
-        -D CMAKE_BUILD_TYPE=${cmake_build_type}
-    cmake --build $mdspan_build_directory --parallel $nr_jobs --target all
-    cmake --install $mdspan_build_directory --prefix $mdspan_install_prefix --strip
-    rm -fr $mdspan_source_directory
-}
-
 function configure_lue() {
     ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $lue_source_directory
 
@@ -359,7 +331,6 @@ fi
 if [[ $install_hpx == 1 ]]; then
     install_hpx
 fi
-install_mdspan
 configure_lue
 
 echo -e "\n"
