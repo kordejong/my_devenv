@@ -264,8 +264,14 @@ shopt -s cdspell # Fix minor errors in spelling of directory names.
 unset cwd
 
 # Start SSH agent if it is not already running
-if ! pgrep -f "[s]sh-agent" &>/dev/null; then
-    eval "$(ssh-agent -s)"
+if [ $OSTYPE == "msys" ]; then
+    if ! ps --user $USERNAME | grep "ssh-agent" &>/dev/null; then
+        eval "$(ssh-agent -s)"
+    fi
+else
+    if ! pgrep -f "[s]sh-agent" &>/dev/null; then
+        eval "$(ssh-agent -s)"
+    fi
 fi
 
 # Add keys if no keys are added yet
