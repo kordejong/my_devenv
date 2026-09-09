@@ -276,5 +276,5 @@ fi
 if zoxide --version &>/dev/null; then
     eval "$(zoxide init bash)"
 else
-    echo "BTW: zoxide not found"
+    echo "BTW: zoxide not found (yet)"
 fi
