@@ -274,15 +274,19 @@ function install_hpx() {
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory
         ln -s -f $lue_source_directory/CMakePresets.json $hpx_source_directory
 
+        if [[ ${hpx_conan_packages} == *asio* ]]; then
+            # Conan's asio target is named different than in all other cases. Sigh...
+            sed -i'' '27 a \ \ add_library(Asio::asio ALIAS asio::asio)' $hpx_source_directory/cmake/HPX_SetupAsio.cmake
+        fi
+
         if [[ ${hpx_conan_packages} == *boost* ]]; then
             # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
-            sed -i'' "54 a \ \ \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${cmake_build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+            sed -i'' "73 a \ \ \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${cmake_build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
+        fi
 
+        if [[ ${hpx_conan_packages} == *hwloc* ]]; then
             # Conan's hwloc target is named different than in all other cases. Sigh...
-            sed -i'' '23 a \ \ add_library(Hwloc::hwloc ALIAS hwloc::hwloc)' $hpx_source_directory/cmake/HPX_SetupHwloc.cmake
-
-            # Conan's asio target is named different than in all other cases. Sigh...
-            sed -i'' '17 a \ \ add_library(Asio::asio ALIAS asio::asio)' $hpx_source_directory/cmake/HPX_SetupAsio.cmake
+            sed -i'' '25 a \ \ add_library(Hwloc::hwloc ALIAS hwloc::hwloc)' $hpx_source_directory/cmake/HPX_SetupHwloc.cmake
         fi
     else
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
