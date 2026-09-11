@@ -45,7 +45,6 @@ def monitor_process(process: psutil.Process, *, interval: int, unit: str) -> Non
 
     create_time = process.create_time()
 
-    # while process.status() == psutil.STATUS_RUNNING:
     while process.is_running():
         current_time = int(time.time())
         duration = round(current_time - create_time)
