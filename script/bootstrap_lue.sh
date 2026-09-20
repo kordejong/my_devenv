@@ -154,17 +154,25 @@ function configure_builds() {
     hpx_preset="hpx_${cmake_build_type,,}_${hpx_preset}_configuration"
     lue_preset="${lue_preset}_${cmake_build_type,,}"
 
-    # NOTE: uncomment when needed
+    # NOTE: Uncomment when needed
     # lue_preset="${lue_preset}_sanitize"
 
     tmp_prefix="/tmp/bootstrap_lue-$username"
 
-    # NOTE: edit when needed
+    # NOTE: Edit when needed
+    # NOTE: Comment out hpx_branch to use a released version
+
+    # hpx_repository_url="https://github.com/STEllAR-GROUP/hpx.git"
     # hpx_branch="reduce_memory_caching"
     # hpx_branch="cached_allocator"
-    hpx_branch="master" # Comment to use a released version
-    hpx_version="2.0.0"
+    # hpx_branch="master"
+
+    hpx_repository_url="https://github.com/iemAnshuman/hpx.git"
+    hpx_branch="fix/caching-allocator-tls-lookup"
+
     # hpx_version="1.11.0"
+    hpx_version="2.0.0"
+
     hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
     hpx_build_directory="$hpx_source_directory/build"
     hpx_install_prefix="$install_prefix/hpx"
@@ -198,6 +206,8 @@ function configure_builds() {
     echo "repository zip prefix  : $repository_zip_prefix"
     echo "tmp prefix             : $tmp_prefix"
     if [[ $install_hpx == 1 ]]; then
+        echo "hpx_repository_url     : $hpx_repository_url"
+        echo "hpx_branch             : $hpx_branch"
         echo "hpx_version            : $hpx_version"
         echo "hpx_source_directory   : $hpx_source_directory"
         echo "hpx_build_directory    : $hpx_build_directory"
@@ -252,7 +262,7 @@ function install_hpx() {
         tar -zx --directory="$(dirname "$hpx_source_directory")" --file "$hpx_repository_zip"
     else
         # Use an unreleased version
-        git clone --depth 1 --branch "$hpx_branch" https://github.com/STEllAR-GROUP/hpx.git "$hpx_source_directory"
+        git clone --depth 1 --branch "$hpx_branch" $hpx_repository_url "$hpx_source_directory"
     fi
 
     mkdir "$hpx_build_directory"
