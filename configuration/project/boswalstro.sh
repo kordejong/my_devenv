@@ -19,7 +19,10 @@ cd "$BOSWALSTRO" || exit
 if [[ "$OSTYPE" == "msys" ]]; then
     source .venv/Scripts/activate
 else
-    source .venv/bin/activate
+    # source .venv/bin/activate
+
+    eval "$(~/miniforge3/bin/conda shell.bash hook)"
+    conda activate boswalstro
 fi
 
 export PYTHONPATH="$BOSWALSTRO/source/package:$PYTHONPATH"
