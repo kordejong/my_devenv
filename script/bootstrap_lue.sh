@@ -40,6 +40,14 @@ function configure_builds() {
         -D CMAKE_CXX_STANDARD=23 \
         -D HPX_WITH_EXAMPLES=ON \
     "
+    # if [[ $cmake_build_type == RelWithDebInfo ]]; then
+    #     cmake_args_hpx=" \
+    #         $cmake_args_hpx \
+    #         -D HPX_WITH_TRACY=TRUE \
+    #         -D HPX_WITH_FETCH_TRACY=TRUE \
+    #         -D HPX_WITH_PARCEL_PROFILING=TRUE \
+    #     "
+    # fi
     cmake_args_lue=" \
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
     "
@@ -162,13 +170,13 @@ function configure_builds() {
     # NOTE: Edit when needed
     # NOTE: Comment out hpx_branch to use a released version
 
-    # hpx_repository_url="https://github.com/STEllAR-GROUP/hpx.git"
+    hpx_repository_url="https://github.com/STEllAR-GROUP/hpx.git"
     # hpx_branch="reduce_memory_caching"
     # hpx_branch="cached_allocator"
-    # hpx_branch="master"
+    hpx_branch="master"
 
-    hpx_repository_url="https://github.com/iemAnshuman/hpx.git"
-    hpx_branch="fix/caching-allocator-tls-lookup"
+    # hpx_repository_url="https://github.com/iemAnshuman/hpx.git"
+    # hpx_branch="fix/caching-allocator-tls-lookup"
 
     # hpx_version="1.11.0"
     hpx_version="2.0.0"
