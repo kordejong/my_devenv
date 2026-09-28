@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import getpass
 import os
 import sys
 import time
@@ -14,25 +15,46 @@ Monitor process properties over time
 
 Usage:
     {command} <name>
+    {command} --list
 
 Options:
     name        Name of process to monitor. This can be a partial name, as long
                 as matching it against running processes results in a single hit.
     -h --help   Show this screen
+    --list      List process names
 """
 
     return usage
 
 
-def find_processes_by_name(name: str) -> list[psutil.Process]:
-
+def processes() -> list[psutil.Process]:
     processes = []
 
-    for process in psutil.process_iter(["name"]):
-        if name in process.info["name"]:
+    this_process_pid = os.getpid()
+
+    for process in psutil.process_iter(["name", "pid", "status", "username"]):
+        if (
+            process.info["username"] == getpass.getuser()
+            and process.info["pid"] != this_process_pid
+        ):
             processes.append(process)
 
     return processes
+
+
+def list_process_names() -> None:
+    processes_ = sorted(processes(), key=lambda process: process.info["name"])
+
+    print(
+        "\n".join(
+            f"{process.info['name']}, {process.info['pid']}, {process.info['username']}"
+            for process in processes_
+        )
+    )
+
+
+def find_processes_by_name(name: str) -> list[psutil.Process]:
+    return [process for process in processes() if name in process.info["name"]]
 
 
 def monitor_process(process: psutil.Process, *, interval: int, unit: str) -> None:
@@ -57,22 +79,27 @@ def monitor_process(process: psutil.Process, *, interval: int, unit: str) -> Non
         time.sleep(interval)
 
 
-if __name__ == "__main__":
-    arguments = docopt.docopt(usage())
+def monitor_process_by_name(name: str) -> None:
+    processes_ = find_processes_by_name(name)
 
-    name = arguments["<name>"]
-
-    processes = find_processes_by_name(name)
-
-    if not processes:
+    if not processes_:
         raise RuntimeError(f"We did not find a process named {name}")
-    if len(processes) > 1:
+    if len(processes_) > 1:
         raise RuntimeError(
-            f"We found multiple processes named {name}: {', '.join(process.name() for process in processes)}"
+            f"We found multiple processes named {name}: {', '.join(process.name() for process in processes_)}"
         )
 
     try:
-        monitor_process(processes[0], interval=5, unit="GiB")
+        monitor_process(processes_[0], interval=5, unit="GiB")
     except psutil.NoSuchProcess:
-        # Don't Panic. Process just stopped.
+        # Don't Panic. Process only just stopped.
         pass
+
+
+if __name__ == "__main__":
+    arguments = docopt.docopt(usage())
+
+    if arguments["--list"]:
+        list_process_names()
+    else:
+        monitor_process_by_name(arguments["<name>"])
