@@ -40,14 +40,27 @@ function configure_builds() {
         -D CMAKE_CXX_STANDARD=23 \
         -D HPX_WITH_EXAMPLES=ON \
     "
-    # if [[ $cmake_build_type == RelWithDebInfo ]]; then
-    #     cmake_args_hpx=" \
-    #         $cmake_args_hpx \
-    #         -D HPX_WITH_TRACY=TRUE \
-    #         -D HPX_WITH_FETCH_TRACY=TRUE \
-    #         -D HPX_WITH_PARCEL_PROFILING=TRUE \
-    #     "
-    # fi
+    # TODO: Configure apex to use jemalloc, etc(?)
+    if [[ $cmake_build_type == RelWithDebInfo ]]; then
+        cmake_args_hpx=" \
+            $cmake_args_hpx \
+            -D HPX_WITH_APEX=TRUE \
+    "
+    fi
+    # TODO: Configure support for tracy
+    if [[ $cmake_build_type == RelWithDebInfo ]]; then
+        cmake_args_hpx=" \
+            -D HPX_WITH_TRACY=FALSE \
+            -D HPX_WITH_FETCH_TRACY=TRUE \
+            -D HPX_WITH_PARCEL_PROFILING=TRUE \
+        "
+    fi
+
+    # TODO: Debug builds may need these:
+    # HPX_WITH_PAPI
+    # HPX_WITH_PARCELPORT_ACTION_COUNTERS
+    # HPX_WITH_THREAD_IDLE_RATES
+
     cmake_args_lue=" \
         -D CMAKE_BUILD_TYPE=$cmake_build_type \
     "
@@ -57,11 +70,15 @@ function configure_builds() {
     install_hpx=1
 
     if [[ $hostname == archlinux ]]; then
+        c_compiler="gcc"
+        cxx_compiler="g++"
         conan_compiler="gcc"
-        lue_conan_packages="imgui"
+        # lue_conan_packages="imgui"
         hpx_preset="linux_node"
         nr_jobs=8
     elif [[ $hostname == eejit ]]; then
+        c_compiler="gcc"
+        cxx_compiler="g++"
         conan_compiler="gcc"
         hpx_preset="cluster"
         nr_jobs=8
@@ -80,6 +97,8 @@ function configure_builds() {
             -D LUE_FRAMEWORK_INDEX_ELEMENT=std::int32_t \
             -D LUE_FRAMEWORK_ID_ELEMENT=std::int32_t \
         "
+        c_compiler="cl"
+        cxx_compiler="cl"
         conan_compiler="cl"
         hpx_conan_packages="asio boost hwloc mimalloc"
         lue_conan_packages="boost cxxopts gdal glfw imgui hdf5 nlohmann_json proj pybind11 vulkan-headers vulkan-loader"
@@ -93,20 +112,20 @@ function configure_builds() {
         "
         nr_jobs=10
     elif [[ $hostname == jureca ]]; then
+        c_compiler="gcc"
+        cxx_compiler="g++"
         conan_compiler="gcc"
         hpx_preset="cluster"
         install_hpx=0
         nr_jobs=8
     elif [[ $hostname == m1compiler ]]; then
+        c_compiler="clang"
+        cxx_compiler="clang++"
         conan_compiler="clang"
         hpx_preset="macos_node"
         cmake_args_hpx=" \
             ${cmake_args_hpx} \
             -D HPX_WITH_FETCH_ASIO=ON \
-        "
-        cmake_args_lue=" \
-            $cmake_args_lue \
-            -D LUE_BUILD_VIEW=FALSE \
         "
         # if [[ $cmake_build_type == Debug ]]; then
         #     cmake_args_lue=" \
@@ -117,6 +136,8 @@ function configure_builds() {
         # fi
         nr_jobs=4
     elif [[ $hostname == mammoth ]]; then
+        c_compiler="gcc"
+        cxx_compiler="g++"
         conan_compiler="gcc"
         hpx_preset="linux_node"
         nr_jobs=12
@@ -125,20 +146,33 @@ function configure_builds() {
             -D HPX_WITH_FETCH_ASIO=ON \
         "
     elif [[ $hostname == orkney ]]; then
+        c_compiler="gcc"
+        cxx_compiler="g++"
         conan_compiler="gcc"
-        lue_conan_packages="imgui"
+        # lue_conan_packages="imgui"
         hpx_preset="linux_node"
         nr_jobs=24
+
+        # TODO: Without these variables, Clang is picked. Why?
+        # TODO: If setting the variables is indeed needed, generalize.
+        export CC=gcc
+        export CXX=g++
     elif [[ $hostname == snowdon ]]; then
+        c_compiler="gcc"
+        cxx_compiler="g++"
         conan_compiler="gcc"
-        lue_conan_packages="imgui"
+        # lue_conan_packages="imgui"
         hpx_preset="linux_node"
         nr_jobs=4
     elif [[ $hostname == spider ]]; then
+        c_compiler="gcc"
+        cxx_compiler="g++"
         conan_compiler="gcc"
         hpx_preset="cluster"
         nr_jobs=$SLURM_CPUS_ON_NODE
     elif [[ $hostname == velocity ]]; then
+        c_compiler="gcc"
+        cxx_compiler="g++"
         conan_compiler="gcc"
         hpx_preset="linux_node"
         nr_jobs=8
@@ -171,15 +205,25 @@ function configure_builds() {
     # NOTE: Comment out hpx_branch to use a released version
 
     hpx_repository_url="https://github.com/STEllAR-GROUP/hpx.git"
-    # hpx_branch="reduce_memory_caching"
-    # hpx_branch="cached_allocator"
     hpx_branch="master"
-
-    # hpx_repository_url="https://github.com/iemAnshuman/hpx.git"
-    # hpx_branch="fix/caching-allocator-tls-lookup"
+    hpx_version="2.0.0"
 
     # hpx_version="1.11.0"
-    hpx_version="2.0.0"
+    # hpx_version="2.0.0-rc1"
+
+    # hpx_repository_url="https://github.com/iemAnshuman/hpx.git"
+
+    # hpx_branch="reduce_memory_caching"
+    # hpx_branch="cached_allocator"
+    # hpx_branch="fix/caching-allocator-tls-lookup"
+
+    # hpx_repository_url="https://github.com/fabiancrt/hpx.git"
+    # hpx_branch="investigate/7358-followup"
+    # hpx_version="2.0.0"
+    # cmake_args_hpx=" \
+    #     $cmake_args_hpx \
+    #     -D HPX_WITH_STDEXEC_TAG=04de75de5807e73a229acf047c6976575e313359
+    # "
 
     hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
     hpx_build_directory="$hpx_source_directory/build"
@@ -189,9 +233,16 @@ function configure_builds() {
     lue_source_directory="$LUE"
     lue_build_directory="$OBJECTS/$cmake_build_type/lue"
 
+    cmake_args_hpx=" \
+        $cmake_args_hpx \
+        -D CMAKE_CXX_COMPILER=$cxx_compiler \
+    "
+
     cmake_args_lue=" \
         $cmake_args_lue \
         -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE \
+        -D CMAKE_C_COMPILER=$c_compiler \
+        -D CMAKE_CXX_COMPILER=$cxx_compiler \
         -D mdspan_ROOT=$mdspan_install_prefix \
         -D CPM_USE_LOCAL_PACKAGES=TRUE \
         -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE
@@ -209,6 +260,8 @@ function configure_builds() {
     echo "build type             : $cmake_build_type"
     echo "hpx_conan_packages     : $hpx_conan_packages"
     echo "lue_conan_packages     : $lue_conan_packages"
+    echo "c_compiler             : $c_compiler"
+    echo "cxx_compiler           : $cxx_compiler"
     echo "conan_compiler         : $conan_compiler"
     echo "cmake_args_hpx         : "$cmake_args_hpx
     echo "cmake_args_lue         : "$cmake_args_lue
@@ -218,7 +271,7 @@ function configure_builds() {
     echo "tmp prefix             : $tmp_prefix"
     if [[ $install_hpx == 1 ]]; then
         echo "hpx_repository_url     : $hpx_repository_url"
-        echo "hpx_branch             : $hpx_branch"
+        echo "hpx_branch             : ${hpx_branch:-none: using tagged release}"
         echo "hpx_version            : $hpx_version"
         echo "hpx_source_directory   : $hpx_source_directory"
         echo "hpx_build_directory    : $hpx_build_directory"
@@ -265,6 +318,7 @@ function install_hpx() {
 
     if [ -z ${hpx_branch+x} ]; then
         # Use a released version
+        echo "Use a released version of HPX: version $hpx_version"
         hpx_repository_zip="$repository_zip_prefix/v${hpx_version}.tar.gz"
 
         if [ ! -f "$hpx_repository_zip" ]; then
@@ -274,6 +328,7 @@ function install_hpx() {
         tar -zx --directory="$(dirname "$hpx_source_directory")" --file "$hpx_repository_zip"
     else
         # Use an unreleased version
+        echo "Use an unreleased version of HPX: branch $hpx_branch"
         git clone --depth 1 --branch "$hpx_branch" $hpx_repository_url "$hpx_source_directory"
     fi
 
