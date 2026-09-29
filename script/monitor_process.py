@@ -19,9 +19,23 @@ Usage:
 
 Options:
     name        Name of process to monitor. This can be a partial name, as long
-                as matching it against running processes results in a single hit.
+                as matching it against running processes results in a single
+                hit. Run the command with the --list option to find out about
+                process names. They may not be the same as the command used to
+                start them.
     -h --help   Show this screen
     --list      List process names
+
+Workflow:
+
+Example on Linux, HPX application:
+
+$ {command} main-thread | tee my_app.col
+
+Results can be plot like this:
+
+$ plot.py --x_label="time (s)" --y_label="memory usage (RSS in GiB)" \
+    --line my_app.col my_app.png
 """
 
     return usage
