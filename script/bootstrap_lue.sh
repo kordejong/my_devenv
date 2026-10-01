@@ -40,17 +40,18 @@ function configure_builds() {
         -D CMAKE_CXX_STANDARD=23 \
         -D HPX_WITH_EXAMPLES=ON \
     "
-    # TODO: Configure apex to use jemalloc, etc(?)
-    if [[ $cmake_build_type == RelWithDebInfo ]]; then
-        cmake_args_hpx=" \
-            $cmake_args_hpx \
-            -D HPX_WITH_APEX=TRUE \
-    "
-    fi
+    # # TODO: Configure apex to use jemalloc, etc(?)
+    # if [[ $cmake_build_type == RelWithDebInfo ]]; then
+    #     cmake_args_hpx=" \
+    #         $cmake_args_hpx \
+    #         -D HPX_WITH_APEX=TRUE \
+    # "
+    # fi
     # TODO: Configure support for tracy
     if [[ $cmake_build_type == RelWithDebInfo ]]; then
         cmake_args_hpx=" \
-            -D HPX_WITH_TRACY=FALSE \
+            $cmake_args_hpx \
+            -D HPX_WITH_TRACY=TRUE \
             -D HPX_WITH_FETCH_TRACY=TRUE \
             -D HPX_WITH_PARCEL_PROFILING=TRUE \
         "
@@ -224,6 +225,10 @@ function configure_builds() {
     #     $cmake_args_hpx \
     #     -D HPX_WITH_STDEXEC_TAG=04de75de5807e73a229acf047c6976575e313359
     # "
+
+    # hpx_repository_url="https://github.com/v4xsh/hpx"
+    # hpx_branch="tracy-install-export"
+    # hpx_version="2.0.0"
 
     hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
     hpx_build_directory="$hpx_source_directory/build"
