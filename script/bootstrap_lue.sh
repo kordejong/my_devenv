@@ -313,6 +313,19 @@ function preprocess_conan_install() {
     python "$lue_source_directory/environment/script/write_conan_profile.py" $conan_compiler $lue_source_directory/build_profile
 }
 
+function install_conan_packages() {
+    output_directory=$1
+
+    # Install Conan packages needed for both HPX and LUE, because Conan must be able to handle dependencies
+    LUE_CONAN_PACKAGES="$hpx_conan_packages $lue_conan_packages" \
+        conan install $lue_source_directory \
+        --profile:host=$lue_source_directory/host_profile \
+        --profile:build=$lue_source_directory/build_profile \
+        --settings=build_type=$cmake_build_type \
+        --build=missing \
+        --output-folder=$output_directory
+}
+
 function install_hpx() {
     if [ -d "$hpx_install_prefix" ]; then
         echo "→ Not installing HPX because it already exists: $hpx_install_prefix"
@@ -346,13 +359,7 @@ function install_hpx() {
     ln -s -f $MY_DEVENV/configuration/project/hpx/CMakeUserPresets-base.json "$hpx_source_directory"
 
     if [[ ${hpx_conan_packages} ]]; then
-        LUE_CONAN_PACKAGES="$hpx_conan_packages" \
-            conan install $lue_source_directory \
-            --profile:host=$lue_source_directory/host_profile \
-            --profile:build=$lue_source_directory/build_profile \
-            --settings=build_type=$cmake_build_type \
-            --build=missing \
-            --output-folder=$hpx_build_directory
+        install_conan_packages $hpx_build_directory
 
         ln -s -f $MY_DEVENV/configuration/project/hpx/CMakeUserPresets-Conan${cmake_build_type}.json $hpx_source_directory/CMakeUserPresets.json
         ln -s -f $hpx_build_directory/conan_toolchain.cmake $hpx_source_directory/conan_toolchain.cmake
@@ -361,17 +368,12 @@ function install_hpx() {
         ln -s -f $lue_source_directory/CMakePresets.json $hpx_source_directory
 
         if [[ ${hpx_conan_packages} == *asio* ]]; then
-            # Conan's asio target is named different than in all other cases. Sigh...
+            # Conan and HPX disagree on the casing of the asio target
             sed -i'' '27 a \ \ add_library(Asio::asio ALIAS asio::asio)' $hpx_source_directory/cmake/HPX_SetupAsio.cmake
         fi
 
-        if [[ ${hpx_conan_packages} == *boost* ]]; then
-            # Conan's Boost::headers target can't find the Boost headers. Sigh... Hack the path to the headers into the target.
-            sed -i'' "73 a \ \ \ \ target_include_directories(Boost::headers INTERFACE \${boost_PACKAGE_FOLDER_${cmake_build_type^^}}\/include)" $hpx_source_directory/cmake/HPX_SetupBoost.cmake
-        fi
-
         if [[ ${hpx_conan_packages} == *hwloc* ]]; then
-            # Conan's hwloc target is named different than in all other cases. Sigh...
+            # Conan and HPX disagree on the casing of the hwloc target
             sed -i'' '25 a \ \ add_library(Hwloc::hwloc ALIAS hwloc::hwloc)' $hpx_source_directory/cmake/HPX_SetupHwloc.cmake
         fi
     else
@@ -419,13 +421,7 @@ function configure_lue() {
 
     # NOTE We may have to merge hpx_conan_packages with lue_conan_packages here. If CMake can't find hpx_conan_packages.
     if [[ ${lue_conan_packages} ]]; then
-        LUE_CONAN_PACKAGES="$lue_conan_packages" \
-            conan install $lue_source_directory \
-            --profile:host=$lue_source_directory/host_profile \
-            --profile:build=$lue_source_directory/build_profile \
-            --settings=build_type=$cmake_build_type \
-            --build=missing \
-            --output-folder=$lue_build_directory
+        install_conan_packages $lue_build_directory
 
         ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${cmake_build_type}.json $lue_source_directory/CMakeUserPresets.json
         ln -s -f $lue_build_directory/conan_toolchain.cmake $lue_source_directory/conan_toolchain.cmake
