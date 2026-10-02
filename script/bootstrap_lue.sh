@@ -230,6 +230,10 @@ function configure_builds() {
     # hpx_branch="tracy-install-export"
     # hpx_version="2.0.0"
 
+    # hpx_repository_url="https://github.com/RohanOnKeys/hpx"
+    # hpx_branch="fix-install-python-tools"
+    # hpx_version="2.0.0"
+
     hpx_source_directory="$tmp_prefix/hpx-${hpx_version}"
     hpx_build_directory="$hpx_source_directory/build"
     hpx_install_prefix="$install_prefix/hpx"
