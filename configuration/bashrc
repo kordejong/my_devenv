@@ -239,6 +239,8 @@ alias start_http_server="python -m http.server"
 # alias docker_stop_running="docker stop \$(docker_list_running)"
 # alias docker_remove_exited="docker rm -v \$(docker_list_exited)"
 
+alias my_ranger="ranger . \$OBJECTS \$HOME"
+
 alias status_of_my_projects="my_git.py status codeberg gauja github juelich"
 
 # bashrc:
