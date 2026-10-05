@@ -163,6 +163,16 @@ function configure_builds() {
         cxx_compiler="g++"
         conan_compiler="gcc"
         # lue_conan_packages="imgui"
+        cmake_args_lue=" \
+            $cmake_args_lue \
+            -D LUE_FRAMEWORK_SIGNED_INTEGRAL_ELEMENTS=std::int32_t \
+            -D LUE_FRAMEWORK_UNSIGNED_INTEGRAL_ELEMENTS=std::uint8_t \
+            -D LUE_FRAMEWORK_FLOATING_POINT_ELEMENTS=float \
+            -D LUE_FRAMEWORK_BOOLEAN_ELEMENT=std::uint8_t \
+            -D LUE_FRAMEWORK_COUNT_ELEMENT=std::int32_t \
+            -D LUE_FRAMEWORK_INDEX_ELEMENT=std::int32_t \
+            -D LUE_FRAMEWORK_ID_ELEMENT=std::int32_t \
+        "
         hpx_preset="linux_node"
         nr_jobs=4
     elif [[ $hostname == spider ]]; then
