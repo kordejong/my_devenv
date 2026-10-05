@@ -55,6 +55,15 @@
             "cacheVariables": {}
         },
         {
+            "name": "snowdon_debug",
+            "inherits": [
+                "snowdon_configuration",
+                "kor_debug"
+            ],
+            "displayName": "snowdon / debug",
+            "cacheVariables": {}
+        },
+        {
             "name": "spider_debug",
             "inherits": [
                 "spider_configuration",
