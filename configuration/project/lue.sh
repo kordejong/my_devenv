@@ -196,17 +196,17 @@ elif [[ $LUE_HOSTNAME == "snellius" ]]; then
 
     source $LUE/env/bin/activate
 
-elif [[ $LUE_HOSTNAME == "snowdon" ]]; then
-    ### LUE_CMAKE_ARGUMENTS="
-    ###     $LUE_CMAKE_ARGUMENTS
-    ###     -DLUE_QA_TEST_NR_LOCALITIES_PER_TEST=2
-    ###     -DLUE_QA_TEST_NR_THREADS_PER_LOCALITY=2
-    ### "
-    ### CMAKE_BUILD_PARALLEL_LEVEL=4
-    ### # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
-    ### LUE_ROUTING_DATA="$HOME/development/data/project/routing"
-
-    source $LUE/env/bin/activate
+# elif [[ $LUE_HOSTNAME == "snowdon" ]]; then
+#     ### LUE_CMAKE_ARGUMENTS="
+#     ###     $LUE_CMAKE_ARGUMENTS
+#     ###     -DLUE_QA_TEST_NR_LOCALITIES_PER_TEST=2
+#     ###     -DLUE_QA_TEST_NR_THREADS_PER_LOCALITY=2
+#     ### "
+#     ### CMAKE_BUILD_PARALLEL_LEVEL=4
+#     ### # PYTHONPATH=$LUE_OBJECTS/lib:$PYTHONPATH
+#     ### LUE_ROUTING_DATA="$HOME/development/data/project/routing"
+#
+#     source $LUE/env/bin/activate
 
 elif [[ $LUE_HOSTNAME == "spider" ]]; then
     source $LUE/.venv/bin/activate
