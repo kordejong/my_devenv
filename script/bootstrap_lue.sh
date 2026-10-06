@@ -350,7 +350,7 @@ function install_hpx() {
 
     if [ -z ${hpx_branch+x} ]; then
         # Use a released version
-        echo "Use a released version of HPX: version $hpx_version"
+        echo "Using a released version of HPX: version $hpx_version"
         hpx_repository_zip="$repository_zip_prefix/v${hpx_version}.tar.gz"
 
         if [ ! -f "$hpx_repository_zip" ]; then
@@ -360,7 +360,7 @@ function install_hpx() {
         tar -zx --directory="$(dirname "$hpx_source_directory")" --file "$hpx_repository_zip"
     else
         # Use an unreleased version
-        echo "Use an unreleased version of HPX: branch $hpx_branch"
+        echo "Using an unreleased version of HPX: branch $hpx_branch"
         git clone --depth 1 --branch "$hpx_branch" $hpx_repository_url "$hpx_source_directory"
     fi
 
@@ -376,21 +376,21 @@ function install_hpx() {
         ln -s -f $hpx_build_directory/CMakePresets.json $hpx_source_directory/CMakeConanPresets.json
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory
         ln -s -f $lue_source_directory/CMakePresets.json $hpx_source_directory
-
-        if [[ ${hpx_conan_packages} == *asio* ]]; then
-            # Conan and HPX disagree on the casing of the asio target
-            sed -i'' '27 a \ \ add_library(Asio::asio ALIAS asio::asio)' $hpx_source_directory/cmake/HPX_SetupAsio.cmake
-        fi
-
-        if [[ ${hpx_conan_packages} == *hwloc* ]]; then
-            # Conan and HPX disagree on the casing of the hwloc target
-            sed -i'' '25 a \ \ add_library(Hwloc::hwloc ALIAS hwloc::hwloc)' $hpx_source_directory/cmake/HPX_SetupHwloc.cmake
-        fi
     else
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory/CMakeUserPresets.json
     fi
 
     cmake -G "Ninja" -S $hpx_source_directory -B $hpx_build_directory --preset ${hpx_preset} $cmake_args_hpx
+
+    echo
+    echo "Check the HPX configuration settings"
+    echo
+    read -p "Continue? [y/n] " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[y]$ ]]; then
+        exit 1
+    fi
+
     cmake --build $hpx_build_directory --parallel $nr_jobs --target all
     cmake --install $hpx_build_directory --prefix $hpx_install_prefix --strip
 
