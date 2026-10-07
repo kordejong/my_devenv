@@ -47,7 +47,6 @@ function configure_builds() {
     #         -D HPX_WITH_APEX=TRUE \
     # "
     # fi
-    # TODO: Configure support for tracy
     if [[ $cmake_build_type == RelWithDebInfo ]]; then
         cmake_args_hpx=" \
             $cmake_args_hpx \
@@ -153,11 +152,6 @@ function configure_builds() {
         # lue_conan_packages="imgui"
         hpx_preset="linux_node"
         nr_jobs=24
-
-        # TODO: Without these variables, Clang is picked. Why?
-        # TODO: If setting the variables is indeed needed, generalize.
-        export CC=gcc
-        export CXX=g++
     elif [[ $hostname == snowdon ]]; then
         c_compiler="gcc"
         cxx_compiler="g++"
