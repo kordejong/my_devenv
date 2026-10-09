@@ -266,6 +266,7 @@ shopt -s cdspell # Fix minor errors in spelling of directory names.
 unset cwd
 
 # ssh config ----------
+# TODO: Do this conditionally?
 
 # Start SSH agent if it is not already running
 if [ $OSTYPE == "msys" ]; then
