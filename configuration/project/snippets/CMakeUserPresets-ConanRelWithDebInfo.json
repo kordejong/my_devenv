@@ -1,0 +1,33 @@
+{
+    "version": 10,
+    "include": [
+        "CMakeConanPresets.json",
+        "CMakeUserPresets-base.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "snippets_gcc_relwithdebinfo_conan_configuration",
+            "inherits": [
+                "snippets_gcc_relwithdebinfo_configuration",
+                "conan-relwithdebinfo"
+            ],
+            "displayName": "snippets / gcc / relwithdebinfo / conan"
+        },
+        {
+            "name": "snippets_clang_relwithdebinfo_conan_configuration",
+            "inherits": [
+                "snippets_clang_relwithdebinfo_configuration",
+                "conan-relwithdebinfo"
+            ],
+            "displayName": "snippets / clang / relwithdebinfo / conan"
+        },
+        {
+            "name": "snippets_msvc_relwithdebinfo_conan_configuration",
+            "inherits": [
+                "snippets_msvc_relwithdebinfo_configuration",
+                "conan-relwithdebinfo"
+            ],
+            "displayName": "snippets / msvc / relwithdebinfo / conan"
+        }
+    ]
+}
