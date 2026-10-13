@@ -22,12 +22,12 @@
             "displayName": "snippets / clang / debug / conan"
         },
         {
-            "name": "snippets_msvc_debug_conan_configuration",
+            "name": "snippets_cl_debug_conan_configuration",
             "inherits": [
-                "snippets_msvc_debug_configuration",
+                "snippets_cl_debug_configuration",
                 "conan-debug"
             ],
-            "displayName": "snippets / msvc / debug / conan"
+            "displayName": "snippets / cl / debug / conan"
         }
     ]
 }

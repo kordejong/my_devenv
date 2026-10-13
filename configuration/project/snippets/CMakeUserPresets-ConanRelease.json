@@ -22,12 +22,12 @@
             "displayName": "snippets / clang / release / conan"
         },
         {
-            "name": "snippets_msvc_release_conan_configuration",
+            "name": "snippets_cl_release_conan_configuration",
             "inherits": [
-                "snippets_msvc_release_configuration",
+                "snippets_cl_release_configuration",
                 "conan-release"
             ],
-            "displayName": "snippets / msvc / release / conan"
+            "displayName": "snippets / cl / release / conan"
         }
     ]
 }
