@@ -68,6 +68,7 @@ function configure_builds() {
     lue_conan_packages=""
     # lue_preset="${hostname}_${cmake_build_type,,}"
     install_hpx=1
+    configure_snippets=0
 
     if [[ $hostname == archlinux ]]; then
         c_compiler="gcc"
@@ -111,6 +112,7 @@ function configure_builds() {
             -D HPX_WITH_MALLOC=system \
         "
         nr_jobs=10
+        configure_snippets=1
     elif [[ $hostname == jureca ]]; then
         c_compiler="gcc"
         cxx_compiler="g++"
@@ -152,6 +154,7 @@ function configure_builds() {
         # lue_conan_packages="imgui"
         hpx_preset="linux_node"
         nr_jobs=24
+        configure_snippets=1
     elif [[ $hostname == snowdon ]]; then
         c_compiler="gcc"
         cxx_compiler="g++"
@@ -296,8 +299,27 @@ function configure_builds() {
     echo "lue_build_directory    : $lue_build_directory"
     echo "lue preset             : $lue_preset"
 
-    echo
-    echo "An existing LUE CMakeCache will be used. It may make sense to first delete the LUE build directory."
+    if [[ $configure_snippets == 1 ]]; then
+        if [ -z ${SNIPPETS+x} ]; then
+            echo "\$SNIPPETS is unset"
+            exit 1
+        fi
+
+        cmake_args_snippets="
+            -D CMAKE_EXPORT_COMPILER_COMMANDS=TRUE
+            -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE
+            -D CMAKE_C_COMPILER=$c_compiler
+            -D CMAKE_CXX_COMPILER=$cxx_compiler
+            -D HPX_ROOT=$hpx_install_prefix
+        "
+        snippets_source_directory="$SNIPPETS"
+        snippets_build_directory="$OBJECTS/$cmake_build_type/snippets"
+
+        echo "cmake_args_snippets      : "$cmake_args_snippets
+        echo "snippets_source_directory: $snippets_source_directory"
+        echo "snippets_build_directory : $snippets_build_directory"
+    fi
+
     echo
     read -p "Continue? [y/n] " -n 1 -r
     echo
@@ -423,7 +445,6 @@ function install_mdspan() {
 function configure_lue() {
     ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $lue_source_directory
 
-    # NOTE We may have to merge hpx_conan_packages with lue_conan_packages here. If CMake can't find hpx_conan_packages.
     if [[ ${lue_conan_packages} ]]; then
         install_conan_packages $lue_build_directory
 
@@ -437,9 +458,35 @@ function configure_lue() {
     # Add for profiling (linux, gprof):
     # -D CMAKE_CXX_FLAGS=-pg -D CMAKE_EXE_LINKER_FLAGS=-pg -D CMAKE_SHARED_LINKER_FLAGS=-pg -D CMAKE_MODULE_LINKER_FLAGS=-pg
 
+    if [ -f "$lue_build_directory/CMakeCache" ]; then
+        rm "$lue_build_directory/CMakeCache"
+    fi
+
     cmake -G "Ninja" -S $lue_source_directory -B $lue_build_directory --preset ${lue_preset} ${cmake_args_lue}
 
     ln -s -f $lue_build_directory/compile_commands.json $lue_source_directory
+}
+
+function configure_snippets() {
+    # ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $lue_source_directory
+
+    if [ ! -z "${hpx_conan_packages}${lue_conan_packages}" ]; then
+        install_conan_packages $snippets_build_directory
+
+        # ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${cmake_build_type}.json $lue_source_directory/CMakeUserPresets.json
+        # ln -s -f $lue_build_directory/conan_toolchain.cmake $lue_source_directory/conan_toolchain.cmake
+        # ln -s -f $lue_build_directory/CMakePresets.json $lue_source_directory/CMakeConanPresets.json
+    # else
+    #     # ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-${cmake_build_type}.json $lue_source_directory/CMakeUserPresets.json
+    fi
+
+    if [ -f "$snippets_build_directory/CMakeCache" ]; then
+        rm "$snippets_build_directory/CMakeCache"
+    fi
+
+    cmake -G "Ninja" -S $snippets_source_directory -B $snippets_build_directory ${cmake_args_snippets}
+
+    ln -s -f $snippets_build_directory/compile_commands.json $snippets_source_directory
 }
 
 parse_command_line $@
@@ -452,6 +499,9 @@ if [[ $install_hpx == 1 ]]; then
 fi
 install_mdspan
 configure_lue
+if [[ $configure_snippets == 1 ]]; then
+    configure_snippets
+fi
 
 echo -e "\n"
 echo "--------------------------------------------------------------------------------------------"
