@@ -254,19 +254,19 @@ function configure_builds() {
         -D CMAKE_CXX_COMPILER=$cxx_compiler \
     "
 
-    cmake_args_lue=" \
-        $cmake_args_lue \
-        -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE \
-        -D CMAKE_C_COMPILER=$c_compiler \
-        -D CMAKE_CXX_COMPILER=$cxx_compiler \
-        -D mdspan_ROOT=$mdspan_install_prefix \
-        -D CPM_USE_LOCAL_PACKAGES=TRUE \
+    cmake_args_lue="
+        $cmake_args_lue
+        -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE
+        -D CMAKE_C_COMPILER=$c_compiler
+        -D CMAKE_CXX_COMPILER=$cxx_compiler
+        -D mdspan_ROOT=$mdspan_install_prefix
         -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE
     "
+    # -D CPM_USE_LOCAL_PACKAGES=TRUE
 
     if [[ $install_hpx == 1 ]]; then
         cmake_args_lue="
-            $cmake_args_lue \
+            $cmake_args_lue
             -D HPX_ROOT=$hpx_install_prefix
         "
     fi
@@ -310,10 +310,23 @@ function configure_builds() {
             -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE
             -D CMAKE_C_COMPILER=$c_compiler
             -D CMAKE_CXX_COMPILER=$cxx_compiler
-            -D HPX_ROOT=$hpx_install_prefix
         "
+
+        if [[ $install_hpx == 1 ]]; then
+            cmake_args_snippets="
+                $cmake_args_snippets
+                -D HPX_ROOT=$hpx_install_prefix
+            "
+        fi
+
         snippets_source_directory="$SNIPPETS"
         snippets_build_directory="$OBJECTS/$cmake_build_type/snippets"
+
+        if [ ! -z "${hpx_conan_packages}${lue_conan_packages}" ]; then
+            snippets_preset="snippets_${conan_compiler}_${cmake_build_type,,}_conan_configuration"
+        else
+            snippets_preset="TODO"
+        fi
 
         echo "cmake_args_snippets      : "$cmake_args_snippets
         echo "snippets_source_directory: $snippets_source_directory"
@@ -388,7 +401,6 @@ function install_hpx() {
         install_conan_packages $hpx_build_directory
 
         ln -s -f $MY_DEVENV/configuration/project/hpx/CMakeUserPresets-Conan${cmake_build_type}.json $hpx_source_directory/CMakeUserPresets.json
-        ln -s -f $hpx_build_directory/conan_toolchain.cmake $hpx_source_directory/conan_toolchain.cmake
         ln -s -f $hpx_build_directory/CMakePresets.json $hpx_source_directory/CMakeConanPresets.json
         ln -s -f $lue_source_directory/CMakeHPXPresets.json $hpx_source_directory
         ln -s -f $lue_source_directory/CMakePresets.json $hpx_source_directory
@@ -449,7 +461,6 @@ function configure_lue() {
         install_conan_packages $lue_build_directory
 
         ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${cmake_build_type}.json $lue_source_directory/CMakeUserPresets.json
-        ln -s -f $lue_build_directory/conan_toolchain.cmake $lue_source_directory/conan_toolchain.cmake
         ln -s -f $lue_build_directory/CMakePresets.json $lue_source_directory/CMakeConanPresets.json
     else
         ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-${cmake_build_type}.json $lue_source_directory/CMakeUserPresets.json
@@ -462,29 +473,37 @@ function configure_lue() {
         rm "$lue_build_directory/CMakeCache"
     fi
 
+    if [ -d "$lue_build_directory/CMakeFiles" ]; then
+        rm -r "$lue_build_directory/CMakeFiles"
+    fi
+
     cmake -G "Ninja" -S $lue_source_directory -B $lue_build_directory --preset ${lue_preset} ${cmake_args_lue}
 
     ln -s -f $lue_build_directory/compile_commands.json $lue_source_directory
 }
 
 function configure_snippets() {
-    # ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-base.json $lue_source_directory
+    ln -s -f $MY_DEVENV/configuration/project/snippets/CMakeUserPresets-base.json $snippets_source_directory
 
     if [ ! -z "${hpx_conan_packages}${lue_conan_packages}" ]; then
         install_conan_packages $snippets_build_directory
 
-        # ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-Conan${cmake_build_type}.json $lue_source_directory/CMakeUserPresets.json
-        # ln -s -f $lue_build_directory/conan_toolchain.cmake $lue_source_directory/conan_toolchain.cmake
-        # ln -s -f $lue_build_directory/CMakePresets.json $lue_source_directory/CMakeConanPresets.json
-    # else
-    #     # ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-${cmake_build_type}.json $lue_source_directory/CMakeUserPresets.json
+        ln -s -f $MY_DEVENV/configuration/project/snippets/CMakeUserPresets-Conan${cmake_build_type}.json $snippets_source_directory/CMakeUserPresets.json
+        ln -s -f $snippets_build_directory/CMakePresets.json $snippets_source_directory/CMakeConanPresets.json
+    else
+        echo "TODO: which preset to use?"
+        # ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-${cmake_build_type}.json $snippets_source_directory/CMakeUserPresets.json
     fi
 
     if [ -f "$snippets_build_directory/CMakeCache" ]; then
         rm "$snippets_build_directory/CMakeCache"
     fi
 
-    cmake -G "Ninja" -S $snippets_source_directory -B $snippets_build_directory ${cmake_args_snippets}
+    if [ -d "$snippets_build_directory/CMakeFiles" ]; then
+        rm -r "$snippets_build_directory/CMakeFiles"
+    fi
+
+    cmake -G "Ninja" -S $snippets_source_directory -B $snippets_build_directory --preset ${snippets_preset} ${cmake_args_snippets}
 
     ln -s -f $snippets_build_directory/compile_commands.json $snippets_source_directory
 }
