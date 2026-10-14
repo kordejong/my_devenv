@@ -1,44 +1,60 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ -z ${MY_DEVENV+x} ]; then
-    echo "\$MY_DEVENV is unset"
-    exit 1
-fi
+function assert_variable_is_set() {
+    local variable_name=$1
 
-if [ -z ${LUE+x} ]; then
-    echo "\$LUE is unset"
-    exit 1
-fi
+    if [ -z ${!variable_name+x} ]; then
+        echo "${variable_name} is unset"
+        exit 1
+    fi
+}
 
-if [ -z ${OBJECTS+x} ]; then
-    echo "\$OBJECTS is unset"
-    exit 1
-fi
+function determine_username() {
+    if [ -z ${USER+x} ]; then
+        local username="$USERNAME"
+    else
+        assert_variable_is_set "USER"
+        local username="$USER"
+    fi
 
-if [ -z ${USER+x} ]; then
-    username=$USERNAME
-else
-    username=$USER
-fi
+    echo "$username"
+}
 
 function parse_command_line() {
-    usage="$(basename $0) <hostname> <build_type>"
+    local usage="$(basename "$0") <hostname> <build_type>"
 
     if [[ $# != 2 ]]; then
-        echo $usage
+        echo "$usage"
         exit 1
     fi
 
-    hostname=$1
-    cmake_build_type=$2
+    hostname="$1"
+    cmake_build_type="$2"
+}
+
+function print_header() {
+    local title="$1"
+
+    printf "\n[%s]\n" "$title"
+}
+
+function print_message() {
+    local label="$1"
+    local value="$2"
+
+    # Get rid of newlines, nested whitespace, leading and trailing whitespace
+    value=$(echo "$value" | tr -d "\n")
+    value=$(echo "$value" | tr -s " ")
+    value=${value%% }
+    value=${value## }
+
+    printf "    %-25s: $value\n" "$label"
 }
 
 function configure_builds() {
     cmake_args_hpx="\
-        -D CMAKE_BUILD_TYPE=$cmake_build_type \
-        -D CMAKE_CXX_STANDARD=23 \
-        -D HPX_WITH_EXAMPLES=ON \
+        -D HPX_WITH_EXAMPLES=ON
     "
     # # TODO: Configure apex to use jemalloc, etc(?)
     # if [[ $cmake_build_type == RelWithDebInfo ]]; then
@@ -61,9 +77,15 @@ function configure_builds() {
     # HPX_WITH_PARCELPORT_ACTION_COUNTERS
     # HPX_WITH_THREAD_IDLE_RATES
 
-    cmake_args_lue=" \
-        -D CMAKE_BUILD_TYPE=$cmake_build_type \
+    cmake_args_lue="
+        -D CMAKE_EXPORT_COMPILER_COMMANDS=TRUE
+        -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE
     "
+    cmake_args_snippets="
+        -D CMAKE_EXPORT_COMPILER_COMMANDS=TRUE
+        -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE
+    "
+
     hpx_conan_packages=""
     lue_conan_packages=""
     # lue_preset="${hostname}_${cmake_build_type,,}"
@@ -172,6 +194,7 @@ function configure_builds() {
         "
         hpx_preset="linux_node"
         nr_jobs=4
+        configure_snippets=1
     elif [[ $hostname == spider ]]; then
         c_compiler="gcc"
         cxx_compiler="g++"
@@ -187,6 +210,16 @@ function configure_builds() {
     else
         "Unknown hostname: $hostname"
     fi
+
+    cmake_args_common="
+        -D CMAKE_BUILD_TYPE=$cmake_build_type
+        -D CMAKE_C_COMPILER=$c_compiler
+        -D CMAKE_CXX_COMPILER=$cxx_compiler
+        -D CMAKE_CXX_STANDARD=23
+    "
+    cmake_args_hpx="$cmake_args_common $cmake_args_hpx"
+    cmake_args_lue="$cmake_args_common $cmake_args_lue"
+    cmake_args_snippets="$cmake_args_common $cmake_args_snippets"
 
     install_prefix=$(realpath "$OBJECTS/../opt")/$cmake_build_type
     repository_zip_prefix=$(realpath "$OBJECTS/../repository")
@@ -249,16 +282,8 @@ function configure_builds() {
     lue_source_directory="$LUE"
     lue_build_directory="$OBJECTS/$cmake_build_type/lue"
 
-    cmake_args_hpx=" \
-        $cmake_args_hpx \
-        -D CMAKE_CXX_COMPILER=$cxx_compiler \
-    "
-
     cmake_args_lue="
         $cmake_args_lue
-        -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE
-        -D CMAKE_C_COMPILER=$c_compiler
-        -D CMAKE_CXX_COMPILER=$cxx_compiler
         -D mdspan_ROOT=$mdspan_install_prefix
         -D LUE_FRAMEWORK_WITH_IMAGE_LAND=TRUE
     "
@@ -271,46 +296,11 @@ function configure_builds() {
         "
     fi
 
-    echo "Setting up $cmake_build_type build on $hostname"
-    echo "hostname               : $hostname"
-    echo "build type             : $cmake_build_type"
-    echo "hpx_conan_packages     : $hpx_conan_packages"
-    echo "lue_conan_packages     : $lue_conan_packages"
-    echo "c_compiler             : $c_compiler"
-    echo "cxx_compiler           : $cxx_compiler"
-    echo "conan_compiler         : $conan_compiler"
-    echo "cmake_args_hpx         : "$cmake_args_hpx
-    echo "cmake_args_lue         : "$cmake_args_lue
-    echo "nr parallel jobs to use: $nr_jobs"
-    echo "install prefix         : $install_prefix"
-    echo "repository zip prefix  : $repository_zip_prefix"
-    echo "tmp prefix             : $tmp_prefix"
-    if [[ $install_hpx == 1 ]]; then
-        echo "hpx_repository_url     : $hpx_repository_url"
-        echo "hpx_branch             : ${hpx_branch:-none: using tagged release}"
-        echo "hpx_version            : $hpx_version"
-        echo "hpx_source_directory   : $hpx_source_directory"
-        echo "hpx_build_directory    : $hpx_build_directory"
-        echo "hpx_install_prefix     : $hpx_install_prefix"
-        echo "hpx preset             : $hpx_preset"
-    fi
-    echo "mdspan_install_prefix  : $mdspan_install_prefix"
-    echo "lue_source_directory   : $lue_source_directory"
-    echo "lue_build_directory    : $lue_build_directory"
-    echo "lue preset             : $lue_preset"
-
     if [[ $configure_snippets == 1 ]]; then
         if [ -z ${SNIPPETS+x} ]; then
             echo "\$SNIPPETS is unset"
             exit 1
         fi
-
-        cmake_args_snippets="
-            -D CMAKE_EXPORT_COMPILER_COMMANDS=TRUE
-            -D CMAKE_VERIFY_INTERFACE_HEADER_SETS=TRUE
-            -D CMAKE_C_COMPILER=$c_compiler
-            -D CMAKE_CXX_COMPILER=$cxx_compiler
-        "
 
         if [[ $install_hpx == 1 ]]; then
             cmake_args_snippets="
@@ -325,12 +315,51 @@ function configure_builds() {
         if [ ! -z "${hpx_conan_packages}${lue_conan_packages}" ]; then
             snippets_preset="snippets_${conan_compiler}_${cmake_build_type,,}_conan_configuration"
         else
-            snippets_preset="TODO"
+            snippets_preset="snippets_${c_compiler}_${cmake_build_type,,}_configuration"
         fi
+    fi
 
-        echo "cmake_args_snippets      : "$cmake_args_snippets
-        echo "snippets_source_directory: $snippets_source_directory"
-        echo "snippets_build_directory : $snippets_build_directory"
+    print_header "general"
+    print_message "hostname" "$hostname"
+    print_message "username" "$username"
+    print_message "build_type" "$cmake_build_type"
+    print_message "c_compiler" "$c_compiler"
+    print_message "cxx_compiler" "$cxx_compiler"
+    print_message "conan_compiler" "$conan_compiler"
+    print_message "nr_jobs" "$nr_jobs"
+    print_message "install_prefix" "$install_prefix"
+    print_message "repository_zip_prefix" "$repository_zip_prefix"
+    print_message "tmp_prefix" "$tmp_prefix"
+
+    if [[ $install_hpx == 1 ]]; then
+        print_header "hpx"
+        print_message "hpx_conan_packages" "$hpx_conan_packages"
+        print_message "cmake_args_hpx" "$cmake_args_hpx"
+        print_message "hpx_repository_url" "$hpx_repository_url"
+        print_message "hpx_branch" "${hpx_branch:-none: using tagged release}"
+        print_message "hpx_version" "$hpx_version"
+        print_message "hpx_source_directory" "$hpx_source_directory"
+        print_message "hpx_build_directory" "$hpx_build_directory"
+        print_message "hpx_install_prefix" "$hpx_install_prefix"
+        print_message "hpx preset" "$hpx_preset"
+    fi
+
+    print_header "mdspan"
+    print_message "mdspan_install_prefix" "$mdspan_install_prefix"
+
+    print_header "lue"
+    print_message "lue_conan_packages" "$lue_conan_packages"
+    print_message "cmake_args_lue" "$cmake_args_lue"
+    print_message "lue_source_directory" "$lue_source_directory"
+    print_message "lue_build_directory" "$lue_build_directory"
+    print_message "lue preset" "$lue_preset"
+
+    if [[ $configure_snippets == 1 ]]; then
+        print_header "snippets"
+        print_message "cmake_args_snippets" "$cmake_args_snippets"
+        print_message "snippets_source_directory" "$snippets_source_directory"
+        print_message "snippets_build_directory" "$snippets_build_directory"
+        print_message "snippets_preset" "$snippets_preset"
     fi
 
     echo
@@ -343,13 +372,13 @@ function configure_builds() {
     lue_source_directory="$LUE"
     lue_build_directory="$OBJECTS/$cmake_build_type/lue"
 
-    mkdir -p $lue_build_directory
-    mkdir -p $tmp_prefix
+    mkdir -p "$lue_build_directory"
+    mkdir -p "$tmp_prefix"
 }
 
 function preprocess_conan_install() {
-    python "$lue_source_directory/environment/script/write_conan_profile.py" $conan_compiler $lue_source_directory/host_profile
-    python "$lue_source_directory/environment/script/write_conan_profile.py" $conan_compiler $lue_source_directory/build_profile
+    python "$lue_source_directory/environment/script/write_conan_profile.py" "$conan_compiler" "$lue_source_directory"/host_profile
+    python "$lue_source_directory/environment/script/write_conan_profile.py" "$conan_compiler" "$lue_source_directory"/build_profile
 }
 
 function install_conan_packages() {
@@ -357,12 +386,12 @@ function install_conan_packages() {
 
     # Install Conan packages needed for both HPX and LUE, because Conan must be able to handle dependencies
     LUE_CONAN_PACKAGES="$hpx_conan_packages $lue_conan_packages" \
-        conan install $lue_source_directory \
-        --profile:host=$lue_source_directory/host_profile \
-        --profile:build=$lue_source_directory/build_profile \
-        --settings=build_type=$cmake_build_type \
+        conan install "$lue_source_directory" \
+        --profile:host="$lue_source_directory"/host_profile \
+        --profile:build="$lue_source_directory"/build_profile \
+        --settings=build_type="$cmake_build_type" \
         --build=missing \
-        --output-folder=$output_directory
+        --output-folder="$output_directory"
 }
 
 function install_hpx() {
@@ -483,16 +512,12 @@ function configure_lue() {
 }
 
 function configure_snippets() {
-    ln -s -f $MY_DEVENV/configuration/project/snippets/CMakeUserPresets-base.json $snippets_source_directory
-
     if [ ! -z "${hpx_conan_packages}${lue_conan_packages}" ]; then
         install_conan_packages $snippets_build_directory
 
+        ln -s -f $MY_DEVENV/configuration/project/snippets/CMakeUserPresets-base.json $snippets_source_directory
         ln -s -f $MY_DEVENV/configuration/project/snippets/CMakeUserPresets-Conan${cmake_build_type}.json $snippets_source_directory/CMakeUserPresets.json
         ln -s -f $snippets_build_directory/CMakePresets.json $snippets_source_directory/CMakeConanPresets.json
-    else
-        echo "TODO: which preset to use?"
-        # ln -s -f $MY_DEVENV/configuration/project/lue/CMakeUserPresets-${cmake_build_type}.json $snippets_source_directory/CMakeUserPresets.json
     fi
 
     if [ -f "$snippets_build_directory/CMakeCache" ]; then
@@ -507,6 +532,11 @@ function configure_snippets() {
 
     ln -s -f $snippets_build_directory/compile_commands.json $snippets_source_directory
 }
+
+assert_variable_is_set MY_DEVENV
+assert_variable_is_set LUE
+assert_variable_is_set OBJECTS
+username="$(determine_username)"
 
 parse_command_line $@
 configure_builds
