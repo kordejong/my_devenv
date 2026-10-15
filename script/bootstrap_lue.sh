@@ -376,6 +376,23 @@ function configure_builds() {
     mkdir -p "$tmp_prefix"
 }
 
+function cleanup_cmake_build_directory() {
+    local build_directory=$1
+
+    if [[ ! -d $build_directory ]]; then
+        echo "Build directory $build_directory does not exist..."
+        exit 1
+    fi
+
+    if [ -f "$build_directory/CMakeCache.txt" ]; then
+        rm "$build_directory/CMakeCache.txt"
+    fi
+
+    if [ -d "$build_directory/CMakeFiles" ]; then
+        rm -r "$build_directory/CMakeFiles"
+    fi
+}
+
 function preprocess_conan_install() {
     python "$lue_source_directory/environment/script/write_conan_profile.py" "$conan_compiler" "$lue_source_directory"/host_profile
     python "$lue_source_directory/environment/script/write_conan_profile.py" "$conan_compiler" "$lue_source_directory"/build_profile
@@ -498,13 +515,7 @@ function configure_lue() {
     # Add for profiling (linux, gprof):
     # -D CMAKE_CXX_FLAGS=-pg -D CMAKE_EXE_LINKER_FLAGS=-pg -D CMAKE_SHARED_LINKER_FLAGS=-pg -D CMAKE_MODULE_LINKER_FLAGS=-pg
 
-    if [ -f "$lue_build_directory/CMakeCache" ]; then
-        rm "$lue_build_directory/CMakeCache"
-    fi
-
-    if [ -d "$lue_build_directory/CMakeFiles" ]; then
-        rm -r "$lue_build_directory/CMakeFiles"
-    fi
+    cleanup_cmake_build_directory "$lue_build_directory"
 
     cmake -G "Ninja" -S $lue_source_directory -B $lue_build_directory --preset ${lue_preset} ${cmake_args_lue}
 
@@ -520,13 +531,7 @@ function configure_snippets() {
         ln -s -f $snippets_build_directory/CMakePresets.json $snippets_source_directory/CMakeConanPresets.json
     fi
 
-    if [ -f "$snippets_build_directory/CMakeCache" ]; then
-        rm "$snippets_build_directory/CMakeCache"
-    fi
-
-    if [ -d "$snippets_build_directory/CMakeFiles" ]; then
-        rm -r "$snippets_build_directory/CMakeFiles"
-    fi
+    cleanup_cmake_build_directory "$snippets_build_directory"
 
     cmake -G "Ninja" -S $snippets_source_directory -B $snippets_build_directory --preset ${snippets_preset} ${cmake_args_snippets}
 
