@@ -1,20 +1,26 @@
-cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
-source $cwd/util.sh
+cwd=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "$cwd/util.sh"
 unset cwd
 
 parse_commandline $*
 
-export SNIPPETS="$PROJECTS/gauja/kordejong/snippets"
+SNIPPETS="$PROJECTS/codeberg/kordejong/snippets"
 
-basename=`basename $SNIPPETS`
+if [ ! -d "$SNIPPETS" ]; then
+    echo "ERROR: directory $SNIPPETS does not exist..."
+    return 1
+fi
+
+basename=$(basename "$SNIPPETS")
 
 SNIPPETS_OBJECTS="$OBJECTS/$MY_DEVENV_BUILD_TYPE/$basename"
 
 unset basename
 
-export SNIPPETS_OBJECTS
+export SNIPPETS SNIPPETS_OBJECTS
 
 unalias snippets 2>/dev/null
 
 cd $SNIPPETS
+source .venv/bin/activate
 pwd
