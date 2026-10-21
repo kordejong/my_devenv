@@ -56,6 +56,7 @@ function configure_builds() {
     cmake_args_hpx="\
         -D HPX_WITH_EXAMPLES=ON
     "
+    # TODO: Configure support for tracing PER HOST!
     # # TODO: Configure apex to use jemalloc, etc(?)
     # if [[ $cmake_build_type == RelWithDebInfo ]]; then
     #     cmake_args_hpx=" \
