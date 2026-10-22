@@ -45,8 +45,8 @@ elif [[ $LUE_HOSTNAME == jr* ]]; then
     LUE_HOSTNAME="jureca"
 elif [[ $LUE_HOSTNAME == wn-dc-05 ]]; then
     LUE_HOSTNAME="spider"
-elif [[ $LUE_HOSTNAME == uu107273 || $LUE_HOSTNAME == uu-c07hg08bq6p0 ]]; then
-    LUE_HOSTNAME="m1compiler"
+# elif [[ $LUE_HOSTNAME == uu107273 || $LUE_HOSTNAME == uu-c07hg08bq6p0 ]]; then
+#     LUE_HOSTNAME="m1compiler"
 elif [[ $HOME == /eejit/* ]]; then
     LUE_HOSTNAME="eejit"
 fi
@@ -137,19 +137,6 @@ elif [[ $LUE_HOSTNAME == "hoy" ]]; then
     source $LUE/env/Scripts/activate
     # eval "$($HOME/miniforge3/Scripts/conda shell.bash hook)"
     # conda activate lue_dev
-elif [[ $LUE_HOSTNAME == "m1compiler" ]]; then
-    # macOS platform for testing build of LUE using Conda packages. These should be installed.
-    ### LUE_CMAKE_ARGUMENTS="
-    ###     $LUE_CMAKE_ARGUMENTS
-    ###     -DLUE_BUILD_DOCUMENTATION:BOOL=FALSE
-    ###     -DLUE_QA_TEST_NR_LOCALITIES_PER_TEST=2
-    ###     -DLUE_QA_TEST_NR_THREADS_PER_LOCALITY=2
-    ###     -DLUE_QA_TEST_HPX_RUNWRAPPER=none
-    ###     -DLUE_QA_TEST_HPX_PARCELPORT=tcp
-    ### "
-    ### CMAKE_BUILD_PARALLEL_LEVEL=4
-
-    source $LUE/env/bin/activate
 
 elif [[ $LUE_HOSTNAME == "login01" ]]; then
     # Platform for production runs.
