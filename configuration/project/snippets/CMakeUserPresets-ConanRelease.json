@@ -1,0 +1,33 @@
+{
+    "version": 10,
+    "include": [
+        "CMakeConanPresets.json",
+        "CMakeUserPresets-base.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "snippets_gcc_release_conan_configuration",
+            "inherits": [
+                "snippets_gcc_release_configuration",
+                "conan-release"
+            ],
+            "displayName": "snippets / gcc / release / conan"
+        },
+        {
+            "name": "snippets_clang_release_conan_configuration",
+            "inherits": [
+                "snippets_clang_release_configuration",
+                "conan-release"
+            ],
+            "displayName": "snippets / clang / release / conan"
+        },
+        {
+            "name": "snippets_cl_release_conan_configuration",
+            "inherits": [
+                "snippets_cl_release_configuration",
+                "conan-release"
+            ],
+            "displayName": "snippets / cl / release / conan"
+        }
+    ]
+}

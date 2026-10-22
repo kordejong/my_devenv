@@ -1,0 +1,33 @@
+{
+    "version": 10,
+    "include": [
+        "CMakeConanPresets.json",
+        "CMakeUserPresets-base.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "snippets_gcc_debug_conan_configuration",
+            "inherits": [
+                "snippets_gcc_debug_configuration",
+                "conan-debug"
+            ],
+            "displayName": "snippets / gcc / debug / conan"
+        },
+        {
+            "name": "snippets_clang_debug_conan_configuration",
+            "inherits": [
+                "snippets_clang_debug_configuration",
+                "conan-debug"
+            ],
+            "displayName": "snippets / clang / debug / conan"
+        },
+        {
+            "name": "snippets_cl_debug_conan_configuration",
+            "inherits": [
+                "snippets_cl_debug_configuration",
+                "conan-debug"
+            ],
+            "displayName": "snippets / cl / debug / conan"
+        }
+    ]
+}
