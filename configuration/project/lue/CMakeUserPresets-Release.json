@@ -51,6 +51,14 @@
                 "kor_release"
             ],
             "displayName": "mammoth / release"
+        },
+        {
+            "name": "orkney_release",
+            "inherits": [
+                "orkney_configuration",
+                "kor_release"
+            ],
+            "displayName": "orkney / release"
         }
     ]
 }

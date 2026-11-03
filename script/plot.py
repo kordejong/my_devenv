@@ -68,6 +68,7 @@ def plot(
     line_input_paths: list[Path],
     point_input_paths: list[Path],
     bar_input_paths: list[Path],
+    title: str | None,
     x_label: str | None,
     y_label: str | None,
     output_path: Path,
@@ -78,6 +79,9 @@ def plot(
     create_point_plots(point_input_paths)
     create_bar_plots(bar_input_paths)
     matplotlib.pyplot.legend()
+
+    if title is not None:
+        matplotlib.pyplot.title(title)
 
     if x_label is not None:
         matplotlib.pyplot.xlabel(x_label)
@@ -94,9 +98,10 @@ def main() -> int:
 Create pdf with plots
 
 Usage:
-    {command} [--line=LINE_INPUT...] [--point=POINT_INPUT...] [--bar=BAR_INPUT...]
-      [--x_label=<x_label>] [--y_label=<y_label>] OUTPUT
-    plot.py -h | --help
+  {command} [--title=<title>]
+    [--line=LINE_INPUT...] [--point=POINT_INPUT...] [--bar=BAR_INPUT...]
+    [--x_label=<x_label>] [--y_label=<y_label>] OUTPUT
+  plot.py -h | --help
 
 Options:
     -h --help        Show this screen.
@@ -111,6 +116,7 @@ Options:
     bar_input_paths = [Path(filename) for filename in arguments["--bar"]]
     output_path = Path(arguments["OUTPUT"])
 
+    title = arguments["--title"]
     x_label = arguments["--x_label"]
     y_label = arguments["--y_label"]
 
@@ -118,6 +124,7 @@ Options:
         line_input_paths,
         point_input_paths,
         bar_input_paths,
+        title,
         x_label,
         y_label,
         output_path,

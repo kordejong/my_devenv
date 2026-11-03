@@ -1,0 +1,7 @@
+{
+    "version": 10,
+    "include": [
+        "CMakePresets.json"
+    ],
+    "configurePresets": []
+}

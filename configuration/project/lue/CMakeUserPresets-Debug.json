@@ -43,8 +43,25 @@
                 "kor_debug"
             ],
             "displayName": "mammoth / debug",
-            "cacheVariables": {
-            }
+            "cacheVariables": {}
+        },
+        {
+            "name": "orkney_debug",
+            "inherits": [
+                "orkney_configuration",
+                "kor_debug"
+            ],
+            "displayName": "orkney / debug",
+            "cacheVariables": {}
+        },
+        {
+            "name": "snowdon_debug",
+            "inherits": [
+                "snowdon_configuration",
+                "kor_debug"
+            ],
+            "displayName": "snowdon / debug",
+            "cacheVariables": {}
         },
         {
             "name": "spider_debug",
