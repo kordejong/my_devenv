@@ -160,6 +160,7 @@ function configure_builds() {
         #     "
         # fi
         nr_jobs=4
+        configure_snippets=1
     elif [[ $hostname == mammoth ]]; then
         c_compiler="gcc"
         cxx_compiler="g++"
