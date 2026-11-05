@@ -215,12 +215,14 @@ function configure_builds() {
 
     cmake_args_common="
         -D CMAKE_BUILD_TYPE=$cmake_build_type
-        -D CMAKE_C_COMPILER=$c_compiler
         -D CMAKE_CXX_COMPILER=$cxx_compiler
         -D CMAKE_CXX_STANDARD=23
     "
     cmake_args_hpx="$cmake_args_common $cmake_args_hpx"
-    cmake_args_lue="$cmake_args_common $cmake_args_lue"
+    cmake_args_lue="
+        $cmake_args_common $cmake_args_lue
+        -D CMAKE_C_COMPILER=$c_compiler
+    "
     cmake_args_snippets="$cmake_args_common $cmake_args_snippets"
 
     install_prefix=$(realpath "$OBJECTS/../opt")/$cmake_build_type
@@ -248,7 +250,7 @@ function configure_builds() {
     # NOTE: Comment out hpx_branch to use a released version
 
     hpx_repository_url="https://github.com/STEllAR-GROUP/hpx.git"
-    hpx_branch="master"
+    # hpx_branch="master"
     hpx_version="2.0.0"
 
     # hpx_version="1.11.0"
