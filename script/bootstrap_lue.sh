@@ -248,7 +248,7 @@ function configure_builds() {
     # NOTE: Edit when needed
     # NOTE: Comment out hpx_branch to use a released version
 
-    hpx_repository_url="https://github.com/STEllAR-GROUP/hpx.git"
+    hpx_repository_url="https://github.com/TheHPXProject/hpx.git"
     # hpx_branch="master"
     hpx_version="2.0.0"
 
@@ -432,7 +432,7 @@ function install_hpx() {
         hpx_repository_zip="$repository_zip_prefix/v${hpx_version}.tar.gz"
 
         if [ ! -f "$hpx_repository_zip" ]; then
-            curl --location --remote-name --output-dir "$repository_zip_prefix" https://github.com/STEllAR-GROUP/hpx/archive/refs/tags/v${hpx_version}.tar.gz
+            curl --location --remote-name --output-dir "$repository_zip_prefix" https://github.com/TheHPXProject/hpx/archive/refs/tags/v${hpx_version}.tar.gz
         fi
 
         tar -zx --directory="$(dirname "$hpx_source_directory")" --file "$hpx_repository_zip"
