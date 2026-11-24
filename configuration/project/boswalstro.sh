@@ -26,6 +26,7 @@ else
 fi
 
 export PYTHONPATH="$BOSWALSTRO/source/package:$PYTHONPATH"
+export PATH="$BOSWALSTRO/source/script:$BOSWALSTRO/environment/script:$PATH"
 
 if [[ -n $(type -t boswalstro) ]]; then
     unalias boswalstro
