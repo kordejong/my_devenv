@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import sys
 from pathlib import Path
 
@@ -10,17 +9,51 @@ import numpy
 
 
 def create_line_plots(paths: list[Path]) -> None:
+    def plot(x, y, label: str):
+        matplotlib.pyplot.plot(x, y, label=label)
+
     for path in paths:
         data = numpy.loadtxt(path)
         label = path.stem
 
         if len(data.shape) == 1:
-            matplotlib.pyplot.plot(range(1, data.shape[0] + 1), data, label=label)
+            x = range(1, data.shape[0] + 1)
+            y = data
+            plot(x, y, label)
         elif len(data.shape) == 2:
-            matplotlib.pyplot.plot(data[:, 0], data[:, 1], label=label)
+            x = data[:, 0]
+            y = data[:, 1]
+            plot(x, y, label)
         else:
             for i in range(1, data.shape[1]):
-                matplotlib.pyplot.plot(data[:, 0], data[:, i], label=f"{label}-{i}")
+                x = data[:, 0]
+                y = data[:, i]
+                plot(x, y, label)
+
+
+def create_trend_plots(paths: list[Path]) -> None:
+    def plot(x, y, label: str):
+        z = numpy.polyfit(x, y, 2)
+        p = numpy.poly1d(z)
+        matplotlib.pyplot.plot(x, p(x), label=f"{label} (trend)")
+
+    for path in paths:
+        data = numpy.loadtxt(path)
+        label = path.stem
+
+        if len(data.shape) == 1:
+            x = range(1, data.shape[0] + 1)
+            y = data
+            plot(x, y, label)
+        elif len(data.shape) == 2:
+            x = data[:, 0]
+            y = data[:, 1]
+            plot(x, y, label)
+        else:
+            for i in range(1, data.shape[1]):
+                x = data[:, 0]
+                y = data[:, i]
+                plot(x, y, label)
 
 
 def create_point_plots(paths: list[Path]) -> None:
@@ -68,6 +101,7 @@ def plot(
     line_input_paths: list[Path],
     point_input_paths: list[Path],
     bar_input_paths: list[Path],
+    trend_input_paths: list[Path],
     title: str | None,
     x_label: str | None,
     y_label: str | None,
@@ -78,6 +112,7 @@ def plot(
     create_line_plots(line_input_paths)
     create_point_plots(point_input_paths)
     create_bar_plots(bar_input_paths)
+    create_trend_plots(trend_input_paths)
     matplotlib.pyplot.legend()
 
     if title is not None:
@@ -100,7 +135,8 @@ Create pdf with plots
 Usage:
   {command} [--title=<title>]
     [--line=LINE_INPUT...] [--point=POINT_INPUT...] [--bar=BAR_INPUT...]
-    [--x_label=<x_label>] [--y_label=<y_label>] OUTPUT
+    [--trend=TREND_INPUT...] [--x_label=<x_label>] [--y_label=<y_label>]
+    OUTPUT
   plot.py -h | --help
 
 Options:
@@ -108,12 +144,14 @@ Options:
     LINE_INPUT       Input file with data column(s) for line plots.
     POINT_INPUT      Input file with data column(s) for point plots.
     BAR_INPUT        Input file with data column(s) for bar plots.
+    TREND_INPUT      Input file with data column(s) for trend lines.
     OUTPUT           Output file.
 """
     arguments = docopt.docopt(usage)
     line_input_paths = [Path(filename) for filename in arguments["--line"]]
     point_input_paths = [Path(filename) for filename in arguments["--point"]]
     bar_input_paths = [Path(filename) for filename in arguments["--bar"]]
+    trend_input_paths = [Path(filename) for filename in arguments["--trend"]]
     output_path = Path(arguments["OUTPUT"])
 
     title = arguments["--title"]
@@ -124,6 +162,7 @@ Options:
         line_input_paths,
         point_input_paths,
         bar_input_paths,
+        trend_input_paths,
         title,
         x_label,
         y_label,
