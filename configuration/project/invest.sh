@@ -1,4 +1,4 @@
-cwd=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
+cwd=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 source $cwd/util.sh
 unset cwd
 
@@ -13,7 +13,7 @@ if [ ! -d "$INVEST" ]; then
     return 1
 fi
 
-basename=`basename $INVEST`
+basename=$(basename $INVEST)
 
 PATH="$INVEST/source/script:$PATH"
 PYTHONPATH="$INVEST/source/package:$PYTHONPATH"
@@ -26,9 +26,9 @@ cd $INVEST
 
 unalias invest 2>/dev/null
 
-hostname=`hostname -s`
+hostname=$(hostname -s)
 
-source $INVEST/env/bin/activate
+source $INVEST/.venv/bin/activate
 
 unset hostname
 
